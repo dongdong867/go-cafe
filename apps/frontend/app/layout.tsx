@@ -3,6 +3,7 @@ import { Montserrat } from 'next/font/google';
 
 //css
 import './global.css';
+import Navbar from './components/Navbar';
 
 const montserrat = Montserrat({
   variable: '--font-Montserrat',
@@ -22,7 +23,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" data-theme="cupcake" className={`${montserrat.variable}`}>
-      <body>{children}</body>
+      <body>
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }
