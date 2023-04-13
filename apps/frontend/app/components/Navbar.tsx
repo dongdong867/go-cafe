@@ -12,7 +12,7 @@ import Avatar from './navbar/Avatar';
 const Navbar = () => {
   return (
     <>
-      <div className="navbar h-16 px-3">
+      <div className="navbar h-16 px-3 sticky top-0 bg-base-100 z-10">
         <div className="navbar-start">
           <Menu />
         </div>
