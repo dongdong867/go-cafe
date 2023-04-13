@@ -3,7 +3,14 @@ import { Montserrat } from 'next/font/google';
 
 //css
 import './global.css';
+
+//components
 import Navbar from './components/Navbar';
+
+export const metadata = {
+  title: 'Go Cafe',
+  description: '',
+};
 
 const montserrat = Montserrat({
   variable: '--font-Montserrat',
@@ -11,16 +18,11 @@ const montserrat = Montserrat({
   preload: false,
 });
 
-export const metadata = {
-  title: 'Go Cafe',
-  description: '',
+type Props = {
+  children: React.ReactNode;
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const RootLayout = ({ children }: Props) => {
   return (
     <html lang="en" data-theme="cupcake" className={`${montserrat.variable}`}>
       <body>
@@ -29,4 +31,6 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;
