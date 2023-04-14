@@ -14,9 +14,9 @@ type Props = {
 const Post = ({ data }: Props) => {
   return (
     <>
-      <div className="card w-full max-w-lg max-[450px]:max-w-[350px] h-max border-2 bg-base-200 mb-4">
+      <div className="card w-full max-w-lg max-[450px]:max-w-[360px] h-max border-2 bg-base-200 mb-4">
         {/* TODO: images need to be replace */}
-        <figure>
+        <figure className="h-[384px] max-[450px]:h-[270px]">
           <div className="carousel bg-base-100">
             <div className="carousel-item w-full">
               <Image src={TemporaryImage} alt="" />
