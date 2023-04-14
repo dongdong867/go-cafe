@@ -48,9 +48,9 @@ const Home = () => {
     <>
       <div className="w-full h-full flex flex-col justify-start place-items-center">
         <SearchBar route="home" />
-        <div className="space-y-4 pb-4">
+        <div className="pb-4">
           {postList.map((post) => (
-            <Post data={post} />
+            <Post key={post.id} data={post} />
           ))}
         </div>
       </div>
