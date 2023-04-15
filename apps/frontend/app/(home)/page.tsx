@@ -1,5 +1,5 @@
 import SearchBar from '../components/SearchBar';
-import Post from './components/Post';
+import Post from '../components/Post';
 
 const Home = () => {
   const postList: PostModalData[] = [
