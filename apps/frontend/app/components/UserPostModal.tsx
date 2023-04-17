@@ -1,6 +1,7 @@
 import { FaStar } from 'react-icons/fa';
 import PostModal from './PostModal';
 import RatingModal from './RatingModal';
+import Link from 'next/link';
 
 type Props = {
   editable?: boolean;
