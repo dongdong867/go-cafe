@@ -22,6 +22,7 @@ type UserPost = {
 type ShopPost = {
   id: string;
   coffeeShopId: string;
+  title: string;
   body: string;
   // TODO: add image type
 };
