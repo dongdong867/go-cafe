@@ -35,7 +35,13 @@ const UserPostModal = ({ post, editable = false }: Props) => {
 
           {/* post title */}
           <div className="card-title text-xl font-bold">
-            {post.user.userName} @{post.coffeeShop.coffeeShopName}
+            {post.user.userName}
+            <Link
+              href={`/shop/${post.coffeeShop.coffeeShopId}`}
+              className="z-10 link link-primary"
+            >
+              @{post.coffeeShop.coffeeShopName}
+            </Link>
           </div>
         </div>
       </PostModal>
