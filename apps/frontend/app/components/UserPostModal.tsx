@@ -2,13 +2,14 @@ import { FaStar } from 'react-icons/fa';
 import PostModal from './PostModal';
 
 type Props = {
+  editable?: boolean;
   post: UserPost;
 };
 
-const UserPostModal = ({ post }: Props) => {
+const UserPostModal = ({ post, editable = false }: Props) => {
   return (
     <>
-      <PostModal data={{ id: post.id, body: post.body }}>
+      <PostModal editable={editable} data={{ id: post.id, body: post.body }}>
         <div className="collapse-title">
           {/* stars */}
           <div className="flex items-center gap-x-1 text-base">
