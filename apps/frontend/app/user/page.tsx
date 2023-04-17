@@ -57,7 +57,7 @@ const UserPage = () => {
   ];
   return (
     <>
-      <div className="w-full max-w-lg max-[450px]:w-11/12 m-auto">
+      <div className="w-full h-fit max-w-lg max-[450px]:w-11/12 m-auto">
         <UserInfo />
 
         <div className="divider" />
@@ -65,7 +65,7 @@ const UserPage = () => {
         <div>
           <div className="text-2xl font-semibold my-4">History</div>
           {postList.map((post) => (
-            <UserPostModal key={post.id} post={post} />
+            <UserPostModal key={post.id} editable post={post} />
           ))}
         </div>
       </div>
