@@ -5,7 +5,7 @@ import Image from 'next/image';
 import TemporaryPicture from 'apps/frontend/public/images/logo.png';
 import { MdLocationOn, MdMenuBook } from 'react-icons/md';
 import { FaHeart } from 'react-icons/fa';
-import RankingModal from '../../components/RankingModal';
+import RankingModal from '../../components/RatingModal';
 import ShopPostModal from '../components/ShopPostModal';
 import fakeShopData from 'apps/frontend/public/data/FakeShopData';
 
@@ -86,9 +86,18 @@ const ShopPage = ({ param }: Props) => {
               </button>
             </div>
             <div className="flex flex-col items-center bg-base-100 rounded-xl py-4 font-semibold space-y-2">
-              <RankingModal rateName="general" disable={true} />
-              <RankingModal rateName="rate1" disable={true} />
-              <RankingModal rateName="rate2" disable={true} />
+              <RankingModal
+                rateName="general"
+                rateValue={fakeShopData.stars.generalStar}
+              />
+              <RankingModal
+                rateName="rate1"
+                rateValue={fakeShopData.stars.starType1}
+              />
+              <RankingModal
+                rateName="rate2"
+                rateValue={fakeShopData.stars.starType2}
+              />
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import RankingModal from 'apps/frontend/app/components/RankingModal';
+import RatingModal from 'apps/frontend/app/components/RatingModal';
 import { useState } from 'react';
 
 const EditRanking = () => {
@@ -15,9 +15,21 @@ const EditRanking = () => {
     <>
       <div className="card bg-base-300 font-medium flex-none">
         <div className="card-body p-4 place-items-center">
-          <RankingModal rateName="general" setRating={setGeneralRate} />
-          <RankingModal rateName="rate 1" setRating={setRate1} />
-          <RankingModal rateName="rate 2" setRating={setRate2} />
+          <RatingModal
+            rateName="general"
+            rateValue={generalRate}
+            setRating={setGeneralRate}
+          />
+          <RatingModal
+            rateName="rate 1"
+            rateValue={rate1}
+            setRating={setRate1}
+          />
+          <RatingModal
+            rateName="rate 2"
+            rateValue={rate2}
+            setRating={setRate2}
+          />
         </div>
       </div>
     </>
