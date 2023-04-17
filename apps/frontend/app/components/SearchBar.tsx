@@ -21,7 +21,7 @@ const SearchBar = ({ route }: Props) => {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.currentTarget.value)}
-            className="input input-bordered input-md max-[450px]:input-sm w-full"
+            className="input input-bordered input-md max-[450px]:input-sm w-full focus:outline-none"
           />
           <button
             className="
