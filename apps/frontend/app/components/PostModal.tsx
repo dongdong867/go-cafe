@@ -3,15 +3,15 @@ import Image from 'next/image';
 
 //images
 import TemporaryImage from 'apps/frontend/public/images/logo.png';
-import { MdMoreVert } from 'react-icons/md';
 
 type Props = {
   editable?: boolean;
   data: PostModalData;
   children: React.ReactNode;
+  rates: React.ReactNode;
 };
 
-const PostModal = ({ editable = false, data, children }: Props) => {
+const PostModal = ({ editable = false, data, children, rates }: Props) => {
   return (
     <>
       <div
@@ -50,6 +50,7 @@ const PostModal = ({ editable = false, data, children }: Props) => {
 
             {/* post body */}
             <div className="collapse-content font-medium space-y-4">
+              <div>{rates}</div>
               <div>{data.body}</div>
               {editable && (
                 <div className="flex justify-end space-x-2">
