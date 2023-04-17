@@ -6,18 +6,20 @@ const UserInfo = () => {
     <>
       <div className="w-full flex justify-around place-items-center pt-5">
         <div className="avatar">
-          <div className="w-40 h-40 rounded-full">
+          <div className="w-40 h-40 max-[450px]:w-24 max-[450px]:h-24 rounded-full">
             <Image
               src={TemporaryImage}
               alt=""
-              className="w-14 h-auto aspect-square"
+              className="w-full h-auto aspect-square"
             />
           </div>
         </div>
 
         <div className="space-y-2">
-          <div className="text-4xl font-bold">User Name</div>
-          <div className="flex text-xl font-medium">
+          <div className="text-4xl max-[450px]:text-3xl font-bold">
+            User Name
+          </div>
+          <div className="flex text-xl max-[450px]:text-lg font-medium">
             <div>
               <div>Posts</div>
               <div>123</div>
