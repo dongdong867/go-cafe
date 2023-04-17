@@ -1,5 +1,6 @@
 import { FaStar } from 'react-icons/fa';
 import PostModal from './PostModal';
+import RatingModal from './RatingModal';
 
 type Props = {
   editable?: boolean;
@@ -7,9 +8,22 @@ type Props = {
 };
 
 const UserPostModal = ({ post, editable = false }: Props) => {
+  const rates = (
+    <>
+      <div className="w-full ">
+        <RatingModal rateName="general" rateValue={post.stars.generalStar} />
+        <RatingModal rateName="rate1" rateValue={post.stars.starType1} />
+        <RatingModal rateName="rate2" rateValue={post.stars.starType2} />
+      </div>
+    </>
+  );
   return (
     <>
-      <PostModal editable={editable} data={{ id: post.id, body: post.body }}>
+      <PostModal
+        editable={editable}
+        data={{ id: post.id, body: post.body }}
+        rates={rates}
+      >
         <div className="collapse-title">
           {/* stars */}
           <div className="flex items-center gap-x-1 text-base">
