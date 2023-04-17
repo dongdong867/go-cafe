@@ -10,19 +10,18 @@ type Address = {
   };
 };
 
-type CoffeeShop = {
-  id: number;
+type ShopInfoForUser = {
+  id: string;
   name: string;
   telephone: number;
   openingTime: string;
   address: Address;
-  following: boolean;
   stars: Stars;
-  posts: PostModalData[];
+  posts: ShopPost[];
   // TODO: add image, menu type
 };
 
-type ShopInfoForUser = {
+type CoffeeShop = {
   id: string;
   name: string;
   postCount: number;

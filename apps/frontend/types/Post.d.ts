@@ -1,5 +1,11 @@
 type PostModalData = {
   id: string;
+  body: string;
+  // TODO: add image type
+};
+
+type UserPost = {
+  id: string;
   user: {
     userId: string;
     userName: string;
@@ -8,19 +14,14 @@ type PostModalData = {
     coffeeShopId: string;
     coffeeShopName: string;
   };
-  body: string;
-  generalStars: number;
-  // TODO: add image types
-};
-
-type Post = {
-  id: string;
-  user: string;
-  coffeeShop: {
-    coffeeShopId: string;
-    coffeeShopName: string;
-  };
   stars: Stars;
   body: string;
   // TODO: add image types
+};
+
+type ShopPost = {
+  id: string;
+  coffeeShopId: string;
+  body: string;
+  // TODO: add image type
 };
