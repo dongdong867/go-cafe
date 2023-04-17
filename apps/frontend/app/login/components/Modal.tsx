@@ -1,3 +1,5 @@
+'use client';
+
 //components
 import Image from 'next/image';
 
@@ -39,41 +41,43 @@ const Modal = ({ title, disable, onSubmit, switchContent }: Props) => {
             <div className="text-5xl max-[450px]:text-4xl font-bold mx-10">
               {title}
             </div>
-            <div className=" grow mx-10 text-xl space-y-10 font-medium">
-              <div>
+            <form>
+              <div className=" grow mx-10 text-xl space-y-10 font-medium">
                 <div>
-                  <label className="label">
-                    <span className="max-[450px]:label-text text-lg">
-                      ACCOUNT
-                    </span>
-                  </label>
-                  <input
-                    type="text"
-                    className="input input-bordered input-primary w-full rounded-xl text-xl focus:outline-none"
-                  />
+                  <div>
+                    <label className="label">
+                      <span className="max-[450px]:label-text text-lg">
+                        ACCOUNT
+                      </span>
+                    </label>
+                    <input
+                      type="text"
+                      className="input input-bordered input-primary w-full rounded-xl text-xl focus:outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="label">
+                      <span className="max-[450px]:label-text text-lg">
+                        PASSWORD
+                      </span>
+                    </label>
+                    <input
+                      type="password"
+                      className="input input-bordered input-primary w-full rounded-xl text-xl focus:outline-none"
+                    />
+                  </div>
+                  <div className="flex gap-x-2 mt-2 text-base">
+                    {switchContent}
+                  </div>
                 </div>
-                <div>
-                  <label className="label">
-                    <span className="max-[450px]:label-text text-lg">
-                      PASSWORD
-                    </span>
-                  </label>
-                  <input
-                    type="password"
-                    className="input input-bordered input-primary w-full rounded-xl text-xl focus:outline-none"
-                  />
-                </div>
-                <div className="flex gap-x-2 mt-2 text-base">
-                  {switchContent}
-                </div>
+                <button
+                  disabled={disable}
+                  className="btn btn-block btn-primary text-2xl text-white"
+                >
+                  {title}
+                </button>
               </div>
-              <button
-                disabled={disable}
-                className="btn btn-block btn-primary text-2xl text-white"
-              >
-                {title}
-              </button>
-            </div>
+            </form>
           </div>
         </div>
       </div>
