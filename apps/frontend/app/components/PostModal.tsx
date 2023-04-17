@@ -4,14 +4,12 @@ import Image from 'next/image';
 //images
 import TemporaryImage from 'apps/frontend/public/images/logo.png';
 
-//icons
-import { FaStar } from 'react-icons/fa';
-
 type Props = {
   data: PostModalData;
+  children: React.ReactNode;
 };
 
-const Post = ({ data }: Props) => {
+const PostModal = ({ data, children }: Props) => {
   return (
     <>
       <div
@@ -46,20 +44,7 @@ const Post = ({ data }: Props) => {
           <div className="collapse">
             <input type="checkbox" />
 
-            <div className="collapse-title">
-              {/* stars */}
-              <div className="flex items-center gap-x-1 text-base">
-                <FaStar className="text-accent" />
-                <div className="font-semibold">
-                  {data.generalStars.toFixed(1)}
-                </div>
-              </div>
-
-              {/* post title */}
-              <div className="card-title text-xl font-bold">
-                {data.user.userName} @{data.coffeeShop.coffeeShopName}
-              </div>
-            </div>
+            {children}
 
             {/* post body */}
             <div className="collapse-content font-medium">{data.body}</div>
@@ -70,4 +55,4 @@ const Post = ({ data }: Props) => {
   );
 };
 
-export default Post;
+export default PostModal;
