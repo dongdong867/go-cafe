@@ -6,8 +6,8 @@ import TemporaryPicture from 'apps/frontend/public/images/logo.png';
 import { MdLocationOn, MdMenuBook } from 'react-icons/md';
 import { FaHeart } from 'react-icons/fa';
 import RankingModal from '../../components/RankingModal';
-import { useState } from 'react';
 import ShopPostModal from '../components/ShopPostModal';
+import fakeShopData from 'apps/frontend/public/data/FakeShopData';
 
 type Props = {
   param: {
@@ -15,48 +15,7 @@ type Props = {
   };
 };
 
-const fakeShopData: ShopInfoForUser = {
-  id: '12345',
-  name: 'OOO Shop',
-  telephone: 12344567890,
-  openingTime: '0800-2400',
-  address: {
-    city: 'Taipei',
-    area: 'Shin Yi',
-    road: 'Shin Yi Road',
-    houseNumber: 87,
-  },
-  stars: {
-    generalStar: 5,
-    starType1: 5,
-    starType2: 5,
-  },
-  posts: [
-    {
-      id: '12345',
-      coffeeShopId: '12345',
-      title: 'discount',
-      body: 'this is a test body',
-    },
-    {
-      id: '13524',
-      coffeeShopId: '12345',
-      title: 'notification',
-      body: 'this is a test body',
-    },
-    {
-      id: '54321',
-      coffeeShopId: '12345',
-      title: 'discount',
-      body: 'this is a test body',
-    },
-  ],
-};
-
 const ShopPage = ({ param }: Props) => {
-  const [generalRate, setGeneralRate] = useState(5);
-  const [rate1, setRate1] = useState(5);
-  const [rate2, setRate2] = useState(5);
   return (
     <>
       <div className="w-full max-w-lg h-full m-auto space-y-4">
