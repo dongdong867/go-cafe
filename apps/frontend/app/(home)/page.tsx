@@ -1,8 +1,9 @@
 import SearchBar from '../components/SearchBar';
-import Post from '../components/Post';
+import Post from '../components/PostModal';
+import UserPostModal from '../components/UserPostModal';
 
 const Home = () => {
-  const postList: PostModalData[] = [
+  const postList: UserPost[] = [
     {
       id: 'postId1',
       user: {
@@ -14,7 +15,11 @@ const Home = () => {
         coffeeShopName: 'coffee shop name1',
       },
       body: 'this is a fake body',
-      generalStars: 4.0,
+      stars: {
+        generalStar: 5,
+        starType1: 5,
+        starType2: 5,
+      },
     },
     {
       id: 'postId2',
@@ -27,7 +32,11 @@ const Home = () => {
         coffeeShopName: 'coffee shop name2',
       },
       body: 'this is a fake body',
-      generalStars: 4.0,
+      stars: {
+        generalStar: 5,
+        starType1: 5,
+        starType2: 5,
+      },
     },
     {
       id: 'postId3',
@@ -40,7 +49,11 @@ const Home = () => {
         coffeeShopName: 'coffee shop name3',
       },
       body: 'this is a fake body',
-      generalStars: 4.0,
+      stars: {
+        generalStar: 5,
+        starType1: 5,
+        starType2: 5,
+      },
     },
   ];
 
@@ -50,7 +63,7 @@ const Home = () => {
         <SearchBar route="home" />
         <div className="pb-4">
           {postList.map((post) => (
-            <Post key={post.id} data={post} />
+            <UserPostModal key={post.id} post={post} />
           ))}
         </div>
       </div>

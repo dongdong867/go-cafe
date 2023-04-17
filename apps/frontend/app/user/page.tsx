@@ -1,8 +1,8 @@
-import Post from '../components/Post';
+import UserPostModal from '../components/UserPostModal';
 import UserInfo from './components/UserInfo';
 
 const UserPage = () => {
-  const postList: PostModalData[] = [
+  const postList: UserPost[] = [
     {
       id: 'postId1',
       user: {
@@ -14,7 +14,11 @@ const UserPage = () => {
         coffeeShopName: 'coffee shop name1',
       },
       body: 'this is a fake body',
-      generalStars: 4.0,
+      stars: {
+        generalStar: 5,
+        starType1: 5,
+        starType2: 5,
+      },
     },
     {
       id: 'postId2',
@@ -27,7 +31,11 @@ const UserPage = () => {
         coffeeShopName: 'coffee shop name2',
       },
       body: 'this is a fake body',
-      generalStars: 4.0,
+      stars: {
+        generalStar: 5,
+        starType1: 5,
+        starType2: 5,
+      },
     },
     {
       id: 'postId3',
@@ -40,7 +48,11 @@ const UserPage = () => {
         coffeeShopName: 'coffee shop name3',
       },
       body: 'this is a fake body',
-      generalStars: 4.0,
+      stars: {
+        generalStar: 5,
+        starType1: 5,
+        starType2: 5,
+      },
     },
   ];
   return (
@@ -53,7 +65,7 @@ const UserPage = () => {
         <div>
           <div className="text-2xl font-semibold my-4">History</div>
           {postList.map((post) => (
-            <Post data={post} />
+            <UserPostModal key={post.id} post={post} />
           ))}
         </div>
       </div>
