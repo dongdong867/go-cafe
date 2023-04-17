@@ -10,11 +10,13 @@ const LoginPage = () => {
 
   return (
     <>
-      {signin ? (
-        <LoginModal setSignin={setSignin} />
-      ) : (
-        <RegisterModal setSignin={setSignin} />
-      )}
+      <div className="w-full h-[calc(100vh-64px)]">
+        {signin ? (
+          <LoginModal setSignin={setSignin} />
+        ) : (
+          <RegisterModal setSignin={setSignin} />
+        )}
+      </div>
     </>
   );
 };

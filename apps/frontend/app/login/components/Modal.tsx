@@ -29,28 +29,38 @@ const Modal = ({ title, disable, onSubmit, switchContent }: Props) => {
          "
         >
           <figure>
-            <Image src={Logo} alt="logo" className="w-2/3 h-auto aspect-auto" />
+            <Image
+              src={Logo}
+              alt="logo"
+              className="w-2/3 max-[450px]:w-1/2 h-auto aspect-auto"
+            />
           </figure>
           <div className="space-y-5">
-            <div className="text-5xl font-bold mx-10">{title}</div>
+            <div className="text-5xl max-[450px]:text-4xl font-bold mx-10">
+              {title}
+            </div>
             <div className=" grow mx-10 text-xl space-y-10 font-medium">
               <div>
                 <div>
                   <label className="label">
-                    <span className="label-text">ACCOUNT</span>
+                    <span className="max-[450px]:label-text text-lg">
+                      ACCOUNT
+                    </span>
                   </label>
                   <input
                     type="text"
-                    className="input input-bordered input-primary w-full rounded-xl text-xl focus:bg-[#eee]"
+                    className="input input-bordered input-primary w-full rounded-xl text-xl focus:outline-none"
                   />
                 </div>
                 <div>
                   <label className="label">
-                    <span className="label-text">PASSWORD</span>
+                    <span className="max-[450px]:label-text text-lg">
+                      PASSWORD
+                    </span>
                   </label>
                   <input
                     type="password"
-                    className="input input-bordered input-primary w-full rounded-xl text-xl focus:bg-[#eee]"
+                    className="input input-bordered input-primary w-full rounded-xl text-xl focus:outline-none"
                   />
                 </div>
                 <div className="flex gap-x-2 mt-2 text-base">
