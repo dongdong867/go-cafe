@@ -5,7 +5,7 @@ const EditBody = () => {
         <div
           role="textbox"
           contentEditable
-          className="textarea h-full rounded-xl focus:outline-none"
+          className="textarea h-max min-h-[300px] rounded-xl focus:outline-none"
         ></div>
       </div>
     </>
