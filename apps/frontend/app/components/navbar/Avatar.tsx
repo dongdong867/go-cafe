@@ -15,7 +15,7 @@ import DropdownMenuModal from './DropdownMenuModal';
 const Avatar = () => {
   const button = (
     <>
-      <div className="btn btn-ghost btn-circle border-2 border-primary overflow-hidden avatar">
+      <div className="btn btn-ghost btn-circle border-2 overflow-hidden avatar">
         {/* TODO: replace temporary picture with user image */}
         <Image src={TemporaryPicture} alt="user" />
       </div>
@@ -25,7 +25,7 @@ const Avatar = () => {
     <>
       <li className="menu-title text-right px-4 pt-4">user settings</li>
       <li>
-        <Link href={'/'} className="p-4 text-xl font-semibold">
+        <Link href={'/user'} className="p-4 text-xl font-semibold">
           <BsPersonCircle />
           <div>profile</div>
         </Link>
