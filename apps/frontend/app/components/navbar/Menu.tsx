@@ -26,13 +26,13 @@ const Menu = () => {
         </Link>
       </li>
       <li>
-        <Link href={'/'} className="p-4 text-xl font-semibold">
+        <Link href={'/user/following'} className="p-4 text-xl font-semibold">
           <FaUserFriends />
-          <div>followed list</div>
+          <div>following list</div>
         </Link>
       </li>
       <li>
-        <Link href={'/'} className="p-4 text-xl font-semibold">
+        <Link href={'/post/create'} className="p-4 text-xl font-semibold">
           <MdOutlinePostAdd />
           <div>post article</div>
         </Link>

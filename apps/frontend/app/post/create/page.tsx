@@ -4,7 +4,16 @@ import EditModal from '../components/EditModal';
 const CreatePostPage = () => {
   return (
     <>
-      <EditModal />
+      <div
+        className="
+          w-full max-w-lg 
+          h-[calc(100vh-64px)] 
+          max-[450px]:max-w-[350px] 
+          m-auto 
+          overflow-scroll"
+      >
+        <EditModal buttonContent="post" />
+      </div>
     </>
   );
 };

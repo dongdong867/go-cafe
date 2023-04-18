@@ -1,3 +1,5 @@
+'use client';
+
 const EditBody = () => {
   return (
     <>
@@ -5,7 +7,7 @@ const EditBody = () => {
         <div
           role="textbox"
           contentEditable
-          className="textarea h-max min-h-[300px] rounded-xl focus:outline-none"
+          className="textarea h-max min-h-[300px] text-lg rounded-xl focus:outline-none"
         ></div>
       </div>
     </>
