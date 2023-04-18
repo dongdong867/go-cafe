@@ -7,7 +7,7 @@ type Props = {
 const ShopPostModal = ({ post }: Props) => {
   return (
     <>
-      <PostModal data={{ id: post.id, body: post.body }}>
+      <PostModal data={{ id: post.id, body: post.body }} rates={<></>}>
         <div className="collapse-title">
           <div className="card-title text-xl font-bold">{post.title}</div>
         </div>
