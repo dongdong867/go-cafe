@@ -5,24 +5,16 @@ import Image from 'next/image';
 
 //images
 import Logo from 'apps/frontend/public/images/logo.png';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 type Props = {
-  title: string;
-  disable: boolean;
-  onSubmit: (account: string, password: string) => void;
-  switchContent: React.ReactNode;
+  buttonContent: string;
+  onSubmit: () => void;
+  children: React.ReactElement;
 };
 
-const Modal = ({ title, disable, onSubmit, switchContent }: Props) => {
-  const [account, setAccount] = useState('');
-  const [password, setPassword] = useState('');
-
-  const router = useRouter();
-
-  const handleSubmit = (e: React.FormEvent) => {
-    onSubmit(account, password);
+const Modal = ({ buttonContent, onSubmit, children }: Props) => {
+  const handleSubmit = () => {
+    onSubmit();
   };
 
   return (
@@ -37,7 +29,7 @@ const Modal = ({ title, disable, onSubmit, switchContent }: Props) => {
          max-[450px]:rounded-none
          shadow-[0_0_15px_rgba(0,0,0,0.4)]
          flex flex-col
-         justify-center
+         justify-start
          space-y-5
          "
         >
@@ -45,51 +37,20 @@ const Modal = ({ title, disable, onSubmit, switchContent }: Props) => {
             <Image
               src={Logo}
               alt="logo"
-              className="w-2/3 max-[450px]:w-1/2 h-auto aspect-auto"
+              className="w-2/3 max-[450px]:w-1/2 h-auto mt-10 aspect-auto"
             />
           </figure>
-          <div className="space-y-5">
-            <div className="text-5xl max-[450px]:text-4xl font-bold mx-10">
-              {title}
-            </div>
-            <div className=" grow mx-10 text-xl space-y-10 font-medium">
-              <div>
-                <div>
-                  <label className="label">
-                    <span className="max-[450px]:label-text text-lg">
-                      ACCOUNT
-                    </span>
-                  </label>
-                  <input
-                    type="text"
-                    onChange={(e) => setAccount(e.target.value)}
-                    className="input input-bordered input-primary w-full rounded-xl text-xl focus:outline-none"
-                  />
-                </div>
-                <div>
-                  <label className="label">
-                    <span className="max-[450px]:label-text text-lg">
-                      PASSWORD
-                    </span>
-                  </label>
-                  <input
-                    type="password"
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="input input-bordered input-primary w-full rounded-xl text-xl focus:outline-none"
-                  />
-                </div>
-                <div className="flex gap-x-2 mt-2 text-base">
-                  {switchContent}
-                </div>
-              </div>
-              <button
-                disabled={disable}
-                onClick={(e) => handleSubmit(e)}
-                className="btn btn-block btn-primary text-2xl text-white"
-              >
-                {title}
-              </button>
-            </div>
+
+          {children}
+
+          <div className="w-11/12 absolute left-1/2 -translate-x-1/2 bottom-5">
+            <button
+              disabled={false}
+              onClick={handleSubmit}
+              className="btn btn-block btn-primary text-2xl text-white"
+            >
+              {buttonContent}
+            </button>
           </div>
         </div>
       </div>
