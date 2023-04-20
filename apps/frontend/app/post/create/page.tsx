@@ -1,3 +1,4 @@
+import CreatePostModal from '../components/CreatePostModal';
 import EditModal from '../components/EditModal';
 
 const CreatePostPage = () => {
@@ -11,7 +12,7 @@ const CreatePostPage = () => {
           m-auto 
           overflow-scroll"
       >
-        <EditModal buttonContent="post" />
+        <CreatePostModal />
       </div>
     </>
   );
