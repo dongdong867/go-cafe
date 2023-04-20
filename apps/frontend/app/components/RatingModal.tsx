@@ -20,7 +20,7 @@ const RatingModal = ({
   };
   return (
     <>
-      <div className="w-1/2 max-[450px]:w-5/6 flex justify-between">
+      <div className="w-2/3 max-[450px]:w-full flex justify-between">
         <div>{rateName}</div>
         <form className="rating">
           <input
