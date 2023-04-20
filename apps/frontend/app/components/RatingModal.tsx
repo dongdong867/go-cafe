@@ -1,30 +1,22 @@
 'use client';
 
-import { useState } from 'react';
-
 type Props = {
   rateName: string;
   rateValue: number;
-  disable?: boolean;
   setRating?: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const RatingModal = ({
-  rateName,
-  rateValue,
-  disable = false,
-  setRating = () => {},
-}: Props) => {
+const RatingModal = ({ rateName, rateValue, setRating = () => {} }: Props) => {
   const handleClick = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     setRating(parseInt((e.target as HTMLInputElement).value));
   };
+
   return (
     <>
       <div className="w-2/3 max-[450px]:w-full flex justify-between">
         <div>{rateName}</div>
         <form className="rating">
           <input
-            // disabled={disable}
             onClick={(e) => handleClick(e)}
             value={1}
             type="radio"
@@ -33,7 +25,6 @@ const RatingModal = ({
             className="mask mask-star-2 bg-accent"
           />
           <input
-            // disabled={disable}
             onClick={(e) => handleClick(e)}
             value={2}
             type="radio"
@@ -42,7 +33,6 @@ const RatingModal = ({
             className="mask mask-star-2 bg-accent"
           />
           <input
-            // disabled={disable}
             onClick={(e) => handleClick(e)}
             value={3}
             type="radio"
@@ -51,7 +41,6 @@ const RatingModal = ({
             className="mask mask-star-2 bg-accent"
           />
           <input
-            // disabled={disable}
             onClick={(e) => handleClick(e)}
             value={4}
             type="radio"
@@ -60,7 +49,6 @@ const RatingModal = ({
             className="mask mask-star-2 bg-accent"
           />
           <input
-            // disabled={disable}
             onClick={(e) => handleClick(e)}
             value={5}
             type="radio"
