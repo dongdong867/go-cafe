@@ -1,7 +1,26 @@
-import CreatePostModal from '../components/CreatePostModal';
+'use client';
+
+import { useState } from 'react';
 import EditModal from '../components/EditModal';
+import { useRouter } from 'next/navigation';
 
 const CreatePostPage = () => {
+  const router = useRouter();
+
+  const [shopName, setShopName] = useState('');
+
+  const [generalRate, setGeneralRate] = useState(5);
+  const [environmentRate, setEnvironmentRate] = useState(5);
+  const [mealsRate, setMealsRate] = useState(5);
+  const [attitudeRate, setAttitudeRate] = useState(5);
+
+  const [postBody, setPostBody] = useState('');
+
+  const onSubmit = () => {
+    console.log('post created');
+    router.replace('/');
+  };
+
   return (
     <>
       <div
@@ -12,7 +31,20 @@ const CreatePostPage = () => {
           m-auto 
           overflow-scroll"
       >
-        <CreatePostModal />
+        <EditModal
+          buttonContent="post"
+          // shop name
+          setShopName={setShopName}
+          // rating
+          setGeneralRate={setGeneralRate}
+          setEnvironmentRate={setEnvironmentRate}
+          setMealsRate={setMealsRate}
+          setAttitudeRate={setAttitudeRate}
+          //post body
+          setPostBody={setPostBody}
+          // submit
+          onSubmit={onSubmit}
+        />
       </div>
     </>
   );
