@@ -1,14 +1,22 @@
 'use client';
 
-const EditBody = () => {
+type Props = {
+  postBody: string;
+  setPostBody: React.Dispatch<React.SetStateAction<string>>;
+};
+
+const EditBody = ({ postBody, setPostBody }: Props) => {
   return (
     <>
       <div className="w-full h-full border-2 rounded-xl">
         <div
-          role="textbox"
           contentEditable
+          suppressContentEditableWarning={true}
+          onBlur={(e) => setPostBody(e.currentTarget.textContent as string)}
           className="textarea h-max min-h-[300px] text-lg rounded-xl focus:outline-none"
-        ></div>
+        >
+          {postBody}
+        </div>
       </div>
     </>
   );

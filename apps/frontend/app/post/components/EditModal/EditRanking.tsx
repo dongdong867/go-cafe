@@ -1,33 +1,54 @@
 'use client';
 
 import RatingModal from 'apps/frontend/app/components/RatingModal';
-import { useState } from 'react';
 
-const EditRanking = () => {
-  const [generalRate, setGeneralRate] = useState(5);
-  const [rate1, setRate1] = useState(5);
-  const [rate2, setRate2] = useState(5);
+type Props = {
+  generalRate: number;
+  environmentRate: number;
+  mealsRate: number;
+  attitudeRate: number;
+  setGeneralRate: React.Dispatch<React.SetStateAction<number>>;
+  setEnvironmentRate: React.Dispatch<React.SetStateAction<number>>;
+  setMealsRate: React.Dispatch<React.SetStateAction<number>>;
+  setAttitudeRate: React.Dispatch<React.SetStateAction<number>>;
+};
 
+const EditRanking = ({
+  generalRate,
+  environmentRate,
+  mealsRate,
+  attitudeRate,
+  setGeneralRate,
+  setEnvironmentRate,
+  setMealsRate,
+  setAttitudeRate,
+}: Props) => {
   return (
     <>
       <div className="card bg-base-300 font-medium flex-none">
         <div className="card-body p-8 place-items-center">
           <RatingModal
-            rateName="general"
+            rateName="General"
             rateValue={generalRate}
             setRating={setGeneralRate}
           />
 
           <RatingModal
-            rateName="rate 1"
-            rateValue={rate1}
-            setRating={setRate1}
+            rateName="Environment"
+            rateValue={environmentRate}
+            setRating={setEnvironmentRate}
           />
 
           <RatingModal
-            rateName="rate 2"
-            rateValue={rate2}
-            setRating={setRate2}
+            rateName="Meals"
+            rateValue={mealsRate}
+            setRating={setMealsRate}
+          />
+
+          <RatingModal
+            rateName="Attitude"
+            rateValue={attitudeRate}
+            setRating={setAttitudeRate}
           />
         </div>
       </div>
