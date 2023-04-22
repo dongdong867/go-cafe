@@ -35,7 +35,7 @@ const UserPostModal = ({ post, editable = false }: Props) => {
           </div>
 
           {/* post title */}
-          <div className="card-title text-xl font-bold">
+          <div className="card-title text-xl font-bold max-[450px]:flex-col place-items-start gap-y-0">
             {post.user.userName}
             <Link
               href={`/shop/${post.coffeeShop.coffeeShopId}`}
