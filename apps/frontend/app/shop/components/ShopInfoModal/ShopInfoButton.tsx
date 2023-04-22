@@ -1,14 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { useState } from 'react';
 import { FaHeart } from 'react-icons/fa';
 import { MdLocationOn, MdMenuBook } from 'react-icons/md';
 
 const ShopInfoButton = () => {
   const param = useParams();
-  const router = useRouter();
 
   const [followed, setFollowed] = useState(false);
 
