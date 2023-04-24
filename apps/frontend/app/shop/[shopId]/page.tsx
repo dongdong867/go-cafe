@@ -20,10 +20,10 @@ const ShopPage = ({ param }: Props) => {
         <Image
           src={TemporaryPicture}
           alt=""
-          className="sticky top-16 w-full max-w-lg "
+          className="sticky top-20 w-full max-w-lg "
         />
 
-        <div className="card w-11/12 m-auto bg-base-300">
+        <div className="card w-11/12 -top-14 m-auto bg-base-300">
           <div className="card-body space-y-2 px-6 py-8">
             <ShopInfoModal data={fakeShopData} />
           </div>
