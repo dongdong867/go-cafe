@@ -21,12 +21,12 @@ const ShopCardModal = ({ shop }: Props) => {
               />
             </div>
           </figure>
-          <div className="card-body items-right text-right pl-0 pr-6 ">
+          <div className="card-body justify-around items-right text-right pl-0 pr-4 py-4">
             <div className="card-title text-2xl font-bold justify-end">
               {shop.name}
             </div>
-            <div className="text-lg max-[450px]:text-base font-medium">
-              <div className="flex justify-end">
+            <div className="text-lg max-[450px]:text-sm font-medium">
+              <div className="flex justify-end space-x-1">
                 <div>Tel: </div>
                 <div className="font-semibold">{shop.telephone}</div>
               </div>
