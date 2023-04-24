@@ -17,47 +17,13 @@ const ShopInfoButton = () => {
 
   return (
     <>
-      <div className="card-actions justify-between">
-        <Link
-          href={`/shop/${param.shopId}/menu`}
-          className="
-            btn 
-            w-[31%] 
-            bg-base-100 hover:bg-primary 
-            text-base-content hover:text-base-100 
-            text-lg max-[450px]:text-sm 
-            border-0 
-            rounded-xl 
-            flex 
-            gap-x-2 
-            p-0"
-        >
-          <MdMenuBook className="text-xl max-[450px]:text-lg" />
-          Menu
-        </Link>
-        <Link
-          href={`/shop/${param.shopId}/posts`}
-          className="
-            btn 
-            w-[31%] 
-            bg-base-100 hover:bg-primary 
-            text-base-content hover:text-base-100 
-            text-lg max-[450px]:text-sm 
-            border-0 
-            rounded-xl 
-            flex 
-            gap-x-2 
-            p-0"
-        >
-          <MdLocationOn className="text-xl max-[450px]:text-lg" />
-          Posts
-        </Link>
+      <div className="card-actions flex-col space-y-2">
         <button
           onClick={handleClick}
           className={`
             btn 
-            w-[32%] 
-            text-lg max-[450px]:text-sm 
+            w-full
+            text-lg
             border-0 
             rounded-xl 
             flex 
@@ -78,6 +44,42 @@ const ShopInfoButton = () => {
           <FaHeart />
           Follow
         </button>
+        <div className="w-full flex gap-x-4">
+          <Link
+            href={`/shop/${param.shopId}/menu`}
+            className="
+            btn 
+            grow
+            bg-base-100 hover:bg-primary 
+            text-base-content hover:text-base-100 
+            text-lg
+            border-0 
+            rounded-xl 
+            flex 
+            gap-x-2 
+            p-0"
+          >
+            <MdMenuBook className="text-xl max-[450px]:text-lg" />
+            Menu
+          </Link>
+          <Link
+            href={`/shop/${param.shopId}/posts`}
+            className="
+            btn 
+            grow
+            bg-base-100 hover:bg-primary 
+            text-base-content hover:text-base-100 
+            text-lg
+            border-0 
+            rounded-xl 
+            flex 
+            gap-x-2 
+            p-0"
+          >
+            <MdLocationOn className="text-xl max-[450px]:text-lg" />
+            Posts
+          </Link>
+        </div>
       </div>
     </>
   );
