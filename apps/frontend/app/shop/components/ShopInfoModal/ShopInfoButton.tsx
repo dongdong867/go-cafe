@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useState } from 'react';
 import { FaHeart } from 'react-icons/fa';
-import { MdLocationOn, MdMenuBook } from 'react-icons/md';
+import { MdBorderColor, MdLocationOn } from 'react-icons/md';
 
 const ShopInfoButton = () => {
   const param = useParams();
@@ -59,8 +59,8 @@ const ShopInfoButton = () => {
             gap-x-2 
             p-0"
           >
-            <MdMenuBook className="text-xl max-[450px]:text-lg" />
-            Menu
+            <MdBorderColor className="text-xl max-[450px]:text-lg" />
+            Order
           </Link>
           <Link
             href={`/shop/${param.shopId}/posts`}
