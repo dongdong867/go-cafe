@@ -3,7 +3,7 @@ type Props = {
   setInput: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const InputModal = ({ labelText, setInput }: Props) => {
+const LoginInputModal = ({ labelText, setInput }: Props) => {
   return (
     <>
       <div>
@@ -20,4 +20,4 @@ const InputModal = ({ labelText, setInput }: Props) => {
   );
 };
 
-export default InputModal;
+export default LoginInputModal;
