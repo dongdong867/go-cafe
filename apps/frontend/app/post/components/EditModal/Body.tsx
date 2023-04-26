@@ -8,7 +8,7 @@ type Props = {
 const EditBody = ({ postBody, setPostBody }: Props) => {
   return (
     <>
-      <div className="w-full h-full border-2 rounded-xl">
+      <div className="w-full h-full border-primary border-2 rounded-xl">
         <div
           contentEditable
           suppressContentEditableWarning={true}
