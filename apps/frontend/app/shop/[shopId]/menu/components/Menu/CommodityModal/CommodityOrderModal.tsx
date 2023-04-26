@@ -1,5 +1,5 @@
 'use client';
-import { useContext, useState } from 'react';
+import { useContext, useId, useState } from 'react';
 import { FaMinus, FaPlus, FaShoppingCart } from 'react-icons/fa';
 import { ShoppingCart } from '../../../page';
 
@@ -15,8 +15,11 @@ type Props = {
 const CommodityOrderModal = ({ quantity, setQuantity, item }: Props) => {
   const { shoppingCart, setShoppingCart } = useContext(ShoppingCart);
 
+  const id = useId();
+
   const handleClick = () => {
     const order = {
+      id: id,
       item: item,
       quantity: quantity,
     };
