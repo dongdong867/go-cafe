@@ -1,18 +1,26 @@
 const categories = [
   {
     title: 'coffee',
-    items: [{ name: 'america' }, { name: 'latte' }, { name: 'cappuccino' }],
+    items: [
+      { name: 'america', price: 80 },
+      { name: 'latte', price: 120 },
+      { name: 'cappuccino', price: 130 },
+    ],
   },
   {
     title: 'tea',
-    items: [{ name: 'black tea' }, { name: 'green tea' }, { name: 'milk tea' }],
+    items: [
+      { name: 'black tea', price: 60 },
+      { name: 'green tea', price: 60 },
+      { name: 'milk tea', price: 100 },
+    ],
   },
   {
     title: 'toast',
     items: [
-      { name: 'apple toast' },
-      { name: 'banana toast' },
-      { name: 'guava toast' },
+      { name: 'apple toast', price: 200 },
+      { name: 'banana toast', price: 200 },
+      { name: 'guava toast', price: 200 },
     ],
   },
 ];
