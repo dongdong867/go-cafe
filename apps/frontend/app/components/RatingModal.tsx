@@ -3,10 +3,16 @@
 type Props = {
   rateName: string;
   rateValue: number;
+  editable?: boolean;
   setRating?: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const RatingModal = ({ rateName, rateValue, setRating = () => {} }: Props) => {
+const RatingModal = ({
+  rateName,
+  rateValue,
+  editable = false,
+  setRating = () => {},
+}: Props) => {
   const handleClick = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     setRating(parseInt((e.target as HTMLInputElement).value));
   };
@@ -17,43 +23,48 @@ const RatingModal = ({ rateName, rateValue, setRating = () => {} }: Props) => {
         <div>{rateName}</div>
         <form className="rating">
           <input
-            onClick={(e) => handleClick(e)}
             value={1}
             type="radio"
             name={rateName}
-            checked={rateValue === 1}
+            disabled={!editable}
+            defaultChecked={rateValue === 1}
+            onClick={(e) => handleClick(e)}
             className="mask mask-star-2 bg-accent"
           />
           <input
-            onClick={(e) => handleClick(e)}
             value={2}
             type="radio"
             name={rateName}
-            checked={rateValue === 2}
+            disabled={!editable}
+            defaultChecked={rateValue === 2}
+            onClick={(e) => handleClick(e)}
             className="mask mask-star-2 bg-accent"
           />
           <input
-            onClick={(e) => handleClick(e)}
             value={3}
             type="radio"
             name={rateName}
-            checked={rateValue === 3}
+            disabled={!editable}
+            defaultChecked={rateValue === 3}
+            onClick={(e) => handleClick(e)}
             className="mask mask-star-2 bg-accent"
           />
           <input
-            onClick={(e) => handleClick(e)}
             value={4}
             type="radio"
             name={rateName}
-            checked={rateValue === 4}
+            disabled={!editable}
+            defaultChecked={rateValue === 4}
+            onClick={(e) => handleClick(e)}
             className="mask mask-star-2 bg-accent"
           />
           <input
-            onClick={(e) => handleClick(e)}
             value={5}
             type="radio"
             name={rateName}
-            checked={rateValue === 5}
+            disabled={!editable}
+            defaultChecked={rateValue === 5}
+            onClick={(e) => handleClick(e)}
             className="mask mask-star-2 bg-accent"
           />
         </form>
