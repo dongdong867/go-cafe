@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import EditModal from '../components/EditModal';
 import { useRouter } from 'next/navigation';
+import EditModal from '../components/EditModal/Modal';
 
 const CreatePostPage = () => {
   const router = useRouter();

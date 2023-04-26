@@ -13,7 +13,7 @@ type Props = {
   setAttitudeRate: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const EditRanking = ({
+const EditRating = ({
   generalRate,
   environmentRate,
   mealsRate,
@@ -28,24 +28,28 @@ const EditRanking = ({
       <div className="card bg-base-300 font-medium flex-none">
         <div className="card-body p-8 place-items-center">
           <RatingModal
+            editable
             rateName="General"
             rateValue={generalRate}
             setRating={setGeneralRate}
           />
 
           <RatingModal
+            editable
             rateName="Environment"
             rateValue={environmentRate}
             setRating={setEnvironmentRate}
           />
 
           <RatingModal
+            editable
             rateName="Meals"
             rateValue={mealsRate}
             setRating={setMealsRate}
           />
 
           <RatingModal
+            editable
             rateName="Attitude"
             rateValue={attitudeRate}
             setRating={setAttitudeRate}
@@ -56,4 +60,4 @@ const EditRanking = ({
   );
 };
 
-export default EditRanking;
+export default EditRating;

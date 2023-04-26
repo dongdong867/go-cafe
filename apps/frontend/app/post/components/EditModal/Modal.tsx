@@ -1,9 +1,9 @@
 'use client';
 
-import EditPicture from './EditModal/EditPicture';
-import EditCoffeeShop from './EditModal/EditCoffeeShop';
-import EditRanking from './EditModal/EditRanking';
-import EditBody from './EditModal/EditBody';
+import EditBody from './Body';
+import EditCoffeeShop from './CoffeeShop';
+import EditPicture from './Picture';
+import EditRating from './Rating';
 
 type Props = {
   buttonContent: string;
@@ -63,7 +63,7 @@ const EditModal = ({
           setShopName={setShopName}
         />
 
-        <EditRanking
+        <EditRating
           generalRate={generalRate}
           environmentRate={environmentRate}
           mealsRate={mealsRate}
