@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import RegisterStepOne from './Register/RegisterStepOne';
-import RegisterStepTwo from './Register/RegisterStepTwo';
+import RegisterStepOne from './Register/StepOne';
+import RegisterStepTwo from './Register/StepTwo';
 
 type Props = {
   setSignin: React.Dispatch<React.SetStateAction<boolean>>;

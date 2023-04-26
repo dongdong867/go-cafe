@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import Modal from '../Modal';
 import { useRouter } from 'next/navigation';
 import InputModal from '../InputModal';
