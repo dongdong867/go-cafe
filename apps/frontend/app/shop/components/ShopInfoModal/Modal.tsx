@@ -1,6 +1,6 @@
-import ShopInfoButton from './ShopInfoModal/ShopInfoButton';
-import ShopProfile from './ShopInfoModal/ShopProfile';
-import ShopRate from './ShopInfoModal/ShopRate';
+import ShopInfoButton from './Button';
+import ShopProfile from './Profile';
+import ShopRate from './Rate';
 
 type Props = {
   data: ShopInfoForUser;
