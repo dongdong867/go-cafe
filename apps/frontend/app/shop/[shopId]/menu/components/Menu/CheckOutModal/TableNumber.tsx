@@ -1,5 +1,7 @@
 'use client';
 
+import InputModal from 'apps/frontend/app/components/Input/InputModal';
+
 type Props = {
   tableNumber: string;
   takeaway: boolean;
@@ -16,20 +18,12 @@ const CheckOutTableNumber = ({
   return (
     <>
       <div className="space-y-4">
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text font-semibold">Table Number</span>
-          </label>
-          <label className="input-group">
-            <span className="bg-primary text-white font-semibold">No.</span>
-            <input
-              type="text"
-              disabled={takeaway === true}
-              onChange={(e) => setTableNumber(e.target.value)}
-              className="input input-bordered border-primary w-full focus:outline-none"
-            />
-          </label>
-        </div>
+        <InputModal
+          topLabelText="Table Number"
+          sideLabel={<div>No.</div>}
+          disabled={takeaway}
+          setValue={setTableNumber}
+        />
         <div className="form-control w-max">
           <label className="label cursor-pointer space-x-4">
             <input

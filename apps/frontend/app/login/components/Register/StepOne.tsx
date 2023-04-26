@@ -2,7 +2,9 @@
 
 import { useRouter } from 'next/navigation';
 import Modal from '../Modal/Modal';
-import LoginInputModal from '../LoginInputModal';
+import InputModal from 'apps/frontend/app/components/Input/InputModal';
+import { IoMdUnlock } from 'react-icons/io';
+import { MdFingerprint } from 'react-icons/md';
 
 type Props = {
   setAccount: React.Dispatch<React.SetStateAction<string>>;
@@ -26,9 +28,18 @@ const RegisterStepOne = ({
       </div>
       <div className=" grow mx-10 text-xl space-y-10 font-medium">
         <div>
-          <LoginInputModal labelText="ACCOUNT" setInput={setAccount} />
-          <LoginInputModal labelText="PASSWORD" setInput={setPassword} />
-          <div className="flex gap-x-2 mt-2 text-base">
+          <InputModal
+            topLabelText="ACCOUNT"
+            sideLabel={<MdFingerprint />}
+            setValue={setAccount}
+          />
+          <InputModal
+            type="password"
+            topLabelText="PASSWORD"
+            sideLabel={<IoMdUnlock />}
+            setValue={setPassword}
+          />
+          <div className="flex gap-x-2 mt-4 text-base">
             <div>Don't have a account?</div>
             <button
               onClick={() => setSignin(true)}

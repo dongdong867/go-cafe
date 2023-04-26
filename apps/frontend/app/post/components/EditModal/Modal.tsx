@@ -1,9 +1,12 @@
 'use client';
 
+import InputModal from 'apps/frontend/app/components/Input/InputModal';
 import EditBody from './Body';
 import EditCoffeeShop from './CoffeeShop';
 import EditPicture from './Picture';
 import EditRating from './Rating';
+import { MdLocationOn } from 'react-icons/md';
+import BottomButton from 'apps/frontend/app/components/Button/BottomButton';
 
 type Props = {
   buttonContent: string;
@@ -57,10 +60,11 @@ const EditModal = ({
       <div className="text-lg font-medium space-y-4">
         <EditPicture />
 
-        <EditCoffeeShop
+        <InputModal
           disabled={shopNameDisabled}
-          shopName={shopName}
-          setShopName={setShopName}
+          topLabelText="Select a coffee shop"
+          sideLabel={<MdLocationOn />}
+          setValue={setShopName}
         />
 
         <EditRating
@@ -76,14 +80,10 @@ const EditModal = ({
 
         <EditBody postBody={postBody} setPostBody={setPostBody} />
       </div>
-      <div className="w-full sticky bottom-0 bg-base-100 py-4">
-        <button
-          onClick={handleSubmit}
-          className="btn btn-block btn-primary text-xl text-base-100"
-        >
-          {buttonContent}
-        </button>
-      </div>
+      <div className="w-full h-24" />
+      <BottomButton onClick={handleSubmit}>
+        <span>post</span>
+      </BottomButton>
     </>
   );
 };
