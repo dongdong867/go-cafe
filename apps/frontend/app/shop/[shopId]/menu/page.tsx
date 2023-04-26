@@ -1,36 +1,40 @@
+'use client';
+
 import PageTitle from 'apps/frontend/app/components/PageTitle';
-import MenuCategory from './components/MenuCategory';
 import categories from 'apps/frontend/public/data/FakeMenuData';
+import MenuNavigator from './components/MenuNavigator';
+import Menu from './components/Menu/Menu';
+import BottomButton from 'apps/frontend/app/components/Button/BottomButton';
+import { createContext, useState } from 'react';
+import CheckOutModal from './components/Menu/CheckOutModal/Modal';
+
+type ShoppingCartContextType = {
+  shoppingCart: Order[];
+  setShoppingCart: React.Dispatch<React.SetStateAction<Order[]>>;
+};
+
+export const ShoppingCart = createContext<ShoppingCartContextType>({
+  shoppingCart: [],
+  setShoppingCart: () => {},
+});
 
 const ShopMenuPage = () => {
+  const [shoppingCart, setShoppingCart] = useState([]);
+  const [checkOut, setCheckOut] = useState(false);
+
   return (
     <>
       <div className="w-full max-w-lg max-[450px]:w-11/12 m-auto space-y-4 relative">
-        <PageTitle title="Menu" />
-        <div className="btn-group w-full px-1 overflow-x-scroll">
-          {categories.map((category) => (
-            <a
-              key={category.title}
-              href={`#${category.title}`}
-              className="btn btn-primary text-white text-base"
-            >
-              {category.title}
-            </a>
-          ))}
-        </div>
-        <div className="menu bg-base-100 w-full h-full rounded-box px-4 py-8 shadow-[0_2px_15px_rgba(0,0,0,0.25)]">
-          {categories.map((category) => (
-            <MenuCategory key={category.title} category={category} />
-          ))}
-        </div>
-        <div className="w-0 h-20" />
-        <div className="fixed w-full bg-base-100 left-0 bottom-0">
-          <div className="w-11/12 max-w-lg m-auto py-4">
-            <button className="btn btn-primary btn-block text-white text-xl">
-              <span>check out</span>
-            </button>
-          </div>
-        </div>
+        <ShoppingCart.Provider value={{ shoppingCart, setShoppingCart }}>
+          <PageTitle title="Menu" />
+          <MenuNavigator categories={categories} />
+          <Menu categories={categories} />
+          <div className="w-0 h-20" />
+          <BottomButton onClick={() => setCheckOut(true)}>
+            <span>check out</span>
+          </BottomButton>
+          <CheckOutModal isOpen={checkOut} setOpen={setCheckOut} />
+        </ShoppingCart.Provider>
       </div>
     </>
   );
