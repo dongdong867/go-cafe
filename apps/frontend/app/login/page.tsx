@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 //components
-import LoginModal from './components/LoginModal';
-import RegisterModal from './components/RegisterModal';
+import LoginModal from './components/Modal/LoginModal';
+import RegisterModal from './components/Modal/RegisterModal';
 
 const LoginPage = () => {
   const [signin, setSignin] = useState(true);

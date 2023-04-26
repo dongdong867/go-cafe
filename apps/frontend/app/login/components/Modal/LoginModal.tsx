@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Modal from './Modal';
 import { useRouter } from 'next/navigation';
-import InputModal from './InputModal';
+import InputModal from 'apps/frontend/app/components/InputModal';
 
 type Props = {
   setSignin: React.Dispatch<React.SetStateAction<boolean>>;
