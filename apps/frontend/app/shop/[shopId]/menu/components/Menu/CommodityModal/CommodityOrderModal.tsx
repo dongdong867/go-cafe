@@ -1,5 +1,5 @@
 'use client';
-import { useContext, useId, useState } from 'react';
+import { useContext, useId } from 'react';
 import { FaMinus, FaPlus, FaShoppingCart } from 'react-icons/fa';
 import { ShoppingCart } from '../../../page';
 
