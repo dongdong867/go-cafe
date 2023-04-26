@@ -31,14 +31,10 @@ const ShopInfoButton = () => {
             p-0
             ${
               followed
-                ? 'bg-secondary-focus hover:bg-secondary-focus'
-                : 'bg-base-100 hover:bg-secondary-focus'
+                ? 'bg-red-500 hover:bg-red-600'
+                : 'bg-base-100 hover:bg-red-600'
             }
-            ${
-              followed
-                ? 'text-base-100 '
-                : 'text-secondary-focus hover:text-base-100'
-            }
+            ${followed ? 'text-base-100 ' : 'text-red-600 hover:text-base-100'}
             `}
         >
           <FaHeart />

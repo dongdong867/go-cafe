@@ -54,12 +54,10 @@ const PostModal = ({ editable = false, data, children, rates }: Props) => {
               <div>{data.body}</div>
               {editable && (
                 <div className="flex justify-end space-x-2">
-                  <button className="btn btn-sm btn-primary text-base-100 rounded-xl">
+                  <button className="btn btn-primary text-base-100">
                     Edit
                   </button>
-                  <button className="btn btn-sm btn-secondary rounded-xl">
-                    Delete
-                  </button>
+                  <button className="btn btn-error text-white">Delete</button>
                 </div>
               )}
             </div>
