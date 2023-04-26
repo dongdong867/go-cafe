@@ -6,8 +6,8 @@ import Link from 'next/link';
 
 //components
 import Logo from 'apps/frontend/public/images/logo.png';
-import Menu from './Navbar/NavbarMenu';
-import Avatar from './Navbar/Avatar';
+import Menu from './NavbarMenu';
+import Avatar from './Avatar';
 
 const Navbar = () => {
   return (
