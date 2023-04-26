@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import EditModal from '../components/EditModal/Modal';
+import PageTitle from '../../components/PageTitle';
 
 const CreatePostPage = () => {
   const router = useRouter();
@@ -28,9 +29,9 @@ const CreatePostPage = () => {
           w-full max-w-lg 
           h-[calc(100vh-64px)] 
           max-[450px]:max-w-[350px] 
-          m-auto 
-          overflow-scroll"
+          m-auto"
       >
+        <PageTitle title="Create Post" />
         <EditModal
           buttonContent="post"
           // shop name
