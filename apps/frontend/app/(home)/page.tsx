@@ -1,4 +1,4 @@
-import SearchBar from '../components/SearchBar';
+import SearchBar from '../components/Input/SearchBar';
 import UserPostModal from '../components/UserPostModal';
 import userPostList from 'apps/frontend/public/data/UserPostList';
 
