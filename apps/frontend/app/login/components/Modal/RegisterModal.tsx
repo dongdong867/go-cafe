@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import RegisterStepOne from '../Register/StepOne';
 import RegisterStepTwo from '../Register/StepTwo';
+import useRegister from 'apps/frontend/app/hooks/useRegister';
 
 type Props = {
   setSignin: React.Dispatch<React.SetStateAction<boolean>>;
@@ -10,11 +11,8 @@ type Props = {
 
 const RegisterModal = ({ setSignin }: Props) => {
   const [step, setStep] = useState(1);
-  const [account, setAccount] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
+  const { setAccount, setPassword, setName, setEmail, setPhone, register } =
+    useRegister();
 
   return (
     <>
@@ -31,6 +29,7 @@ const RegisterModal = ({ setSignin }: Props) => {
           setName={setName}
           setEmail={setEmail}
           setPhone={setPhone}
+          register={register}
         />
       )}
     </>
