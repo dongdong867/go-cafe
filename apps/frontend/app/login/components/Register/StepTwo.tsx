@@ -17,9 +17,6 @@ const RegisterStepTwo = ({ setName, setEmail, setPhone, register }: Props) => {
     <>
       <div className="grow text-xl space-y-10 font-medium">
         <div className="mx-10">
-          {/* <LoginInputModal labelText="NAME" setInput={setName} />
-          <LoginInputModal labelText="EMAIL" setInput={setEmail} />
-          <LoginInputModal labelText="PHONE" setInput={setPhone} /> */}
           <InputModal
             topLabelText="NAME"
             sideLabel={<BsPersonFill />}
