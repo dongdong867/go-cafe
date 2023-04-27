@@ -1,9 +1,9 @@
 'use client';
 
-import Modal from '../Modal/Modal';
-import InputModal from 'apps/frontend/app/components/Input/InputModal';
+import InputModal from '@/components/Input/InputModal';
 import { IoMdUnlock } from 'react-icons/io';
 import { MdFingerprint } from 'react-icons/md';
+import Modal from '../Modal/Modal';
 
 type Props = {
   setAccount: React.Dispatch<React.SetStateAction<string>>;

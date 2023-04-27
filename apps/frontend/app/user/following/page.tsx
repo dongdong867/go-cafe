@@ -1,6 +1,7 @@
-import FollowingList from 'apps/frontend/public/data/FollowingList';
+import PageTitle from '@/components/PageTitle';
 import ShopCardModal from './components/ShopCardModal';
-import PageTitle from '../../components/PageTitle';
+
+import FollowingList from '@/../public/data/FollowingList';
 
 const FollowingPage = () => {
   return (

@@ -1,4 +1,4 @@
-import PostModal from '../../components/PostModal';
+import PostModal from '@/components/PostModal';
 
 type Props = {
   post: ShopPost;

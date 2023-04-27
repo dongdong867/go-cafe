@@ -1,9 +1,9 @@
 'use client';
 
+import useRegister from '@/hooks/useRegister';
 import { useState } from 'react';
 import RegisterStepOne from '../Register/StepOne';
 import RegisterStepTwo from '../Register/StepTwo';
-import useRegister from 'apps/frontend/app/hooks/useRegister';
 
 type Props = {
   setSignin: React.Dispatch<React.SetStateAction<boolean>>;

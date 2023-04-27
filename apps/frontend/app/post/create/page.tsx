@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+
+import PageTitle from '@/components/PageTitle';
 import EditModal from '../components/EditModal/Modal';
-import PageTitle from '../../components/PageTitle';
 
 const CreatePostPage = () => {
   const router = useRouter();

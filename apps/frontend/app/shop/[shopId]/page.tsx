@@ -3,9 +3,10 @@
 import Image from 'next/image';
 
 import TemporaryPicture from 'apps/frontend/public/images/logo.png';
-import ShopPostModal from '../components/ShopPostModal';
-import fakeShopData from 'apps/frontend/public/data/FakeShopData';
+
+import fakeShopData from '@/../public/data/FakeShopData';
 import ShopInfoModal from '../components/ShopInfoModal/Modal';
+import ShopPostModal from '../components/ShopPostModal';
 
 type Props = {
   param: {

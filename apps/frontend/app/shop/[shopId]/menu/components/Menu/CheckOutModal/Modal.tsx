@@ -1,9 +1,9 @@
-import PageTitle from 'apps/frontend/app/components/PageTitle';
 import CheckOutOrderList from './OrderList';
 import CheckOutTableNumber from './TableNumber';
 import { MdClose } from 'react-icons/md';
 import { useContext, useState } from 'react';
 import { ShoppingCart } from '../../../page';
+import PageTitle from '@/components/PageTitle';
 
 type Props = {
   isOpen: boolean;

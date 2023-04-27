@@ -1,8 +1,8 @@
-import InputModal from 'apps/frontend/app/components/Input/InputModal';
 import Modal from '../Modal/Modal';
 import { BsPersonFill } from 'react-icons/bs';
 import { MdEmail } from 'react-icons/md';
 import { FaPhoneAlt } from 'react-icons/fa';
+import InputModal from '@/components/Input/InputModal';
 
 type Props = {
   setName: React.Dispatch<React.SetStateAction<string>>;
