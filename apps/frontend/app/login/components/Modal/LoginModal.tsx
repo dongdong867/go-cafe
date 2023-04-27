@@ -1,9 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+//components
 import Modal from './Modal';
-import { useRouter } from 'next/navigation';
 import InputModal from 'apps/frontend/app/components/Input/InputModal';
+
+//hooks
+import useLogin from 'apps/frontend/app/hooks/useLogin';
+
+//icons
 import { IoMdUnlock } from 'react-icons/io';
 import { MdFingerprint } from 'react-icons/md';
 
@@ -12,10 +16,7 @@ type Props = {
 };
 
 const LoginModal = ({ setSignin }: Props) => {
-  const router = useRouter();
-
-  const [account, setAccount] = useState('');
-  const [password, setPassword] = useState('');
+  const { setAccount, setPassword, error, login } = useLogin();
 
   const bodyContent = (
     <div className="space-y-4">
@@ -49,19 +50,18 @@ const LoginModal = ({ setSignin }: Props) => {
     </div>
   );
 
-  const onSubmit = () => {
-    if (account === 'account' && password === 'password') {
-      router.replace('/');
-    } else {
-      throw new Error('Login Error');
-    }
-  };
-
   return (
     <>
-      <Modal buttonContent="Sign in" onSubmit={onSubmit}>
+      <Modal buttonContent="Sign in" onSubmit={login}>
         {bodyContent}
       </Modal>
+      {error !== null && (
+        <div className="toast toast-center toast-top w-max top-16">
+          <div className="alert alert-error shadow-[0_2px_15px_rgba(0,0,0,0.25)]">
+            <span className="text-white font-semibold">{error}</span>
+          </div>
+        </div>
+      )}
     </>
   );
 };
