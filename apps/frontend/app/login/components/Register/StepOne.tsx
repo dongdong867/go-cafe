@@ -1,6 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import Modal from '../Modal/Modal';
 import InputModal from 'apps/frontend/app/components/Input/InputModal';
 import { IoMdUnlock } from 'react-icons/io';
@@ -19,8 +18,6 @@ const RegisterStepOne = ({
   setStep,
   setSignin,
 }: Props) => {
-  const router = useRouter();
-
   const bodyContent = (
     <div className="space-y-4">
       <div className="text-5xl max-[450px]:text-4xl font-bold mx-10">
