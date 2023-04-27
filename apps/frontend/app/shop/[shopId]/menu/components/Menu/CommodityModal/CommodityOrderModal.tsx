@@ -18,13 +18,24 @@ const CommodityOrderModal = ({ quantity, setQuantity, item }: Props) => {
   const id = useId();
 
   const handleClick = () => {
-    const order = {
-      id: id,
-      item: item,
-      quantity: quantity,
-    };
+    let newOrderItem = true;
 
-    setShoppingCart([...shoppingCart, order]);
+    shoppingCart.map((order) => {
+      if (order.item === item) {
+        newOrderItem = false;
+        return (order.quantity += quantity);
+      } else return order;
+    });
+
+    if (newOrderItem) {
+      const order = {
+        id: id,
+        item: item,
+        quantity: quantity,
+      };
+
+      setShoppingCart([...shoppingCart, order]);
+    }
   };
 
   return (
