@@ -1,24 +1,18 @@
 'use client';
 
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import PageTitle from '@/components/PageTitle';
 import EditModal from '../components/EditModal/Modal';
+import useCreatePost from '@/hooks/useCreatePost';
 
 const CreatePostPage = () => {
   const router = useRouter();
 
-  const [shopName, setShopName] = useState('');
-
-  const [generalRate, setGeneralRate] = useState(5);
-  const [environmentRate, setEnvironmentRate] = useState(5);
-  const [mealsRate, setMealsRate] = useState(5);
-  const [attitudeRate, setAttitudeRate] = useState(5);
-
-  const [postBody, setPostBody] = useState('');
+  const { setCoffeeShop, setRate, setBody, create } = useCreatePost();
 
   const onSubmit = () => {
+    create();
     console.log('post created');
     router.replace('/');
   };
@@ -36,14 +30,11 @@ const CreatePostPage = () => {
         <EditModal
           buttonContent="post"
           // shop name
-          setShopName={setShopName}
+          setShopName={setCoffeeShop}
           // rating
-          setGeneralRate={setGeneralRate}
-          setEnvironmentRate={setEnvironmentRate}
-          setMealsRate={setMealsRate}
-          setAttitudeRate={setAttitudeRate}
+          setRate={setRate}
           //post body
-          setPostBody={setPostBody}
+          setPostBody={setBody}
           // submit
           onSubmit={onSubmit}
         />
