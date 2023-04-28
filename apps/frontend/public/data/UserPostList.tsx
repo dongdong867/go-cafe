@@ -10,10 +10,11 @@ const userPostList: UserPost[] = [
       coffeeShopName: 'coffee shop name1',
     },
     body: 'this is a fake body',
-    stars: {
-      generalStar: 5,
-      starType1: 5,
-      starType2: 5,
+    rating: {
+      general: 4,
+      environment: 3,
+      meals: 3,
+      attitude: 2,
     },
   },
   {
@@ -27,10 +28,11 @@ const userPostList: UserPost[] = [
       coffeeShopName: 'coffee shop name2',
     },
     body: 'this is a fake body',
-    stars: {
-      generalStar: 5,
-      starType1: 5,
-      starType2: 5,
+    rating: {
+      general: 5,
+      environment: 2,
+      meals: 1,
+      attitude: 3,
     },
   },
   {
@@ -44,10 +46,11 @@ const userPostList: UserPost[] = [
       coffeeShopName: 'coffee shop name3',
     },
     body: 'this is a fake body',
-    stars: {
-      generalStar: 5,
-      starType1: 5,
-      starType2: 5,
+    rating: {
+      general: 2,
+      environment: 3,
+      meals: 4,
+      attitude: 4,
     },
   },
 ];

@@ -14,7 +14,7 @@ type UserPost = {
     coffeeShopId: string;
     coffeeShopName: string;
   };
-  stars: Stars;
+  rating: Rating;
   body: string;
   // TODO: add image types
 };
