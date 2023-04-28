@@ -2,7 +2,8 @@
 import Image from 'next/image';
 
 //images
-import TemporaryImage from 'apps/frontend/public/images/logo.png';
+import TemporaryImage from '/public/images/logo.png';
+import Link from 'next/link';
 
 type Props = {
   editable?: boolean;
@@ -54,9 +55,12 @@ const PostModal = ({ editable = false, data, children, rates }: Props) => {
               <div>{data.body}</div>
               {editable && (
                 <div className="flex justify-end space-x-2">
-                  <button className="btn btn-primary text-base-100">
+                  <Link
+                    href={`/post/update/${data.id}`}
+                    className="btn btn-primary text-base-100"
+                  >
                     Edit
-                  </button>
+                  </Link>
                   <button className="btn btn-error text-white">Delete</button>
                 </div>
               )}
