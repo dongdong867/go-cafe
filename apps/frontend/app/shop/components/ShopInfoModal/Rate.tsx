@@ -1,4 +1,4 @@
-import RatingModal from 'apps/frontend/app/components/RatingModal';
+import RatingModal from '@/components/RatingModal';
 
 type Props = {
   data: ShopInfoForUser;
@@ -18,8 +18,12 @@ const ShopRate = ({ data }: Props) => {
           font-semibold"
       >
         <RatingModal rateName="general" rateValue={data.stars.generalStar} />
-        <RatingModal rateName="rate1" rateValue={data.stars.starType1} />
-        <RatingModal rateName="rate2" rateValue={data.stars.starType2} />
+        <RatingModal
+          rateName="environment"
+          rateValue={data.stars.environment}
+        />
+        <RatingModal rateName="meals" rateValue={data.stars.meals} />
+        <RatingModal rateName="attitude" rateValue={data.stars.attitude} />
       </div>
     </>
   );
