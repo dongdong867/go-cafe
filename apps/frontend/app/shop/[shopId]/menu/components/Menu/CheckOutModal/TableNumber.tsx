@@ -1,6 +1,6 @@
 'use client';
 
-import InputModal from 'apps/frontend/app/components/Input/InputModal';
+import InputModal from '@/components/Input/InputModal';
 
 type Props = {
   tableNumber: string;

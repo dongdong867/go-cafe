@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 //components
-import Logo from 'apps/frontend/public/images/logo.png';
+import Logo from '/public/images/logo.png';
 import Menu from './NavbarMenu';
 import Avatar from './Avatar';
 

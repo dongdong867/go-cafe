@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 
-import TemporaryPicture from 'apps/frontend/public/images/logo.png';
+import TemporaryPicture from '/public/images/logo.png';
 
 import fakeShopData from '@/../public/data/FakeShopData';
 import ShopInfoModal from '../components/ShopInfoModal/Modal';

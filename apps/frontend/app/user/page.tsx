@@ -1,6 +1,7 @@
-import UserPostList from 'apps/frontend/public/data/UserPostList';
-import UserPostModal from '../components/UserPostModal';
+import UserPostList from '@/../public/data/UserPostList';
+
 import UserInfo from './components/UserInfo';
+import UserPostModal from '@/components/UserPostModal';
 
 const UserPage = () => {
   return (

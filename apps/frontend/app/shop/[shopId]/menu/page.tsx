@@ -1,12 +1,13 @@
 'use client';
 
-import PageTitle from 'apps/frontend/app/components/PageTitle';
-import categories from 'apps/frontend/public/data/FakeMenuData';
 import MenuNavigator from './components/MenuNavigator';
 import Menu from './components/Menu/Menu';
-import BottomButton from 'apps/frontend/app/components/Button/BottomButton';
+
 import { createContext, useState } from 'react';
 import CheckOutModal from './components/Menu/CheckOutModal/Modal';
+import PageTitle from '@/components/PageTitle';
+import categories from '@/../public/data/FakeMenuData';
+import BottomButton from '@/components/Button/BottomButton';
 
 type ShoppingCartContextType = {
   shoppingCart: Order[];
