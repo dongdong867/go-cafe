@@ -1,30 +1,20 @@
 'use client';
 
-import { useState } from 'react';
-
 import { useRouter } from 'next/navigation';
 import EditModal from '../../components/EditModal/Modal';
-import PageTitle from 'apps/frontend/app/components/PageTitle';
+import PageTitle from '@/components/PageTitle';
+import useUpdatePost from '@/hooks/useUpdatePost';
+import userPostList from '@/../public/data/UserPostList';
 
 const UpdatePostPage = () => {
   const router = useRouter();
 
-  const [shopName, setShopName] = useState('OOO Shop');
-
-  const [generalRate, setGeneralRate] = useState(4);
-  const [environmentRate, setEnvironmentRate] = useState(3);
-  const [mealsRate, setMealsRate] = useState(2);
-  const [attitudeRate, setAttitudeRate] = useState(1);
-
-  const [postBody, setPostBody] = useState(
-    'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fuga, eum autem. \
-    Explicabo magni corrupti eius perspiciatis at unde quas quaerat, \
-    numquam nam nulla corporis, iusto enim quisquam dolores rem ipsum.'
-  );
+  const { setRate, setBody, update } = useUpdatePost(userPostList[0]);
 
   const onSubmit = () => {
+    update();
     console.log('post updated');
-    router.replace('/');
+    router.push('/');
   };
 
   return (
@@ -40,21 +30,14 @@ const UpdatePostPage = () => {
         <EditModal
           buttonContent="post"
           // shop name
-          shopName={shopName}
-          shopNameDisabled={false}
-          setShopName={setShopName}
+          shopName={userPostList[0].coffeeShop.coffeeShopName}
+          shopNameDisabled={true}
           // rating
-          generalRate={generalRate}
-          environmentRate={environmentRate}
-          mealsRate={mealsRate}
-          attitudeRate={attitudeRate}
-          setGeneralRate={setGeneralRate}
-          setEnvironmentRate={setEnvironmentRate}
-          setMealsRate={setMealsRate}
-          setAttitudeRate={setAttitudeRate}
+          rating={userPostList[0].rating}
+          setRate={setRate}
           //post body
-          postBody={postBody}
-          setPostBody={setPostBody}
+          postBody={userPostList[0].body}
+          setPostBody={setBody}
           // submit
           onSubmit={onSubmit}
         />
