@@ -4,17 +4,17 @@ type Props = {
   rateName: string;
   rateValue: number;
   editable?: boolean;
-  setRating?: React.Dispatch<React.SetStateAction<number>>;
+  setRate?: (rateName: string, rateValue: number) => void;
 };
 
 const RatingModal = ({
   rateName,
   rateValue,
   editable = false,
-  setRating = () => {},
+  setRate = () => {},
 }: Props) => {
   const handleClick = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-    setRating(parseInt((e.target as HTMLInputElement).value));
+    setRate(rateName, parseInt(e.currentTarget.value));
   };
 
   return (

@@ -1,28 +1,21 @@
 'use client';
 
-import InputModal from 'apps/frontend/app/components/Input/InputModal';
+import InputModal from '@/components/Input/InputModal';
 import EditBody from './Body';
-import EditCoffeeShop from './CoffeeShop';
 import EditPicture from './Picture';
 import EditRating from './Rating';
 import { MdLocationOn } from 'react-icons/md';
-import BottomButton from 'apps/frontend/app/components/Button/BottomButton';
+import BottomButton from '@/components/Button/BottomButton';
 
 type Props = {
   buttonContent: string;
   // shop name
   shopName?: string;
   shopNameDisabled?: boolean;
-  setShopName: React.Dispatch<React.SetStateAction<string>>;
+  setShopName?: React.Dispatch<React.SetStateAction<string>>;
   // rating
-  generalRate?: number;
-  environmentRate?: number;
-  mealsRate?: number;
-  attitudeRate?: number;
-  setGeneralRate: React.Dispatch<React.SetStateAction<number>>;
-  setEnvironmentRate: React.Dispatch<React.SetStateAction<number>>;
-  setMealsRate: React.Dispatch<React.SetStateAction<number>>;
-  setAttitudeRate: React.Dispatch<React.SetStateAction<number>>;
+  rating?: Rating;
+  setRate: (rateName: string, rateValue: number) => void;
   // post body
   postBody?: string;
   setPostBody: React.Dispatch<React.SetStateAction<string>>;
@@ -35,16 +28,15 @@ const EditModal = ({
   // shop name
   shopName = '',
   shopNameDisabled = false,
-  setShopName,
+  setShopName = () => {},
   // rating
-  generalRate = 5,
-  environmentRate = 5,
-  mealsRate = 5,
-  attitudeRate = 5,
-  setGeneralRate,
-  setEnvironmentRate,
-  setMealsRate,
-  setAttitudeRate,
+  rating = {
+    general: 5,
+    environment: 5,
+    meals: 5,
+    attitude: 5,
+  },
+  setRate,
   // post body
   postBody = '',
   setPostBody,
@@ -64,19 +56,11 @@ const EditModal = ({
           disabled={shopNameDisabled}
           topLabelText="Select a coffee shop"
           sideLabel={<MdLocationOn />}
+          value={shopName}
           setValue={setShopName}
         />
 
-        <EditRating
-          generalRate={generalRate}
-          environmentRate={environmentRate}
-          mealsRate={mealsRate}
-          attitudeRate={attitudeRate}
-          setGeneralRate={setGeneralRate}
-          setEnvironmentRate={setEnvironmentRate}
-          setMealsRate={setMealsRate}
-          setAttitudeRate={setAttitudeRate}
-        />
+        <EditRating rating={rating} setRate={setRate} />
 
         <EditBody postBody={postBody} setPostBody={setPostBody} />
       </div>
