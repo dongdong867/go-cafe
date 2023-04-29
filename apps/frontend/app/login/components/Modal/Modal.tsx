@@ -4,7 +4,7 @@
 import Image from 'next/image';
 
 //images
-import Logo from 'apps/frontend/public/images/logo.png';
+import Logo from '/public/images/logo.png';
 
 type Props = {
   buttonContent: string;

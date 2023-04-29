@@ -2,10 +2,10 @@
 
 //components
 import Modal from './Modal';
-import InputModal from 'apps/frontend/app/components/Input/InputModal';
+import InputModal from '@/components/Input/InputModal';
 
 //hooks
-import useLogin from 'apps/frontend/app/hooks/useLogin';
+import useLogin from '@/hooks/useLogin';
 
 //icons
 import { IoMdUnlock } from 'react-icons/io';
