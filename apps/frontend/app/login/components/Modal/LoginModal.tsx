@@ -6,10 +6,14 @@ import InputModal from '@/components/Input/InputModal';
 
 //hooks
 import useLogin from '@/hooks/useLogin';
+import useToast from '@/hooks/useToast';
 
 //icons
 import { IoMdUnlock } from 'react-icons/io';
 import { MdFingerprint } from 'react-icons/md';
+
+//packages
+import { Toaster } from 'react-hot-toast';
 
 type Props = {
   setSignin: React.Dispatch<React.SetStateAction<boolean>>;
@@ -17,6 +21,7 @@ type Props = {
 
 const LoginModal = ({ setSignin }: Props) => {
   const { setAccount, setPassword, error, login } = useLogin();
+  useToast(error, 'error');
 
   const bodyContent = (
     <div className="space-y-4">
@@ -55,13 +60,7 @@ const LoginModal = ({ setSignin }: Props) => {
       <Modal buttonContent="Sign in" onSubmit={login}>
         {bodyContent}
       </Modal>
-      {error !== null && (
-        <div className="toast toast-center toast-top w-max top-16">
-          <div className="alert alert-error shadow-[0_2px_15px_rgba(0,0,0,0.25)]">
-            <span className="text-white font-semibold">{error}</span>
-          </div>
-        </div>
-      )}
+      <Toaster />
     </>
   );
 };

@@ -5,7 +5,7 @@ const useLogin = () => {
   const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
 
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(null as string);
 
   const route = useRouter();
 
