@@ -1,10 +1,10 @@
+import { useContext } from 'react';
 import CheckOutOrder from './Order';
+import { ShoppingCart } from '../../../page';
 
-type Props = {
-  shoppingCart: Order[];
-};
+const CheckOutOrderList = () => {
+  const { shoppingCart } = useContext(ShoppingCart);
 
-const CheckOutOrderList = ({ shoppingCart }: Props) => {
   const totalPrice = () => {
     let sum = 0;
     shoppingCart.map((order) => {

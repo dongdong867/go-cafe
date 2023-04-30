@@ -1,9 +1,9 @@
 import CheckOutOrderList from './OrderList';
 import CheckOutTableNumber from './TableNumber';
 import { MdClose } from 'react-icons/md';
-import { useContext, useState } from 'react';
-import { ShoppingCart } from '../../../page';
 import PageTitle from '@/components/PageTitle';
+import useSendOrder from '@/hooks/useSendOrder';
+import useToast from '@/hooks/useToast';
 
 type Props = {
   isOpen: boolean;
@@ -13,25 +13,17 @@ type Props = {
 const CheckOutModal = ({ isOpen, setOpen }: Props) => {
   if (!isOpen) return null;
 
-  const { shoppingCart, setShoppingCart } = useContext(ShoppingCart);
+  const {
+    tableNumber,
+    takeaway,
+    error,
+    setTableNumber,
+    setTakeaway,
+    submitCheck,
+    handleSend,
+  } = useSendOrder();
 
-  const [tableNumber, setTableNumber] = useState('');
-  const [takeaway, setTakeaway] = useState(false);
-
-  const handleSend = () => {
-    const seat = () => {
-      if (takeaway) return 'takeaway';
-
-      return tableNumber;
-    };
-    const order = {
-      shoppingCart: shoppingCart,
-      seat: seat(),
-    };
-    console.log(order);
-    setOpen(false);
-    setShoppingCart([]);
-  };
+  useToast(error, 'error');
 
   return (
     <>
@@ -47,7 +39,7 @@ const CheckOutModal = ({ isOpen, setOpen }: Props) => {
               </button>
             </div>
             <PageTitle title="Shopping Cart" />
-            <CheckOutOrderList shoppingCart={shoppingCart} />
+            <CheckOutOrderList />
           </div>
           <div className="w-full max-[450px]:w-11/12 bg-base-100 rounded-xl m-auto mt-8 px-8 py-4 max-[450px]:px-4 space-y-10">
             <CheckOutTableNumber
@@ -57,8 +49,11 @@ const CheckOutModal = ({ isOpen, setOpen }: Props) => {
               setTakeaway={setTakeaway}
             />
             <button
-              disabled={tableNumber === '' && takeaway === false}
-              onClick={() => handleSend()}
+              disabled={!submitCheck()}
+              onClick={() => {
+                handleSend();
+                setOpen(false);
+              }}
               className="btn btn-block btn-primary text-white text-xl"
             >
               send order
