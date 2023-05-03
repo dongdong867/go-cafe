@@ -1,6 +1,6 @@
-import SearchBar from '../components/SearchBar';
-import UserPostModal from '../components/UserPostModal';
-import userPostList from 'apps/frontend/public/data/UserPostList';
+import userPostList from '@/../public/data/UserPostList';
+import SearchBar from '@/components/Input/SearchBar';
+import UserPostModal from '@/components/UserPostModal';
 
 const Home = () => {
   return (

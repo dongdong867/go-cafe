@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import TemporaryImage from 'apps/frontend/public/images/logo.png';
+import TemporaryImage from '/public/images/logo.png';
 const UserInfo = () => {
   return (
     <>

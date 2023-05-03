@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 //images
-import TemporaryPicture from 'apps/frontend/public/images/logo.png';
+import TemporaryPicture from '/public/images/logo.png';
 
 //icons
 import { BsPersonCircle } from 'react-icons/bs';

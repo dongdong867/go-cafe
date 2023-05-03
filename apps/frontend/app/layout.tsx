@@ -5,7 +5,7 @@ import { Montserrat } from 'next/font/google';
 import './global.css';
 
 //components
-import Navbar from './components/Navbar';
+import Navbar from './components/Navbar/Navbar';
 
 export const metadata = {
   title: 'Go Cafe',

@@ -12,9 +12,13 @@ const UserPostModal = ({ post, editable = false }: Props) => {
   const rates = (
     <>
       <div className="w-full ">
-        <RatingModal rateName="general" rateValue={post.stars.generalStar} />
-        <RatingModal rateName="rate1" rateValue={post.stars.starType1} />
-        <RatingModal rateName="rate2" rateValue={post.stars.starType2} />
+        <RatingModal rateName="general" rateValue={post.rating.general} />
+        <RatingModal
+          rateName="environment"
+          rateValue={post.rating.environment}
+        />
+        <RatingModal rateName="meals" rateValue={post.rating.meals} />
+        <RatingModal rateName="attitude" rateValue={post.rating.attitude} />
       </div>
     </>
   );
@@ -30,12 +34,12 @@ const UserPostModal = ({ post, editable = false }: Props) => {
           <div className="flex items-center gap-x-1 text-base">
             <FaStar className="text-accent" />
             <div className="font-semibold">
-              {post.stars.generalStar.toFixed(1)}
+              {post.rating.general.toFixed(1)}
             </div>
           </div>
 
           {/* post title */}
-          <div className="card-title text-xl font-bold">
+          <div className="card-title text-xl font-bold max-[450px]:flex-col place-items-start gap-y-0">
             {post.user.userName}
             <Link
               href={`/shop/${post.coffeeShop.coffeeShopId}`}
