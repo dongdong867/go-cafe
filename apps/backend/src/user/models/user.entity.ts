@@ -1,7 +1,8 @@
 import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
+import { IsUUID } from 'class-validator';
 
 @ObjectType()
-export class PublicUser {
+export class User {
   @Field()
   name: string;
 
@@ -11,6 +12,9 @@ export class PublicUser {
   @Field(() => Int)
   postCount: number;
 
+  @Field()
+  token: string;
+
   // TODO: FEATURE WAITING
   //
   // @Field()
@@ -18,16 +22,8 @@ export class PublicUser {
 }
 
 @ObjectType()
-export class User extends PublicUser {
+export class Token {
   @Field(() => ID)
-  id: string;
-
-  @Field()
-  account: string;
-
-  @Field()
-  saltedPassword: string;
-
-  @Field()
+  @IsUUID()
   token: string;
 }
