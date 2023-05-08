@@ -1,6 +1,6 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { User } from '../../models/user.entity';
-import { Store } from '../../store/entities/store.entity';
+import { Store } from '../../store/models/store.entity';
 
 @ObjectType()
 export class Customer extends User {
