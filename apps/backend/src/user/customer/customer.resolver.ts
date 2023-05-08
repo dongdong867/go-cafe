@@ -25,6 +25,6 @@ export class CustomerResolver {
   updateCustomer(
     @Args('updateCustomerInput') updateCustomerInput: UpdateCustomerInput
   ): Customer {
-    return new Customer();
+    return this.customerService.updateCustomer(updateCustomerInput);
   }
 }

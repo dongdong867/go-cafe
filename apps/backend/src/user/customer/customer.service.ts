@@ -3,6 +3,7 @@ import { Customer } from './models/customer.entity';
 import { GetCustomerArgs } from './dto/args/get-customer.args';
 import { UserService } from '../user.service';
 import { CreateCustomerInput } from './dto/inputs/create-customer.input';
+import { UpdateCustomerInput } from './dto/inputs/update-customer.input';
 
 @Injectable()
 export class CustomerService {
@@ -45,6 +46,27 @@ export class CustomerService {
       password: password,
       ...customer,
     });
+
+    return customer;
+  }
+
+  updateCustomer(updateCustomerInput: UpdateCustomerInput): Customer {
+    if (
+      !this.userService.certifyUser(
+        updateCustomerInput.account,
+        updateCustomerInput.token
+      )
+    )
+      throw new Error('invalidate user token');
+
+    const customer: Customer = {
+      name: updateCustomerInput.name || 'original name',
+      phone: updateCustomerInput.phone || 'original phone',
+      email: updateCustomerInput.email || 'original email',
+      followCount: 0,
+      postCount: 0,
+      following: [],
+    };
 
     return customer;
   }
