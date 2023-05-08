@@ -31,6 +31,6 @@ export class StoreResolver {
   updateStore(
     @Args('updateStoreInput') updateStoreInput: UpdateStoreInput
   ): Store {
-    return new Store();
+    return this.storeService.updateStore(updateStoreInput);
   }
 }

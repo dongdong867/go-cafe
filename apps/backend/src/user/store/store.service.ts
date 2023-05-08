@@ -4,6 +4,7 @@ import { GetStoreArgs } from './dto/args/get-store.args';
 import { Store } from './entities/store.entity';
 import { GetStoresArgs } from './dto/args/get-stores.args';
 import { CreateStoreInput } from './dto/input/create-store.input';
+import { UpdateStoreInput } from './dto/input/update-store.input';
 
 @Injectable()
 export class StoreService {
@@ -68,6 +69,18 @@ export class StoreService {
       password: password,
       ...store,
     });
+
+    return store;
+  }
+
+  updateStore(updateStoreInput: UpdateStoreInput): Store {
+    const store: Store = {
+      name: updateStoreInput.name || 'old name',
+      address: updateStoreInput.address || 'old address',
+      phone: updateStoreInput.phone || 'old phone',
+      info: updateStoreInput.info || 'old info',
+      postCount: 0,
+    };
 
     return store;
   }
