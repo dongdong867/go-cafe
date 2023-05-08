@@ -3,6 +3,7 @@ import { CustomerService } from './customer.service';
 import { Customer } from './models/customer.entity';
 import { GetCustomerArgs } from './dto/args/get-customer.args';
 import { CreateCustomerInput } from './dto/inputs/create-customer.input';
+import { UpdateCustomerInput } from './dto/inputs/update-customer.input';
 
 @Resolver()
 export class CustomerResolver {
@@ -14,7 +15,9 @@ export class CustomerResolver {
   }
 
   @Mutation(() => Customer)
-  createCustomer(@Args() createCustomerInput: CreateCustomerInput): Customer {
+  createCustomer(
+    @Args('createCustomerInput') createCustomerInput: CreateCustomerInput
+  ): Customer {
     return new Customer();
   }
 }
