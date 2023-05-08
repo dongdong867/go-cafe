@@ -12,9 +12,6 @@ export class User {
   @Field(() => Int)
   postCount: number;
 
-  @Field()
-  token: string;
-
   // TODO: FEATURE WAITING
   //
   // @Field()
