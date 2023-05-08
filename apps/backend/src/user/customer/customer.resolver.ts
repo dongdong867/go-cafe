@@ -18,7 +18,7 @@ export class CustomerResolver {
   createCustomer(
     @Args('createCustomerInput') createCustomerInput: CreateCustomerInput
   ): Customer {
-    return new Customer();
+    return this.customerService.createCustomer(createCustomerInput);
   }
 
   @Mutation(() => Customer)
