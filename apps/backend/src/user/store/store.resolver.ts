@@ -12,7 +12,7 @@ export class StoreResolver {
 
   @Query(() => Store, { name: 'store' })
   getStore(@Args() getStoreArgs: GetStoreArgs): Store {
-    return new Store();
+    return this.storeService.getStore(getStoreArgs);
   }
 
   @Query(() => [Store], { name: 'stores' })
