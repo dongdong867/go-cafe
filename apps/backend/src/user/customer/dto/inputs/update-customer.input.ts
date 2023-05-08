@@ -7,15 +7,15 @@ export class UpdateCustomerInput {
   @IsNotEmpty()
   account: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsOptional()
   name?: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsOptional()
   phone?: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsEmail()
   @IsOptional()
   email?: string;
