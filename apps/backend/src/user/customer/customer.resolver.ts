@@ -20,4 +20,11 @@ export class CustomerResolver {
   ): Customer {
     return new Customer();
   }
+
+  @Mutation(() => Customer)
+  updateCustomer(
+    @Args('updateCustomerInput') updateCustomerInput: UpdateCustomerInput
+  ): Customer {
+    return new Customer();
+  }
 }
