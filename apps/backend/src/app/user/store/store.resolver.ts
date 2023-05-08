@@ -1,10 +1,10 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { StoreService } from './store.service';
-import { Store } from './entities/store.entity';
 import { GetStoreArgs } from './dto/args/get-store.args';
 import { GetStoresArgs } from './dto/args/get-stores.args';
 import { CreateStoreInput } from './dto/input/create-store.input';
 import { UpdateStoreInput } from './dto/input/update-store.input';
+import { Store } from './models/store.entity';
 
 @Resolver(() => Store)
 export class StoreResolver {

@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { UserService } from '../user.service';
 import { GetStoreArgs } from './dto/args/get-store.args';
-import { Store } from './entities/store.entity';
+
 import { GetStoresArgs } from './dto/args/get-stores.args';
 import { CreateStoreInput } from './dto/input/create-store.input';
 import { UpdateStoreInput } from './dto/input/update-store.input';
+import { Store } from './models/store.entity';
 
 @Injectable()
 export class StoreService {
