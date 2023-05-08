@@ -9,7 +9,7 @@ export class FollowingResolver {
 
   @Mutation(() => String)
   follow(@Args('followInput') followInput: FollowInput) {
-    return 'Followed successfully';
+    return this.followingService.follow(followInput);
   }
 
   @Mutation(() => String)
