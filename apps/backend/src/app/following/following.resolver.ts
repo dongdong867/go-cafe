@@ -8,4 +8,9 @@ export class FollowingResolver {
   follow(@Args('followInput') followInput: FollowInput) {
     return 'Followed successfully';
   }
+
+  @Mutation(() => String)
+  unfollow(@Args('unfollowInput') unfollowInput: UnfollowInput) {
+    return 'Unfollowed successfully';
+  }
 }
