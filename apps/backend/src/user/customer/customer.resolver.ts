@@ -11,7 +11,7 @@ export class CustomerResolver {
 
   @Query(() => Customer, { name: 'customer' })
   getCustomer(@Args() getCustomerArgs: GetCustomerArgs): Customer {
-    return new Customer();
+    return this.customerService.getCustomer(getCustomerArgs);
   }
 
   @Mutation(() => Customer)
