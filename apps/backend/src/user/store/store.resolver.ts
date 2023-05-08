@@ -4,6 +4,7 @@ import { Store } from './entities/store.entity';
 import { GetStoreArgs } from './dto/args/get-store.args';
 import { GetStoresArgs } from './dto/args/get-stores.args';
 import { CreateStoreInput } from './dto/input/create-store.input';
+import { UpdateStoreInput } from './dto/input/update-store.input';
 
 @Resolver(() => Store)
 export class StoreResolver {
@@ -22,6 +23,13 @@ export class StoreResolver {
   @Mutation(() => Store)
   createStore(
     @Args('createStoreInput') createStoreInput: CreateStoreInput
+  ): Store {
+    return new Store();
+  }
+
+  @Mutation(() => Store)
+  updateStore(
+    @Args('updateStoreInput') updateStoreInput: UpdateStoreInput
   ): Store {
     return new Store();
   }
