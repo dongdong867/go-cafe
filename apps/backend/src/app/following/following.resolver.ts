@@ -14,6 +14,6 @@ export class FollowingResolver {
 
   @Mutation(() => String)
   unfollow(@Args('unfollowInput') unfollowInput: UnfollowInput) {
-    return 'Unfollowed successfully';
+    return this.followingService.unfollow(unfollowInput);
   }
 }
