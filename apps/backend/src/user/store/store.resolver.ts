@@ -24,7 +24,7 @@ export class StoreResolver {
   createStore(
     @Args('createStoreInput') createStoreInput: CreateStoreInput
   ): Store {
-    return new Store();
+    return this.storeService.createStore(createStoreInput);
   }
 
   @Mutation(() => Store)
