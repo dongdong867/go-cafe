@@ -17,7 +17,7 @@ export class StoreResolver {
 
   @Query(() => [Store], { name: 'stores' })
   getStores(@Args() getStoresArgs: GetStoresArgs): Store[] {
-    return [new Store()];
+    return this.storeService.getStores(getStoresArgs);
   }
 
   @Mutation(() => Store)

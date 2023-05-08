@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { UserService } from '../user.service';
 import { GetStoreArgs } from './dto/args/get-store.args';
 import { Store } from './entities/store.entity';
+import { GetStoresArgs } from './dto/args/get-stores.args';
 
 @Injectable()
 export class StoreService {
@@ -23,5 +24,30 @@ export class StoreService {
     });
 
     return store;
+  }
+
+  getStores(getStoresArgs: GetStoresArgs): Store[] {
+    let n = 0;
+    const list: Store[] = [];
+    getStoresArgs.accounts.forEach((storeAccount) => {
+      const account: string = storeAccount;
+      const store: Store = {
+        name: 'get store name' + n,
+        address: 'get store address' + n,
+        phone: '0912345678' + n,
+        info: 'get store info' + n,
+        postCount: n,
+      };
+
+      list.push(store);
+
+      console.log({
+        account: account,
+        ...store,
+      });
+
+      n++;
+    });
+    return list;
   }
 }
