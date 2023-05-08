@@ -5,5 +5,5 @@ import { IsNotEmpty } from 'class-validator';
 export class GetStoresArgs {
   @Field(() => [String])
   @IsNotEmpty()
-  account: string[];
+  accounts: string[];
 }
