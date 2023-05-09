@@ -12,8 +12,6 @@ export class UserService {
   } {
     const decodedToken = this.jwtService.decode(token);
 
-    console.log(decodedToken);
-
     // TODO: REPLACE FAKE DATA WITH DB DATA
     //
     const customer: Customer = {
