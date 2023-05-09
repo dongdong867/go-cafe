@@ -1,17 +1,20 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { CustomerService } from './customer.service';
 import { Customer } from './models/customer.entity';
-import { GetCustomerArgs } from './dto/args/get-customer.args';
 import { CreateCustomerInput } from './dto/inputs/create-customer.input';
 import { UpdateCustomerInput } from './dto/inputs/update-customer.input';
+import { UseGuards } from '@nestjs/common';
+import { UserAuthGuard } from '../user-auth.guard';
+import { CurrentUser } from '../decorator/current-user.decorator';
 
+@UseGuards(UserAuthGuard)
 @Resolver()
 export class CustomerResolver {
   constructor(private readonly customerService: CustomerService) {}
 
   @Query(() => Customer, { name: 'customer' })
-  getCustomer(@Args() getCustomerArgs: GetCustomerArgs): Customer {
-    return this.customerService.getCustomer(getCustomerArgs);
+  getCustomer(@CurrentUser() customer: Customer): Customer {
+    return this.customerService.getCustomer(customer);
   }
 
   @Mutation(() => Customer)
@@ -23,8 +26,9 @@ export class CustomerResolver {
 
   @Mutation(() => Customer)
   updateCustomer(
+    @CurrentUser() customer: Customer,
     @Args('updateCustomerInput') updateCustomerInput: UpdateCustomerInput
   ): Customer {
-    return this.customerService.updateCustomer(updateCustomerInput);
+    return this.customerService.updateCustomer(customer, updateCustomerInput);
   }
 }
