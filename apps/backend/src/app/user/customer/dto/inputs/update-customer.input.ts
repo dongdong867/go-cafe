@@ -3,10 +3,6 @@ import { IsNotEmpty, IsOptional, IsEmail, IsUUID } from 'class-validator';
 
 @InputType()
 export class UpdateCustomerInput {
-  @Field()
-  @IsNotEmpty()
-  account: string;
-
   @Field({ nullable: true })
   @IsOptional()
   name?: string;
@@ -25,9 +21,4 @@ export class UpdateCustomerInput {
   // @Field()
   // @IsOptional()
   // avatar: string
-
-  @Field()
-  @IsUUID()
-  @IsNotEmpty()
-  token: string;
 }
