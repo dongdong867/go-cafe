@@ -10,6 +10,7 @@
     "@nestjs/common": "^9.4.0",
     "@nestjs/core": "^9.4.0",
     "@nestjs/graphql": "^11.0.5",
+    "@nestjs/jwt": "^10.0.3",
     "@nestjs/platform-express": "^9.4.0",
     "@nrwl/next": "16.0.0-beta.0",
     "@prisma/client": "^4.13.0",
