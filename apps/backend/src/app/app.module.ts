@@ -10,6 +10,7 @@ import { FollowingModule } from './following/following.module';
       driver: ApolloDriver,
       autoSchemaFile: 'apps/backend/src/graphql/schema.gql',
       sortSchema: true,
+      context: ({ req }) => ({ header: req.header }),
     }),
     UserModule,
     FollowingModule,
