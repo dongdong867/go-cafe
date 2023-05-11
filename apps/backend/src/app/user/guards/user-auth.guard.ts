@@ -5,7 +5,7 @@ import {
   BadRequestException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { UserService } from './user.service';
+import { UserService } from '../user.service';
 import { Observable } from 'rxjs';
 import { GqlExecutionContext } from '@nestjs/graphql';
 
@@ -19,16 +19,16 @@ export class UserAuthGuard implements CanActivate {
     const req = GqlExecutionContext.create(context).getContext().req;
     const authHeader = req.headers.authorization as string;
 
-    console.log(authHeader);
-
     if (!authHeader) {
       throw new BadRequestException('Authorization header not found.');
     }
 
-    const { isValidate, user } = this.userService.validateToken(authHeader);
+    const { isValidate, user, role } =
+      this.userService.validateToken(authHeader);
 
     if (isValidate) {
       req.user = user;
+      req.role = role;
       return true;
     }
     throw new UnauthorizedException('Token not valid');
