@@ -1,17 +1,13 @@
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { LoginInput } from './dto/input/login.input';
-import { JwtService } from '@nestjs/jwt';
+import { UserService } from './user.service';
 
 @Resolver()
 export class UserResolver {
-  constructor(private readonly jwtService: JwtService) {}
+  constructor(private readonly userService: UserService) {}
+
   @Mutation(() => String)
   login(@Args('loginInput') loginInput: LoginInput): string {
-    const accessToken = this.jwtService.sign({
-      userAccount: loginInput.account,
-      userPassword: loginInput.password,
-    });
-
-    return accessToken;
+    return this.userService.login(loginInput);
   }
 }
