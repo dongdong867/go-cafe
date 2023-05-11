@@ -3,10 +3,6 @@ import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
 export class UpdateStoreInput {
-  @Field()
-  @IsNotEmpty()
-  account: string;
-
   @Field({ nullable: true })
   @IsOptional()
   name: string;
@@ -22,9 +18,4 @@ export class UpdateStoreInput {
   @Field({ nullable: true })
   @IsOptional()
   info: string;
-
-  @Field()
-  @IsNotEmpty()
-  @IsUUID()
-  token: string;
 }
