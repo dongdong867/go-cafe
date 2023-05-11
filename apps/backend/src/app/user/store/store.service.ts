@@ -74,21 +74,10 @@ export class StoreService {
     return store;
   }
 
-  updateStore(updateStoreInput: UpdateStoreInput): Store {
-    if (
-      !this.userService.certifyUser(
-        updateStoreInput.account,
-        updateStoreInput.token
-      )
-    )
-      throw new Error('invalidate user token');
-
-    const store: Store = {
-      name: updateStoreInput.name || 'old name',
-      address: updateStoreInput.address || 'old address',
-      phone: updateStoreInput.phone || 'old phone',
-      info: updateStoreInput.info || 'old info',
-      postCount: 0,
+  updateStore(store: Store, updateStoreInput: UpdateStoreInput): Store {
+    store = {
+      ...store,
+      ...updateStoreInput,
     };
 
     return store;
