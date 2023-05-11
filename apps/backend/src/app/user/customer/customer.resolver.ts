@@ -4,8 +4,8 @@ import { Customer } from './models/customer.entity';
 import { CreateCustomerInput } from './dto/inputs/create-customer.input';
 import { UpdateCustomerInput } from './dto/inputs/update-customer.input';
 import { UseGuards } from '@nestjs/common';
-import { UserAuthGuard } from '../user-auth.guard';
 import { CurrentUser } from '../decorator/current-user.decorator';
+import { UserAuthGuard } from '../guards/user-auth.guard';
 
 @UseGuards(UserAuthGuard)
 @Resolver()
