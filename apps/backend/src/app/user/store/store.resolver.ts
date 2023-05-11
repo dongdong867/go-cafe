@@ -5,7 +5,12 @@ import { GetStoresArgs } from './dto/args/get-stores.args';
 import { CreateStoreInput } from './dto/input/create-store.input';
 import { UpdateStoreInput } from './dto/input/update-store.input';
 import { Store } from './models/store.entity';
+import { UseGuards } from '@nestjs/common';
+import { CurrentUser } from '../decorator/current-user.decorator';
+import { UserAuthGuard } from '../guards/user-auth.guard';
+import { StoreGuard } from '../guards/role.guard';
 
+@UseGuards(UserAuthGuard)
 @Resolver(() => Store)
 export class StoreResolver {
   constructor(private readonly storeService: StoreService) {}
@@ -27,10 +32,12 @@ export class StoreResolver {
     return this.storeService.createStore(createStoreInput);
   }
 
+  @UseGuards(StoreGuard)
   @Mutation(() => Store)
   updateStore(
+    @CurrentUser() store: Store,
     @Args('updateStoreInput') updateStoreInput: UpdateStoreInput
   ): Store {
-    return this.storeService.updateStore(updateStoreInput);
+    return this.storeService.updateStore(store, updateStoreInput);
   }
 }
