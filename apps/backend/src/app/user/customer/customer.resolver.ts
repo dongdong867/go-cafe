@@ -6,12 +6,14 @@ import { UpdateCustomerInput } from './dto/inputs/update-customer.input';
 import { UseGuards } from '@nestjs/common';
 import { CurrentUser } from '../decorator/current-user.decorator';
 import { UserAuthGuard } from '../guards/user-auth.guard';
+import { CustomerGuard } from '../guards/role.guard';
 
 @UseGuards(UserAuthGuard)
 @Resolver()
 export class CustomerResolver {
   constructor(private readonly customerService: CustomerService) {}
 
+  @UseGuards(CustomerGuard)
   @Query(() => Customer, { name: 'customer' })
   getCustomer(@CurrentUser() customer: Customer): Customer {
     return this.customerService.getCustomer(customer);
@@ -24,6 +26,7 @@ export class CustomerResolver {
     return this.customerService.createCustomer(createCustomerInput);
   }
 
+  @UseGuards(CustomerGuard)
   @Mutation(() => Customer)
   updateCustomer(
     @CurrentUser() customer: Customer,
