@@ -5,13 +5,5 @@ import { IsNotEmpty } from 'class-validator';
 export class FollowInput {
   @Field()
   @IsNotEmpty()
-  account: string;
-
-  @Field()
-  @IsNotEmpty()
   storeAccount: string;
-
-  @Field()
-  @IsNotEmpty()
-  token: string;
 }
