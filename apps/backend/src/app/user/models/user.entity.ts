@@ -4,6 +4,9 @@ import { IsUUID } from 'class-validator';
 @ObjectType()
 export class User {
   @Field()
+  account: string;
+
+  @Field()
   name: string;
 
   @Field()
