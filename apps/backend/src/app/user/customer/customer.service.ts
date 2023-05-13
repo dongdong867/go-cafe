@@ -13,9 +13,9 @@ export class CustomerService {
   }
 
   createCustomer(createCustomerInput: CreateCustomerInput): Customer {
-    const account = createCustomerInput.account;
     const password = createCustomerInput.password;
     const customer: Customer = {
+      account: createCustomerInput.account,
       name: createCustomerInput.name,
       phone: createCustomerInput.phone,
       email: createCustomerInput.email,
@@ -25,7 +25,6 @@ export class CustomerService {
     };
 
     console.log({
-      account: account,
       password: password,
       ...customer,
     });
