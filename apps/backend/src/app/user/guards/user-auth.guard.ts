@@ -23,10 +23,11 @@ export class UserAuthGuard implements CanActivate {
       throw new BadRequestException('Authorization header not found.');
     }
 
-    const { isValidate, user, role } =
+    const { isValidate, id, user, role } =
       this.userService.validateToken(authHeader);
 
     if (isValidate) {
+      req.id = id;
       req.user = user;
       req.role = role;
       return true;
