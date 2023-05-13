@@ -12,8 +12,8 @@ export class StoreService {
   constructor(private readonly userService: UserService) {}
 
   getStore(getStoreArgs: GetStoreArgs): Store {
-    const account: string = getStoreArgs.account;
     const store: Store = {
+      account: getStoreArgs.account,
       name: 'get store name',
       address: 'get store address',
       phone: '0912345678',
@@ -21,10 +21,7 @@ export class StoreService {
       postCount: 0,
     };
 
-    console.log({
-      account: account,
-      ...store,
-    });
+    console.log(store);
 
     return store;
   }
@@ -33,8 +30,8 @@ export class StoreService {
     let n = 0;
     const list: Store[] = [];
     getStoresArgs.accounts.forEach((storeAccount) => {
-      const account: string = storeAccount;
       const store: Store = {
+        account: storeAccount,
         name: 'get store name' + n,
         address: 'get store address' + n,
         phone: '0912345678' + n,
@@ -44,10 +41,7 @@ export class StoreService {
 
       list.push(store);
 
-      console.log({
-        account: account,
-        ...store,
-      });
+      console.log(store);
 
       n++;
     });
@@ -55,9 +49,9 @@ export class StoreService {
   }
 
   createStore(createStoreInput: CreateStoreInput): Store {
-    const account: string = createStoreInput.account;
     const password: string = createStoreInput.password;
     const store: Store = {
+      account: createStoreInput.account,
       name: createStoreInput.name,
       address: createStoreInput.address,
       phone: createStoreInput.phone,
@@ -66,7 +60,6 @@ export class StoreService {
     };
 
     console.log({
-      account: account,
       password: password,
       ...store,
     });
