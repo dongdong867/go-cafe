@@ -4,6 +4,8 @@ import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 import { UserModule } from './user/user.module';
 import { FollowingModule } from './following/following.module';
 import { MenuModule } from './menu/menu.module';
+import { PostModule } from './post/post.module';
+import { RatingModule } from './rating/rating.module';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { MenuModule } from './menu/menu.module';
     UserModule,
     FollowingModule,
     MenuModule,
+    PostModule,
+    RatingModule,
   ],
   controllers: [],
   providers: [],
