@@ -3,8 +3,10 @@ import { Customer } from './customer/models/customer.entity';
 import { Store } from './store/models/store.entity';
 import { JwtService } from '@nestjs/jwt';
 import { LoginInput } from './dto/input/login.input';
+import { v4 as uuidv4 } from 'uuid';
 
 type PayloadType = {
+  id: string;
   account: string;
   role: string;
   iat: number;
@@ -21,7 +23,7 @@ export class UserService {
     else throw new BadRequestException('Login Failed');
 
     const token = this.jwtService.sign({
-      account: loginInput.account,
+      id: uuidv4(),
       role: role,
     });
 
@@ -30,6 +32,7 @@ export class UserService {
 
   validateToken(token: string): {
     isValidate: boolean;
+    id: string;
     user: Customer | Store;
     role: string;
   } {
@@ -39,6 +42,7 @@ export class UserService {
       // TODO: REPLACE FAKE DATA WITH DB DATA
       //
       const user: Customer = {
+        account: 'test customer account',
         name: 'test customer',
         phone: '0912345678',
         postCount: 0,
@@ -46,16 +50,27 @@ export class UserService {
         email: 'customer@example.com',
         following: [],
       };
-      return { isValidate: true, user: user, role: 'customer' };
+      return {
+        isValidate: true,
+        id: decodedToken.id,
+        user: user,
+        role: 'customer',
+      };
     } else if (decodedToken.role === 'store') {
       const user: Store = {
+        account: 'test store account',
         address: 'store address',
         info: 'store info',
         name: 'test store',
         phone: '0912345678',
         postCount: 0,
       };
-      return { isValidate: true, user: user, role: 'store' };
+      return {
+        isValidate: true,
+        id: decodedToken.id,
+        user: user,
+        role: 'store',
+      };
     }
   }
 }
