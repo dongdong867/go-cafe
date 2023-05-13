@@ -3,6 +3,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 import { UserModule } from './user/user.module';
 import { FollowingModule } from './following/following.module';
+import { MenuModule } from './menu/menu.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { FollowingModule } from './following/following.module';
     }),
     UserModule,
     FollowingModule,
+    MenuModule,
   ],
   controllers: [],
   providers: [],
