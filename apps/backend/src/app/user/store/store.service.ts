@@ -1,15 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { UserService } from '../user.service';
 import { GetStoreArgs } from './dto/args/get-store.args';
-
 import { GetStoresArgs } from './dto/args/get-stores.args';
 import { CreateStoreInput } from './dto/input/create-store.input';
 import { UpdateStoreInput } from './dto/input/update-store.input';
 import { Store } from './models/store.entity';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class StoreService {
   constructor(private readonly userService: UserService) {}
+
+  getStoreIdByAccount(storeAccount: string): string {
+    return uuidv4();
+  }
 
   getStore(getStoreArgs: GetStoreArgs): Store {
     const store: Store = {
