@@ -6,6 +6,7 @@ import { FollowingModule } from './following/following.module';
 import { MenuModule } from './menu/menu.module';
 import { PostModule } from './post/post.module';
 import { RatingModule } from './rating/rating.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { RatingModule } from './rating/rating.module';
     MenuModule,
     PostModule,
     RatingModule,
+    OrderModule,
   ],
   controllers: [],
   providers: [],
