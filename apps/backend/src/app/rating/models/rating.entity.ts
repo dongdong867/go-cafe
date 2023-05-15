@@ -1,16 +1,16 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, Float } from '@nestjs/graphql';
 
 @ObjectType()
 export class Rating {
-  @Field(() => Int)
+  @Field(() => Float)
   general: number;
 
-  @Field(() => Int)
+  @Field(() => Float)
   environment: number;
 
-  @Field(() => Int)
+  @Field(() => Float)
   meals: number;
 
-  @Field(() => Int)
+  @Field(() => Float)
   attitude: number;
 }
