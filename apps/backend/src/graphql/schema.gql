@@ -1,0 +1,212 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Category {
+  dishes: [Dish!]!
+  name: String!
+}
+
+input CategoryInput {
+  dishes: [DishInput!]!
+  name: String!
+}
+
+input CreateCustomerInput {
+  account: String!
+  email: String!
+  name: String!
+  password: String!
+  phone: String!
+}
+
+input CreateOrderInput {
+  dishes: [OrderDishInput!]!
+  storeAccount: String!
+  tableNumber: String!
+  totalPrice: Int!
+}
+
+input CreateStoreInput {
+  account: String!
+  address: String!
+  info: String
+  name: String!
+  password: String!
+  phone: String!
+}
+
+input CreateStorePostInput {
+  body: String!
+  title: String!
+}
+
+input CreateUserPostInput {
+  body: String!
+  rating: PostRatingInput!
+  storeAccount: String!
+}
+
+type Customer {
+  account: String!
+  email: String!
+  followCount: Int!
+  following: [Store]!
+  name: String!
+  phone: String!
+  postCount: Int!
+}
+
+input DeleteStorePostInput {
+  id: String!
+}
+
+input DeleteUserPostInput {
+  postId: String!
+}
+
+type Dish {
+  name: String!
+  price: Int!
+}
+
+input DishInput {
+  name: String!
+  price: Int!
+}
+
+input FinishOrderInput {
+  id: String!
+}
+
+input FollowInput {
+  storeAccount: String!
+}
+
+input LoginInput {
+  account: String!
+  password: String!
+}
+
+type Menu {
+  categories: [Category!]!
+}
+
+input MenuInput {
+  categories: [CategoryInput!]!
+}
+
+type Mutation {
+  createCustomer(createCustomerInput: CreateCustomerInput!): Customer!
+  createMenu(createMenuInput: MenuInput!): Menu!
+  createOrder(createOrderInput: CreateOrderInput!): Order!
+  createStore(createStoreInput: CreateStoreInput!): Store!
+  createStorePost(createStorePostInput: CreateStorePostInput!): StorePost!
+  createUserPost(createUserPostInput: CreateUserPostInput!): UserPost!
+  deleteStorePost(deleteStorePostInput: DeleteStorePostInput!): String!
+  deleteUserPost(deleteUserPostInput: DeleteUserPostInput!): String!
+  finishOrder(finishOrderInput: FinishOrderInput!): String!
+  follow(followInput: FollowInput!): String!
+  login(loginInput: LoginInput!): String!
+  unfollow(unfollowInput: FollowInput!): String!
+  updateCustomer(updateCustomerInput: UpdateCustomerInput!): Customer!
+  updateMenu(updateMenuInput: MenuInput!): Menu!
+  updateStore(updateStoreInput: UpdateStoreInput!): Store!
+  updateStorePost(updateStorePostInput: UpdateStorePostInput!): StorePost!
+  updateUserPost(updateUserPostUInput: UpdateUserPostInput!): UserPost!
+}
+
+type Order {
+  customerAccount: String!
+  dishes: [OrderDish!]!
+  finished: Boolean!
+  id: String!
+  tableNumber: String!
+  totalPrice: Int!
+}
+
+type OrderDish {
+  count: Int!
+  name: String!
+  price: Int!
+}
+
+input OrderDishInput {
+  count: Int!
+  name: String!
+  price: Int!
+}
+
+input PostRatingInput {
+  attitude: Int!
+  environment: Int!
+  general: Int!
+  meals: Int!
+}
+
+type Query {
+  customer: Customer!
+  menu(storeAccount: String!): Menu!
+  store(account: String!): Store!
+  storePost(storeAccount: String!): [StorePost]!
+  stores(accounts: [String!]!): [Store!]!
+  unfinishedOrder: [Order!]!
+  userPost: [UserPost]!
+}
+
+type Rating {
+  attitude: Float!
+  environment: Float!
+  general: Float!
+  meals: Float!
+}
+
+type Store {
+  account: String!
+  address: String!
+  info: String!
+  name: String!
+  phone: String!
+  postCount: Int!
+}
+
+type StorePost {
+  body: String!
+  id: String!
+  storeAccount: String!
+  title: String!
+}
+
+input UpdateCustomerInput {
+  email: String
+  name: String
+  phone: String
+}
+
+input UpdateStoreInput {
+  address: String
+  info: String
+  name: String
+  phone: String
+}
+
+input UpdateStorePostInput {
+  body: String!
+  id: String!
+  title: String!
+}
+
+input UpdateUserPostInput {
+  body: String!
+  id: String!
+  rating: PostRatingInput!
+  storeAccount: String!
+}
+
+type UserPost {
+  body: String!
+  id: String!
+  rating: Rating!
+  storeAccount: String!
+  userAccount: String!
+}
