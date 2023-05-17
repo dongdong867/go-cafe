@@ -110,7 +110,7 @@ type Mutation {
   follow(followInput: FollowInput!): String!
   login(loginInput: LoginInput!): String!
   unfollow(unfollowInput: FollowInput!): String!
-  updateCustomer(updateCustomerInput: UpdateCustomerInput!): Customer!
+  updateCustomer(updateCustomerInput: UpdateCustomerInput!): String!
   updateMenu(updateMenuInput: MenuInput!): Menu!
   updateStore(updateStoreInput: UpdateStoreInput!): Store!
   updateStorePost(updateStorePostInput: UpdateStorePostInput!): StorePost!
