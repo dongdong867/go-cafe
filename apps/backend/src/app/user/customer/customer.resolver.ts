@@ -19,11 +19,11 @@ export class CustomerResolver {
     return this.customerService.getCustomer(customer);
   }
 
-  @Mutation(() => Customer)
-  createCustomer(
+  @Mutation(() => String)
+  async createCustomer(
     @Args('createCustomerInput') createCustomerInput: CreateCustomerInput
-  ): Customer {
-    return this.customerService.createCustomer(createCustomerInput);
+  ): Promise<string> {
+    return await this.customerService.createCustomer(createCustomerInput);
   }
 
   @UseGuards(CustomerGuard)
