@@ -14,6 +14,7 @@ input CategoryInput {
 
 input CreateCustomerInput {
   account: String!
+  avatar: String!
   email: String!
   name: String!
   password: String!
@@ -97,7 +98,7 @@ input MenuInput {
 }
 
 type Mutation {
-  createCustomer(createCustomerInput: CreateCustomerInput!): Customer!
+  createCustomer(createCustomerInput: CreateCustomerInput!): String!
   createMenu(createMenuInput: MenuInput!): Menu!
   createOrder(createOrderInput: CreateOrderInput!): Order!
   createStore(createStoreInput: CreateStoreInput!): Store!
