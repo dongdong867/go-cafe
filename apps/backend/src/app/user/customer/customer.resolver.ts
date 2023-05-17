@@ -7,6 +7,7 @@ import { UseGuards } from '@nestjs/common';
 import { CurrentUser } from '../decorator/current-user.decorator';
 import { UserAuthGuard } from '../guards/user-auth.guard';
 import { CustomerGuard } from '../guards/role.guard';
+import { CurrentId } from '../decorator/current-id.decorator';
 
 @UseGuards(UserAuthGuard)
 @Resolver()
@@ -27,11 +28,11 @@ export class CustomerResolver {
   }
 
   @UseGuards(CustomerGuard)
-  @Mutation(() => Customer)
+  @Mutation(() => String)
   updateCustomer(
-    @CurrentUser() customer: Customer,
+    @CurrentId() currentId: string,
     @Args('updateCustomerInput') updateCustomerInput: UpdateCustomerInput
-  ): Customer {
-    return this.customerService.updateCustomer(customer, updateCustomerInput);
+  ): Promise<string> {
+    return this.customerService.updateCustomer(currentId, updateCustomerInput);
   }
 }
