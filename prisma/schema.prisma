@@ -1,0 +1,125 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("CLOUD_SQL_URL")
+}
+
+model User {
+  Customer Customer?
+  Store    Store?
+  avatar   Picture   @relation(fields: [avatarId], references: [id])
+  Post     Post[]
+
+  id        String   @id @default(uuid()) @db.VarChar(36)
+  account   String   @unique @db.VarChar(30)
+  password  String   @db.TinyText
+  name      String   @db.VarChar(30)
+  phone     String   @unique @db.Char(10)
+  avatarId  String   @unique @map("avatar_id") @db.VarChar(36)
+  postCount Int      @default(0) @map("post_count") @db.Int
+  createAt  DateTime @map("craete_at") @db.Timestamp()
+}
+
+model Customer {
+  User      User        @relation(fields: [userId], references: [id])
+  Following Following[]
+
+  id             String @id @default(uuid()) @db.VarChar(36)
+  userId         String @unique @map("user_id") @db.VarChar(36)
+  email          String @db.VarChar(30)
+  followingCount Int    @map("following_count") @db.Int
+}
+
+model Store {
+  User         User          @relation(fields: [userId], references: [id])
+  StoreRating  StoreRating?
+  CustomerPost CustomerPost?
+  Following    Following[]
+
+  id      String @id @default(uuid()) @db.VarChar(36)
+  userId  String @unique @map("user_id") @db.VarChar(36)
+  address String @db.VarChar(50)
+  info    String @db.TinyText
+}
+
+model Following {
+  Customer Customer @relation(fields: [customerId], references: [id])
+  Store    Store    @relation(fields: [storeId], references: [id])
+
+  customerId String @unique @map("customer_id") @db.VarChar(36)
+  storeId    String @unique @map("store_id") @db.VarChar(36)
+}
+
+model Rating {
+  UserPost    CustomerPost?
+  StoreRating StoreRating?
+
+  id          String @id @default(uuid()) @db.VarChar(36)
+  general     Float  @default(0) @db.Float
+  environment Float  @default(0) @db.Float
+  meals       Float  @default(0) @db.Float
+  attitude    Float  @default(0) @db.Float
+}
+
+model StoreRating {
+  Store  Store  @relation(fields: [storeId], references: [id])
+  Rating Rating @relation(fields: [ratingId], references: [id])
+
+  storeId   String @unique @map("store_id") @db.VarChar(36)
+  ratingId  String @unique @map("rating_id") @db.VarChar(36)
+  postCount Int    @default(0) @map("post_count") @db.Int
+}
+
+model Picture {
+  PostPicture PostPicture[]
+  User        User?
+
+  id   String @id @default(uuid()) @db.VarChar(36)
+  data String
+}
+
+model PostPicture {
+  Post    Post    @relation(fields: [postId], references: [id])
+  Picture Picture @relation(fields: [pictureId], references: [id])
+
+  postId    String @unique @map("post_id") @db.VarChar(36)
+  pictureId String @unique @map("picture_id") @db.VarChar(36)
+}
+
+model Post {
+  User         User          @relation(fields: [userId], references: [id])
+  CustomerPost CustomerPost?
+  StorePost    StorePost?
+  PostPicture  PostPicture[]
+
+  id       String   @id @default(uuid()) @db.VarChar(36)
+  userId   String   @map("user_id") @db.VarChar(36)
+  body     String   @db.Text
+  postAt   DateTime @map("post_at") @db.Timestamp()
+  updateAt DateTime @updatedAt @map("update_at") @db.Timestamp()
+}
+
+model CustomerPost {
+  Post   Post   @relation(fields: [postId], references: [id])
+  Rating Rating @relation(fields: [ratingId], references: [id])
+  Store  Store  @relation(fields: [storeId], references: [id])
+
+  id       String @id @default(uuid()) @db.VarChar(36)
+  postId   String @unique @map("post_id") @db.VarChar(36)
+  ratingId String @unique @map("rating_id") @db.VarChar(36)
+  storeId  String @unique @map("store_id") @db.VarChar(36)
+}
+
+model StorePost {
+  Post Post @relation(fields: [postId], references: [id])
+
+  id     String @id @default(uuid()) @db.VarChar(36)
+  postId String @unique @map("post_id") @db.VarChar(36)
+  title  String @db.VarChar(20)
+}
