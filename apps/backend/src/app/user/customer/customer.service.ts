@@ -45,15 +45,32 @@ export class CustomerService {
     return 'customer create successfully';
   }
 
-  updateCustomer(
-    customer: Customer,
+  async updateCustomer(
+    currentId: string,
     updateCustomerInput: UpdateCustomerInput
-  ): Customer {
-    customer = {
-      ...customer,
-      ...updateCustomerInput,
-    };
+  ): Promise<string> {
+    await this.prisma.customer
+      .update({
+        where: {
+          id: currentId,
+        },
+        data: {
+          User: {
+            update: {
+              name: updateCustomerInput.name,
+              phone: updateCustomerInput.phone,
+            },
+          },
+          email: updateCustomerInput.email,
+        },
+      })
+      .catch((err) => {
+        throw new InternalServerErrorException(
+          err,
+          'failed on updating customer account'
+        );
+      });
 
-    return customer;
+    return 'customer update successfully';
   }
 }
