@@ -1,35 +1,48 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { Customer } from './models/customer.entity';
 import { UserService } from '../user.service';
 import { CreateCustomerInput } from './dto/inputs/create-customer.input';
 import { UpdateCustomerInput } from './dto/inputs/update-customer.input';
+import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class CustomerService {
-  constructor(private userService: UserService) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   getCustomer(customer: Customer): Customer {
     return customer;
   }
 
-  createCustomer(createCustomerInput: CreateCustomerInput): Customer {
-    const password = createCustomerInput.password;
-    const customer: Customer = {
-      account: createCustomerInput.account,
-      name: createCustomerInput.name,
-      phone: createCustomerInput.phone,
-      email: createCustomerInput.email,
-      followCount: 0,
-      postCount: 0,
-      following: [],
-    };
+  async createCustomer(
+    createCustomerInput: CreateCustomerInput
+  ): Promise<string> {
+    await this.prisma.customer
+      .create({
+        data: {
+          User: {
+            create: {
+              account: createCustomerInput.account,
+              password: createCustomerInput.password,
+              name: createCustomerInput.name,
+              phone: createCustomerInput.phone,
+              Avatar: {
+                create: {
+                  data: 'test picture',
+                },
+              },
+            },
+          },
+          email: createCustomerInput.email,
+        },
+      })
+      .catch((err) => {
+        throw new InternalServerErrorException(
+          err,
+          'failed on creating customer account'
+        );
+      });
 
-    console.log({
-      password: password,
-      ...customer,
-    });
-
-    return customer;
+    return 'customer create successfully';
   }
 
   updateCustomer(
