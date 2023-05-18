@@ -9,7 +9,30 @@ import { PrismaService } from '../../prisma/prisma.service';
 export class CustomerService {
   constructor(private readonly prisma: PrismaService) {}
 
-  getCustomer(customer: Customer): Customer {
+  async getCustomer(currentId: string): Promise<Customer> {
+    const customer: Customer = await this.prisma.customer.findUnique({
+      where: {
+        id: currentId,
+      },
+      select: {
+        User: {
+          select: {
+            account: true,
+            name: true,
+            phone: true,
+            postCount: true,
+            Avatar: {
+              select: {
+                data: true,
+              },
+            },
+          },
+        },
+        email: true,
+        followingCount: true,
+      },
+    });
+
     return customer;
   }
 
