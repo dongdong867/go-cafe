@@ -10,4 +10,7 @@ export class UpdateCustomerInput {
 
   @Field({ nullable: true })
   email?: string;
+
+  @Field({ nullable: true })
+  avatar?: string;
 }
