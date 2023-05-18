@@ -18,7 +18,7 @@ export class StoreService {
     const data = await this.prisma.store
       .findFirstOrThrow({
         where: {
-          User: {
+          user: {
             account: storeAccount,
           },
         },
@@ -39,13 +39,13 @@ export class StoreService {
         id: id,
       },
       select: {
-        User: {
+        user: {
           select: {
             account: true,
             name: true,
             phone: true,
             postCount: true,
-            Avatar: {
+            avatar: {
               select: {
                 data: true,
               },
@@ -54,9 +54,9 @@ export class StoreService {
         },
         address: true,
         info: true,
-        StoreRating: {
+        storeRating: {
           select: {
-            Rating: {
+            rating: {
               select: {
                 general: true,
                 environment: true,
@@ -89,13 +89,13 @@ export class StoreService {
     await this.prisma.store
       .create({
         data: {
-          User: {
+          user: {
             create: {
               account: createStoreInput.account,
               password: createStoreInput.password,
               name: createStoreInput.name,
               phone: createStoreInput.phone,
-              Avatar: {
+              avatar: {
                 create: {
                   data: createStoreInput.avatar,
                 },
@@ -104,9 +104,9 @@ export class StoreService {
           },
           address: createStoreInput.address,
           info: createStoreInput.info,
-          StoreRating: {
+          storeRating: {
             create: {
-              Rating: {
+              rating: {
                 create: {},
               },
             },
@@ -133,11 +133,11 @@ export class StoreService {
           id: currentId,
         },
         data: {
-          User: {
+          user: {
             update: {
               name: updateStoreInput.name,
               phone: updateStoreInput.phone,
-              Avatar: {
+              avatar: {
                 update: {
                   data: updateStoreInput.avatar,
                 },
