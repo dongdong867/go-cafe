@@ -12,7 +12,7 @@ export class FollowingService {
   ) {}
 
   async follow(currentId: string, followInput: FollowInput): Promise<string> {
-    this.prisma.following
+    await this.prisma.following
       .create({
         data: {
           customerId: currentId,
@@ -28,9 +28,25 @@ export class FollowingService {
     return 'Followed successfully';
   }
 
-  unfollow(user: Customer, unfollowInput: FollowInput): string {
-    console.log('current user: ' + user.user.name);
-    console.log('unfollowed store account: ' + unfollowInput.storeAccount);
-    return 'Unfollowed successfully';
+  async unfollow(
+    currentId: string,
+    unfollowInput: FollowInput
+  ): Promise<string> {
+    await this.prisma.following
+      .delete({
+        where: {
+          customerId_storeId: {
+            customerId: currentId,
+            storeId: await this.storeService.getStoreIdByAccount(
+              unfollowInput.storeAccount
+            ),
+          },
+        },
+      })
+      .catch((err) => {
+        throw new ForbiddenException(err, 'failed to unfollow store');
+      });
+
+    return 'unfollowed successfully';
   }
 }
