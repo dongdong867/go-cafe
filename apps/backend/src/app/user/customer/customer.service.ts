@@ -1,6 +1,5 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { Customer } from './models/customer.entity';
-import { UserService } from '../user.service';
 import { CreateCustomerInput } from './dto/inputs/create-customer.input';
 import { UpdateCustomerInput } from './dto/inputs/update-customer.input';
 import { PrismaService } from '../../prisma/prisma.service';
@@ -15,13 +14,13 @@ export class CustomerService {
         id: currentId,
       },
       select: {
-        User: {
+        user: {
           select: {
             account: true,
             name: true,
             phone: true,
             postCount: true,
-            Avatar: {
+            avatar: {
               select: {
                 data: true,
               },
@@ -42,13 +41,13 @@ export class CustomerService {
     await this.prisma.customer
       .create({
         data: {
-          User: {
+          user: {
             create: {
               account: createCustomerInput.account,
               password: createCustomerInput.password,
               name: createCustomerInput.name,
               phone: createCustomerInput.phone,
-              Avatar: {
+              avatar: {
                 create: {
                   data: 'test picture',
                 },
@@ -78,10 +77,15 @@ export class CustomerService {
           id: currentId,
         },
         data: {
-          User: {
+          user: {
             update: {
               name: updateCustomerInput.name,
               phone: updateCustomerInput.phone,
+              avatar: {
+                update: {
+                  data: updateCustomerInput.avatar,
+                },
+              },
             },
           },
           email: updateCustomerInput.email,
