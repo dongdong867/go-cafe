@@ -7,7 +7,7 @@ export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
   @Mutation(() => String)
-  login(@Args('loginInput') loginInput: LoginInput): string {
-    return this.userService.login(loginInput);
+  async login(@Args('loginInput') loginInput: LoginInput): Promise<string> {
+    return await this.userService.login(loginInput);
   }
 }
