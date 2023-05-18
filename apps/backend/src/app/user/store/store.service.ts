@@ -1,31 +1,87 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { UserService } from '../user.service';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { GetStoreArgs } from './dto/args/get-store.args';
 import { GetStoresArgs } from './dto/args/get-stores.args';
 import { CreateStoreInput } from './dto/input/create-store.input';
 import { UpdateStoreInput } from './dto/input/update-store.input';
 import { Store } from './models/store.entity';
-import { v4 as uuidv4 } from 'uuid';
 import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class StoreService {
   constructor(private readonly prisma: PrismaService) {}
 
-  getStoreIdByAccount(storeAccount: string): string {
-    return uuidv4();
+  async getStoreIdByAccount(storeAccount: string): Promise<string> {
+    const data = await this.prisma.store
+      .findFirstOrThrow({
+        where: {
+          User: {
+            account: storeAccount,
+          },
+        },
+        select: {
+          id: true,
+        },
+      })
+      .catch((err) => {
+        throw new NotFoundException(err, 'store not found');
+      });
+    return data.id;
   }
 
-  getStore(getStoreArgs: GetStoreArgs): Store {
-    return null;
-  }
-
-  getStores(getStoresArgs: GetStoresArgs): Store[] {
-    let n = 0;
-    const list: Store[] = [];
-    getStoresArgs.accounts.forEach((storeAccount) => {
-      n++;
+  async getStore(getStoreArgs: GetStoreArgs): Promise<Store> {
+    const id = await this.getStoreIdByAccount(getStoreArgs.account);
+    const store = await this.prisma.store.findUniqueOrThrow({
+      where: {
+        id: id,
+      },
+      select: {
+        User: {
+          select: {
+            account: true,
+            name: true,
+            phone: true,
+            postCount: true,
+            Avatar: {
+              select: {
+                data: true,
+              },
+            },
+          },
+        },
+        address: true,
+        info: true,
+        StoreRating: {
+          select: {
+            Rating: {
+              select: {
+                general: true,
+                environment: true,
+                meals: true,
+                attitude: true,
+              },
+            },
+            postCount: true,
+          },
+        },
+      },
     });
+    return store;
+  }
+
+  async getStores(getStoresArgs: GetStoresArgs): Promise<Store[]> {
+    const list: Store[] = [];
+
+    for (let i = 0; i < getStoresArgs.accounts.length; i++) {
+      const store = await this.getStore({
+        account: getStoresArgs.accounts.at(i),
+      });
+      list.push(store);
+    }
+
     return list;
   }
 
@@ -48,6 +104,13 @@ export class StoreService {
           },
           address: createStoreInput.address,
           info: createStoreInput.info,
+          StoreRating: {
+            create: {
+              Rating: {
+                create: {},
+              },
+            },
+          },
         },
       })
       .catch((err) => {
