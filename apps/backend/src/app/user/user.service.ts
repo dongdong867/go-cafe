@@ -22,7 +22,7 @@ export class UserService {
     let role = '';
     let data = await this.prisma.customer.findFirst({
       where: {
-        User: {
+        user: {
           account: loginInput.account,
           password: loginInput.password,
         },
@@ -36,7 +36,7 @@ export class UserService {
       data = await this.prisma.store
         .findFirstOrThrow({
           where: {
-            User: {
+            user: {
               account: loginInput.account,
               password: loginInput.password,
             },
