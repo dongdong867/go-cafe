@@ -5,7 +5,7 @@ import { Store } from '../../store/models/store.entity';
 @ObjectType()
 export class Customer {
   @Field(() => User)
-  User: User;
+  user: User;
 
   @Field()
   email: string;
