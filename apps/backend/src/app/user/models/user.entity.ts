@@ -1,5 +1,5 @@
-import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
-import { IsUUID } from 'class-validator';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { Avatar } from './avatar.entity';
 
 @ObjectType()
 export class User {
@@ -15,15 +15,6 @@ export class User {
   @Field(() => Int)
   postCount: number;
 
-  // TODO: FEATURE WAITING
-  //
-  // @Field()
-  // avatarId: string
-}
-
-@ObjectType()
-export class Token {
-  @Field(() => ID)
-  @IsUUID()
-  token: string;
+  @Field(() => Avatar)
+  Avatar: Avatar;
 }
