@@ -123,12 +123,38 @@ export class StoreService {
     return 'store create successfully';
   }
 
-  updateStore(store: Store, updateStoreInput: UpdateStoreInput): Store {
-    store = {
-      ...store,
-      ...updateStoreInput,
-    };
+  async updateStore(
+    currentId: string,
+    updateStoreInput: UpdateStoreInput
+  ): Promise<string> {
+    await this.prisma.store
+      .update({
+        where: {
+          id: currentId,
+        },
+        data: {
+          User: {
+            update: {
+              name: updateStoreInput.name,
+              phone: updateStoreInput.phone,
+              Avatar: {
+                update: {
+                  data: updateStoreInput.avatar,
+                },
+              },
+            },
+          },
+          address: updateStoreInput.address,
+          info: updateStoreInput.info,
+        },
+      })
+      .catch((err) => {
+        throw new InternalServerErrorException(
+          err,
+          'failed when updating store account'
+        );
+      });
 
-    return store;
+    return 'store account updated successfully';
   }
 }
