@@ -16,5 +16,5 @@ export class User {
   postCount: number;
 
   @Field(() => Avatar)
-  Avatar: Avatar;
+  avatar: Avatar;
 }
