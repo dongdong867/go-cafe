@@ -79,19 +79,16 @@ CREATE TABLE `PostPicture` (
     `picture_id` VARCHAR(36) NOT NULL,
     `post_id` VARCHAR(36) NOT NULL,
 
-    UNIQUE INDEX `PostPicture_picture_id_key`(`picture_id`),
-    UNIQUE INDEX `PostPicture_post_id_key`(`post_id`)
+    UNIQUE INDEX `PostPicture_picture_id_post_id_key`(`picture_id`, `post_id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `Post` (
     `id` VARCHAR(36) NOT NULL,
-    `user_id` VARCHAR(36) NOT NULL,
     `body` TEXT NOT NULL,
     `post_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `update_at` DATETIME(3) NOT NULL,
 
-    INDEX `Post_user_id_fkey`(`user_id`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -100,6 +97,7 @@ CREATE TABLE `CustomerPost` (
     `id` VARCHAR(36) NOT NULL,
     `post_id` VARCHAR(36) NOT NULL,
     `rating_id` VARCHAR(36) NOT NULL,
+    `customerId` VARCHAR(36) NOT NULL,
     `store_id` VARCHAR(36) NOT NULL,
 
     UNIQUE INDEX `CustomerPost_post_id_key`(`post_id`),
@@ -113,6 +111,7 @@ CREATE TABLE `StorePost` (
     `id` VARCHAR(36) NOT NULL,
     `title` VARCHAR(20) NOT NULL,
     `post_id` VARCHAR(36) NOT NULL,
+    `storeId` VARCHAR(36) NOT NULL,
 
     UNIQUE INDEX `StorePost_post_id_key`(`post_id`),
     PRIMARY KEY (`id`)
@@ -146,9 +145,6 @@ ALTER TABLE `PostPicture` ADD CONSTRAINT `PostPicture_picture_id_fkey` FOREIGN K
 ALTER TABLE `PostPicture` ADD CONSTRAINT `PostPicture_post_id_fkey` FOREIGN KEY (`post_id`) REFERENCES `Post`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Post` ADD CONSTRAINT `Post_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE `CustomerPost` ADD CONSTRAINT `CustomerPost_post_id_fkey` FOREIGN KEY (`post_id`) REFERENCES `Post`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -158,4 +154,10 @@ ALTER TABLE `CustomerPost` ADD CONSTRAINT `CustomerPost_rating_id_fkey` FOREIGN 
 ALTER TABLE `CustomerPost` ADD CONSTRAINT `CustomerPost_store_id_fkey` FOREIGN KEY (`store_id`) REFERENCES `Store`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE `CustomerPost` ADD CONSTRAINT `CustomerPost_customerId_fkey` FOREIGN KEY (`customerId`) REFERENCES `Customer`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE `StorePost` ADD CONSTRAINT `StorePost_post_id_fkey` FOREIGN KEY (`post_id`) REFERENCES `Post`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `StorePost` ADD CONSTRAINT `StorePost_storeId_fkey` FOREIGN KEY (`storeId`) REFERENCES `Store`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
