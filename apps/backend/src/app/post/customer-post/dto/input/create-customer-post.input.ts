@@ -16,17 +16,15 @@ class PostRatingInput {
 }
 
 @InputType()
-export class CreateUserPostInput {
+export class CreateCustomerPostInput {
   @Field()
   storeAccount: string;
 
   @Field()
   body: string;
 
-  // TODO: FEATURE WAITING
-  //
-  // @Field(() => [Picture])
-  // pictures: Picture[]
+  @Field(() => [String])
+  pictures: string[];
 
   @Field(() => PostRatingInput)
   rating: PostRatingInput;
