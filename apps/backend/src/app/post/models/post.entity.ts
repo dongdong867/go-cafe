@@ -7,5 +7,5 @@ export class Post {
   body: string;
 
   @Field(() => [PostPicture])
-  postPicture: PostPicture;
+  postPicture: PostPicture[];
 }
