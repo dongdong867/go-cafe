@@ -1,12 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { CustomerPost } from './models/customer-post.entity';
 import { PrismaService } from '../../prisma/prisma.service';
+import { StoreService } from '../../user/store/store.service';
+import { CreateCustomerPostInput } from './dto/input/create-customer-post.input';
 
 @Injectable()
 export class CustomerPostService {
   constructor(
     // private readonly ratingService: RatingService,
-    // private readonly storeService: StoreService
+    private readonly storeService: StoreService,
     private readonly prisma: PrismaService
   ) {}
 
@@ -79,23 +81,47 @@ export class CustomerPostService {
     return data.customerPost;
   }
 
-  // createUserPost(
-  //   currentUser: Customer,
-  //   createUserPostInput: CreateUserPostInput
-  // ): UserPost {
-  //   const post: UserPost = {
-  //     id: uuidv4(),
-  //     userAccount: ,
-  //     ...createUserPostInput,
-  //   };
+  async createCustomerPost(
+    currentId: string,
+    createUserPostInput: CreateCustomerPostInput
+  ): Promise<string> {
+    await this.prisma.customerPost.create({
+      data: {
+        post: {
+          create: {
+            body: createUserPostInput.body,
+            postPicture: {
+              create: createUserPostInput.pictures.map((picture) => ({
+                picture: { create: { data: picture } },
+              })),
+            },
+          },
+        },
+        rating: {
+          create: {
+            general: createUserPostInput.rating.general,
+            environment: createUserPostInput.rating.environment,
+            meals: createUserPostInput.rating.meals,
+            attitude: createUserPostInput.rating.attitude,
+          },
+        },
+        customer: {
+          connect: {
+            id: currentId,
+          },
+        },
+        store: {
+          connect: {
+            id: await this.storeService.getStoreIdByAccount(
+              createUserPostInput.storeAccount
+            ),
+          },
+        },
+      },
+    });
 
-  //   this.ratingService.addRating(
-  //     this.storeService.getStoreIdByAccount(createUserPostInput.storeAccount),
-  //     createUserPostInput.rating
-  //   );
-
-  //   return post;
-  // }
+    return 'post created successfully';
+  }
 
   // updateUserPost(
   //   currentUser: Customer,
