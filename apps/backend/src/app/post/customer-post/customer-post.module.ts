@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { UserPostService } from './user-post.service';
-import { UserPostResolver } from './user-post.resolver';
 import { UserModule } from '../../user/user.module';
 import { RatingModule } from '../../rating/rating.module';
-import { RatingService } from '../../rating/rating.service';
+import { PrismaModule } from '../../prisma/prisma.module';
+import { CustomerPostService } from './customer-post.service';
+import { CustomerPostResolver } from './customer-post.resolver';
 
 @Module({
-  imports: [UserModule, RatingModule],
-  providers: [UserPostResolver, UserPostService],
+  imports: [UserModule, RatingModule, PrismaModule],
+  providers: [CustomerPostResolver, CustomerPostService],
 })
-export class UserPostModule {}
+export class CustomerPostModule {}
