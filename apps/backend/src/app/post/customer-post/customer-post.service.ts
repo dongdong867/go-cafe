@@ -4,6 +4,7 @@ import { PrismaService } from '../../prisma/prisma.service';
 import { StoreService } from '../../user/store/store.service';
 import { CreateCustomerPostInput } from './dto/input/create-customer-post.input';
 import { UpdateCustomerPostInput } from './dto/input/update-customer-post.input';
+import { DeleteCustomerPostInput } from './dto/input/delete-customer-post.input';
 
 @Injectable()
 export class CustomerPostService {
@@ -151,28 +152,77 @@ export class CustomerPostService {
     return 'post updated successfully';
   }
 
-  // async deleteUserPost(
-  //   currentUser: Customer,
-  //   deleteUserPostInput: DeleteUserPostInput
-  // ): Promise<string> {
-  //   const originPost: CustomerPost = {
-  //     id: 'postId1',
-  //     userAccount: 'user 1',
-  //     storeAccount: 'store 1',
-  //     body: 'this is a fake body',
-  //     rating: {
-  //       general: 4,
-  //       environment: 3,
-  //       meals: 3,
-  //       attitude: 2,
-  //     },
-  //   };
+  async deleteCustomerPost(
+    currentId: string,
+    deleteCustomerPostInput: DeleteCustomerPostInput
+  ): Promise<string> {
+    const data = await this.prisma.customerPost.findUniqueOrThrow({
+      where: {
+        id_customerId: {
+          id: deleteCustomerPostInput.postId,
+          customerId: currentId,
+        },
+      },
+      select: {
+        postId: true,
+        ratingId: true,
+        post: {
+          select: {
+            postPicture: {
+              select: {
+                pictureId: true,
+              },
+            },
+          },
+        },
+      },
+    });
 
-  //   this.ratingService.deleteRating(
-  //     await this.storeService.getStoreIdByAccount(originPost.storeAccount),
-  //     originPost.rating
-  //   );
+    console.log(data);
 
-  //   return `delete post id: ${deleteUserPostInput.postId} successful`;
-  // }
+    const deletePost = this.prisma.post.delete({
+      where: {
+        id: data.postId,
+      },
+    });
+
+    const deletePostPicture = this.prisma.postPicture.deleteMany({
+      where: {
+        postId: data.postId,
+      },
+    });
+
+    const deletePicture = this.prisma.picture.deleteMany({
+      where: {
+        id: {
+          in: data.post.postPicture.map((picture) => picture.pictureId),
+        },
+      },
+    });
+
+    const deleteRating = this.prisma.rating.delete({
+      where: {
+        id: data.ratingId,
+      },
+    });
+
+    const deleteCustomerPost = this.prisma.customerPost.delete({
+      where: {
+        id_customerId: {
+          id: deleteCustomerPostInput.postId,
+          customerId: currentId,
+        },
+      },
+    });
+
+    await this.prisma.$transaction([
+      deletePostPicture,
+      deleteCustomerPost,
+      deletePost,
+      deleteRating,
+      deletePicture,
+    ]);
+
+    return `post delete successfully`;
+  }
 }
