@@ -1,56 +1,57 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
-import { UserPostService } from './user-post.service';
-import { CreateUserPostInput } from './dto/input/create-user-post.input';
 import { UseGuards } from '@nestjs/common';
 import { UserAuthGuard } from '../../user/guards/user-auth.guard';
 import { CustomerGuard } from '../../user/guards/role.guard';
 import { CurrentId } from '../../user/decorator/current-id.decorator';
-import { CurrentUser } from '../../user/decorator/current-user.decorator';
-import { Customer } from '../../user/customer/models/customer.entity';
-import { UserPost } from './models/user-post.entity';
-import { UpdateUserPostInput } from './dto/input/update-user-post.input';
-import { DeleteUserPostInput } from './dto/input/delete-user-post.input';
+import { CustomerPost } from './models/customer-post.entity';
+import { CustomerPostService } from './customer-post.service';
+import { CreateCustomerPostInput } from './dto/input/create-customer-post.input';
+import { UpdateCustomerPostInput } from './dto/input/update-customer-post.input';
+import { DeleteCustomerPostInput } from './dto/input/delete-customer-post.input';
 
 @UseGuards(UserAuthGuard, CustomerGuard)
-@Resolver(() => UserPost)
-export class UserPostResolver {
-  constructor(private readonly userPostService: UserPostService) {}
+@Resolver(() => CustomerPost)
+export class CustomerPostResolver {
+  constructor(private readonly customerPostService: CustomerPostService) {}
 
-  @Query(() => [UserPost], { name: 'userPost', nullable: 'items' })
-  getPosts(@CurrentId() userId: string): UserPost[] {
-    return this.userPostService.getPosts(userId);
+  @Query(() => [CustomerPost], { name: 'customerPost', nullable: 'items' })
+  async getPosts(@CurrentId() currentId: string): Promise<CustomerPost[]> {
+    return await this.customerPostService.getPosts(currentId);
   }
 
-  @Mutation(() => UserPost)
-  createUserPost(
-    @CurrentUser() currentUser: Customer,
-    @Args('createUserPostInput') createUserPostInput: CreateUserPostInput
-  ): UserPost {
-    return this.userPostService.createUserPost(
-      currentUser,
-      createUserPostInput
-    );
-  }
-
-  @Mutation(() => UserPost)
-  updateUserPost(
-    @CurrentUser() currentUser: Customer,
-    @Args('updateUserPostUInput') updateUserPostInput: UpdateUserPostInput
-  ): UserPost {
-    return this.userPostService.updateUserPost(
-      currentUser,
-      updateUserPostInput
+  @Mutation(() => String)
+  async createCustomerPost(
+    @CurrentId() currentId: string,
+    @Args('createCustomerPostInput')
+    createCustomerPostInput: CreateCustomerPostInput
+  ): Promise<string> {
+    return await this.customerPostService.createCustomerPost(
+      currentId,
+      createCustomerPostInput
     );
   }
 
   @Mutation(() => String)
-  deleteUserPost(
-    @CurrentUser() currentUser: Customer,
-    @Args('deleteUserPostInput') deleteUserPostInput: DeleteUserPostInput
-  ): string {
-    return this.userPostService.deleteUserPost(
-      currentUser,
-      deleteUserPostInput
+  async updateCustomerPost(
+    @CurrentId() currentId: string,
+    @Args('updateCustomerPostUInput')
+    updateCustomerPostInput: UpdateCustomerPostInput
+  ): Promise<string> {
+    return await this.customerPostService.updateCustomerPost(
+      currentId,
+      updateCustomerPostInput
+    );
+  }
+
+  @Mutation(() => String)
+  async deleteCustomerPost(
+    @CurrentId() currentId: string,
+    @Args('deleteCustomerPostInput')
+    deleteCustomerPostInput: DeleteCustomerPostInput
+  ): Promise<string> {
+    return await this.customerPostService.deleteCustomerPost(
+      currentId,
+      deleteCustomerPostInput
     );
   }
 }
