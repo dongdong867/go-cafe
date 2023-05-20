@@ -5,6 +5,7 @@ import { StoreService } from '../../user/store/store.service';
 import { CreateCustomerPostInput } from './dto/input/create-customer-post.input';
 import { UpdateCustomerPostInput } from './dto/input/update-customer-post.input';
 import { DeleteCustomerPostInput } from './dto/input/delete-customer-post.input';
+import { StoreRating } from '../../user/store/models/store-rating.entity';
 
 @Injectable()
 export class CustomerPostService {
@@ -88,6 +89,10 @@ export class CustomerPostService {
     currentId: string,
     createUserPostInput: CreateCustomerPostInput
   ): Promise<string> {
+    const storeId: string = await this.storeService.getStoreIdByAccount(
+      createUserPostInput.storeAccount
+    );
+
     await this.prisma.customerPost.create({
       data: {
         post: {
@@ -115,9 +120,48 @@ export class CustomerPostService {
         },
         store: {
           connect: {
-            id: await this.storeService.getStoreIdByAccount(
-              createUserPostInput.storeAccount
-            ),
+            id: storeId,
+          },
+        },
+      },
+    });
+
+    const storeRating: StoreRating =
+      await this.prisma.storeRating.findUniqueOrThrow({
+        where: {
+          storeId: storeId,
+        },
+        select: {
+          rating: true,
+          postCount: true,
+        },
+      });
+
+    await this.prisma.storeRating.update({
+      where: {
+        storeId: storeId,
+      },
+      data: {
+        postCount: {
+          increment: 1,
+        },
+        rating: {
+          update: {
+            general:
+              (storeRating.rating.general +
+                createUserPostInput.rating.general) /
+              (storeRating.postCount + 1),
+            environment:
+              (storeRating.rating.environment +
+                createUserPostInput.rating.environment) /
+              (storeRating.postCount + 1),
+            meals:
+              (storeRating.rating.meals + createUserPostInput.rating.meals) /
+              (storeRating.postCount + 1),
+            attitude:
+              (storeRating.rating.attitude +
+                createUserPostInput.rating.attitude) /
+              (storeRating.postCount + 1),
           },
         },
       },
@@ -130,6 +174,29 @@ export class CustomerPostService {
     currentId: string,
     updateCustomerPostInput: UpdateCustomerPostInput
   ): Promise<string> {
+    const data = await this.prisma.customerPost.findUniqueOrThrow({
+      where: {
+        id_customerId: {
+          id: updateCustomerPostInput.id,
+          customerId: currentId,
+        },
+      },
+      select: {
+        storeId: true,
+        rating: true,
+        store: {
+          select: {
+            storeRating: {
+              select: {
+                postCount: true,
+                rating: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
     await this.prisma.customerPost.update({
       where: {
         id_customerId: {
@@ -146,6 +213,45 @@ export class CustomerPostService {
         rating: {
           update: updateCustomerPostInput.rating,
         },
+        store: {
+          update: {
+            storeRating: {
+              update: {
+                rating: {
+                  update: {
+                    general:
+                      (data.store.storeRating.rating.general *
+                        data.store.storeRating.postCount -
+                        data.rating.general +
+                        updateCustomerPostInput.rating.general) /
+                      data.store.storeRating.postCount,
+                    environment:
+                      (data.store.storeRating.rating.environment *
+                        data.store.storeRating.postCount -
+                        data.rating.environment +
+                        updateCustomerPostInput.rating.environment) /
+                      data.store.storeRating.postCount,
+                    meals:
+                      (data.store.storeRating.rating.meals *
+                        data.store.storeRating.postCount -
+                        data.rating.meals +
+                        updateCustomerPostInput.rating.meals) /
+                      data.store.storeRating.postCount,
+                    attitude:
+                      (data.store.storeRating.rating.attitude *
+                        data.store.storeRating.postCount -
+                        data.rating.attitude +
+                        updateCustomerPostInput.rating.attitude) /
+                      data.store.storeRating.postCount,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      select: {
+        storeId: true,
       },
     });
 
@@ -166,6 +272,8 @@ export class CustomerPostService {
       select: {
         postId: true,
         ratingId: true,
+        storeId: true,
+        rating: true,
         post: {
           select: {
             postPicture: {
@@ -175,10 +283,18 @@ export class CustomerPostService {
             },
           },
         },
+        store: {
+          select: {
+            storeRating: {
+              select: {
+                postCount: true,
+                rating: true,
+              },
+            },
+          },
+        },
       },
     });
-
-    console.log(data);
 
     const deletePost = this.prisma.post.delete({
       where: {
@@ -222,6 +338,41 @@ export class CustomerPostService {
       deleteRating,
       deletePicture,
     ]);
+
+    await this.prisma.storeRating.update({
+      where: {
+        storeId: data.storeId,
+      },
+      data: {
+        postCount: {
+          decrement: 1,
+        },
+        rating: {
+          update: {
+            general:
+              (data.store.storeRating.rating.general *
+                data.store.storeRating.postCount -
+                data.rating.general) /
+              (data.store.storeRating.postCount - 1),
+            environment:
+              (data.store.storeRating.rating.environment *
+                data.store.storeRating.postCount -
+                data.rating.environment) /
+              (data.store.storeRating.postCount - 1),
+            meals:
+              (data.store.storeRating.rating.meals *
+                data.store.storeRating.postCount -
+                data.rating.meals) /
+              (data.store.storeRating.postCount - 1),
+            attitude:
+              (data.store.storeRating.rating.attitude *
+                data.store.storeRating.postCount -
+                data.rating.attitude) /
+              (data.store.storeRating.postCount - 1),
+          },
+        },
+      },
+    });
 
     return `post delete successfully`;
   }
