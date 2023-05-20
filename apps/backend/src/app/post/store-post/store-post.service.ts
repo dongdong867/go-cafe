@@ -99,10 +99,69 @@ export class StorePostService {
     return 'post update successfully';
   }
 
-  // deleteStorePost(
-  //   currentUser: Store,
-  //   deleteStorePostInput: DeleteStorePostInput
-  // ): string {
-  //   return `delete store post ${deleteStorePostInput.id} successfully`;
-  // }
+  async deleteStorePost(
+    currentId: string,
+    deleteStorePostInput: DeleteStorePostInput
+  ): Promise<string> {
+    const data = await this.prisma.storePost.findUniqueOrThrow({
+      where: {
+        id_storeId: {
+          id: deleteStorePostInput.id,
+          storeId: currentId,
+        },
+      },
+      select: {
+        postId: true,
+        post: {
+          select: {
+            postPicture: {
+              select: {
+                pictureId: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    console.log(data.postId);
+
+    const deletePost = this.prisma.post.delete({
+      where: {
+        id: data.postId,
+      },
+    });
+
+    const deleteStorePost = this.prisma.storePost.delete({
+      where: {
+        id_storeId: {
+          id: deleteStorePostInput.id,
+          storeId: currentId,
+        },
+      },
+    });
+
+    const deletePostPicture = this.prisma.postPicture.deleteMany({
+      where: {
+        postId: data.postId,
+      },
+    });
+
+    const deletePicture = this.prisma.picture.deleteMany({
+      where: {
+        id: {
+          in: data.post.postPicture.map((picture) => picture.pictureId),
+        },
+      },
+    });
+
+    await this.prisma.$transaction([
+      deletePostPicture,
+      deleteStorePost,
+      deletePost,
+      deletePicture,
+    ]);
+
+    return `post delete successfully`;
+  }
 }
