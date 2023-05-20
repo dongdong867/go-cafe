@@ -1,6 +1,5 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { FollowInput } from './dto/input/follow.input';
-import { Customer } from '../user/customer/models/customer.entity';
 import { StoreService } from '../user/store/store.service';
 import { PrismaService } from '../prisma/prisma.service';
 
@@ -12,18 +11,26 @@ export class FollowingService {
   ) {}
 
   async follow(currentId: string, followInput: FollowInput): Promise<string> {
-    await this.prisma.following
-      .create({
-        data: {
-          customerId: currentId,
-          storeId: await this.storeService.getStoreIdByAccount(
-            followInput.storeAccount
-          ),
+    const storeId: string = await this.storeService.getStoreIdByAccount(
+      followInput.storeAccount
+    );
+    await this.prisma.following.create({
+      data: {
+        customerId: currentId,
+        storeId: storeId,
+      },
+    });
+
+    await this.prisma.customer.update({
+      where: {
+        id: currentId,
+      },
+      data: {
+        followingCount: {
+          increment: 1,
         },
-      })
-      .catch((err) => {
-        throw new ForbiddenException(err, 'failed to follow store');
-      });
+      },
+    });
 
     return 'Followed successfully';
   }
@@ -32,20 +39,27 @@ export class FollowingService {
     currentId: string,
     unfollowInput: FollowInput
   ): Promise<string> {
-    await this.prisma.following
-      .delete({
-        where: {
-          customerId_storeId: {
-            customerId: currentId,
-            storeId: await this.storeService.getStoreIdByAccount(
-              unfollowInput.storeAccount
-            ),
-          },
+    await this.prisma.following.delete({
+      where: {
+        customerId_storeId: {
+          customerId: currentId,
+          storeId: await this.storeService.getStoreIdByAccount(
+            unfollowInput.storeAccount
+          ),
         },
-      })
-      .catch((err) => {
-        throw new ForbiddenException(err, 'failed to unfollow store');
-      });
+      },
+    });
+
+    await this.prisma.customer.update({
+      where: {
+        id: currentId,
+      },
+      data: {
+        followingCount: {
+          decrement: 1,
+        },
+      },
+    });
 
     return 'unfollowed successfully';
   }
