@@ -1,19 +1,5 @@
-import { InputType, Field, Int } from '@nestjs/graphql';
-
-@InputType()
-class PostRatingInput {
-  @Field(() => Int)
-  general: number;
-
-  @Field(() => Int)
-  environment: number;
-
-  @Field(() => Int)
-  meals: number;
-
-  @Field(() => Int)
-  attitude: number;
-}
+import { InputType, Field } from '@nestjs/graphql';
+import { PostRatingInput } from './post-rating.input';
 
 @InputType()
 export class CreateCustomerPostInput {
