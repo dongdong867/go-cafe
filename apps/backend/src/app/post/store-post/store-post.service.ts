@@ -6,6 +6,7 @@ import { PrismaService } from '../../prisma/prisma.service';
 import { StorePost } from './models/store-post.entity';
 import { StoreService } from '../../user/store/store.service';
 import { CreateStorePostInput } from './dto/input/create-store-post.input';
+import { UpdateStorePostInput } from './dto/input/update-store-post.input';
 
 @Injectable()
 export class StorePostService {
@@ -74,17 +75,29 @@ export class StorePostService {
     return 'post create successfully';
   }
 
-  // updateStorePost(
-  //   currentUser: Store,
-  //   updateStorePostInput: UpdateStorePostInput
-  // ): StorePost {
-  //   const post: StorePost = {
-  //     storeAccount: currentUser.account,
-  //     ...updateStorePostInput,
-  //   };
+  async updateStorePost(
+    currentId: string,
+    updateStorePostInput: UpdateStorePostInput
+  ): Promise<string> {
+    await this.prisma.storePost.update({
+      where: {
+        id_storeId: {
+          id: updateStorePostInput.id,
+          storeId: currentId,
+        },
+      },
+      data: {
+        title: updateStorePostInput.title,
+        post: {
+          update: {
+            body: updateStorePostInput.body,
+          },
+        },
+      },
+    });
 
-  //   return post;
-  // }
+    return 'post update successfully';
+  }
 
   // deleteStorePost(
   //   currentUser: Store,
