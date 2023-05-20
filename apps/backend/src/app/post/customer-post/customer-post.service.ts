@@ -3,6 +3,7 @@ import { CustomerPost } from './models/customer-post.entity';
 import { PrismaService } from '../../prisma/prisma.service';
 import { StoreService } from '../../user/store/store.service';
 import { CreateCustomerPostInput } from './dto/input/create-customer-post.input';
+import { UpdateCustomerPostInput } from './dto/input/update-customer-post.input';
 
 @Injectable()
 export class CustomerPostService {
@@ -20,6 +21,7 @@ export class CustomerPostService {
       select: {
         customerPost: {
           select: {
+            id: true,
             post: {
               select: {
                 body: true,
@@ -123,36 +125,31 @@ export class CustomerPostService {
     return 'post created successfully';
   }
 
-  // updateUserPost(
-  //   currentUser: Customer,
-  //   updateUserPostInput: UpdateUserPostInput
-  // ): UserPost {
-  //   const originPost: UserPost = {
-  //     id: 'postId1',
-  //     userAccount: 'user 1',
-  //     storeAccount: 'store 1',
-  //     body: 'this is a fake body',
-  //     rating: {
-  //       general: 4,
-  //       environment: 3,
-  //       meals: 3,
-  //       attitude: 2,
-  //     },
-  //   };
-  //   const newPost: UserPost = {
-  //     userAccount: currentUser.account,
-  //     storeAccount: 'test update store account',
-  //     ...updateUserPostInput,
-  //   };
+  async updateCustomerPost(
+    currentId: string,
+    updateCustomerPostInput: UpdateCustomerPostInput
+  ): Promise<string> {
+    await this.prisma.customerPost.update({
+      where: {
+        id_customerId: {
+          id: updateCustomerPostInput.id,
+          customerId: currentId,
+        },
+      },
+      data: {
+        post: {
+          update: {
+            body: updateCustomerPostInput.body,
+          },
+        },
+        rating: {
+          update: updateCustomerPostInput.rating,
+        },
+      },
+    });
 
-  //   const storeId = this.storeService.getStoreIdByAccount(
-  //     updateUserPostInput.storeAccount
-  //   );
-  //   this.ratingService.deleteRating(storeId, originPost.rating);
-  //   this.ratingService.addRating(storeId, updateUserPostInput.rating);
-
-  //   return newPost;
-  // }
+    return 'post updated successfully';
+  }
 
   // async deleteUserPost(
   //   currentUser: Customer,
