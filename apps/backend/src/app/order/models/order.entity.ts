@@ -6,7 +6,7 @@ export class Order {
   id: string;
 
   @Field()
-  customerAccount: string;
+  customer_id: string;
 
   @Field()
   tableNumber: string;
