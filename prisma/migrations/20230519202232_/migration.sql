@@ -97,12 +97,11 @@ CREATE TABLE `CustomerPost` (
     `id` VARCHAR(36) NOT NULL,
     `post_id` VARCHAR(36) NOT NULL,
     `rating_id` VARCHAR(36) NOT NULL,
-    `customerId` VARCHAR(36) NOT NULL,
+    `customer_id` VARCHAR(36) NOT NULL,
     `store_id` VARCHAR(36) NOT NULL,
 
     UNIQUE INDEX `CustomerPost_post_id_key`(`post_id`),
     UNIQUE INDEX `CustomerPost_rating_id_key`(`rating_id`),
-    UNIQUE INDEX `CustomerPost_store_id_key`(`store_id`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -154,7 +153,7 @@ ALTER TABLE `CustomerPost` ADD CONSTRAINT `CustomerPost_rating_id_fkey` FOREIGN 
 ALTER TABLE `CustomerPost` ADD CONSTRAINT `CustomerPost_store_id_fkey` FOREIGN KEY (`store_id`) REFERENCES `Store`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `CustomerPost` ADD CONSTRAINT `CustomerPost_customerId_fkey` FOREIGN KEY (`customerId`) REFERENCES `Customer`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `CustomerPost` ADD CONSTRAINT `CustomerPost_customer_id_fkey` FOREIGN KEY (`customer_id`) REFERENCES `Customer`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `StorePost` ADD CONSTRAINT `StorePost_post_id_fkey` FOREIGN KEY (`post_id`) REFERENCES `Post`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
