@@ -6,6 +6,8 @@ import { v4 as uuid } from 'uuid';
 import admin from 'firebase-admin';
 import { OrderType } from './models/order.firebase';
 import { PrismaService } from '../prisma/prisma.service';
+import { FinishOrderInput } from './dto/input/finish-order.input';
+import { ForbiddenError } from '@nestjs/apollo';
 
 @Injectable()
 export class OrderService {
@@ -65,12 +67,11 @@ export class OrderService {
     currentId: string,
     createOrderInput: CreateOrderInput
   ): Promise<string> {
-    const customer = await this.prisma.customer.findUniqueOrThrow({
+    await this.prisma.customer.findUniqueOrThrow({
       where: {
         id: currentId,
       },
     });
-    console.log(customer);
 
     const order: OrderType = {
       id: uuid(),
@@ -97,7 +98,22 @@ export class OrderService {
     return 'order create successfully';
   }
 
-  // finishOrder(currentUser: Store, finishOrderInput: FinishOrderInput): string {
-  //   return `order id ${finishOrderInput.id} has finished`;
-  // }
+  async finishOrder(
+    currentId: string,
+    finishOrderInput: FinishOrderInput
+  ): Promise<string> {
+    const order = this.firebase
+      .firestore()
+      .collection('order')
+      .doc(finishOrderInput.id);
+
+    if ((await order.get()).get('store_id') !== currentId)
+      throw new ForbiddenError('failed when setting order finish');
+
+    await order.update({
+      finished: true,
+    });
+
+    return `successfully set order finished`;
+  }
 }
