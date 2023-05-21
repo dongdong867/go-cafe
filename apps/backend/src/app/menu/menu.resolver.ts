@@ -3,7 +3,7 @@ import { MenuService } from './menu.service';
 import { Menu } from './models/menu.entity';
 import { UseGuards } from '@nestjs/common';
 import { UserAuthGuard } from '../user/guards/user-auth.guard';
-import { CustomerGuard, StoreGuard } from '../user/guards/role.guard';
+import { StoreGuard } from '../user/guards/role.guard';
 import { CurrentId } from '../user/decorator/current-id.decorator';
 import { CreateMenuInput } from './dto/input/create-menu.input';
 import { UpdateMenuInput } from './dto/input/update-menu.input';
