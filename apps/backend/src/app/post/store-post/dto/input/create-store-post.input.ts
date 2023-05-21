@@ -1,4 +1,4 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
+import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
 export class CreateStorePostInput {
@@ -8,8 +8,6 @@ export class CreateStorePostInput {
   @Field()
   body: string;
 
-  // TODO: FEATURE WAITING
-  //
-  // @Field(() => [Picture])
-  // pictures: Picture[]
+  @Field(() => [String])
+  pictures: string[];
 }

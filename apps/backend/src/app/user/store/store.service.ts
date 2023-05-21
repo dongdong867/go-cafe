@@ -1,82 +1,160 @@
-import { Injectable } from '@nestjs/common';
-import { UserService } from '../user.service';
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { GetStoreArgs } from './dto/args/get-store.args';
 import { GetStoresArgs } from './dto/args/get-stores.args';
 import { CreateStoreInput } from './dto/input/create-store.input';
 import { UpdateStoreInput } from './dto/input/update-store.input';
 import { Store } from './models/store.entity';
-import { v4 as uuidv4 } from 'uuid';
+import { PrismaService } from '../../prisma/prisma.service';
 
 @Injectable()
 export class StoreService {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly prisma: PrismaService) {}
 
-  getStoreIdByAccount(storeAccount: string): string {
-    return uuidv4();
+  async getStoreIdByAccount(storeAccount: string): Promise<string> {
+    const data = await this.prisma.store
+      .findFirstOrThrow({
+        where: {
+          user: {
+            account: storeAccount,
+          },
+        },
+        select: {
+          id: true,
+        },
+      })
+      .catch((err) => {
+        throw new NotFoundException(err, 'store not found');
+      });
+    return data.id;
   }
 
-  getStore(getStoreArgs: GetStoreArgs): Store {
-    const store: Store = {
-      account: getStoreArgs.account,
-      name: 'get store name',
-      address: 'get store address',
-      phone: '0912345678',
-      info: 'get store info',
-      postCount: 0,
-    };
-
-    console.log(store);
-
+  async getStore(getStoreArgs: GetStoreArgs): Promise<Store> {
+    const id = await this.getStoreIdByAccount(getStoreArgs.account);
+    const store = await this.prisma.store.findUniqueOrThrow({
+      where: {
+        id: id,
+      },
+      select: {
+        user: {
+          select: {
+            account: true,
+            name: true,
+            phone: true,
+            postCount: true,
+            avatar: {
+              select: {
+                data: true,
+              },
+            },
+          },
+        },
+        address: true,
+        info: true,
+        storeRating: {
+          select: {
+            rating: {
+              select: {
+                general: true,
+                environment: true,
+                meals: true,
+                attitude: true,
+              },
+            },
+            postCount: true,
+          },
+        },
+      },
+    });
     return store;
   }
 
-  getStores(getStoresArgs: GetStoresArgs): Store[] {
-    let n = 0;
+  async getStores(getStoresArgs: GetStoresArgs): Promise<Store[]> {
     const list: Store[] = [];
-    getStoresArgs.accounts.forEach((storeAccount) => {
-      const store: Store = {
-        account: storeAccount,
-        name: 'get store name' + n,
-        address: 'get store address' + n,
-        phone: '0912345678' + n,
-        info: 'get store info' + n,
-        postCount: n,
-      };
 
+    for (let i = 0; i < getStoresArgs.accounts.length; i++) {
+      const store = await this.getStore({
+        account: getStoresArgs.accounts.at(i),
+      });
       list.push(store);
+    }
 
-      console.log(store);
-
-      n++;
-    });
     return list;
   }
 
-  createStore(createStoreInput: CreateStoreInput): Store {
-    const password: string = createStoreInput.password;
-    const store: Store = {
-      account: createStoreInput.account,
-      name: createStoreInput.name,
-      address: createStoreInput.address,
-      phone: createStoreInput.phone,
-      info: createStoreInput.info,
-      postCount: 0,
-    };
+  async createStore(createStoreInput: CreateStoreInput): Promise<string> {
+    await this.prisma.store
+      .create({
+        data: {
+          user: {
+            create: {
+              account: createStoreInput.account,
+              password: createStoreInput.password,
+              name: createStoreInput.name,
+              phone: createStoreInput.phone,
+              avatar: {
+                create: {
+                  data: createStoreInput.avatar,
+                },
+              },
+            },
+          },
+          address: createStoreInput.address,
+          info: createStoreInput.info,
+          storeRating: {
+            create: {
+              rating: {
+                create: {},
+              },
+            },
+          },
+        },
+      })
+      .catch((err) => {
+        throw new InternalServerErrorException(
+          err,
+          'failed when creating store account'
+        );
+      });
 
-    console.log({
-      password: password,
-      ...store,
-    });
-
-    return store;
+    return 'store create successfully';
   }
 
-  updateStore(store: Store, updateStoreInput: UpdateStoreInput): Store {
-    store = {
-      ...store,
-      ...updateStoreInput,
-    };
+  async updateStore(
+    currentId: string,
+    updateStoreInput: UpdateStoreInput
+  ): Promise<string> {
+    await this.prisma.store
+      .update({
+        where: {
+          id: currentId,
+        },
+        data: {
+          user: {
+            update: {
+              name: updateStoreInput.name,
+              phone: updateStoreInput.phone,
+              avatar: {
+                update: {
+                  data: updateStoreInput.avatar,
+                },
+              },
+            },
+          },
+          address: updateStoreInput.address,
+          info: updateStoreInput.info,
+        },
+      })
+      .catch((err) => {
+        throw new InternalServerErrorException(
+          err,
+          'failed when updating store account'
+        );
+      });
 
-    return store;
+    return 'store account updated successfully';
   }
 }

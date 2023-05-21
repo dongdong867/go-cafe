@@ -1,0 +1,243 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Avatar {
+  data: String!
+}
+
+type Category {
+  dishes: [Dish!]!
+  name: String!
+}
+
+input CategoryInput {
+  dishes: [DishInput!]!
+  name: String!
+}
+
+input CreateCustomerInput {
+  account: String!
+  avatar: String!
+  email: String!
+  name: String!
+  password: String!
+  phone: String!
+}
+
+input CreateCustomerPostInput {
+  body: String!
+  pictures: [String!]!
+  rating: PostRatingInput!
+  storeAccount: String!
+}
+
+input CreateMenuInput {
+  categories: [CategoryInput!]!
+}
+
+input CreateOrderInput {
+  dishes: [OrderDishInput!]!
+  storeAccount: String!
+  tableNumber: String!
+  totalPrice: Int!
+}
+
+input CreateStoreInput {
+  account: String!
+  address: String!
+  avatar: String!
+  info: String
+  name: String!
+  password: String!
+  phone: String!
+}
+
+input CreateStorePostInput {
+  body: String!
+  pictures: [String!]!
+  title: String!
+}
+
+type Customer {
+  email: String!
+  followingCount: Int!
+  user: User!
+}
+
+type CustomerPost {
+  id: ID!
+  post: Post!
+  rating: Rating!
+  store: Store!
+}
+
+input DeleteCustomerPostInput {
+  postId: String!
+}
+
+input DeleteStorePostInput {
+  id: String!
+}
+
+type Dish {
+  name: String!
+  price: Int!
+}
+
+input DishInput {
+  name: String!
+  price: Int!
+}
+
+input FinishOrderInput {
+  id: String!
+}
+
+input FollowInput {
+  storeAccount: String!
+}
+
+input LoginInput {
+  account: String!
+  password: String!
+}
+
+type Menu {
+  categories: [Category!]!
+}
+
+type Mutation {
+  createCustomer(createCustomerInput: CreateCustomerInput!): String!
+  createCustomerPost(createCustomerPostInput: CreateCustomerPostInput!): String!
+  createMenu(createMenuInput: CreateMenuInput!): String!
+  createOrder(createOrderInput: CreateOrderInput!): String!
+  createStore(createStoreInput: CreateStoreInput!): String!
+  createStorePost(createStorePostInput: CreateStorePostInput!): String!
+  deleteCustomerPost(deleteCustomerPostInput: DeleteCustomerPostInput!): String!
+  deleteStorePost(deleteStorePostInput: DeleteStorePostInput!): String!
+  finishOrder(finishOrderInput: FinishOrderInput!): String!
+  follow(followInput: FollowInput!): String!
+  login(loginInput: LoginInput!): String!
+  unfollow(unfollowInput: FollowInput!): String!
+  updateCustomer(updateCustomerInput: UpdateCustomerInput!): String!
+  updateCustomerPost(updateCustomerPostUInput: UpdateCustomerPostInput!): String!
+  updateMenu(updateMenuInput: UpdateMenuInput!): String!
+  updateStore(updateStoreInput: UpdateStoreInput!): String!
+  updateStorePost(updateStorePostInput: UpdateStorePostInput!): String!
+}
+
+type Order {
+  customerId: String!
+  dishes: [OrderDish!]!
+  finished: Boolean!
+  id: String!
+  tableNumber: String!
+  totalPrice: Int!
+}
+
+type OrderDish {
+  count: Int!
+  name: String!
+  price: Int!
+}
+
+input OrderDishInput {
+  count: Int!
+  name: String!
+  price: Int!
+}
+
+type Picture {
+  data: String!
+}
+
+type Post {
+  body: String!
+  postPicture: [PostPicture!]!
+}
+
+type PostPicture {
+  picture: Picture!
+}
+
+input PostRatingInput {
+  attitude: Int!
+  environment: Int!
+  general: Int!
+  meals: Int!
+}
+
+type Query {
+  customer: Customer!
+  customerPost: [CustomerPost]!
+  menu(storeAccount: String!): Menu!
+  store(account: String!): Store!
+  storePost(storeAccount: String!): [StorePost]!
+  stores(accounts: [String!]!): [Store!]!
+  unfinishedOrder: [Order!]!
+}
+
+type Rating {
+  attitude: Float!
+  environment: Float!
+  general: Float!
+  meals: Float!
+}
+
+type Store {
+  address: String!
+  info: String!
+  storeRating: StoreRating!
+  user: User!
+}
+
+type StorePost {
+  post: Post!
+  title: String!
+}
+
+type StoreRating {
+  postCount: Int!
+  rating: Rating!
+}
+
+input UpdateCustomerInput {
+  avatar: String
+  email: String
+  name: String
+  phone: String
+}
+
+input UpdateCustomerPostInput {
+  body: String
+  id: ID!
+  rating: PostRatingInput
+}
+
+input UpdateMenuInput {
+  categories: [CategoryInput!]!
+  id: String!
+}
+
+input UpdateStoreInput {
+  address: String
+  avatar: String
+  info: String
+  name: String
+  phone: String
+}
+
+input UpdateStorePostInput {
+  body: String
+  id: String!
+  title: String
+}
+
+type User {
+  account: String!
+  avatar: Avatar!
+  name: String!
+  phone: String!
+  postCount: Int!
+}

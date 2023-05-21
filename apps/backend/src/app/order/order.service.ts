@@ -1,82 +1,99 @@
 import { Injectable } from '@nestjs/common';
 import { CreateOrderInput } from './dto/input/create-order.input';
-import { Customer } from '../user/customer/models/customer.entity';
-import { Order } from './models/order.entity';
-import { FinishOrderInput } from './dto/input/finish-order.input';
-import { Store } from '../user/store/models/store.entity';
-import { v4 as uuidv4 } from 'uuid';
 import { StoreService } from '../user/store/store.service';
+import { FirebaseService } from '../firebase/firebase.service';
+import { v4 as uuid } from 'uuid';
+import admin from 'firebase-admin';
+import { OrderType } from './models/order.firebase';
+import { PrismaService } from '../prisma/prisma.service';
+import { FinishOrderInput } from './dto/input/finish-order.input';
+import { ForbiddenError } from '@nestjs/apollo';
+import { Order, OrderDish } from './models/order.entity';
 
 @Injectable()
 export class OrderService {
-  constructor(private readonly storeService: StoreService) {}
+  constructor(
+    private readonly storeService: StoreService,
+    private readonly firebase: FirebaseService,
+    private readonly prisma: PrismaService
+  ) {}
 
-  getUnfinishedOrder(currentId: string): Order[] {
-    // return unfinished order
-    const orderList: Order[] = [
-      {
-        id: uuidv4(),
-        customerAccount: 'test customer account 1',
-        tableNumber: 'take away',
-        totalPrice: 1234,
-        dishes: [
-          {
-            name: 'dish 1',
-            price: 1234,
-            count: 3,
-          },
-          {
-            name: 'dish 2',
-            price: 234,
-            count: 2,
-          },
-        ],
-        finished: false,
-      },
-      {
-        id: uuidv4(),
-        customerAccount: 'test customer account 2',
-        tableNumber: 'take away',
-        totalPrice: 1234,
-        dishes: [
-          {
-            name: 'dish 3',
-            price: 1234,
-            count: 3,
-          },
-          {
-            name: 'dish 4',
-            price: 234,
-            count: 2,
-          },
-        ],
-        finished: false,
-      },
-    ];
+  async getUnfinishedOrder(currentId: string): Promise<Order[]> {
+    const orderList = await this.firebase
+      .firestore()
+      .collection('order')
+      .where('store_id', '==', currentId)
+      .where('finished', '==', false)
+      .get();
 
-    return orderList;
+    return orderList.docs.map((order) => ({
+      id: order.get('id'),
+      customerId: order.get('customer_id'),
+      tableNumber: order.get('table_number'),
+      totalPrice: order.get('total_price'),
+      finished: false,
+      dishes: order.get('orders').map(
+        (dish: admin.firestore.DocumentData): OrderDish => ({
+          name: dish.dish_name,
+          count: dish.count,
+          price: dish.price,
+        })
+      ),
+    }));
   }
 
-  createOrder(
-    currentUser: Customer,
+  async createOrder(
+    currentId: string,
     createOrderInput: CreateOrderInput
-  ): Order {
-    const store = this.storeService.getStoreIdByAccount(
-      createOrderInput.storeAccount
-    );
-    const order: Order = {
-      id: uuidv4(),
-      customerAccount: currentUser.account,
-      tableNumber: createOrderInput.tableNumber,
-      totalPrice: createOrderInput.totalPrice,
-      dishes: createOrderInput.dishes,
+  ): Promise<string> {
+    await this.prisma.customer.findUniqueOrThrow({
+      where: {
+        id: currentId,
+      },
+    });
+
+    const order: OrderType = {
+      id: uuid(),
+      customer_id: currentId,
+      store_id: await this.storeService.getStoreIdByAccount(
+        createOrderInput.storeAccount
+      ),
+      table_number: createOrderInput.tableNumber,
+      orders: createOrderInput.dishes.map((order) => ({
+        dish_name: order.name,
+        count: order.count,
+        price: order.price,
+      })),
+      total_price: createOrderInput.totalPrice,
       finished: false,
+      create_at: admin.firestore.FieldValue.serverTimestamp(),
     };
 
-    return order;
+    await this.firebase
+      .firestore()
+      .collection('order')
+      .doc(order.id)
+      .set(order);
+
+    return 'order create successfully';
   }
 
-  finishOrder(currentUser: Store, finishOrderInput: FinishOrderInput): string {
-    return `order id ${finishOrderInput.id} has finished`;
+  async finishOrder(
+    currentId: string,
+    finishOrderInput: FinishOrderInput
+  ): Promise<string> {
+    const order = this.firebase
+      .firestore()
+      .collection('order')
+      .doc(finishOrderInput.id);
+
+    if ((await order.get()).get('store_id') !== currentId)
+      throw new ForbiddenError('failed when setting order finish');
+
+    await order.update({
+      finished: true,
+    });
+
+    return `successfully set order finished`;
   }
 }

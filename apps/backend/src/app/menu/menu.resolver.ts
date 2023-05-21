@@ -1,12 +1,13 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { MenuService } from './menu.service';
 import { Menu } from './models/menu.entity';
-import { MenuInput } from './dto/input/menu.input';
 import { UseGuards } from '@nestjs/common';
 import { UserAuthGuard } from '../user/guards/user-auth.guard';
-import { GetMenuArgs } from './dto/args/get-menu.args';
-import { StoreGuard } from '../user/guards/role.guard';
+import { CustomerGuard, StoreGuard } from '../user/guards/role.guard';
 import { CurrentId } from '../user/decorator/current-id.decorator';
+import { CreateMenuInput } from './dto/input/create-menu.input';
+import { UpdateMenuInput } from './dto/input/update-menu.input';
+import { GetMenuArgs } from './dto/args/get-menu.args';
 
 @UseGuards(UserAuthGuard)
 @Resolver(() => Menu)
@@ -14,25 +15,25 @@ export class MenuResolver {
   constructor(private readonly menuService: MenuService) {}
 
   @Query(() => Menu, { name: 'menu' })
-  getMenu(@Args() getMenuArgs: GetMenuArgs): Menu {
-    return this.menuService.getMenu(getMenuArgs);
+  async getMenu(@Args() getMenuArgs: GetMenuArgs): Promise<Menu> {
+    return await this.menuService.getMenu(getMenuArgs);
   }
 
   @UseGuards(StoreGuard)
-  @Mutation(() => Menu)
-  createMenu(
-    @CurrentId() storeId: string,
-    @Args('createMenuInput') createMenuInput: MenuInput
-  ): Menu {
-    return this.menuService.createMenu(storeId, createMenuInput);
+  @Mutation(() => String)
+  async createMenu(
+    @CurrentId() currentId: string,
+    @Args('createMenuInput') createMenuInput: CreateMenuInput
+  ): Promise<string> {
+    return await this.menuService.createMenu(currentId, createMenuInput);
   }
 
   @UseGuards(StoreGuard)
-  @Mutation(() => Menu)
-  updateMenu(
-    @CurrentId() storeId: string,
-    @Args('updateMenuInput') updateMenuInput: MenuInput
-  ): Menu {
-    return this.menuService.updateMenu(storeId, updateMenuInput);
+  @Mutation(() => String)
+  async updateMenu(
+    @CurrentId() currentId: string,
+    @Args('updateMenuInput') updateMenuInput: UpdateMenuInput
+  ): Promise<string> {
+    return await this.menuService.updateMenu(currentId, updateMenuInput);
   }
 }

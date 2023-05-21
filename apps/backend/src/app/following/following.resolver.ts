@@ -4,8 +4,8 @@ import { FollowingService } from './following.service';
 import { UseGuards } from '@nestjs/common';
 import { UserAuthGuard } from '../user/guards/user-auth.guard';
 import { CustomerGuard } from '../user/guards/role.guard';
-import { CurrentUser } from '../user/decorator/current-user.decorator';
 import { Customer } from '../user/customer/models/customer.entity';
+import { CurrentId } from '../user/decorator/current-id.decorator';
 
 @UseGuards(UserAuthGuard, CustomerGuard)
 @Resolver()
@@ -13,18 +13,18 @@ export class FollowingResolver {
   constructor(private readonly followingService: FollowingService) {}
 
   @Mutation(() => String)
-  follow(
-    @CurrentUser() user: Customer,
+  async follow(
+    @CurrentId() currentId: string,
     @Args('followInput') followInput: FollowInput
-  ) {
-    return this.followingService.follow(user, followInput);
+  ): Promise<string> {
+    return await this.followingService.follow(currentId, followInput);
   }
 
   @Mutation(() => String)
-  unfollow(
-    @CurrentUser() user: Customer,
+  async unfollow(
+    @CurrentId() currentId: string,
     @Args('unfollowInput') unfollowInput: FollowInput
-  ) {
-    return this.followingService.unfollow(user, unfollowInput);
+  ): Promise<string> {
+    return await this.followingService.unfollow(currentId, unfollowInput);
   }
 }

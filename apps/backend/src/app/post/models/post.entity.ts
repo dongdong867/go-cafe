@@ -1,18 +1,11 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field } from '@nestjs/graphql';
+import { PostPicture } from './post-picture.entity';
 
 @ObjectType()
 export class Post {
   @Field()
-  id: string;
-
-  @Field()
-  storeAccount: string;
-
-  @Field()
   body: string;
 
-  // TODO: FEATURE WAITING
-  //
-  // @Field(() => [Picture])
-  // picture: Picture[]
+  @Field(() => [PostPicture])
+  postPicture: PostPicture[];
 }

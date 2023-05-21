@@ -14,8 +14,6 @@ export class StoreGuard implements CanActivate {
   ): boolean | Promise<boolean> | Observable<boolean> {
     const { role } = GqlExecutionContext.create(context).getContext().req;
 
-    console.log(role);
-
     if (role !== 'store') {
       throw new UnauthorizedException(
         'You do not have permission to access this resource.'
@@ -31,8 +29,6 @@ export class CustomerGuard implements CanActivate {
     context: ExecutionContext
   ): boolean | Promise<boolean> | Observable<boolean> {
     const { role } = GqlExecutionContext.create(context).getContext().req;
-
-    console.log(role);
 
     if (role !== 'customer') {
       throw new UnauthorizedException(

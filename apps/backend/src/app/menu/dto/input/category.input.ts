@@ -1,13 +1,7 @@
-import { InputType, Field, Int } from '@nestjs/graphql';
+import { Field, InputType, Int } from '@nestjs/graphql';
 
 @InputType()
-export class MenuInput {
-  @Field(() => [CategoryInput])
-  categories: CategoryInput[];
-}
-
-@InputType()
-class CategoryInput {
+export class CategoryInput {
   @Field()
   name: string;
 

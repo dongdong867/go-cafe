@@ -6,9 +6,9 @@ import { CreateStoreInput } from './dto/input/create-store.input';
 import { UpdateStoreInput } from './dto/input/update-store.input';
 import { Store } from './models/store.entity';
 import { UseGuards } from '@nestjs/common';
-import { CurrentUser } from '../decorator/current-user.decorator';
 import { UserAuthGuard } from '../guards/user-auth.guard';
 import { StoreGuard } from '../guards/role.guard';
+import { CurrentId } from '../decorator/current-id.decorator';
 
 @UseGuards(UserAuthGuard)
 @Resolver(() => Store)
@@ -16,28 +16,28 @@ export class StoreResolver {
   constructor(private readonly storeService: StoreService) {}
 
   @Query(() => Store, { name: 'store' })
-  getStore(@Args() getStoreArgs: GetStoreArgs): Store {
-    return this.storeService.getStore(getStoreArgs);
+  async getStore(@Args() getStoreArgs: GetStoreArgs): Promise<Store> {
+    return await this.storeService.getStore(getStoreArgs);
   }
 
   @Query(() => [Store], { name: 'stores' })
-  getStores(@Args() getStoresArgs: GetStoresArgs): Store[] {
-    return this.storeService.getStores(getStoresArgs);
+  async getStores(@Args() getStoresArgs: GetStoresArgs): Promise<Store[]> {
+    return await this.storeService.getStores(getStoresArgs);
   }
 
-  @Mutation(() => Store)
-  createStore(
+  @Mutation(() => String)
+  async createStore(
     @Args('createStoreInput') createStoreInput: CreateStoreInput
-  ): Store {
-    return this.storeService.createStore(createStoreInput);
+  ): Promise<string> {
+    return await this.storeService.createStore(createStoreInput);
   }
 
   @UseGuards(StoreGuard)
-  @Mutation(() => Store)
-  updateStore(
-    @CurrentUser() store: Store,
+  @Mutation(() => String)
+  async updateStore(
+    @CurrentId() currentId: string,
     @Args('updateStoreInput') updateStoreInput: UpdateStoreInput
-  ): Store {
-    return this.storeService.updateStore(store, updateStoreInput);
+  ): Promise<string> {
+    return this.storeService.updateStore(currentId, updateStoreInput);
   }
 }

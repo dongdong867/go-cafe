@@ -4,9 +4,9 @@ import { Customer } from './models/customer.entity';
 import { CreateCustomerInput } from './dto/inputs/create-customer.input';
 import { UpdateCustomerInput } from './dto/inputs/update-customer.input';
 import { UseGuards } from '@nestjs/common';
-import { CurrentUser } from '../decorator/current-user.decorator';
 import { UserAuthGuard } from '../guards/user-auth.guard';
 import { CustomerGuard } from '../guards/role.guard';
+import { CurrentId } from '../decorator/current-id.decorator';
 
 @UseGuards(UserAuthGuard)
 @Resolver()
@@ -15,23 +15,23 @@ export class CustomerResolver {
 
   @UseGuards(CustomerGuard)
   @Query(() => Customer, { name: 'customer' })
-  getCustomer(@CurrentUser() customer: Customer): Customer {
-    return this.customerService.getCustomer(customer);
+  async getCustomer(@CurrentId() currentId: string): Promise<Customer> {
+    return this.customerService.getCustomer(currentId);
   }
 
-  @Mutation(() => Customer)
-  createCustomer(
+  @Mutation(() => String)
+  async createCustomer(
     @Args('createCustomerInput') createCustomerInput: CreateCustomerInput
-  ): Customer {
-    return this.customerService.createCustomer(createCustomerInput);
+  ): Promise<string> {
+    return await this.customerService.createCustomer(createCustomerInput);
   }
 
   @UseGuards(CustomerGuard)
-  @Mutation(() => Customer)
-  updateCustomer(
-    @CurrentUser() customer: Customer,
+  @Mutation(() => String)
+  async updateCustomer(
+    @CurrentId() currentId: string,
     @Args('updateCustomerInput') updateCustomerInput: UpdateCustomerInput
-  ): Customer {
-    return this.customerService.updateCustomer(customer, updateCustomerInput);
+  ): Promise<string> {
+    return this.customerService.updateCustomer(currentId, updateCustomerInput);
   }
 }

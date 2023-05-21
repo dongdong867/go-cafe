@@ -7,6 +7,8 @@ import { MenuModule } from './menu/menu.module';
 import { PostModule } from './post/post.module';
 import { RatingModule } from './rating/rating.module';
 import { OrderModule } from './order/order.module';
+import { PrismaModule } from './prisma/prisma.module';
+import { FirebaseModule } from './firebase/firebase.module';
 
 @Module({
   imports: [
@@ -22,6 +24,8 @@ import { OrderModule } from './order/order.module';
     PostModule,
     RatingModule,
     OrderModule,
+    PrismaModule,
+    FirebaseModule,
   ],
   controllers: [],
   providers: [],
