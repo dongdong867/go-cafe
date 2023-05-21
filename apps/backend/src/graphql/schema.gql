@@ -2,6 +2,10 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Avatar {
+  data: String!
+}
+
 type Category {
   dishes: [Dish!]!
   name: String!
@@ -21,6 +25,17 @@ input CreateCustomerInput {
   phone: String!
 }
 
+input CreateCustomerPostInput {
+  body: String!
+  pictures: [String!]!
+  rating: PostRatingInput!
+  storeAccount: String!
+}
+
+input CreateMenuInput {
+  categories: [CategoryInput!]!
+}
+
 input CreateOrderInput {
   dishes: [OrderDishInput!]!
   storeAccount: String!
@@ -31,6 +46,7 @@ input CreateOrderInput {
 input CreateStoreInput {
   account: String!
   address: String!
+  avatar: String!
   info: String
   name: String!
   password: String!
@@ -39,31 +55,29 @@ input CreateStoreInput {
 
 input CreateStorePostInput {
   body: String!
+  pictures: [String!]!
   title: String!
 }
 
-input CreateUserPostInput {
-  body: String!
-  rating: PostRatingInput!
-  storeAccount: String!
+type Customer {
+  email: String!
+  followingCount: Int!
+  user: User!
 }
 
-type Customer {
-  account: String!
-  email: String!
-  followCount: Int!
-  following: [Store]!
-  name: String!
-  phone: String!
-  postCount: Int!
+type CustomerPost {
+  id: ID!
+  post: Post!
+  rating: Rating!
+  store: Store!
+}
+
+input DeleteCustomerPostInput {
+  postId: String!
 }
 
 input DeleteStorePostInput {
   id: String!
-}
-
-input DeleteUserPostInput {
-  postId: String!
 }
 
 type Dish {
@@ -93,32 +107,28 @@ type Menu {
   categories: [Category!]!
 }
 
-input MenuInput {
-  categories: [CategoryInput!]!
-}
-
 type Mutation {
   createCustomer(createCustomerInput: CreateCustomerInput!): String!
-  createMenu(createMenuInput: MenuInput!): Menu!
-  createOrder(createOrderInput: CreateOrderInput!): Order!
-  createStore(createStoreInput: CreateStoreInput!): Store!
-  createStorePost(createStorePostInput: CreateStorePostInput!): StorePost!
-  createUserPost(createUserPostInput: CreateUserPostInput!): UserPost!
+  createCustomerPost(createCustomerPostInput: CreateCustomerPostInput!): String!
+  createMenu(createMenuInput: CreateMenuInput!): String!
+  createOrder(createOrderInput: CreateOrderInput!): String!
+  createStore(createStoreInput: CreateStoreInput!): String!
+  createStorePost(createStorePostInput: CreateStorePostInput!): String!
+  deleteCustomerPost(deleteCustomerPostInput: DeleteCustomerPostInput!): String!
   deleteStorePost(deleteStorePostInput: DeleteStorePostInput!): String!
-  deleteUserPost(deleteUserPostInput: DeleteUserPostInput!): String!
   finishOrder(finishOrderInput: FinishOrderInput!): String!
   follow(followInput: FollowInput!): String!
   login(loginInput: LoginInput!): String!
   unfollow(unfollowInput: FollowInput!): String!
   updateCustomer(updateCustomerInput: UpdateCustomerInput!): String!
-  updateMenu(updateMenuInput: MenuInput!): Menu!
-  updateStore(updateStoreInput: UpdateStoreInput!): Store!
-  updateStorePost(updateStorePostInput: UpdateStorePostInput!): StorePost!
-  updateUserPost(updateUserPostUInput: UpdateUserPostInput!): UserPost!
+  updateCustomerPost(updateCustomerPostUInput: UpdateCustomerPostInput!): String!
+  updateMenu(updateMenuInput: UpdateMenuInput!): String!
+  updateStore(updateStoreInput: UpdateStoreInput!): String!
+  updateStorePost(updateStorePostInput: UpdateStorePostInput!): String!
 }
 
 type Order {
-  customerAccount: String!
+  customerId: String!
   dishes: [OrderDish!]!
   finished: Boolean!
   id: String!
@@ -138,6 +148,19 @@ input OrderDishInput {
   price: Int!
 }
 
+type Picture {
+  data: String!
+}
+
+type Post {
+  body: String!
+  postPicture: [PostPicture!]!
+}
+
+type PostPicture {
+  picture: Picture!
+}
+
 input PostRatingInput {
   attitude: Int!
   environment: Int!
@@ -147,12 +170,12 @@ input PostRatingInput {
 
 type Query {
   customer: Customer!
+  customerPost: [CustomerPost]!
   menu(storeAccount: String!): Menu!
   store(account: String!): Store!
   storePost(storeAccount: String!): [StorePost]!
   stores(accounts: [String!]!): [Store!]!
   unfinishedOrder: [Order!]!
-  userPost: [UserPost]!
 }
 
 type Rating {
@@ -163,51 +186,58 @@ type Rating {
 }
 
 type Store {
-  account: String!
   address: String!
   info: String!
-  name: String!
-  phone: String!
-  postCount: Int!
+  storeRating: StoreRating!
+  user: User!
 }
 
 type StorePost {
-  body: String!
-  id: String!
-  storeAccount: String!
+  post: Post!
   title: String!
 }
 
+type StoreRating {
+  postCount: Int!
+  rating: Rating!
+}
+
 input UpdateCustomerInput {
+  avatar: String
   email: String
   name: String
   phone: String
 }
 
+input UpdateCustomerPostInput {
+  body: String
+  id: ID!
+  rating: PostRatingInput
+}
+
+input UpdateMenuInput {
+  categories: [CategoryInput!]!
+  id: String!
+}
+
 input UpdateStoreInput {
   address: String
+  avatar: String
   info: String
   name: String
   phone: String
 }
 
 input UpdateStorePostInput {
-  body: String!
+  body: String
   id: String!
-  title: String!
+  title: String
 }
 
-input UpdateUserPostInput {
-  body: String!
-  id: String!
-  rating: PostRatingInput!
-  storeAccount: String!
-}
-
-type UserPost {
-  body: String!
-  id: String!
-  rating: Rating!
-  storeAccount: String!
-  userAccount: String!
+type User {
+  account: String!
+  avatar: Avatar!
+  name: String!
+  phone: String!
+  postCount: Int!
 }
