@@ -6,7 +6,7 @@ export class Order {
   id: string;
 
   @Field()
-  customer_id: string;
+  customerId: string;
 
   @Field()
   tableNumber: string;
@@ -22,7 +22,7 @@ export class Order {
 }
 
 @ObjectType()
-class OrderDish {
+export class OrderDish {
   @Field()
   name: string;
 
