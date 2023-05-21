@@ -5,7 +5,8 @@
   "scripts": {},
   "private": true,
   "dependencies": {
-    "@apollo/client": "^3.7.14",
+    "@apollo/client": "3.8.0-alpha.15",
+    "@apollo/experimental-nextjs-app-support": "^0.1.0",
     "@apollo/server": "^4.7.1",
     "@nestjs/apollo": "^11.0.5",
     "@nestjs/common": "9.4.1",

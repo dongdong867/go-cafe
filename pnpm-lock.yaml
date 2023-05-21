@@ -2,8 +2,11 @@ lockfileVersion: '6.0'
 
 dependencies:
   '@apollo/client':
-    specifier: ^3.7.14
-    version: 3.7.14(graphql@16.6.0)(react-dom@18.2.0)(react@18.2.0)
+    specifier: 3.8.0-alpha.15
+    version: 3.8.0-alpha.15(graphql@16.6.0)(react-dom@18.2.0)(react@18.2.0)
+  '@apollo/experimental-nextjs-app-support':
+    specifier: ^0.1.0
+    version: 0.1.0(@apollo/client@3.8.0-alpha.15)(next@13.4.3)(react@18.2.0)
   '@apollo/server':
     specifier: ^4.7.1
     version: 4.7.1(graphql@16.6.0)
@@ -258,8 +261,8 @@ packages:
       graphql: 16.6.0
     dev: false
 
-  /@apollo/client@3.7.14(graphql@16.6.0)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-BRvdkwq5PAXBkjXjboO12uksDm3nrZEqDi4xF97Fk3Mnaa0zDOEfJa7hoKTY9b9KA1EkeWv9BL3i7hSd4SfGBg==}
+  /@apollo/client@3.8.0-alpha.15(graphql@16.6.0)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-725uCJ7m/+39nHj7tUb3NMr3I6Fyth3GFtMjSVx5w4FngZiLF4xszXzH8sGZxfAlKagXMVKK0EDncAoFXoY16A==}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
       graphql-ws: ^5.5.5
@@ -279,11 +282,11 @@ packages:
       '@graphql-typed-document-node/core': 3.2.0(graphql@16.6.0)
       '@wry/context': 0.7.3
       '@wry/equality': 0.5.6
-      '@wry/trie': 0.3.2
+      '@wry/trie': 0.4.3
       graphql: 16.6.0
       graphql-tag: 2.12.6(graphql@16.6.0)
       hoist-non-react-statics: 3.3.2
-      optimism: 0.16.2
+      optimism: 0.17.4
       prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -292,6 +295,20 @@ packages:
       ts-invariant: 0.10.3
       tslib: 2.5.2
       zen-observable-ts: 1.2.5
+    dev: false
+
+  /@apollo/experimental-nextjs-app-support@0.1.0(@apollo/client@3.8.0-alpha.15)(next@13.4.3)(react@18.2.0):
+    resolution: {integrity: sha512-RBDzsZLHYBnbPkh3NVlIZUxynO2ASbCpO7JEmcZRZIzMbCMpH6wXmPrenD6hxOEgLxWzxS2F3q5VlTGXtmb3ww==}
+    peerDependencies:
+      '@apollo/client': '>= 3.8.0-alpha.13'
+      next: ^13.4.1
+      react: ^18
+    dependencies:
+      '@apollo/client': 3.8.0-alpha.15(graphql@16.6.0)(react-dom@18.2.0)(react@18.2.0)
+      next: 13.4.3(@babel/core@7.21.8)(react-dom@18.2.0)(react@18.2.0)
+      react: 18.2.0
+      superjson: 1.12.3
+      ts-invariant: 0.10.3
     dev: false
 
   /@apollo/federation-internals@2.4.5(graphql@16.6.0):
@@ -4622,6 +4639,13 @@ packages:
       tslib: 2.5.2
     dev: false
 
+  /@wry/trie@0.4.3:
+    resolution: {integrity: sha512-I6bHwH0fSf6RqQcnnXLJKhkSXG45MFral3GxPaY4uAl0LYDZM+YDVDAiU9bYwjTuysy1S0IeecWtmq1SZA3M1w==}
+    engines: {node: '>=8'}
+    dependencies:
+      tslib: 2.5.2
+    dev: false
+
   /@xtuc/ieee754@1.2.0:
     resolution: {integrity: sha512-DX8nKgqcGwsc0eJSqYt5lwP4DH5FlHnmuWWBRy7X0NcaGR0ZtuyeESgMwTYVEtxmsNGY+qit4QYT/MIYTOTPeA==}
 
@@ -5688,6 +5712,13 @@ packages:
     dependencies:
       is-what: 3.14.1
     dev: true
+
+  /copy-anything@3.0.4:
+    resolution: {integrity: sha512-MaQ9FwzlZ/KLeVCLhzI3rZw0EhrIryfZa3AyT4agVybR0DjlkDHA8898lamLD6kfkf9MMn8D+zDAUR4+GxaymQ==}
+    engines: {node: '>=12.13'}
+    dependencies:
+      is-what: 4.1.10
+    dev: false
 
   /copy-webpack-plugin@10.2.4(webpack@5.83.1):
     resolution: {integrity: sha512-xFVltahqlsRcyyJqQbDY6EYTtyQZF9rf+JPjwHObLdPFMEISqkFkr7mFoVOC6BfYS/dNThyoQKvziugm+OnwBg==}
@@ -8212,6 +8243,11 @@ packages:
     resolution: {integrity: sha512-sNxgpk9793nzSs7bA6JQJGeIuRBQhAaNGG77kzYQgMkrID+lS6SlK07K5LaptscDlSaIgH+GPFzf+d75FVxozA==}
     dev: true
 
+  /is-what@4.1.10:
+    resolution: {integrity: sha512-JBy26nXqBUwzTfgj6T5Y/UgXSmRd+03FTq5v3P+N1cOmOtI1hz7dBn+ZfqM7c86qqWTNBEH98h3pkpmI6USnQA==}
+    engines: {node: '>=12.13'}
+    dev: false
+
   /is-wsl@2.2.0:
     resolution: {integrity: sha512-fKzAra0rGJUUBwGBgNkHZuToZcn+TtXHpeCgmkMJMMYx1sQDYaCSyjJBSCa2nH1DGm7s3n1oBnohoVTBaN7Lww==}
     engines: {node: '>=8'}
@@ -9857,11 +9893,12 @@ packages:
     resolution: {integrity: sha512-ur5UIdyw5Y7yEj9wLzhqXiy6GZ3Mwx0yGI+5sMn2r0N0v3cKJvUmFH5yPP+WXh9e0xfyzyJX95D8l088DNFj7A==}
     hasBin: true
 
-  /optimism@0.16.2:
-    resolution: {integrity: sha512-zWNbgWj+3vLEjZNIh/okkY2EUfX+vB9TJopzIZwT1xxaMqC5hRLLraePod4c5n4He08xuXNH+zhKFFCu390wiQ==}
+  /optimism@0.17.4:
+    resolution: {integrity: sha512-KoRKlIfGkU9j9FPlaIMvKJ8caF1Xdi2zeonabg1UPYutHp8jqoJCezR2XzP1yzBggs8LwTDBtQbwIY1BHpp1iw==}
     dependencies:
       '@wry/context': 0.7.3
       '@wry/trie': 0.3.2
+      tslib: 2.5.2
     dev: false
 
   /optionator@0.8.3:
@@ -11572,6 +11609,13 @@ packages:
       mz: 2.7.0
       pirates: 4.0.5
       ts-interface-checker: 0.1.13
+
+  /superjson@1.12.3:
+    resolution: {integrity: sha512-0j+U70KUtP8+roVPbwfqkyQI7lBt7ETnuA7KXbTDX3mCKiD/4fXs2ldKSMdt0MCfpTwiMxo20yFU3vu6ewETpQ==}
+    engines: {node: '>=10'}
+    dependencies:
+      copy-anything: 3.0.4
+    dev: false
 
   /supports-color@5.5.0:
     resolution: {integrity: sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==}
