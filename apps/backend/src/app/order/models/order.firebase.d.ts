@@ -10,6 +10,7 @@ type OrderType = {
     count: number;
     price: number;
   }[];
+  total_price: number;
   finished: boolean;
   create_at: admin.firestore.FieldValue;
 };
