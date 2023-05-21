@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,115 +8,115 @@ datasource db {
 }
 
 model User {
-  Customer Customer?
-  Store    Store?
-  Avatar   Picture   @relation(fields: [avatarId], references: [id])
-  Post     Post[]
-
-  id        String   @id @default(uuid()) @db.VarChar(36)
-  account   String   @unique @db.VarChar(30)
-  password  String   @db.TinyText
-  name      String   @db.VarChar(30)
-  phone     String   @unique @db.Char(10)
-  avatarId  String   @unique @map("avatar_id") @db.VarChar(36)
-  postCount Int      @default(0) @map("post_count") @db.Int
-  createdAt DateTime @default(now()) @map("craete_at")
+  id        String    @id @default(uuid()) @db.VarChar(36)
+  account   String    @unique @db.VarChar(30)
+  password  String    @db.TinyText
+  name      String    @db.VarChar(30)
+  phone     String    @unique @db.Char(10)
+  avatarId  String    @unique @map("avatar_id") @db.VarChar(36)
+  createdAt DateTime  @default(now()) @map("craete_at")
+  postCount Int       @default(0) @map("post_count")
+  customer  Customer?
+  store     Store?
+  avatar    Picture   @relation(fields: [avatarId], references: [id])
 }
 
 model Customer {
-  User      User        @relation(fields: [userId], references: [id])
-  Following Following[]
-
-  id             String @id @default(uuid()) @db.VarChar(36)
-  userId         String @unique @map("user_id") @db.VarChar(36)
-  email          String @db.VarChar(30)
-  followingCount Int    @default(0) @map("following_count") @db.Int
+  id             String         @id @default(uuid()) @db.VarChar(36)
+  email          String         @db.VarChar(30)
+  followingCount Int            @default(0) @map("following_count")
+  userId         String         @unique @map("user_id") @db.VarChar(36)
+  user           User           @relation(fields: [userId], references: [id])
+  following      Following[]
+  customerPost   CustomerPost[]
 }
 
 model Store {
-  User         User          @relation(fields: [userId], references: [id])
-  StoreRating  StoreRating?
-  CustomerPost CustomerPost?
-  Following    Following[]
-
-  id      String @id @default(uuid()) @db.VarChar(36)
-  userId  String @unique @map("user_id") @db.VarChar(36)
-  address String @db.VarChar(50)
-  info    String @db.TinyText
+  id           String         @id @default(uuid()) @db.VarChar(36)
+  address      String         @db.VarChar(50)
+  info         String         @db.TinyText
+  userId       String         @unique @map("user_id") @db.VarChar(36)
+  customerPost CustomerPost[]
+  following    Following[]
+  user         User           @relation(fields: [userId], references: [id])
+  storeRating  StoreRating?
+  storePost    StorePost[]
 }
 
 model Following {
-  Customer Customer @relation(fields: [customerId], references: [id])
-  Store    Store    @relation(fields: [storeId], references: [id])
+  customerId String   @map("customer_id") @db.VarChar(36)
+  storeId    String   @map("store_id") @db.VarChar(36)
+  customer   Customer @relation(fields: [customerId], references: [id])
+  store      Store    @relation(fields: [storeId], references: [id])
 
-  customerId String @unique @map("customer_id") @db.VarChar(36)
-  storeId    String @unique @map("store_id") @db.VarChar(36)
+  @@unique([customerId, storeId])
 }
 
 model Rating {
-  UserPost    CustomerPost?
-  StoreRating StoreRating?
-
-  id          String @id @default(uuid()) @db.VarChar(36)
-  general     Float  @default(0) @db.Float
-  environment Float  @default(0) @db.Float
-  meals       Float  @default(0) @db.Float
-  attitude    Float  @default(0) @db.Float
+  general     Float         @default(0) @db.Float
+  environment Float         @default(0) @db.Float
+  meals       Float         @default(0) @db.Float
+  attitude    Float         @default(0) @db.Float
+  id          String        @id @default(uuid()) @db.VarChar(36)
+  userPost    CustomerPost?
+  storeRating StoreRating?
 }
 
 model StoreRating {
-  Store  Store  @relation(fields: [storeId], references: [id])
-  Rating Rating @relation(fields: [ratingId], references: [id])
-
   storeId   String @unique @map("store_id") @db.VarChar(36)
   ratingId  String @unique @map("rating_id") @db.VarChar(36)
-  postCount Int    @default(0) @map("post_count") @db.Int
+  postCount Int    @default(0) @map("post_count")
+  rating    Rating @relation(fields: [ratingId], references: [id])
+  store     Store  @relation(fields: [storeId], references: [id])
 }
 
 model Picture {
-  PostPicture PostPicture[]
-  User        User?
-
-  id   String @id @default(uuid()) @db.VarChar(36)
-  data String
+  id          String        @id @default(uuid()) @db.VarChar(36)
+  data        String
+  postPicture PostPicture[]
+  user        User?
 }
 
 model PostPicture {
-  Post    Post    @relation(fields: [postId], references: [id])
-  Picture Picture @relation(fields: [pictureId], references: [id])
+  pictureId String  @map("picture_id") @db.VarChar(36)
+  postId    String  @map("post_id") @db.VarChar(36)
+  picture   Picture @relation(fields: [pictureId], references: [id])
+  post      Post    @relation(fields: [postId], references: [id])
 
-  postId    String @unique @map("post_id") @db.VarChar(36)
-  pictureId String @unique @map("picture_id") @db.VarChar(36)
+  @@unique([pictureId, postId])
 }
 
 model Post {
-  User         User          @relation(fields: [userId], references: [id])
-  CustomerPost CustomerPost?
-  StorePost    StorePost?
-  PostPicture  PostPicture[]
-
-  id       String   @id @default(uuid()) @db.VarChar(36)
-  userId   String   @map("user_id") @db.VarChar(36)
-  body     String   @db.Text
-  postAt   DateTime @default(now()) @map("post_at")
-  updateAt DateTime @updatedAt @map("update_at")
+  id           String        @id @default(uuid()) @db.VarChar(36)
+  body         String        @db.Text
+  postAt       DateTime      @default(now()) @map("post_at")
+  updateAt     DateTime      @updatedAt @map("update_at")
+  postPicture  PostPicture[]
+  customerPost CustomerPost?
+  storePost    StorePost?
 }
 
 model CustomerPost {
-  Post   Post   @relation(fields: [postId], references: [id])
-  Rating Rating @relation(fields: [ratingId], references: [id])
-  Store  Store  @relation(fields: [storeId], references: [id])
+  id         String   @id @default(uuid()) @db.VarChar(36)
+  postId     String   @unique @map("post_id") @db.VarChar(36)
+  ratingId   String   @unique @map("rating_id") @db.VarChar(36)
+  customerId String   @map("customer_id") @db.VarChar(36)
+  storeId    String   @map("store_id") @db.VarChar(36)
+  post       Post     @relation(fields: [postId], references: [id])
+  rating     Rating   @relation(fields: [ratingId], references: [id])
+  store      Store    @relation(fields: [storeId], references: [id])
+  customer   Customer @relation(fields: [customerId], references: [id])
 
-  id       String @id @default(uuid()) @db.VarChar(36)
-  postId   String @unique @map("post_id") @db.VarChar(36)
-  ratingId String @unique @map("rating_id") @db.VarChar(36)
-  storeId  String @unique @map("store_id") @db.VarChar(36)
+  @@unique([id, customerId])
 }
 
 model StorePost {
-  Post Post @relation(fields: [postId], references: [id])
+  id      String @id @default(uuid()) @db.VarChar(36)
+  title   String @db.VarChar(20)
+  postId  String @unique @map("post_id") @db.VarChar(36)
+  storeId String @db.VarChar(36)
+  post    Post   @relation(fields: [postId], references: [id])
+  store   Store  @relation(fields: [storeId], references: [id])
 
-  id     String @id @default(uuid()) @db.VarChar(36)
-  postId String @unique @map("post_id") @db.VarChar(36)
-  title  String @db.VarChar(20)
+  @@unique([id, storeId])
 }
