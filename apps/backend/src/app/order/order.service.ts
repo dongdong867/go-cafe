@@ -8,6 +8,7 @@ import { OrderType } from './models/order.firebase';
 import { PrismaService } from '../prisma/prisma.service';
 import { FinishOrderInput } from './dto/input/finish-order.input';
 import { ForbiddenError } from '@nestjs/apollo';
+import { Order, OrderDish } from './models/order.entity';
 
 @Injectable()
 export class OrderService {
@@ -17,51 +18,29 @@ export class OrderService {
     private readonly prisma: PrismaService
   ) {}
 
-  // getUnfinishedOrder(currentId: string): Order[] {
-  //   // return unfinished order
-  //   const orderList: Order[] = [
-  //     {
-  //       id: uuidv4(),
-  //       customerAccount: 'test customer account 1',
-  //       tableNumber: 'take away',
-  //       totalPrice: 1234,
-  //       dishes: [
-  //         {
-  //           name: 'dish 1',
-  //           price: 1234,
-  //           count: 3,
-  //         },
-  //         {
-  //           name: 'dish 2',
-  //           price: 234,
-  //           count: 2,
-  //         },
-  //       ],
-  //       finished: false,
-  //     },
-  //     {
-  //       id: uuidv4(),
-  //       customerAccount: 'test customer account 2',
-  //       tableNumber: 'take away',
-  //       totalPrice: 1234,
-  //       dishes: [
-  //         {
-  //           name: 'dish 3',
-  //           price: 1234,
-  //           count: 3,
-  //         },
-  //         {
-  //           name: 'dish 4',
-  //           price: 234,
-  //           count: 2,
-  //         },
-  //       ],
-  //       finished: false,
-  //     },
-  //   ];
+  async getUnfinishedOrder(currentId: string): Promise<Order[]> {
+    const orderList = await this.firebase
+      .firestore()
+      .collection('order')
+      .where('store_id', '==', currentId)
+      .where('finished', '==', false)
+      .get();
 
-  //   return orderList;
-  // }
+    return orderList.docs.map((order) => ({
+      id: order.get('id'),
+      customerId: order.get('customer_id'),
+      tableNumber: order.get('table_number'),
+      totalPrice: order.get('total_price'),
+      finished: false,
+      dishes: order.get('orders').map(
+        (dish: admin.firestore.DocumentData): OrderDish => ({
+          name: dish.dish_name,
+          count: dish.count,
+          price: dish.price,
+        })
+      ),
+    }));
+  }
 
   async createOrder(
     currentId: string,
@@ -85,6 +64,7 @@ export class OrderService {
         count: order.count,
         price: order.price,
       })),
+      total_price: createOrderInput.totalPrice,
       finished: false,
       create_at: admin.firestore.FieldValue.serverTimestamp(),
     };
