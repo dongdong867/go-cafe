@@ -6,6 +6,7 @@ import './global.css';
 
 //components
 import Navbar from './components/Navbar/Navbar';
+import { ApolloWrapper } from '../lib/apollo-provider';
 
 export const metadata = {
   title: 'Go Cafe',
@@ -26,8 +27,10 @@ const RootLayout = ({ children }: Props) => {
   return (
     <html lang="en" data-theme="cupcake" className={`${montserrat.variable}`}>
       <body>
-        <Navbar />
-        {children}
+        <ApolloWrapper>
+          <Navbar />
+          {children}
+        </ApolloWrapper>
       </body>
     </html>
   );
