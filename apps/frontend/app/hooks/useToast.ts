@@ -1,4 +1,3 @@
-import { useEffect, useReducer } from 'react';
 import toast from 'react-hot-toast';
 
 const useToast = (context: string, type?: string) => {
