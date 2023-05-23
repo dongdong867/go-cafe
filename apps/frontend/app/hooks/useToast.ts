@@ -1,4 +1,3 @@
-import { useEffect, useReducer } from 'react';
 import toast from 'react-hot-toast';
 
 const useToast = (context: string, type?: string) => {
@@ -15,11 +14,9 @@ const useToast = (context: string, type?: string) => {
     }
   };
 
-  useEffect(() => {
-    if (context !== '' && context !== null) {
-      createToast();
-    }
-  }, [context]);
+  if (context !== '' && context !== null) {
+    createToast();
+  }
   return;
 };
 

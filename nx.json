@@ -3,7 +3,7 @@
   "npmScope": "go-cafe",
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/nx-cloud",
+      "runner": "nx-cloud",
       "options": {
         "cacheableOperations": ["build", "lint", "test", "e2e"],
         "accessToken": "Njc4MTljNzUtOWM3OS00YjI3LTg2YjQtYWUyOWI1ZDhjMTUyfHJlYWQtd3JpdGU="
@@ -41,12 +41,12 @@
     "sharedGlobals": ["{workspaceRoot}/babel.config.json"]
   },
   "generators": {
-    "@nrwl/react": {
+    "@nx/react": {
       "application": {
         "babel": true
       }
     },
-    "@nrwl/next": {
+    "@nx/next": {
       "application": {
         "style": "css",
         "linter": "eslint"
