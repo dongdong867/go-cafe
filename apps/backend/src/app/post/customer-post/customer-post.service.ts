@@ -16,92 +16,90 @@ export class CustomerPostService {
   ) {}
 
   async getPosts(currentId: string): Promise<CustomerPost[]> {
-    const data = await this.prisma.customer.findUniqueOrThrow({
+    await this.prisma.customer.findUniqueOrThrow({
       where: {
         id: currentId,
       },
+    });
+    const data = await this.prisma.customerPost.findMany({
       select: {
-        customerPost: {
+        id: true,
+        post: {
           select: {
-            id: true,
-            post: {
+            body: true,
+            postPicture: {
               select: {
-                body: true,
-                postPicture: {
+                picture: {
                   select: {
-                    picture: {
-                      select: {
-                        data: true,
-                      },
-                    },
+                    data: true,
                   },
                 },
-              },
-            },
-            rating: {
-              select: {
-                general: true,
-                environment: true,
-                meals: true,
-                attitude: true,
-              },
-            },
-            store: {
-              select: {
-                user: {
-                  select: {
-                    account: true,
-                    name: true,
-                    phone: true,
-                    postCount: true,
-                    avatar: {
-                      select: {
-                        data: true,
-                      },
-                    },
-                  },
-                },
-                storeRating: {
-                  select: {
-                    postCount: true,
-                    rating: {
-                      select: {
-                        general: true,
-                        environment: true,
-                        meals: true,
-                        attitude: true,
-                      },
-                    },
-                  },
-                },
-                address: true,
-                info: true,
-              },
-            },
-            customer: {
-              select: {
-                user: {
-                  select: {
-                    account: true,
-                    name: true,
-                    phone: true,
-                    postCount: true,
-                    avatar: {
-                      select: {
-                        data: true,
-                      },
-                    },
-                  },
-                },
-                email: true,
-                followingCount: true,
               },
             },
           },
         },
+        rating: {
+          select: {
+            general: true,
+            environment: true,
+            meals: true,
+            attitude: true,
+          },
+        },
+        store: {
+          select: {
+            user: {
+              select: {
+                account: true,
+                name: true,
+                phone: true,
+                postCount: true,
+                avatar: {
+                  select: {
+                    data: true,
+                  },
+                },
+              },
+            },
+            storeRating: {
+              select: {
+                postCount: true,
+                rating: {
+                  select: {
+                    general: true,
+                    environment: true,
+                    meals: true,
+                    attitude: true,
+                  },
+                },
+              },
+            },
+            address: true,
+            info: true,
+          },
+        },
+        customer: {
+          select: {
+            user: {
+              select: {
+                account: true,
+                name: true,
+                phone: true,
+                postCount: true,
+                avatar: {
+                  select: {
+                    data: true,
+                  },
+                },
+              },
+            },
+            followingCount: true,
+            email: true,
+          },
+        },
       },
     });
-    return data.customerPost;
+    return data;
   }
 
   async createCustomerPost(
