@@ -78,6 +78,25 @@ export class CustomerPostService {
                 info: true,
               },
             },
+            customer: {
+              select: {
+                user: {
+                  select: {
+                    account: true,
+                    name: true,
+                    phone: true,
+                    postCount: true,
+                    avatar: {
+                      select: {
+                        data: true,
+                      },
+                    },
+                  },
+                },
+                email: true,
+                followingCount: true,
+              },
+            },
           },
         },
       },
