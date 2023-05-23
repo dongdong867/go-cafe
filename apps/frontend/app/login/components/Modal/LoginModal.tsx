@@ -6,7 +6,6 @@ import InputModal from '@/components/Input/InputModal';
 
 //hooks
 import useLogin from '@/hooks/useLogin';
-import useToast from '@/hooks/useToast';
 
 //icons
 import { IoMdUnlock } from 'react-icons/io';
@@ -20,8 +19,7 @@ type Props = {
 };
 
 const LoginModal = ({ setSignin }: Props) => {
-  const { setAccount, setPassword, error, login } = useLogin();
-  useToast(error, 'error');
+  const { setAccount, setPassword, handleLogin } = useLogin();
 
   const bodyContent = (
     <div className="space-y-4">
@@ -57,7 +55,7 @@ const LoginModal = ({ setSignin }: Props) => {
 
   return (
     <>
-      <Modal buttonContent="Sign in" onSubmit={login}>
+      <Modal buttonContent="Sign in" onSubmit={handleLogin}>
         {bodyContent}
       </Modal>
       <Toaster />
