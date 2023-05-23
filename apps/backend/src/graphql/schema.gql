@@ -66,6 +66,7 @@ type Customer {
 }
 
 type CustomerPost {
+  customer: Customer!
   id: ID!
   post: Post!
   rating: Rating!
