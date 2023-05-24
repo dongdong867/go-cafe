@@ -45,16 +45,25 @@ export class StoreService {
   }
 
   async getStores(getStoresArgs: GetStoresArgs): Promise<Store[]> {
-    const list: Store[] = [];
-
-    for (let i = 0; i < getStoresArgs.accounts.length; i++) {
-      const store = await this.getStore({
-        account: getStoresArgs.accounts.at(i),
-      });
-      list.push(store);
-    }
-
-    return list;
+    return await this.prisma.store.findMany({
+      where: {
+        user: {
+          OR: [
+            {
+              account: {
+                contains: getStoresArgs.query,
+              },
+            },
+            {
+              name: {
+                contains: getStoresArgs.query,
+              },
+            },
+          ],
+        },
+      },
+      select: StoreSelect,
+    });
   }
 
   async createStore(createStoreInput: CreateStoreInput): Promise<string> {
