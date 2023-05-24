@@ -6,6 +6,7 @@ import { CreateCustomerPostInput } from './dto/input/create-customer-post.input'
 import { UpdateCustomerPostInput } from './dto/input/update-customer-post.input';
 import { DeleteCustomerPostInput } from './dto/input/delete-customer-post.input';
 import { StoreRating } from '../../user/store/models/store-rating.entity';
+import { CustomerPostSelect } from './dto/select/CustomerPost.select';
 
 @Injectable()
 export class CustomerPostService {
@@ -22,75 +23,7 @@ export class CustomerPostService {
       },
     });
     const data = await this.prisma.customerPost.findMany({
-      select: {
-        id: true,
-        post: {
-          select: {
-            body: true,
-            postPicture: {
-              select: {
-                picture: {
-                  select: {
-                    data: true,
-                  },
-                },
-              },
-            },
-          },
-        },
-        rating: true,
-        store: {
-          select: {
-            user: {
-              select: {
-                account: true,
-                name: true,
-                phone: true,
-                postCount: true,
-                avatar: {
-                  select: {
-                    data: true,
-                  },
-                },
-              },
-            },
-            storeRating: {
-              select: {
-                postCount: true,
-                rating: {
-                  select: {
-                    general: true,
-                    environment: true,
-                    meals: true,
-                    attitude: true,
-                  },
-                },
-              },
-            },
-            address: true,
-            info: true,
-          },
-        },
-        customer: {
-          select: {
-            user: {
-              select: {
-                account: true,
-                name: true,
-                phone: true,
-                postCount: true,
-                avatar: {
-                  select: {
-                    data: true,
-                  },
-                },
-              },
-            },
-            followingCount: true,
-            email: true,
-          },
-        },
-      },
+      select: CustomerPostSelect,
     });
     return data;
   }
@@ -100,75 +33,7 @@ export class CustomerPostService {
       where: {
         customerId: currentId,
       },
-      select: {
-        id: true,
-        rating: true,
-        store: {
-          select: {
-            user: {
-              select: {
-                account: true,
-                name: true,
-                phone: true,
-                postCount: true,
-                avatar: {
-                  select: {
-                    data: true,
-                  },
-                },
-              },
-            },
-            storeRating: {
-              select: {
-                postCount: true,
-                rating: {
-                  select: {
-                    general: true,
-                    environment: true,
-                    meals: true,
-                    attitude: true,
-                  },
-                },
-              },
-            },
-            address: true,
-            info: true,
-          },
-        },
-        customer: {
-          select: {
-            user: {
-              select: {
-                account: true,
-                name: true,
-                phone: true,
-                postCount: true,
-                avatar: {
-                  select: {
-                    data: true,
-                  },
-                },
-              },
-            },
-            followingCount: true,
-            email: true,
-          },
-        },
-        post: {
-          select: {
-            body: true,
-            postPicture: {
-              select: {
-                picture: {
-                  select: {
-                    data: true,
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
+      select: CustomerPostSelect,
     });
   }
 
