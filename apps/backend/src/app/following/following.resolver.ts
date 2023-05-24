@@ -4,7 +4,6 @@ import { FollowingService } from './following.service';
 import { UseGuards } from '@nestjs/common';
 import { UserAuthGuard } from '../user/guards/user-auth.guard';
 import { CustomerGuard } from '../user/guards/role.guard';
-import { Customer } from '../user/customer/models/customer.entity';
 import { CurrentId } from '../user/decorator/current-id.decorator';
 import { Store } from '../user/store/models/store.entity';
 
