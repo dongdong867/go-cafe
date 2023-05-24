@@ -8,6 +8,7 @@ import { DeleteCustomerPostInput } from './dto/input/delete-customer-post.input'
 import { StoreRating } from '../../user/store/models/store-rating.entity';
 import { GetCustomerPostArgs } from './dto/args/get-customer-post.args';
 import { CustomerPostSelect } from './dto/select/CustomerPost.select';
+import { GetCustomerPostAtStoreArgs } from './dto/args/get-customer-post-at-store.args';
 
 @Injectable()
 export class CustomerPostService {
@@ -48,6 +49,25 @@ export class CustomerPostService {
     return await this.prisma.customerPost.findMany({
       where: {
         customerId: currentId,
+      },
+      select: CustomerPostSelect,
+    });
+  }
+
+  async getPostsByStoreAccount(
+    currentId: string,
+    getCustomerPostAtStoreArgs: GetCustomerPostAtStoreArgs
+  ): Promise<CustomerPost[]> {
+    await this.prisma.customer.findUniqueOrThrow({
+      where: {
+        id: currentId,
+      },
+    });
+    return await this.prisma.customerPost.findMany({
+      where: {
+        storeId: await this.storeService.getStoreIdByAccount(
+          getCustomerPostAtStoreArgs.storeAccount
+        ),
       },
       select: CustomerPostSelect,
     });
