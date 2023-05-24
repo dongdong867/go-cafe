@@ -7,7 +7,7 @@ import { UpdateCustomerPostInput } from './dto/input/update-customer-post.input'
 import { DeleteCustomerPostInput } from './dto/input/delete-customer-post.input';
 import { StoreRating } from '../../user/store/models/store-rating.entity';
 import { GetCustomerPostArgs } from './dto/args/get-customer-post.args';
-import { CustomerPostSelect } from './dto/select/CustomerPost.select';
+import { CustomerPostSelect } from './dto/select/customer-post.select';
 import { GetCustomerPostAtStoreArgs } from './dto/args/get-customer-post-at-store.args';
 
 @Injectable()
