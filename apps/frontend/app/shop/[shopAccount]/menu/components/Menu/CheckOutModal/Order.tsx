@@ -10,26 +10,22 @@ type Props = {
 const CheckOutOrder = ({ order }: Props) => {
   const [open, setOpen] = useState(false);
 
-  const EditButton = () => {
-    if (open === false) return null;
-
-    return (
-      <div className="w-full flex justify-end space-x-2 py-2">
-        <button
-          onClick={(e) => handleDelete(e)}
-          className="btn btn-error text-white"
-        >
-          delete
-        </button>
-        <button
-          onClick={(e) => handleClose(e)}
-          className="btn btn-primary text-white"
-        >
-          cancel
-        </button>
-      </div>
-    );
-  };
+  const EditButton = (
+    <div className="w-full flex justify-end space-x-2 py-2">
+      <button
+        onClick={(e) => handleDelete(e)}
+        className="btn btn-error text-white"
+      >
+        delete
+      </button>
+      <button
+        onClick={(e) => handleClose(e)}
+        className="btn btn-primary text-white"
+      >
+        cancel
+      </button>
+    </div>
+  );
 
   const { shoppingCart, setShoppingCart } = useContext(ShoppingCart);
 
@@ -57,7 +53,7 @@ const CheckOutOrder = ({ order }: Props) => {
             </div>
           </div>
         </button>
-        <EditButton />
+        {open && EditButton}
       </div>
     </>
   );
