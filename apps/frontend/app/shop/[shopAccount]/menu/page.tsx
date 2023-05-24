@@ -3,7 +3,7 @@
 import MenuNavigator from './components/MenuNavigator';
 import Menu from './components/Menu/Menu';
 
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useState } from 'react';
 import CheckOutModal from './components/Menu/CheckOutModal/Modal';
 import PageTitle from '@/components/PageTitle';
 import BottomButton from '@/components/Button/BottomButton';
@@ -43,11 +43,11 @@ type Props = {
 };
 
 const ShopMenuPage = ({ params }: Props) => {
-  const { data } = useSuspenseQuery(query, {
+  const { data }: { data: Menu } = useSuspenseQuery(query, {
     variables: {
       storeAccount: decodeURIComponent(params.shopAccount),
     },
-  }) as UseSuspenseQueryResult<Menu>;
+  });
 
   useToast('test', 'error');
 
