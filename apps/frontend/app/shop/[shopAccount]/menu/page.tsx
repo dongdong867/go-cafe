@@ -7,7 +7,7 @@ import { createContext, useState } from 'react';
 import CheckOutModal from './components/Menu/CheckOutModal/Modal';
 import PageTitle from '@/components/PageTitle';
 import BottomButton from '@/components/Button/BottomButton';
-import { UseSuspenseQueryResult, gql } from '@apollo/client';
+import { gql } from '@apollo/client';
 import { useSuspenseQuery } from '@apollo/experimental-nextjs-app-support/ssr';
 import useToast from '@/hooks/useToast';
 
