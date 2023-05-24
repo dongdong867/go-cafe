@@ -173,6 +173,7 @@ type Query {
   customer: Customer!
   customerPost: [CustomerPost]!
   menu(storeAccount: String!): Menu!
+  selfPost: [CustomerPost]!
   store(account: String!): Store!
   storePost(storeAccount: String!): [StorePost]!
   stores(accounts: [String!]!): [Store!]!
