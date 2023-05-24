@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { FollowInput } from './dto/input/follow.input';
 import { StoreService } from '../user/store/store.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { Store } from '../user/store/models/store.entity';
 
 @Injectable()
 export class FollowingService {
@@ -9,6 +10,43 @@ export class FollowingService {
     private readonly prisma: PrismaService,
     private readonly storeService: StoreService
   ) {}
+
+  async getFollowingList(currentId: string): Promise<Store[]> {
+    return (
+      await this.prisma.following.findMany({
+        where: {
+          customerId: currentId,
+        },
+        select: {
+          store: {
+            select: {
+              user: {
+                select: {
+                  account: true,
+                  name: true,
+                  phone: true,
+                  postCount: true,
+                  avatar: {
+                    select: {
+                      data: true,
+                    },
+                  },
+                },
+              },
+              address: true,
+              info: true,
+              storeRating: {
+                select: {
+                  rating: true,
+                  postCount: true,
+                },
+              },
+            },
+          },
+        },
+      })
+    ).map((data) => data.store);
+  }
 
   async follow(currentId: string, followInput: FollowInput): Promise<string> {
     const storeId: string = await this.storeService.getStoreIdByAccount(
