@@ -39,7 +39,7 @@ const CheckOutOrder = ({ order }: Props) => {
 
   const handleDelete = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setShoppingCart(
-      shoppingCart.filter((cartItem) => cartItem.id !== order.id)
+      shoppingCart.filter((cartItem) => cartItem.dish.name !== order.dish.name)
     );
   };
 
@@ -49,10 +49,10 @@ const CheckOutOrder = ({ order }: Props) => {
         <button onClick={() => setOpen(true)} className="w-full h-max py-2">
           <div className="w-full justify-between space-x-20 font-bold text-lg max-[450px]:text-base">
             <div className="flex space-x-4">
-              <div className="w-2/3 text-left">{order.item.name}</div>
+              <div className="w-2/3 text-left">{order.dish.name}</div>
               <div className="flex w-1/3 justify-between">
                 <div>X{order.quantity}</div>
-                <div>${order.quantity * order.item.price}</div>
+                <div>${order.quantity * order.dish.price}</div>
               </div>
             </div>
           </div>
