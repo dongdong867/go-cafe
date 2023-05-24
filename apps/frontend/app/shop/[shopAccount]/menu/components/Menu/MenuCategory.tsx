@@ -1,21 +1,21 @@
 import CommodityModal from './CommodityModal/CommodityModal';
 
 type Props = {
-  title: string;
-  items: {
+  name: string;
+  dishes: {
     name: string;
     price: number;
   }[];
 };
 
-const MenuCategory = ({ title, items }: Props) => {
+const MenuCategory = ({ name, dishes }: Props) => {
   return (
     <>
-      <li id={title} className="menu-title">
-        <span>{title}</span>
+      <li id={name} className="menu-title">
+        <span>{name}</span>
       </li>
-      {items.map((item) => (
-        <CommodityModal key={item.name} item={item} />
+      {dishes.map((dish) => (
+        <CommodityModal key={dish.name} dish={dish} />
       ))}
     </>
   );
