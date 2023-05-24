@@ -1,9 +1,13 @@
 type User = {
-  id: string;
-  name: string;
-  postCount: number;
-  followerCount: number;
+  user: {
+    avatar: {
+      data: string;
+    };
+    name: string;
+    account: string;
+    phone: string;
+    postCount: number;
+  };
+  email: string;
   followingCount: number;
-  historyPosts: PostModalData[];
-  // TODO: add image type
 };
