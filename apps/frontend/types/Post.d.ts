@@ -1,7 +1,11 @@
 type PostModalData = {
   id: string;
   body: string;
-  // TODO: add image type
+  pictures: {
+    picture: {
+      data: string;
+    };
+  }[];
 };
 
 type UserPost = {
@@ -12,7 +16,7 @@ type UserPost = {
       picture: {
         data: string;
       };
-    };
+    }[];
   };
   rating: {
     general: number;
@@ -36,8 +40,13 @@ type UserPost = {
 
 type ShopPost = {
   id: string;
-  coffeeShopId: string;
+  post: {
+    body: string;
+    postPicture: {
+      picture: {
+        data: string;
+      };
+    }[];
+  };
   title: string;
-  body: string;
-  // TODO: add image type
 };
