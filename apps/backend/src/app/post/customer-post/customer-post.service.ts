@@ -38,14 +38,7 @@ export class CustomerPostService {
             },
           },
         },
-        rating: {
-          select: {
-            general: true,
-            environment: true,
-            meals: true,
-            attitude: true,
-          },
-        },
+        rating: true,
         store: {
           select: {
             user: {
@@ -143,6 +136,21 @@ export class CustomerPostService {
       },
     });
 
+    await this.prisma.customer.update({
+      where: {
+        id: currentId,
+      },
+      data: {
+        user: {
+          update: {
+            postCount: {
+              increment: 1,
+            },
+          },
+        },
+      },
+    });
+
     const storeRating: StoreRating =
       await this.prisma.storeRating.findUniqueOrThrow({
         where: {
@@ -165,18 +173,19 @@ export class CustomerPostService {
         rating: {
           update: {
             general:
-              (storeRating.rating.general +
+              (storeRating.rating.general * storeRating.postCount +
                 createUserPostInput.rating.general) /
               (storeRating.postCount + 1),
             environment:
-              (storeRating.rating.environment +
+              (storeRating.rating.environment * storeRating.postCount +
                 createUserPostInput.rating.environment) /
               (storeRating.postCount + 1),
             meals:
-              (storeRating.rating.meals + createUserPostInput.rating.meals) /
+              (storeRating.rating.meals * storeRating.postCount +
+                createUserPostInput.rating.meals) /
               (storeRating.postCount + 1),
             attitude:
-              (storeRating.rating.attitude +
+              (storeRating.rating.attitude * storeRating.postCount +
                 createUserPostInput.rating.attitude) /
               (storeRating.postCount + 1),
           },
