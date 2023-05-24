@@ -172,6 +172,7 @@ input PostRatingInput {
 type Query {
   customer: Customer!
   customerPost(postId: ID!): CustomerPost!
+  customerPostAtStore(storeAccount: String!): [CustomerPost]!
   customerPosts: [CustomerPost]!
   menu(storeAccount: String!): Menu!
   selfPost: [CustomerPost]!
