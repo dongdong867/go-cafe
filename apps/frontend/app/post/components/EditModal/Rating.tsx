@@ -1,6 +1,6 @@
 'use client';
 
-import RatingModal from '@/components/RatingModal';
+import EditableRatingModal from '@/components/EditableRatingModal';
 
 type Props = {
   rating: Rating;
@@ -16,33 +16,10 @@ const EditRating = ({ rating, setRate }: Props) => {
           <div className="divider" />
         </div>
         <div className="card-body p-8 pt-0 place-items-center">
-          <RatingModal
-            editable
-            rateName="general"
-            rateValue={rating.general}
-            setRate={setRate}
-          />
-
-          <RatingModal
-            editable
-            rateName="environment"
-            rateValue={rating.environment}
-            setRate={setRate}
-          />
-
-          <RatingModal
-            editable
-            rateName="meals"
-            rateValue={rating.meals}
-            setRate={setRate}
-          />
-
-          <RatingModal
-            editable
-            rateName="attitude"
-            rateValue={rating.attitude}
-            setRate={setRate}
-          />
+          <EditableRatingModal rateName="general" setRate={setRate} />
+          <EditableRatingModal rateName="environment" setRate={setRate} />
+          <EditableRatingModal rateName="meals" setRate={setRate} />
+          <EditableRatingModal rateName="attitude" setRate={setRate} />
         </div>
       </div>
     </>
