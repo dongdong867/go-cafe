@@ -179,7 +179,7 @@ type Query {
   selfPost: [CustomerPost]!
   store(account: String!): Store!
   storePost(storeAccount: String!): [StorePost]!
-  stores(accounts: [String!]!): [Store!]!
+  stores(query: String!): [Store]!
   unfinishedOrder: [Order!]!
 }
 
