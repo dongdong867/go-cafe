@@ -6,6 +6,9 @@ import { CreateCustomerPostInput } from './dto/input/create-customer-post.input'
 import { UpdateCustomerPostInput } from './dto/input/update-customer-post.input';
 import { DeleteCustomerPostInput } from './dto/input/delete-customer-post.input';
 import { StoreRating } from '../../user/store/models/store-rating.entity';
+import { GetCustomerPostArgs } from './dto/args/get-customer-post.args';
+import { CustomerPostSelect } from './dto/select/customer-post.select';
+import { GetCustomerPostAtStoreArgs } from './dto/args/get-customer-post-at-store.args';
 
 @Injectable()
 export class CustomerPostService {
@@ -15,6 +18,21 @@ export class CustomerPostService {
     private readonly prisma: PrismaService
   ) {}
 
+  async getPost(
+    currentId: string,
+    getCustomerPostArgs: GetCustomerPostArgs
+  ): Promise<CustomerPost> {
+    return await this.prisma.customerPost.findUniqueOrThrow({
+      where: {
+        id_customerId: {
+          id: getCustomerPostArgs.postId,
+          customerId: currentId,
+        },
+      },
+      select: CustomerPostSelect,
+    });
+  }
+
   async getPosts(currentId: string): Promise<CustomerPost[]> {
     await this.prisma.customer.findUniqueOrThrow({
       where: {
@@ -22,84 +40,37 @@ export class CustomerPostService {
       },
     });
     const data = await this.prisma.customerPost.findMany({
-      select: {
-        id: true,
-        post: {
-          select: {
-            body: true,
-            postPicture: {
-              select: {
-                picture: {
-                  select: {
-                    data: true,
-                  },
-                },
-              },
-            },
-          },
-        },
-        rating: {
-          select: {
-            general: true,
-            environment: true,
-            meals: true,
-            attitude: true,
-          },
-        },
-        store: {
-          select: {
-            user: {
-              select: {
-                account: true,
-                name: true,
-                phone: true,
-                postCount: true,
-                avatar: {
-                  select: {
-                    data: true,
-                  },
-                },
-              },
-            },
-            storeRating: {
-              select: {
-                postCount: true,
-                rating: {
-                  select: {
-                    general: true,
-                    environment: true,
-                    meals: true,
-                    attitude: true,
-                  },
-                },
-              },
-            },
-            address: true,
-            info: true,
-          },
-        },
-        customer: {
-          select: {
-            user: {
-              select: {
-                account: true,
-                name: true,
-                phone: true,
-                postCount: true,
-                avatar: {
-                  select: {
-                    data: true,
-                  },
-                },
-              },
-            },
-            followingCount: true,
-            email: true,
-          },
-        },
-      },
+      select: CustomerPostSelect,
     });
     return data;
+  }
+
+  async getSelfPosts(currentId: string): Promise<CustomerPost[]> {
+    return await this.prisma.customerPost.findMany({
+      where: {
+        customerId: currentId,
+      },
+      select: CustomerPostSelect,
+    });
+  }
+
+  async getPostsByStoreAccount(
+    currentId: string,
+    getCustomerPostAtStoreArgs: GetCustomerPostAtStoreArgs
+  ): Promise<CustomerPost[]> {
+    await this.prisma.customer.findUniqueOrThrow({
+      where: {
+        id: currentId,
+      },
+    });
+    return await this.prisma.customerPost.findMany({
+      where: {
+        storeId: await this.storeService.getStoreIdByAccount(
+          getCustomerPostAtStoreArgs.storeAccount
+        ),
+      },
+      select: CustomerPostSelect,
+    });
   }
 
   async createCustomerPost(
@@ -143,6 +114,21 @@ export class CustomerPostService {
       },
     });
 
+    await this.prisma.customer.update({
+      where: {
+        id: currentId,
+      },
+      data: {
+        user: {
+          update: {
+            postCount: {
+              increment: 1,
+            },
+          },
+        },
+      },
+    });
+
     const storeRating: StoreRating =
       await this.prisma.storeRating.findUniqueOrThrow({
         where: {
@@ -165,18 +151,19 @@ export class CustomerPostService {
         rating: {
           update: {
             general:
-              (storeRating.rating.general +
+              (storeRating.rating.general * storeRating.postCount +
                 createUserPostInput.rating.general) /
               (storeRating.postCount + 1),
             environment:
-              (storeRating.rating.environment +
+              (storeRating.rating.environment * storeRating.postCount +
                 createUserPostInput.rating.environment) /
               (storeRating.postCount + 1),
             meals:
-              (storeRating.rating.meals + createUserPostInput.rating.meals) /
+              (storeRating.rating.meals * storeRating.postCount +
+                createUserPostInput.rating.meals) /
               (storeRating.postCount + 1),
             attitude:
-              (storeRating.rating.attitude +
+              (storeRating.rating.attitude * storeRating.postCount +
                 createUserPostInput.rating.attitude) /
               (storeRating.postCount + 1),
           },

@@ -9,6 +9,7 @@ import { CreateStoreInput } from './dto/input/create-store.input';
 import { UpdateStoreInput } from './dto/input/update-store.input';
 import { Store } from './models/store.entity';
 import { PrismaService } from '../../prisma/prisma.service';
+import { StoreSelect } from './dto/select/store.select';
 
 @Injectable()
 export class StoreService {
@@ -38,51 +39,31 @@ export class StoreService {
       where: {
         id: id,
       },
-      select: {
-        user: {
-          select: {
-            account: true,
-            name: true,
-            phone: true,
-            postCount: true,
-            avatar: {
-              select: {
-                data: true,
-              },
-            },
-          },
-        },
-        address: true,
-        info: true,
-        storeRating: {
-          select: {
-            rating: {
-              select: {
-                general: true,
-                environment: true,
-                meals: true,
-                attitude: true,
-              },
-            },
-            postCount: true,
-          },
-        },
-      },
+      select: StoreSelect,
     });
     return store;
   }
 
   async getStores(getStoresArgs: GetStoresArgs): Promise<Store[]> {
-    const list: Store[] = [];
-
-    for (let i = 0; i < getStoresArgs.accounts.length; i++) {
-      const store = await this.getStore({
-        account: getStoresArgs.accounts.at(i),
-      });
-      list.push(store);
-    }
-
-    return list;
+    return await this.prisma.store.findMany({
+      where: {
+        user: {
+          OR: [
+            {
+              account: {
+                contains: getStoresArgs.query,
+              },
+            },
+            {
+              name: {
+                contains: getStoresArgs.query,
+              },
+            },
+          ],
+        },
+      },
+      select: StoreSelect,
+    });
   }
 
   async createStore(createStoreInput: CreateStoreInput): Promise<string> {
