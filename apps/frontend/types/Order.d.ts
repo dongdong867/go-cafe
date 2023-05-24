@@ -1,6 +1,5 @@
 type Order = {
-  id: string;
-  item: {
+  dish: {
     name: string;
     price: number;
   };
