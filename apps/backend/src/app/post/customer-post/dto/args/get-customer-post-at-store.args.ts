@@ -1,7 +1,7 @@
 import { ArgsType, Field } from '@nestjs/graphql';
 
 @ArgsType()
-export class GetStoresArgs {
+export class GetCustomerPostAtStoreArgs {
   @Field()
-  query: string;
+  storeAccount: string;
 }

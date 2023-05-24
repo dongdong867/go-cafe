@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { GetStorePostArgs } from './dto/args/get-store-post.args';
-import { Store } from '../../user/store/models/store.entity';
 import { DeleteStorePostInput } from './dto/input/delete-store-post.input';
 import { PrismaService } from '../../prisma/prisma.service';
 import { StorePost } from './models/store-post.entity';
@@ -24,6 +23,7 @@ export class StorePostService {
       select: {
         storePost: {
           select: {
+            id: true,
             title: true,
             post: {
               select: {
