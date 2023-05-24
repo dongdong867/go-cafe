@@ -7,7 +7,7 @@ import { UpdateStoreInput } from './dto/input/update-store.input';
 import { Store } from './models/store.entity';
 import { UseGuards } from '@nestjs/common';
 import { UserAuthGuard } from '../guards/user-auth.guard';
-import { StoreGuard } from '../guards/role.guard';
+import { CustomerGuard, StoreGuard } from '../guards/role.guard';
 import { CurrentId } from '../decorator/current-id.decorator';
 
 @UseGuards(UserAuthGuard)
@@ -20,7 +20,8 @@ export class StoreResolver {
     return await this.storeService.getStore(getStoreArgs);
   }
 
-  @Query(() => [Store], { name: 'stores' })
+  @UseGuards(CustomerGuard)
+  @Query(() => [Store], { name: 'stores', nullable: 'items' })
   async getStores(@Args() getStoresArgs: GetStoresArgs): Promise<Store[]> {
     return await this.storeService.getStores(getStoresArgs);
   }
