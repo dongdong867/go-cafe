@@ -42,7 +42,7 @@ const ShopInfoButton = () => {
         </button>
         <div className="w-full flex gap-x-4">
           <Link
-            href={`/shop/${param.shopId}/menu`}
+            href={`/shop/${param.shopAccount}/menu`}
             className="
             btn 
             grow
@@ -59,7 +59,7 @@ const ShopInfoButton = () => {
             Order
           </Link>
           <Link
-            href={`/shop/${param.shopId}/posts`}
+            href={`/shop/${param.shopAccount}/posts`}
             className="
             btn 
             grow
