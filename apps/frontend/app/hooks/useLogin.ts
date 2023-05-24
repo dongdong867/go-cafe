@@ -18,6 +18,7 @@ const useLogin = () => {
   useEffect(() => {
     if (data) {
       document.cookie = `token=${data.login}`;
+      localStorage.setItem('token', data.login);
       redirect('/');
     }
   }, [data]);
