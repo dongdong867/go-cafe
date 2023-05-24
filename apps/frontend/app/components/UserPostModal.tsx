@@ -33,7 +33,11 @@ const UserPostModal = ({ customerPost, editable = false }: Props) => {
     <>
       <PostModal
         editable={editable}
-        data={{ id: customerPost.id, body: customerPost.post.body }}
+        data={{
+          id: customerPost.id,
+          body: customerPost.post.body,
+          pictures: customerPost.post.postPicture,
+        }}
         rates={rates}
       >
         <div className="collapse-title">
