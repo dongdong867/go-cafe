@@ -24,6 +24,7 @@ export class StorePostService {
       select: {
         storePost: {
           select: {
+            id: true,
             title: true,
             post: {
               select: {
