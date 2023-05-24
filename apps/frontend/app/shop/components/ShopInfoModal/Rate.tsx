@@ -1,10 +1,10 @@
 import RatingModal from '@/components/RatingModal';
 
 type Props = {
-  data: ShopInfoForUser;
+  rating: Rating;
 };
 
-const ShopRate = ({ data }: Props) => {
+const ShopRate = ({ rating }: Props) => {
   return (
     <>
       <div
@@ -17,13 +17,10 @@ const ShopRate = ({ data }: Props) => {
           space-y-2
           font-semibold"
       >
-        <RatingModal rateName="general" rateValue={data.stars.generalStar} />
-        <RatingModal
-          rateName="environment"
-          rateValue={data.stars.environment}
-        />
-        <RatingModal rateName="meals" rateValue={data.stars.meals} />
-        <RatingModal rateName="attitude" rateValue={data.stars.attitude} />
+        <RatingModal rateName="general" rateValue={rating.general} />
+        <RatingModal rateName="environment" rateValue={rating.environment} />
+        <RatingModal rateName="meals" rateValue={rating.meals} />
+        <RatingModal rateName="attitude" rateValue={rating.attitude} />
       </div>
     </>
   );
