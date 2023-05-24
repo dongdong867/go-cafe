@@ -9,6 +9,7 @@ import { CreateStoreInput } from './dto/input/create-store.input';
 import { UpdateStoreInput } from './dto/input/update-store.input';
 import { Store } from './models/store.entity';
 import { PrismaService } from '../../prisma/prisma.service';
+import { StoreSelect } from './dto/select/store.select';
 
 @Injectable()
 export class StoreService {
@@ -38,36 +39,7 @@ export class StoreService {
       where: {
         id: id,
       },
-      select: {
-        user: {
-          select: {
-            account: true,
-            name: true,
-            phone: true,
-            postCount: true,
-            avatar: {
-              select: {
-                data: true,
-              },
-            },
-          },
-        },
-        address: true,
-        info: true,
-        storeRating: {
-          select: {
-            rating: {
-              select: {
-                general: true,
-                environment: true,
-                meals: true,
-                attitude: true,
-              },
-            },
-            postCount: true,
-          },
-        },
-      },
+      select: StoreSelect,
     });
     return store;
   }
