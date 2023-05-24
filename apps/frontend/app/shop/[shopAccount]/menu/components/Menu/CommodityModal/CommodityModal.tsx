@@ -4,30 +4,30 @@ import { useState } from 'react';
 import CommodityOrderModal from './CommodityOrderModal';
 
 type Props = {
-  item: {
+  dish: {
     name: string;
     price: number;
   };
 };
 
-const CommodityModal = ({ item }: Props) => {
+const CommodityModal = ({ dish }: Props) => {
   const [quantity, setQuantity] = useState(1);
 
   return (
     <>
       <li>
-        <label htmlFor={item.name} className="text-xl font-bold">
-          {item.name}
+        <label htmlFor={dish.name} className="text-xl font-bold">
+          {dish.name}
           <input
             type="checkbox"
-            id={item.name}
+            id={dish.name}
             onChange={() => setQuantity(1)}
             className="modal-toggle"
           />
           <CommodityOrderModal
             quantity={quantity}
             setQuantity={setQuantity}
-            item={item}
+            dish={dish}
           />
         </label>
       </li>
