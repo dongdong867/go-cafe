@@ -6,13 +6,13 @@ import { ShoppingCart } from '../../../page';
 type Props = {
   quantity: number;
   setQuantity: React.Dispatch<React.SetStateAction<number>>;
-  item: {
+  dish: {
     name: string;
     price: number;
   };
 };
 
-const CommodityOrderModal = ({ quantity, setQuantity, item }: Props) => {
+const CommodityOrderModal = ({ quantity, setQuantity, dish }: Props) => {
   const { shoppingCart, setShoppingCart } = useContext(ShoppingCart);
 
   const id = useId();
@@ -21,7 +21,7 @@ const CommodityOrderModal = ({ quantity, setQuantity, item }: Props) => {
     let newOrderItem = true;
 
     shoppingCart.map((order) => {
-      if (order.item === item) {
+      if (order.dish === dish) {
         newOrderItem = false;
         return (order.quantity += quantity);
       } else return order;
@@ -30,7 +30,7 @@ const CommodityOrderModal = ({ quantity, setQuantity, item }: Props) => {
     if (newOrderItem) {
       const order = {
         id: id,
-        item: item,
+        dish: dish,
         quantity: quantity,
       };
 
@@ -43,8 +43,8 @@ const CommodityOrderModal = ({ quantity, setQuantity, item }: Props) => {
       <div className="modal modal-middle max-[450px]:modal-bottom">
         <div className="modal-box w-full max-w-lg p-8 flex flex-col place-items-center space-y-12 max-[450px]:w-full">
           <div className="w-full flex justify-around max-[450px]:justify-between text-3xl">
-            <div>{item.name}</div>
-            <div>${item.price}</div>
+            <div>{dish.name}</div>
+            <div>${dish.price}</div>
           </div>
           <div className="btn-group">
             <button
@@ -66,14 +66,14 @@ const CommodityOrderModal = ({ quantity, setQuantity, item }: Props) => {
           </div>
           <div className="modal-action w-5/6 max-[450px]:w-full">
             <label
-              htmlFor={item.name}
+              htmlFor={dish.name}
               onClick={() => handleClick()}
               className="btn btn-primary btn-block justify-around text-white text-lg"
             >
               <div>Add to cart</div>
               <div className="flex place-items-center space-x-2">
                 <FaShoppingCart />
-                <span>{item.price * quantity}</span>
+                <span>$ {dish.price * quantity}</span>
               </div>
             </label>
           </div>
