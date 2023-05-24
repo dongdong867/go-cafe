@@ -19,6 +19,11 @@ export class CustomerPostResolver {
     return await this.customerPostService.getPosts(currentId);
   }
 
+  @Query(() => [CustomerPost], { name: 'selfPost', nullable: 'items' })
+  async getSelfPosts(@CurrentId() currentId: string): Promise<CustomerPost[]> {
+    return await this.customerPostService.getSelfPosts(currentId);
+  }
+
   @Mutation(() => String)
   async createCustomerPost(
     @CurrentId() currentId: string,
