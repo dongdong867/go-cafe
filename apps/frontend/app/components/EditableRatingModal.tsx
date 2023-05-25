@@ -2,10 +2,11 @@
 
 type Props = {
   rateName: string;
+  rate?: number;
   setRate: (rateName: string, rateValue: number) => void;
 };
 
-const EditableRatingModal = ({ rateName, setRate }: Props) => {
+const EditableRatingModal = ({ rateName, rate = 5, setRate }: Props) => {
   const handleClick = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     setRate(rateName, parseInt(e.currentTarget.value));
   };
@@ -19,6 +20,7 @@ const EditableRatingModal = ({ rateName, setRate }: Props) => {
             value={1}
             type="radio"
             name={rateName}
+            defaultChecked={rate === 1}
             onClick={(e) => handleClick(e)}
             className="mask mask-star-2 bg-accent"
           />
@@ -26,6 +28,7 @@ const EditableRatingModal = ({ rateName, setRate }: Props) => {
             value={2}
             type="radio"
             name={rateName}
+            defaultChecked={rate === 2}
             onClick={(e) => handleClick(e)}
             className="mask mask-star-2 bg-accent"
           />
@@ -33,6 +36,7 @@ const EditableRatingModal = ({ rateName, setRate }: Props) => {
             value={3}
             type="radio"
             name={rateName}
+            defaultChecked={rate === 3}
             onClick={(e) => handleClick(e)}
             className="mask mask-star-2 bg-accent"
           />
@@ -40,6 +44,7 @@ const EditableRatingModal = ({ rateName, setRate }: Props) => {
             value={4}
             type="radio"
             name={rateName}
+            defaultChecked={rate === 4}
             onClick={(e) => handleClick(e)}
             className="mask mask-star-2 bg-accent"
           />
@@ -47,6 +52,7 @@ const EditableRatingModal = ({ rateName, setRate }: Props) => {
             value={5}
             type="radio"
             name={rateName}
+            defaultChecked={rate === 5}
             onClick={(e) => handleClick(e)}
             className="mask mask-star-2 bg-accent"
           />
