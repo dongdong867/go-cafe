@@ -94,6 +94,6 @@ export class OrderService {
       finished: true,
     });
 
-    return `successfully set order finished`;
+    return 'order finished';
   }
 }
