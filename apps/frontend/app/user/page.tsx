@@ -18,7 +18,7 @@ const query = gql`
       email
       followingCount
     }
-    customerPost {
+    selfPost {
       id
       post {
         body
@@ -42,6 +42,7 @@ const query = gql`
       }
       customer {
         user {
+          account
           name
         }
       }
@@ -61,7 +62,7 @@ const UserPage = async () => {
 
         <div>
           <div className="text-2xl font-semibold my-4">History</div>
-          {data.customerPost.map((post) => (
+          {data.selfPost.map((post) => (
             <UserPostModal key={post.id} editable customerPost={post} />
           ))}
         </div>
