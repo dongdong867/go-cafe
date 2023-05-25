@@ -24,7 +24,7 @@ const UserInfo = ({ data }: Props) => {
           <div className="text-4xl max-[450px]:text-3xl font-bold">
             {data.user.name}
           </div>
-          <div className="flex text-xl max-[450px]:text-lg font-medium">
+          <div className="flex text-xl max-[450px]:text-lg font-semibold">
             <div>
               <div>Posts</div>
               <div>{data.user.postCount}</div>
