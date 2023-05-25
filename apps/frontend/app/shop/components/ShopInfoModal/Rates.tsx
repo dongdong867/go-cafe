@@ -4,7 +4,7 @@ type Props = {
   rating: Rating;
 };
 
-const ShopRate = ({ rating }: Props) => {
+const ShopRates = ({ rating }: Props) => {
   return (
     <>
       <div
@@ -26,4 +26,4 @@ const ShopRate = ({ rating }: Props) => {
   );
 };
 
-export default ShopRate;
+export default ShopRates;
