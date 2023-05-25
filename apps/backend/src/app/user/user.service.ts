@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { LoginInput } from './dto/input/login.input';
 import { PrismaService } from '../prisma/prisma.service';
 import { ForbiddenError } from '@nestjs/apollo';
+import { Token } from './models/token.entity';
 
 type PayloadType = {
   id: string;
@@ -18,7 +19,7 @@ export class UserService {
     private readonly prisma: PrismaService
   ) {}
 
-  async login(loginInput: LoginInput) {
+  async login(loginInput: LoginInput): Promise<Token> {
     let role = '';
     let data = await this.prisma.customer.findFirst({
       where: {
@@ -58,7 +59,7 @@ export class UserService {
       role: role,
     });
 
-    return token;
+    return { token, role };
   }
 
   validateToken(token: string): {

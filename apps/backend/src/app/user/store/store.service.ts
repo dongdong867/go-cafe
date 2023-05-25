@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  InternalServerErrorException,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { GetStoreArgs } from './dto/args/get-store.args';
 import { GetStoresArgs } from './dto/args/get-stores.args';
 import { CreateStoreInput } from './dto/input/create-store.input';
@@ -16,20 +12,17 @@ export class StoreService {
   constructor(private readonly prisma: PrismaService) {}
 
   async getStoreIdByAccount(storeAccount: string): Promise<string> {
-    const data = await this.prisma.store
-      .findFirstOrThrow({
-        where: {
-          user: {
-            account: storeAccount,
-          },
+    const data = await this.prisma.store.findFirstOrThrow({
+      where: {
+        user: {
+          account: storeAccount,
         },
-        select: {
-          id: true,
-        },
-      })
-      .catch((err) => {
-        throw new NotFoundException(err, 'store not found');
-      });
+      },
+      select: {
+        id: true,
+      },
+    });
+
     return data.id;
   }
 
@@ -67,39 +60,32 @@ export class StoreService {
   }
 
   async createStore(createStoreInput: CreateStoreInput): Promise<string> {
-    await this.prisma.store
-      .create({
-        data: {
-          user: {
-            create: {
-              account: createStoreInput.account,
-              password: createStoreInput.password,
-              name: createStoreInput.name,
-              phone: createStoreInput.phone,
-              avatar: {
-                create: {
-                  data: createStoreInput.avatar,
-                },
-              },
-            },
-          },
-          address: createStoreInput.address,
-          info: createStoreInput.info,
-          storeRating: {
-            create: {
-              rating: {
-                create: {},
+    await this.prisma.store.create({
+      data: {
+        user: {
+          create: {
+            account: createStoreInput.account,
+            password: createStoreInput.password,
+            name: createStoreInput.name,
+            phone: createStoreInput.phone,
+            avatar: {
+              create: {
+                data: createStoreInput.avatar,
               },
             },
           },
         },
-      })
-      .catch((err) => {
-        throw new InternalServerErrorException(
-          err,
-          'failed when creating store account'
-        );
-      });
+        address: createStoreInput.address,
+        info: createStoreInput.info,
+        storeRating: {
+          create: {
+            rating: {
+              create: {},
+            },
+          },
+        },
+      },
+    });
 
     return 'store create successfully';
   }
@@ -108,33 +94,26 @@ export class StoreService {
     currentId: string,
     updateStoreInput: UpdateStoreInput
   ): Promise<string> {
-    await this.prisma.store
-      .update({
-        where: {
-          id: currentId,
-        },
-        data: {
-          user: {
-            update: {
-              name: updateStoreInput.name,
-              phone: updateStoreInput.phone,
-              avatar: {
-                update: {
-                  data: updateStoreInput.avatar,
-                },
+    await this.prisma.store.update({
+      where: {
+        id: currentId,
+      },
+      data: {
+        user: {
+          update: {
+            name: updateStoreInput.name,
+            phone: updateStoreInput.phone,
+            avatar: {
+              update: {
+                data: updateStoreInput.avatar,
               },
             },
           },
-          address: updateStoreInput.address,
-          info: updateStoreInput.info,
         },
-      })
-      .catch((err) => {
-        throw new InternalServerErrorException(
-          err,
-          'failed when updating store account'
-        );
-      });
+        address: updateStoreInput.address,
+        info: updateStoreInput.info,
+      },
+    });
 
     return 'store account updated successfully';
   }

@@ -4,4 +4,7 @@ import { Field, ID, ObjectType } from '@nestjs/graphql';
 export class Token {
   @Field(() => ID)
   token: string;
+
+  @Field()
+  role: string;
 }
