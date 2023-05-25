@@ -49,7 +49,7 @@ export class CustomerService {
               phone: createCustomerInput.phone,
               avatar: {
                 create: {
-                  data: 'test picture',
+                  data: createCustomerInput.avatar,
                 },
               },
             },

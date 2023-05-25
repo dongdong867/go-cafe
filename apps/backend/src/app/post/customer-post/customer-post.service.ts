@@ -13,7 +13,6 @@ import { GetCustomerPostAtStoreArgs } from './dto/args/get-customer-post-at-stor
 @Injectable()
 export class CustomerPostService {
   constructor(
-    // private readonly ratingService: RatingService,
     private readonly storeService: StoreService,
     private readonly prisma: PrismaService
   ) {}
@@ -75,31 +74,26 @@ export class CustomerPostService {
 
   async createCustomerPost(
     currentId: string,
-    createUserPostInput: CreateCustomerPostInput
+    createCustomerPostInput: CreateCustomerPostInput
   ): Promise<string> {
     const storeId: string = await this.storeService.getStoreIdByAccount(
-      createUserPostInput.storeAccount
+      createCustomerPostInput.storeAccount
     );
 
     await this.prisma.customerPost.create({
       data: {
         post: {
           create: {
-            body: createUserPostInput.body,
+            body: createCustomerPostInput.body,
             postPicture: {
-              create: createUserPostInput.pictures.map((picture) => ({
+              create: createCustomerPostInput.pictures.map((picture) => ({
                 picture: { create: { data: picture } },
               })),
             },
           },
         },
         rating: {
-          create: {
-            general: createUserPostInput.rating.general,
-            environment: createUserPostInput.rating.environment,
-            meals: createUserPostInput.rating.meals,
-            attitude: createUserPostInput.rating.attitude,
-          },
+          create: createCustomerPostInput.rating,
         },
         customer: {
           connect: {
@@ -152,19 +146,19 @@ export class CustomerPostService {
           update: {
             general:
               (storeRating.rating.general * storeRating.postCount +
-                createUserPostInput.rating.general) /
+                createCustomerPostInput.rating.general) /
               (storeRating.postCount + 1),
             environment:
               (storeRating.rating.environment * storeRating.postCount +
-                createUserPostInput.rating.environment) /
+                createCustomerPostInput.rating.environment) /
               (storeRating.postCount + 1),
             meals:
               (storeRating.rating.meals * storeRating.postCount +
-                createUserPostInput.rating.meals) /
+                createCustomerPostInput.rating.meals) /
               (storeRating.postCount + 1),
             attitude:
               (storeRating.rating.attitude * storeRating.postCount +
-                createUserPostInput.rating.attitude) /
+                createCustomerPostInput.rating.attitude) /
               (storeRating.postCount + 1),
           },
         },

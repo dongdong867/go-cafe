@@ -72,6 +72,21 @@ export class StorePostService {
       },
     });
 
+    await this.prisma.store.update({
+      where: {
+        id: currentId,
+      },
+      data: {
+        user: {
+          update: {
+            postCount: {
+              increment: 1,
+            },
+          },
+        },
+      },
+    });
+
     return 'post create successfully';
   }
 
@@ -124,7 +139,20 @@ export class StorePostService {
       },
     });
 
-    console.log(data.postId);
+    await this.prisma.store.update({
+      where: {
+        id: currentId,
+      },
+      data: {
+        user: {
+          update: {
+            postCount: {
+              decrement: 1,
+            },
+          },
+        },
+      },
+    });
 
     const deletePost = this.prisma.post.delete({
       where: {

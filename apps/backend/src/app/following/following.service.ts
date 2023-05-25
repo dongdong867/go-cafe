@@ -4,6 +4,7 @@ import { StoreService } from '../user/store/store.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { Store } from '../user/store/models/store.entity';
 import { GetIsFollowingArgs } from './dto/args/get-is-following.args';
+import { StoreSelect } from '../user/store/dto/select/store.select';
 
 @Injectable()
 export class FollowingService {
@@ -41,29 +42,7 @@ export class FollowingService {
         },
         select: {
           store: {
-            select: {
-              user: {
-                select: {
-                  account: true,
-                  name: true,
-                  phone: true,
-                  postCount: true,
-                  avatar: {
-                    select: {
-                      data: true,
-                    },
-                  },
-                },
-              },
-              address: true,
-              info: true,
-              storeRating: {
-                select: {
-                  rating: true,
-                  postCount: true,
-                },
-              },
-            },
+            select: StoreSelect,
           },
         },
       })
