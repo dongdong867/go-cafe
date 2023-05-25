@@ -1,21 +1,19 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import EditModal from '../../components/EditModal/Modal';
 import PageTitle from '@/components/PageTitle';
 import useUpdatePost from '@/hooks/useUpdatePost';
-import userPostList from '@/../public/data/UserPostList';
 
-const UpdatePostPage = () => {
-  const router = useRouter();
-
-  const { setRate, setBody, update } = useUpdatePost(userPostList[0]);
-
-  const onSubmit = () => {
-    update();
-    console.log('post updated');
-    router.push('/');
+type Props = {
+  params: {
+    postId: string;
   };
+};
+
+const UpdatePostPage = ({ params }: Props) => {
+  const { body, rating, shop, setRate, setBody, updatePost } = useUpdatePost(
+    params.postId
+  );
 
   return (
     <>
@@ -28,18 +26,17 @@ const UpdatePostPage = () => {
       >
         <PageTitle title="Update Post" />
         <EditModal
-          buttonContent="post"
           // shop name
-          shopName={userPostList[0].coffeeShop.coffeeShopName}
+          shopName={shop.user.account}
           shopNameDisabled={true}
           // rating
-          rating={userPostList[0].rating}
+          rating={rating}
           setRate={setRate}
           //post body
-          postBody={userPostList[0].body}
+          postBody={body}
           setPostBody={setBody}
           // submit
-          onSubmit={onSubmit}
+          onSubmit={updatePost}
         />
       </div>
     </>
