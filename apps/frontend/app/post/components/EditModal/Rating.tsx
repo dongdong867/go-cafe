@@ -16,10 +16,26 @@ const EditRating = ({ rating, setRate }: Props) => {
           <div className="divider" />
         </div>
         <div className="card-body p-8 pt-0 place-items-center">
-          <EditableRatingModal rateName="general" setRate={setRate} />
-          <EditableRatingModal rateName="environment" setRate={setRate} />
-          <EditableRatingModal rateName="meals" setRate={setRate} />
-          <EditableRatingModal rateName="attitude" setRate={setRate} />
+          <EditableRatingModal
+            rateName="general"
+            rate={rating.general}
+            setRate={setRate}
+          />
+          <EditableRatingModal
+            rateName="environment"
+            rate={rating.environment}
+            setRate={setRate}
+          />
+          <EditableRatingModal
+            rateName="meals"
+            rate={rating.meals}
+            setRate={setRate}
+          />
+          <EditableRatingModal
+            rateName="attitude"
+            rate={rating.attitude}
+            setRate={setRate}
+          />
         </div>
       </div>
     </>
