@@ -6,11 +6,23 @@ import { UserAuthGuard } from '../user/guards/user-auth.guard';
 import { CustomerGuard } from '../user/guards/role.guard';
 import { CurrentId } from '../user/decorator/current-id.decorator';
 import { Store } from '../user/store/models/store.entity';
+import { GetIsFollowingArgs } from './dto/args/get-is-following.args';
 
 @UseGuards(UserAuthGuard, CustomerGuard)
 @Resolver()
 export class FollowingResolver {
   constructor(private readonly followingService: FollowingService) {}
+
+  @Query(() => Boolean, { name: 'isFollowing' })
+  async isFollowing(
+    @CurrentId() currentId: string,
+    @Args() getIsFollowingArgs: GetIsFollowingArgs
+  ) {
+    return await this.followingService.isFollowing(
+      currentId,
+      getIsFollowingArgs
+    );
+  }
 
   @Query(() => [Store], { name: 'followingList', nullable: 'items' })
   async getFollowingList(@CurrentId() currentId: string): Promise<Store[]> {
