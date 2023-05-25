@@ -3,6 +3,7 @@ import { FollowInput } from './dto/input/follow.input';
 import { StoreService } from '../user/store/store.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { Store } from '../user/store/models/store.entity';
+import { GetIsFollowingArgs } from './dto/args/get-is-following.args';
 
 @Injectable()
 export class FollowingService {
@@ -10,6 +11,27 @@ export class FollowingService {
     private readonly prisma: PrismaService,
     private readonly storeService: StoreService
   ) {}
+
+  async isFollowing(
+    currentId: string,
+    getIsFollowingArgs: GetIsFollowingArgs
+  ): Promise<boolean> {
+    const data = await this.prisma.following.findUnique({
+      where: {
+        customerId_storeId: {
+          customerId: currentId,
+          storeId: await this.storeService.getStoreIdByAccount(
+            getIsFollowingArgs.storeAccount
+          ),
+        },
+      },
+      select: {
+        storeId: true,
+      },
+    });
+
+    return data ? true : false;
+  }
 
   async getFollowingList(currentId: string): Promise<Store[]> {
     return (
