@@ -13,7 +13,6 @@ import { GetCustomerPostAtStoreArgs } from './dto/args/get-customer-post-at-stor
 @Injectable()
 export class CustomerPostService {
   constructor(
-    // private readonly ratingService: RatingService,
     private readonly storeService: StoreService,
     private readonly prisma: PrismaService
   ) {}
