@@ -93,12 +93,7 @@ export class CustomerPostService {
           },
         },
         rating: {
-          create: {
-            general: createCustomerPostInput.rating.general,
-            environment: createCustomerPostInput.rating.environment,
-            meals: createCustomerPostInput.rating.meals,
-            attitude: createCustomerPostInput.rating.attitude,
-          },
+          create: createCustomerPostInput.rating,
         },
         customer: {
           connect: {
