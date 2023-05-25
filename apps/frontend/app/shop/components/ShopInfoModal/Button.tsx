@@ -1,30 +1,28 @@
 'use client';
 
+import useFollow from '@/hooks/useFollow';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { useState } from 'react';
 import { FaHeart } from 'react-icons/fa';
 import { MdBorderColor, MdLocationOn } from 'react-icons/md';
 
 const ShopInfoButton = () => {
   const param = useParams();
 
-  const [followed, setFollowed] = useState(false);
-
-  const handleClick = () => {
-    setFollowed((e) => !e);
-  };
+  const { followed, handleFollow } = useFollow(
+    decodeURIComponent(param.shopAccount)
+  );
 
   return (
     <>
       <div className="card-actions flex-col space-y-2">
         <button
-          onClick={handleClick}
+          onClick={handleFollow}
           className={`
             btn 
             w-full
             text-lg
-            border-0 
+            border-0
             rounded-xl 
             flex 
             gap-x-2 
