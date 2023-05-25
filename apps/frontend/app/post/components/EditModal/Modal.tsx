@@ -8,7 +8,6 @@ import { MdLocationOn } from 'react-icons/md';
 import BottomButton from '@/components/Button/BottomButton';
 
 type Props = {
-  buttonContent: string;
   // shop name
   shopName?: string;
   shopNameDisabled?: boolean;
@@ -24,7 +23,6 @@ type Props = {
 };
 
 const EditModal = ({
-  buttonContent,
   // shop name
   shopName = '',
   shopNameDisabled = false,
