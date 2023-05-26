@@ -55,6 +55,8 @@ const useUpdatePost = (postId: string) => {
     });
 
   const [body, setBody] = useState(originData.customerPost.post.body);
+  const [addedPicture, setAddedPicture] = useState([]);
+  const [deletedPicture, setDeletedPicture] = useState([]);
   const { rating, setRate } = useRating(originData.customerPost.rating);
 
   const [updateCustomerPost, { data, error }] = useMutation(UPDATE_POST);
@@ -88,8 +90,15 @@ const useUpdatePost = (postId: string) => {
     body,
     rating,
     shop: originData.customerPost.store,
+    originPicture: originData.customerPost.post.postPicture.map((picture) => {
+      return picture.picture.data;
+    }),
+    addedPicture,
+    deletedPicture,
     setRate,
     setBody,
+    setAddedPicture,
+    setDeletedPicture,
     updatePost,
   };
 };
