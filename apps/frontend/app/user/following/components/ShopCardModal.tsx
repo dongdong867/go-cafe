@@ -1,6 +1,5 @@
 import Image from 'next/image';
 
-import TemporaryPicture from '/public/images/logo.png';
 import Link from 'next/link';
 
 type Props = {
@@ -15,8 +14,10 @@ const ShopCardModal = ({ shop }: Props) => {
           <figure className="p-4">
             <div className="avatar w-28 h-28">
               <Image
-                src={TemporaryPicture}
+                src={shop.user.avatar.data}
                 alt=""
+                width={1000}
+                height={1000}
                 className="w-28 h-28 aspect-square rounded-xl"
               />
             </div>
