@@ -1,7 +1,5 @@
 import Image from 'next/image';
 
-import TemporaryPicture from '/public/images/logo.png';
-
 import ShopInfoModal from '../components/ShopInfoModal/Modal';
 import ShopPostModal from '../components/ShopPostModal';
 import { gql } from '@apollo/client';
@@ -62,8 +60,10 @@ const ShopPage = async ({ params }: Props) => {
     <>
       <div className="w-full max-w-lg h-full m-auto space-y-4">
         <Image
-          src={TemporaryPicture}
+          src={data.store.user.avatar.data}
           alt=""
+          width={1000}
+          height={1000}
           className="sticky top-20 w-full max-w-lg "
         />
 
