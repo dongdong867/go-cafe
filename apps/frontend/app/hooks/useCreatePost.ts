@@ -14,6 +14,7 @@ const CREATE_POST = gql`
 const useCreatePost = () => {
   const [shopAccount, setShopAccount] = useState('');
   const [body, setBody] = useState('');
+  const [pictureList, setPictureList] = useState([]);
 
   const { rating, setRate } = useRating();
 
@@ -36,7 +37,15 @@ const useCreatePost = () => {
     });
   };
 
-  return { shopAccount, setShopAccount, setRate, setBody, createPost };
+  return {
+    shopAccount,
+    pictureList,
+    setShopAccount,
+    setRate,
+    setBody,
+    setPictureList,
+    createPost,
+  };
 };
 
 export default useCreatePost;
