@@ -11,9 +11,19 @@ type Props = {
 };
 
 const UpdatePostPage = ({ params }: Props) => {
-  const { body, rating, shop, setRate, setBody, updatePost } = useUpdatePost(
-    params.postId
-  );
+  const {
+    body,
+    rating,
+    shop,
+    originPicture,
+    addedPicture,
+    deletedPicture,
+    setRate,
+    setBody,
+    setAddedPicture,
+    setDeletedPicture,
+    updatePost,
+  } = useUpdatePost(params.postId);
 
   return (
     <>
@@ -35,6 +45,12 @@ const UpdatePostPage = ({ params }: Props) => {
           //post body
           postBody={body}
           setPostBody={setBody}
+          // picture
+          originPicture={originPicture}
+          pictureList={addedPicture}
+          deletedPicture={deletedPicture}
+          setPictureList={setAddedPicture}
+          setDeletedPicture={setDeletedPicture}
           // submit
           onSubmit={updatePost}
         />
