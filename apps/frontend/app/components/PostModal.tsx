@@ -6,7 +6,7 @@ import Image from 'next/image';
 //images
 import Link from 'next/link';
 import { gql, useMutation } from '@apollo/client';
-import { useEffect } from 'react';
+import { useEffect, useId } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
@@ -59,10 +59,7 @@ const PostModal = ({ editable = false, data, children, rates }: Props) => {
           <div className="carousel bg-base-100">
             {data.pictures.map((picture) => {
               return (
-                <div
-                  className="carousel-item w-full"
-                  key={picture.picture.data}
-                >
+                <div className="carousel-item w-full" key={useId()}>
                   <Image
                     src={picture.picture.data}
                     alt=""
