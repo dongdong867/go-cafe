@@ -59,11 +59,17 @@ const PostModal = ({ editable = false, data, children, rates }: Props) => {
           <div className="carousel bg-base-100">
             {data.pictures.map((picture) => {
               return (
-                <>
-                  <div className="carousel-item w-full">
-                    <Image src={picture.picture.data} alt="" />
-                  </div>
-                </>
+                <div
+                  className="carousel-item w-full"
+                  key={picture.picture.data}
+                >
+                  <Image
+                    src={picture.picture.data}
+                    alt=""
+                    width={1000}
+                    height={1000}
+                  />
+                </div>
               );
             })}
           </div>
