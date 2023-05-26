@@ -5,7 +5,10 @@ import toast from 'react-hot-toast';
 
 const LOGIN_IN = gql`
   mutation Login($loginInput: LoginInput!) {
-    login(loginInput: $loginInput)
+    login(loginInput: $loginInput) {
+      token
+      role
+    }
   }
 `;
 
@@ -17,8 +20,10 @@ const useLogin = () => {
 
   useEffect(() => {
     if (data) {
-      document.cookie = `token=${data.login}`;
-      localStorage.setItem('token', data.login);
+      document.cookie = `token=${data.login.token}`;
+      document.cookie = `role=${data.login.role}`;
+      localStorage.setItem('token', data.login.token);
+      localStorage.setItem('role', data.login.role);
       redirect('/');
     }
   }, [data]);
