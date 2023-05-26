@@ -1,4 +1,3 @@
-import RatingModal from '@/components/RatingModal';
 import ShopRatingModal from './RatingModal';
 
 type Props = {
