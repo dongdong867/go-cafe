@@ -1,7 +1,7 @@
 import { gql, useMutation } from '@apollo/client';
 import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import useToast from './useToast';
+import toast from 'react-hot-toast';
 
 const LOGIN_IN = gql`
   mutation Login($loginInput: LoginInput!) {
@@ -24,7 +24,7 @@ const useLogin = () => {
   }, [data]);
 
   if (error) {
-    useToast(error.message, 'error');
+    toast.error(error.message, { className: 'font-bold text-lg' });
     reset();
   }
 
