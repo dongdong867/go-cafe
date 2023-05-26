@@ -5,7 +5,14 @@ import EditModal from '../components/EditModal/Modal';
 import useCreatePost from '@/hooks/useCreatePost';
 
 const CreatePostPage = () => {
-  const { setShopAccount, setRate, setBody, createPost } = useCreatePost();
+  const {
+    pictureList,
+    setShopAccount,
+    setRate,
+    setBody,
+    setPictureList,
+    createPost,
+  } = useCreatePost();
 
   return (
     <>
@@ -18,10 +25,11 @@ const CreatePostPage = () => {
       >
         <PageTitle title="Create Post" />
         <EditModal
-          buttonContent="post"
+          pictureList={pictureList}
           setShopName={setShopAccount}
           setRate={setRate}
           setPostBody={setBody}
+          setPictureList={setPictureList}
           onSubmit={createPost}
         />
       </div>
