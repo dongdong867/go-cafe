@@ -5,28 +5,39 @@ import Link from 'next/link';
 
 type Props = {
   editable?: boolean;
-  post: UserPost;
+  customerPost: UserPost;
 };
 
-const UserPostModal = ({ post, editable = false }: Props) => {
+const UserPostModal = ({ customerPost, editable = false }: Props) => {
   const rates = (
     <>
       <div className="w-full ">
-        <RatingModal rateName="general" rateValue={post.rating.general} />
+        <RatingModal
+          rateName="general"
+          rateValue={customerPost.rating.general}
+        />
         <RatingModal
           rateName="environment"
-          rateValue={post.rating.environment}
+          rateValue={customerPost.rating.environment}
         />
-        <RatingModal rateName="meals" rateValue={post.rating.meals} />
-        <RatingModal rateName="attitude" rateValue={post.rating.attitude} />
+        <RatingModal rateName="meals" rateValue={customerPost.rating.meals} />
+        <RatingModal
+          rateName="attitude"
+          rateValue={customerPost.rating.attitude}
+        />
       </div>
     </>
   );
+
   return (
     <>
       <PostModal
         editable={editable}
-        data={{ id: post.id, body: post.body }}
+        data={{
+          id: customerPost.id,
+          body: customerPost.post.body,
+          pictures: customerPost.post.postPicture,
+        }}
         rates={rates}
       >
         <div className="collapse-title">
@@ -34,18 +45,18 @@ const UserPostModal = ({ post, editable = false }: Props) => {
           <div className="flex items-center gap-x-1 text-base">
             <FaStar className="text-accent" />
             <div className="font-semibold">
-              {post.rating.general.toFixed(1)}
+              {customerPost.rating.general.toFixed(1)}
             </div>
           </div>
 
           {/* post title */}
           <div className="card-title text-xl font-bold max-[450px]:flex-col place-items-start gap-y-0">
-            {post.user.userName}
+            {customerPost.customer.user.name}
             <Link
-              href={`/shop/${post.coffeeShop.coffeeShopId}`}
+              href={`/shop/${customerPost.store.user.account}`}
               className="z-10 link link-primary"
             >
-              @{post.coffeeShop.coffeeShopName}
+              @{customerPost.store.user.name}
             </Link>
           </div>
         </div>

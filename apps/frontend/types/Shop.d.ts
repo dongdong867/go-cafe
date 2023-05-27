@@ -1,13 +1,16 @@
-type User = {
+type Shop = {
   user: {
     avatar: {
       data: string;
     };
-    name: string;
     account: string;
+    name: string;
     phone: string;
     postCount: number;
   };
-  email: string;
-  followingCount: number;
+  address: string;
+  info: string;
+  storeRating: {
+    rating: Rating;
+  };
 };

@@ -1,9 +1,22 @@
+'use client';
+
 //components
 import Image from 'next/image';
 
 //images
-import TemporaryImage from '/public/images/logo.png';
 import Link from 'next/link';
+import { gql, useMutation } from '@apollo/client';
+import { useEffect, useId } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
+
+const DELETE_POST = gql`
+  mutation DeleteCustomerPost(
+    $deleteCustomerPostInput: DeleteCustomerPostInput!
+  ) {
+    deleteCustomerPost(deleteCustomerPostInput: $deleteCustomerPostInput)
+  }
+`;
 
 type Props = {
   editable?: boolean;
@@ -13,6 +26,24 @@ type Props = {
 };
 
 const PostModal = ({ editable = false, data, children, rates }: Props) => {
+  const router = useRouter();
+  const [deleteCustomerPost, { data: deleteData, error }] =
+    useMutation(DELETE_POST);
+
+  useEffect(() => {
+    if (deleteData)
+      toast.success(deleteData.deleteCustomerPost, {
+        className: 'font-bold text-lg',
+      });
+    setTimeout(() => {
+      router.refresh();
+    }, 2000);
+  }, [deleteData]);
+
+  useEffect(() => {
+    if (error) toast.error(error.message, { className: 'font-bold text-lg' });
+  }, [error]);
+
   return (
     <>
       <div
@@ -24,22 +55,20 @@ const PostModal = ({ editable = false, data, children, rates }: Props) => {
           bg-base-200 
           mb-4"
       >
-        {/* TODO: images need to be replace */}
         <figure className="h-[384px] max-[450px]:h-[270px]">
           <div className="carousel bg-base-100">
-            <div className="carousel-item w-full">
-              <Image src={TemporaryImage} alt="" />
-            </div>
-            <div className="carousel-item w-full">
-              <Image src={TemporaryImage} alt="" />
-            </div>
-            <div className="carousel-item w-full">
-              <Image src={TemporaryImage} alt="" />
-            </div>
-          </div>
-          {/* TODO: display image count function need to be handle */}
-          <div className="badge badge-primary text-white absolute top-2 right-2">
-            1/3
+            {data.pictures.map((picture) => {
+              return (
+                <div className="carousel-item w-full" key={useId()}>
+                  <Image
+                    src={picture.picture.data}
+                    alt=""
+                    width={1000}
+                    height={1000}
+                  />
+                </div>
+              );
+            })}
           </div>
         </figure>
 
@@ -61,13 +90,27 @@ const PostModal = ({ editable = false, data, children, rates }: Props) => {
                   >
                     Edit
                   </Link>
-                  <button className="btn btn-error text-white">Delete</button>
+                  <button
+                    onClick={() => {
+                      deleteCustomerPost({
+                        variables: {
+                          deleteCustomerPostInput: {
+                            postId: data.id,
+                          },
+                        },
+                      });
+                    }}
+                    className="btn btn-error text-white"
+                  >
+                    Delete
+                  </button>
                 </div>
               )}
             </div>
           </div>
         </div>
       </div>
+      <Toaster />
     </>
   );
 };

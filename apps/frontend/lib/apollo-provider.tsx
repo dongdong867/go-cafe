@@ -6,6 +6,7 @@ import {
   HttpLink,
   SuspenseCache,
 } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 import {
   NextSSRInMemoryCache,
   SSRMultipartLink,
@@ -18,6 +19,17 @@ const makeClient = () => {
     fetchOptions: { cache: 'no-store' },
   });
 
+  const authLink = setContext((_, { headers }) => {
+    const token = localStorage.getItem('token');
+
+    return {
+      headers: {
+        ...headers,
+        authorization: token ? token : '',
+      },
+    };
+  });
+
   return new ApolloClient({
     cache: new NextSSRInMemoryCache(),
     link:
@@ -28,7 +40,7 @@ const makeClient = () => {
             }),
             httpLink,
           ])
-        : httpLink,
+        : authLink.concat(httpLink),
   });
 };
 

@@ -1,28 +1,52 @@
 type PostModalData = {
   id: string;
   body: string;
-  // TODO: add image type
+  pictures: {
+    picture: {
+      data: string;
+    };
+  }[];
 };
 
 type UserPost = {
   id: string;
-  user: {
-    userId: string;
-    userName: string;
+  post: {
+    body: string;
+    postPicture: {
+      picture: {
+        data: string;
+      };
+    }[];
   };
-  coffeeShop: {
-    coffeeShopId: string;
-    coffeeShopName: string;
+  rating: {
+    general: number;
+    environment: number;
+    meals: number;
+    attitude: number;
   };
-  rating: Rating;
-  body: string;
-  // TODO: add image types
+  store: {
+    user: {
+      name: string;
+      account: string;
+    };
+  };
+  customer: {
+    user: {
+      name: string;
+      account: string;
+    };
+  };
 };
 
 type ShopPost = {
   id: string;
-  coffeeShopId: string;
+  post: {
+    body: string;
+    postPicture: {
+      picture: {
+        data: string;
+      };
+    }[];
+  };
   title: string;
-  body: string;
-  // TODO: add image type
 };

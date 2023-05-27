@@ -8,7 +8,6 @@ import { MdLocationOn } from 'react-icons/md';
 import BottomButton from '@/components/Button/BottomButton';
 
 type Props = {
-  buttonContent: string;
   // shop name
   shopName?: string;
   shopNameDisabled?: boolean;
@@ -19,12 +18,17 @@ type Props = {
   // post body
   postBody?: string;
   setPostBody: React.Dispatch<React.SetStateAction<string>>;
+  // picture
+  originPicture?: string[];
+  pictureList: File[];
+  deletedPicture?: string[];
+  setPictureList: React.Dispatch<React.SetStateAction<File[]>>;
+  setDeletedPicture?: React.Dispatch<React.SetStateAction<string[]>>;
   // submit
   onSubmit: () => void;
 };
 
 const EditModal = ({
-  buttonContent,
   // shop name
   shopName = '',
   shopNameDisabled = false,
@@ -40,6 +44,12 @@ const EditModal = ({
   // post body
   postBody = '',
   setPostBody,
+  // picture
+  originPicture = [],
+  pictureList,
+  deletedPicture = [],
+  setPictureList,
+  setDeletedPicture = undefined,
   // submit
   onSubmit,
 }: Props) => {
@@ -50,7 +60,13 @@ const EditModal = ({
   return (
     <>
       <div className="text-lg font-medium space-y-4">
-        <EditPicture />
+        <EditPicture
+          originPicture={originPicture}
+          pictureList={pictureList}
+          deletedPicture={deletedPicture}
+          setPictureList={setPictureList}
+          setDeletedPicture={setDeletedPicture}
+        />
 
         <InputModal
           disabled={shopNameDisabled}

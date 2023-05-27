@@ -16,14 +16,16 @@ const CheckOutModal = ({ isOpen, setOpen }: Props) => {
   const {
     tableNumber,
     takeaway,
-    error,
     setTableNumber,
     setTakeaway,
     submitCheck,
     handleSend,
   } = useSendOrder();
 
-  useToast(error, 'error');
+  const handleClick = async () => {
+    await handleSend();
+    setOpen(false);
+  };
 
   return (
     <>
@@ -50,10 +52,7 @@ const CheckOutModal = ({ isOpen, setOpen }: Props) => {
             />
             <button
               disabled={!submitCheck()}
-              onClick={() => {
-                handleSend();
-                setOpen(false);
-              }}
+              onClick={handleClick}
               className="btn btn-block btn-primary text-white text-xl"
             >
               send order

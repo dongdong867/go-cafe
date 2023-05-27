@@ -1,21 +1,18 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-
 import PageTitle from '@/components/PageTitle';
 import EditModal from '../components/EditModal/Modal';
 import useCreatePost from '@/hooks/useCreatePost';
 
 const CreatePostPage = () => {
-  const router = useRouter();
-
-  const { setCoffeeShop, setRate, setBody, create } = useCreatePost();
-
-  const onSubmit = () => {
-    create();
-    console.log('post created');
-    router.replace('/');
-  };
+  const {
+    pictureList,
+    setShopAccount,
+    setRate,
+    setBody,
+    setPictureList,
+    createPost,
+  } = useCreatePost();
 
   return (
     <>
@@ -28,15 +25,12 @@ const CreatePostPage = () => {
       >
         <PageTitle title="Create Post" />
         <EditModal
-          buttonContent="post"
-          // shop name
-          setShopName={setCoffeeShop}
-          // rating
+          pictureList={pictureList}
+          setShopName={setShopAccount}
           setRate={setRate}
-          //post body
           setPostBody={setBody}
-          // submit
-          onSubmit={onSubmit}
+          setPictureList={setPictureList}
+          onSubmit={createPost}
         />
       </div>
     </>

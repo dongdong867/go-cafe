@@ -1,33 +1,50 @@
-import { useRouter } from 'next/navigation';
+import { gql, useMutation } from '@apollo/client';
+import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+
+const LOGIN_IN = gql`
+  mutation Login($loginInput: LoginInput!) {
+    login(loginInput: $loginInput) {
+      token
+      role
+    }
+  }
+`;
 
 const useLogin = () => {
   const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
 
-  const [error, setError] = useState(null as string);
-
-  const route = useRouter();
+  const [login, { data, error, loading, reset }] = useMutation(LOGIN_IN);
 
   useEffect(() => {
-    if (error !== null) {
-      setTimeout(() => {
-        setError(null);
-      }, 3000);
+    if (data) {
+      document.cookie = `token=${data.login.token}`;
+      document.cookie = `role=${data.login.role}`;
+      localStorage.setItem('token', data.login.token);
+      localStorage.setItem('role', data.login.role);
+      redirect('/');
     }
-  }, [error]);
+  }, [data]);
 
-  const login = () => {
-    if (account === 'account' && password === 'password') {
-      console.log('login success');
-      route.push('/');
-      return;
-    }
+  if (error) {
+    toast.error(error.message, { className: 'font-bold text-lg' });
+    reset();
+  }
 
-    setError('login failed');
+  const handleLogin = async () => {
+    await login({
+      variables: {
+        loginInput: {
+          account: account,
+          password: password,
+        },
+      },
+    });
   };
 
-  return { setAccount, setPassword, error, login };
+  return { setAccount, setPassword, handleLogin, error, loading };
 };
 
 export default useLogin;

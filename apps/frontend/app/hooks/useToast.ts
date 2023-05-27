@@ -17,7 +17,6 @@ const useToast = (context: string, type?: string) => {
   if (context !== '' && context !== null) {
     createToast();
   }
-  return;
 };
 
 export default useToast;

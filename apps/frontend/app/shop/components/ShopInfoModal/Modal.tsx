@@ -1,9 +1,9 @@
 import ShopInfoButton from './Button';
 import ShopProfile from './Profile';
-import ShopRate from './Rate';
+import ShopRates from './Rates';
 
 type Props = {
-  data: ShopInfoForUser;
+  data: Shop;
 };
 
 const ShopInfoModal = ({ data }: Props) => {
@@ -11,7 +11,7 @@ const ShopInfoModal = ({ data }: Props) => {
     <>
       <ShopProfile data={data} />
       <ShopInfoButton />
-      <ShopRate data={data} />
+      <ShopRates rating={data.storeRating.rating} />
     </>
   );
 };
