@@ -8,6 +8,7 @@ const LOGIN_IN = gql`
     login(loginInput: $loginInput) {
       token
       role
+      avatar
     }
   }
 `;
@@ -22,6 +23,7 @@ const useLogin = () => {
     if (data) {
       document.cookie = `token=${data.login.token}`;
       document.cookie = `role=${data.login.role}`;
+      document.cookie = `avatar=${data.login.avatar}`;
       localStorage.setItem('token', data.login.token);
       localStorage.setItem('role', data.login.role);
       redirect('/');
