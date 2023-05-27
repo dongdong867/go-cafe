@@ -372,6 +372,21 @@ export class CustomerPostService {
       },
     });
 
+    await this.prisma.customer.update({
+      where: {
+        id: currentId,
+      },
+      data: {
+        user: {
+          update: {
+            postCount: {
+              decrement: 1,
+            },
+          },
+        },
+      },
+    });
+
     return `post delete successfully`;
   }
 }
