@@ -2,22 +2,24 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-//images
-import TemporaryPicture from '/public/images/logo.png';
-
 //icons
 import { BsPersonCircle } from 'react-icons/bs';
 import { MdSettings, MdLogout } from 'react-icons/md';
 
 //components
 import DropdownMenuModal from './DropdownMenuModal';
+import { cookies } from 'next/headers';
 
 const Avatar = () => {
   const button = (
     <>
       <div className="btn btn-ghost btn-circle border-2 overflow-hidden avatar">
-        {/* TODO: replace temporary picture with user image */}
-        <Image src={TemporaryPicture} alt="user" />
+        <Image
+          src={cookies().get('avatar').value}
+          alt="user"
+          width={1000}
+          height={1000}
+        />
       </div>
     </>
   );
