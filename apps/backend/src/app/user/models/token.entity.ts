@@ -7,4 +7,7 @@ export class Token {
 
   @Field()
   role: string;
+
+  @Field()
+  avatar: string;
 }

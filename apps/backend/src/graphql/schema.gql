@@ -175,6 +175,7 @@ type Query {
   customerPostAtStore(storeAccount: String!): [CustomerPost]!
   customerPosts: [CustomerPost]!
   followingList: [Store]!
+  isAccountAvailable(account: String!): Boolean!
   isFollowing(storeAccount: String!): Boolean!
   menu(storeAccount: String!): Menu!
   selfPost: [CustomerPost]!
@@ -210,6 +211,7 @@ type StoreRating {
 }
 
 type Token {
+  avatar: String!
   role: String!
   token: ID!
 }

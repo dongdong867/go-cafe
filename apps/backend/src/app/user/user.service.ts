@@ -4,6 +4,7 @@ import { LoginInput } from './dto/input/login.input';
 import { PrismaService } from '../prisma/prisma.service';
 import { ForbiddenError } from '@nestjs/apollo';
 import { Token } from './models/token.entity';
+import { AccountTestInput } from './dto/args/account-test.args';
 
 type PayloadType = {
   id: string;
@@ -19,6 +20,22 @@ export class UserService {
     private readonly prisma: PrismaService
   ) {}
 
+  async isAccountAvailable(
+    accountTestInput: AccountTestInput
+  ): Promise<boolean> {
+    let available = false;
+    await this.prisma.user
+      .findUniqueOrThrow({
+        where: {
+          account: accountTestInput.account,
+        },
+      })
+      .catch((err) => {
+        available = true;
+      });
+    return available;
+  }
+
   async login(loginInput: LoginInput): Promise<Token> {
     let role = '';
     let data = await this.prisma.customer.findFirst({
@@ -30,6 +47,15 @@ export class UserService {
       },
       select: {
         id: true,
+        user: {
+          select: {
+            avatar: {
+              select: {
+                data: true,
+              },
+            },
+          },
+        },
       },
     });
 
@@ -44,6 +70,15 @@ export class UserService {
           },
           select: {
             id: true,
+            user: {
+              select: {
+                avatar: {
+                  select: {
+                    data: true,
+                  },
+                },
+              },
+            },
           },
         })
         .catch(() => {
@@ -59,7 +94,7 @@ export class UserService {
       role: role,
     });
 
-    return { token, role };
+    return { token, role, avatar: data.user.avatar.data };
   }
 
   validateToken(token: string): {
