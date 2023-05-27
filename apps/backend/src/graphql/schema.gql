@@ -175,6 +175,7 @@ type Query {
   customerPostAtStore(storeAccount: String!): [CustomerPost]!
   customerPosts: [CustomerPost]!
   followingList: [Store]!
+  isAccountAvailable(account: String!): Boolean!
   isFollowing(storeAccount: String!): Boolean!
   menu(storeAccount: String!): Menu!
   selfPost: [CustomerPost]!
