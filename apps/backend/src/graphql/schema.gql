@@ -210,6 +210,7 @@ type StoreRating {
 }
 
 type Token {
+  avatar: String!
   role: String!
   token: ID!
 }
