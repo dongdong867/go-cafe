@@ -4,6 +4,7 @@ import { LoginInput } from './dto/input/login.input';
 import { PrismaService } from '../prisma/prisma.service';
 import { ForbiddenError } from '@nestjs/apollo';
 import { Token } from './models/token.entity';
+import { AccountTestInput } from './dto/args/account-test.args';
 
 type PayloadType = {
   id: string;
@@ -18,6 +19,22 @@ export class UserService {
     private readonly jwtService: JwtService,
     private readonly prisma: PrismaService
   ) {}
+
+  async isAccountAvailable(
+    accountTestInput: AccountTestInput
+  ): Promise<boolean> {
+    let available = false;
+    await this.prisma.user
+      .findUniqueOrThrow({
+        where: {
+          account: accountTestInput.account,
+        },
+      })
+      .catch((err) => {
+        available = true;
+      });
+    return available;
+  }
 
   async login(loginInput: LoginInput): Promise<Token> {
     let role = '';
