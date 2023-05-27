@@ -30,6 +30,15 @@ export class UserService {
       },
       select: {
         id: true,
+        user: {
+          select: {
+            avatar: {
+              select: {
+                data: true,
+              },
+            },
+          },
+        },
       },
     });
 
@@ -44,6 +53,15 @@ export class UserService {
           },
           select: {
             id: true,
+            user: {
+              select: {
+                avatar: {
+                  select: {
+                    data: true,
+                  },
+                },
+              },
+            },
           },
         })
         .catch(() => {
@@ -59,7 +77,7 @@ export class UserService {
       role: role,
     });
 
-    return { token, role };
+    return { token, role, avatar: data.user.avatar.data };
   }
 
   validateToken(token: string): {
