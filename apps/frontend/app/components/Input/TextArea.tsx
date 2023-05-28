@@ -5,7 +5,7 @@ type Props = {
   setPostBody: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const EditBody = ({ postBody, setPostBody }: Props) => {
+const TextArea = ({ postBody, setPostBody }: Props) => {
   return (
     <>
       <div className="w-full h-full border-primary border-2 rounded-xl">
@@ -22,4 +22,4 @@ const EditBody = ({ postBody, setPostBody }: Props) => {
   );
 };
 
-export default EditBody;
+export default TextArea;
