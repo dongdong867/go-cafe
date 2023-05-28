@@ -23,7 +23,7 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'storage.googleapis.com',
         port: '',
-        pathname: '/gocafe-picture/**',
+        pathname: '/gocafe-tw.appspot.com/**',
       },
     ],
   },
