@@ -49,5 +49,6 @@ export const uploadPictures = async (
     );
   });
 
+  deleteApp(app);
   return pictureUrlList;
 };
