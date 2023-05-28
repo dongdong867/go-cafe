@@ -3,11 +3,10 @@
 type Props = {
   topLabelText: string;
   sideLabel: React.ReactNode;
-
   type?: string;
-  disabled?: boolean;
-
   value?: string;
+  disabled?: boolean;
+  pass?: boolean;
   setValue: React.Dispatch<React.SetStateAction<string>>;
 };
 
@@ -15,18 +14,25 @@ const InputModal = ({
   topLabelText,
   sideLabel,
   type = 'text',
-  disabled = false,
   value = '',
+  disabled = false,
+  pass = true,
   setValue,
 }: Props) => {
+  const bgColor = pass ? 'bg-primary' : 'bg-error';
+  const borderColor = pass ? 'border-primary' : 'border-error';
+  const textColor = pass ? '' : 'text-error';
+
   return (
     <>
       <div className="form-control">
         <label className="label">
-          <span className="label-text font-semibold">{topLabelText}</span>
+          <span className={`${textColor} label-text font-semibold `}>
+            {topLabelText}
+          </span>
         </label>
         <label className="input-group">
-          <span className="bg-primary text-white font-semibold">
+          <span className={`${bgColor} text-white font-semibold`}>
             {sideLabel}
           </span>
           <input
@@ -34,7 +40,7 @@ const InputModal = ({
             disabled={disabled}
             defaultValue={value}
             onChange={(e) => setValue(e.target.value)}
-            className="input input-bordered border-primary border-2 w-full focus:outline-none"
+            className={`input input-bordered ${borderColor} border-2 w-full focus:outline-none`}
           />
         </label>
       </div>
