@@ -128,7 +128,7 @@ const EditPicture = ({
             })}
           <div className="carousel-item w-full justify-center place-items-center">
             <label htmlFor="input">
-              <div className="w-full btn btn-primary text-white text-lg font-medium flex place-items-center gap-x-1">
+              <div className="w-full btn btn-primary text-white text-lg font-medium flex place-items-center gap-x-2">
                 <HiPencilAlt />
                 <span>Add picture</span>
               </div>
