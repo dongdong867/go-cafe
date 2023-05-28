@@ -1,11 +1,11 @@
 'use client';
 
 import InputModal from '@/components/Input/InputModal';
-import EditBody from './Body';
 import EditPicture from './Picture';
 import EditRating from './Rating';
 import { MdLocationOn } from 'react-icons/md';
 import BottomButton from '@/components/Button/BottomButton';
+import TextArea from '@/components/Input/TextArea';
 
 type Props = {
   // shop name
@@ -78,7 +78,7 @@ const EditModal = ({
 
         <EditRating rating={rating} setRate={setRate} />
 
-        <EditBody postBody={postBody} setPostBody={setPostBody} />
+        <TextArea postBody={postBody} setPostBody={setPostBody} />
       </div>
       <div className="w-full h-24" />
       <BottomButton onClick={handleSubmit}>
