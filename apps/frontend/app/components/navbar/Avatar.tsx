@@ -10,16 +10,16 @@ import { MdSettings, MdLogout } from 'react-icons/md';
 import DropdownMenuModal from './DropdownMenuModal';
 import { cookies } from 'next/headers';
 
+import NoAvatar from '/public/images/logo.png';
+
 const Avatar = () => {
+  const avatar = cookies().has('avatar')
+    ? cookies().get('avatar').value
+    : NoAvatar;
   const button = (
     <>
       <div className="btn btn-ghost btn-circle border-2 overflow-hidden avatar">
-        <Image
-          src={cookies().get('avatar').value}
-          alt="user"
-          width={1000}
-          height={1000}
-        />
+        <Image src={avatar} alt="user" width={1000} height={1000} />
       </div>
     </>
   );
