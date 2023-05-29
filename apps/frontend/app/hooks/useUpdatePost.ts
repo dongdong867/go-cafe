@@ -4,6 +4,8 @@ import { gql, useMutation } from '@apollo/client';
 import { useSuspenseQuery } from '@apollo/experimental-nextjs-app-support/ssr';
 import useToast from './useToast';
 import { redirect } from 'next/navigation';
+import { useBase64 } from './useBase64';
+import { uploadPicture } from '@/../lib/picture-upload';
 
 const query = gql`
   query CustomerPost($postId: ID!) {
@@ -55,21 +57,19 @@ const useUpdatePost = (postId: string) => {
     });
 
   const [body, setBody] = useState(originData.customerPost.post.body);
-  const [addedPicture, setAddedPicture] = useState([]);
-  const [deletedPicture, setDeletedPicture] = useState([]);
+  const [addedPicture, setAddedPicture] = useState([] as File[]);
+  const [deletedPicture, setDeletedPicture] = useState([] as string[]);
   const { rating, setRate } = useRating(originData.customerPost.rating);
 
-  const [updateCustomerPost, { data, error }] = useMutation(UPDATE_POST);
-
-  useEffect(() => {
-    if (data) redirect('/');
-  }, [data]);
-
-  if (error) {
-    console.log(error);
-  }
+  const [updateCustomerPost] = useMutation(UPDATE_POST);
 
   const updatePost = async () => {
+    const addedPictureUrlList = await Promise.all(
+      addedPicture.map(async (picture) => {
+        const base64 = await useBase64(picture);
+        return await uploadPicture(base64);
+      })
+    );
     await updateCustomerPost({
       variables: {
         updateCustomerPostInput: {
