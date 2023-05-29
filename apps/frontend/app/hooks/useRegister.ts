@@ -3,6 +3,7 @@ import { gql, useMutation } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { useBase64 } from './useBase64';
 
 const CREATE_CUSTOMER = gql`
   mutation CreateCustomer($createCustomerInput: CreateCustomerInput!) {
@@ -38,71 +39,64 @@ const useRegister = () => {
   const [createStore] = useMutation(CREATE_SHOP);
 
   // handle register
+
   const registerCustomer = async () => {
-    const fileReader = new FileReader();
-    fileReader.readAsDataURL(avatar);
-    fileReader.onload = async () => {
-      const avatarUrl = await uploadPicture(fileReader.result as string);
+    const avatarUrl = await uploadPicture(await useBase64(avatar));
 
-      const create = createCustomer({
-        variables: {
-          createCustomerInput: {
-            account: account,
-            password: password,
-            name: name,
-            phone: phone,
-            avatar: avatarUrl,
-            email: email,
-          },
+    const create = createCustomer({
+      variables: {
+        createCustomerInput: {
+          account: account,
+          password: password,
+          name: name,
+          phone: phone,
+          avatar: avatarUrl,
+          email: email,
         },
-      }).then(() => router.push('/'));
+      },
+    }).then(() => router.push('/'));
 
-      toast.promise(
-        create,
-        {
-          loading: 'Creating...',
-          success: 'Account Created \n Please Login Again',
-          error: (error) => error.message,
-        },
-        {
-          className: 'font-bold text-lg',
-        }
-      );
-    };
+    toast.promise(
+      create,
+      {
+        loading: 'Creating...',
+        success: 'Account Created \n Please Login Again',
+        error: (error) => error.message,
+      },
+      {
+        className: 'font-bold text-lg',
+      }
+    );
   };
 
   const registerShop = async () => {
-    const fileReader = new FileReader();
-    fileReader.readAsDataURL(avatar);
-    fileReader.onload = async () => {
-      const avatarUrl = await uploadPicture(fileReader.result as string);
+    const avatarUrl = await uploadPicture(await useBase64(avatar));
 
-      const create = createStore({
-        variables: {
-          createStoreInput: {
-            account: account,
-            password: password,
-            name: name,
-            phone: phone,
-            avatar: avatarUrl,
-            address: address,
-            info: info,
-          },
+    const create = createStore({
+      variables: {
+        createStoreInput: {
+          account: account,
+          password: password,
+          name: name,
+          phone: phone,
+          avatar: avatarUrl,
+          address: address,
+          info: info,
         },
-      }).then(() => router.push('/'));
+      },
+    }).then(() => router.push('/'));
 
-      toast.promise(
-        create,
-        {
-          loading: 'Creating...',
-          success: 'Account Created \n Please Login Again',
-          error: (error) => error.message,
-        },
-        {
-          className: 'font-bold text-lg',
-        }
-      );
-    };
+    toast.promise(
+      create,
+      {
+        loading: 'Creating...',
+        success: 'Account Created \n Please Login Again',
+        error: (error) => error.message,
+      },
+      {
+        className: 'font-bold text-lg',
+      }
+    );
   };
 
   return {
