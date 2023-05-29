@@ -1,7 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import useRating from './useRating';
 import { gql, useMutation } from '@apollo/client';
-import useToast from './useToast';
+import { useBase64 } from './useBase64';
+import { uploadPicture } from '@/../lib/picture-upload';
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 const CREATE_POST = gql`
   mutation CreateCustomerPost(
@@ -14,27 +17,43 @@ const CREATE_POST = gql`
 const useCreatePost = () => {
   const [shopAccount, setShopAccount] = useState('');
   const [body, setBody] = useState('');
-  const [pictureList, setPictureList] = useState([]);
+  const [pictureList, setPictureList] = useState([] as File[]);
 
   const { rating, setRate } = useRating();
 
-  const [createCustomerPost, { data, error }] = useMutation(CREATE_POST);
+  const router = useRouter();
 
-  if (error) {
-    useToast(error.message, 'error');
-  }
+  const [createCustomerPost] = useMutation(CREATE_POST);
 
   const createPost = async () => {
-    await createCustomerPost({
+    const urlList = await Promise.all(
+      pictureList.map(async (picture) => {
+        const base64 = await useBase64(picture);
+        return await uploadPicture(base64);
+      })
+    );
+    const create = createCustomerPost({
       variables: {
         createCustomerPostInput: {
           body: body,
-          pictures: ['picture1', 'picture2'],
+          pictures: urlList,
           rating: rating,
           storeAccount: shopAccount,
         },
       },
-    });
+    }).then(() => router.push('/'));
+
+    toast.promise(
+      create,
+      {
+        loading: 'Creating...',
+        error: (error) => error.message,
+        success: 'Create Successfully',
+      },
+      {
+        className: 'font-bold text-lg',
+      }
+    );
   };
 
   return {
