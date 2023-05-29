@@ -11,4 +11,7 @@ export class UpdateCustomerPostInput {
 
   @Field(() => PostRatingInput, { nullable: true })
   rating: PostRatingInput;
+
+  @Field(() => [String], { nullable: 'items' })
+  pictureList: string[];
 }
