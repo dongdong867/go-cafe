@@ -148,10 +148,16 @@ const EditPicture = ({
                     className: 'font-bold text-lg',
                   });
                 } else {
-                  setPictureList([...pictureList, e.target.files[0]]);
-                  toast.success('Picture Added', {
-                    className: 'font-bold text-lg',
-                  });
+                  if (e.target.files[0].size > 1000000) {
+                    toast.error('Picture Size Limit 1Mb', {
+                      className: 'font-bold text-lg',
+                    });
+                  } else {
+                    setPictureList([...pictureList, e.target.files[0]]);
+                    toast.success('Picture Added', {
+                      className: 'font-bold text-lg',
+                    });
+                  }
                 }
               }}
             />
