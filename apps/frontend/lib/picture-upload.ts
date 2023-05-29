@@ -1,7 +1,8 @@
 'use server';
 
 import { deleteApp, initializeApp } from 'firebase/app';
-import { getStorage, ref, uploadString } from 'firebase/storage';
+import { deleteObject, getStorage, ref, uploadString } from 'firebase/storage';
+import { toast } from 'react-hot-toast';
 import { v4 as uuid } from 'uuid';
 
 const initializeFirebaseApp = () => {
@@ -38,7 +39,7 @@ export const uploadPictures = async (
   const app = initializeFirebaseApp();
   const storage = getStorage(app);
 
-  pictureList.map(async (picture) => {
+  pictureList.forEach(async (picture) => {
     const uid = uuid();
     const storageRef = ref(storage, uid);
 
@@ -51,4 +52,19 @@ export const uploadPictures = async (
 
   deleteApp(app);
   return pictureUrlList;
+};
+
+export const deletedPictures = async (idList: string[]) => {
+  const app = initializeFirebaseApp();
+  const storage = getStorage(app);
+
+  idList.forEach(async (id) => {
+    const desertRef = ref(storage, id);
+
+    deleteObject(desertRef).catch((err) =>
+      toast(err.message, {
+        className: 'font-bold text-lg',
+      })
+    );
+  });
 };
