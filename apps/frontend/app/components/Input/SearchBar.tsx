@@ -25,12 +25,12 @@ const SearchBar = ({ route }: Props) => {
           />
           <button
             className="
-             btn btn-square 
-             btn-md max-[450px]:btn-sm
-             bg-primary hover:bg-primary 
-             border-primary hover:border-primary 
-             text-base-100 
-             text-xl max-[450px]:text-base
+              btn btn-square 
+              btn-md max-[450px]:btn-sm
+              bg-primary hover:bg-primary 
+              border-primary hover:border-primary 
+              text-base-100 
+              text-xl max-[450px]:text-base
             "
           >
             <FiSearch />
