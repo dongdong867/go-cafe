@@ -10,4 +10,7 @@ export class UpdateStorePostInput {
 
   @Field({ nullable: true })
   body: string;
+
+  @Field(() => [String])
+  pictureList: string[];
 }

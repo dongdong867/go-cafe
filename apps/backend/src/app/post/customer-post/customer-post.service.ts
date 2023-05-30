@@ -9,6 +9,7 @@ import { StoreRating } from '../../user/store/models/store-rating.entity';
 import { GetCustomerPostArgs } from './dto/args/get-customer-post.args';
 import { CustomerPostSelect } from './dto/select/customer-post.select';
 import { GetCustomerPostAtStoreArgs } from './dto/args/get-customer-post-at-store.args';
+import { Picture } from '@prisma/client';
 
 @Injectable()
 export class CustomerPostService {
@@ -40,6 +41,11 @@ export class CustomerPostService {
     });
     const data = await this.prisma.customerPost.findMany({
       select: CustomerPostSelect,
+      orderBy: {
+        post: {
+          updateAt: 'desc',
+        },
+      },
     });
     return data;
   }
@@ -50,6 +56,11 @@ export class CustomerPostService {
         customerId: currentId,
       },
       select: CustomerPostSelect,
+      orderBy: {
+        post: {
+          updateAt: 'desc',
+        },
+      },
     });
   }
 
@@ -69,6 +80,11 @@ export class CustomerPostService {
         ),
       },
       select: CustomerPostSelect,
+      orderBy: {
+        post: {
+          updateAt: 'desc',
+        },
+      },
     });
   }
 
@@ -182,6 +198,16 @@ export class CustomerPostService {
       select: {
         storeId: true,
         rating: true,
+        post: {
+          select: {
+            id: true,
+            postPicture: {
+              select: {
+                picture: true,
+              },
+            },
+          },
+        },
         store: {
           select: {
             storeRating: {
@@ -195,6 +221,23 @@ export class CustomerPostService {
       },
     });
 
+    const addList: string[] = [];
+    const deleteList: Picture[] = [];
+
+    for (const picture of data.post.postPicture.map(
+      (postPicture) => postPicture.picture
+    )) {
+      if (!updateCustomerPostInput.pictureList.includes(picture.data))
+        deleteList.push(picture);
+    }
+
+    const originPictureUrlList = data.post.postPicture.map(
+      (picture) => picture.picture.data
+    );
+    updateCustomerPostInput.pictureList.forEach(async (picture) => {
+      if (!originPictureUrlList.includes(picture)) addList.push(picture);
+    });
+
     await this.prisma.customerPost.update({
       where: {
         id_customerId: {
@@ -206,6 +249,25 @@ export class CustomerPostService {
         post: {
           update: {
             body: updateCustomerPostInput.body,
+            postPicture: {
+              create: addList.map((picture) => {
+                return {
+                  picture: {
+                    create: {
+                      data: picture,
+                    },
+                  },
+                };
+              }),
+              delete: deleteList.map((picture) => {
+                return {
+                  pictureId_postId: {
+                    pictureId: picture.id,
+                    postId: data.post.id,
+                  },
+                };
+              }),
+            },
           },
         },
         rating: {
@@ -250,6 +312,14 @@ export class CustomerPostService {
       },
       select: {
         storeId: true,
+      },
+    });
+
+    await this.prisma.picture.deleteMany({
+      where: {
+        id: {
+          in: deleteList.map((picture) => picture.id),
+        },
       },
     });
 
