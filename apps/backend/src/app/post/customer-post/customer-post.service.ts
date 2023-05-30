@@ -41,6 +41,11 @@ export class CustomerPostService {
     });
     const data = await this.prisma.customerPost.findMany({
       select: CustomerPostSelect,
+      orderBy: {
+        post: {
+          updateAt: 'desc',
+        },
+      },
     });
     return data;
   }
@@ -51,6 +56,11 @@ export class CustomerPostService {
         customerId: currentId,
       },
       select: CustomerPostSelect,
+      orderBy: {
+        post: {
+          updateAt: 'desc',
+        },
+      },
     });
   }
 
@@ -70,6 +80,11 @@ export class CustomerPostService {
         ),
       },
       select: CustomerPostSelect,
+      orderBy: {
+        post: {
+          updateAt: 'desc',
+        },
+      },
     });
   }
 
