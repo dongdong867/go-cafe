@@ -40,6 +40,11 @@ export class StorePostService {
               },
             },
           },
+          orderBy: {
+            post: {
+              updateAt: 'desc',
+            },
+          },
         },
       },
     });
