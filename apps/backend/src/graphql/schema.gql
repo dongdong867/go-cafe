@@ -246,6 +246,7 @@ input UpdateStoreInput {
 input UpdateStorePostInput {
   body: String
   id: String!
+  pictureList: [String!]!
   title: String
 }
 
