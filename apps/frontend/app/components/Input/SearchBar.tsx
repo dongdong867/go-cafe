@@ -87,7 +87,7 @@ const SearchBar = () => {
                 className="input input-bordered input-md max-[450px]:input-sm w-full focus:outline-none"
               />
               <button
-                onClick={(e) => setSearchQuery(searchQuery)}
+                onClick={() => setSearchQuery(searchQuery)}
                 className="
                   btn btn-square 
                   btn-md max-[450px]:btn-sm
