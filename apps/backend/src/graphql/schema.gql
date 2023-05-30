@@ -226,6 +226,7 @@ input UpdateCustomerInput {
 input UpdateCustomerPostInput {
   body: String
   id: ID!
+  pictureList: [String!]!
   rating: PostRatingInput
 }
 
@@ -245,6 +246,7 @@ input UpdateStoreInput {
 input UpdateStorePostInput {
   body: String
   id: String!
+  pictureList: [String!]!
   title: String
 }
 

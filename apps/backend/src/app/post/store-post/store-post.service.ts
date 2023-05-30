@@ -6,6 +6,7 @@ import { StorePost } from './models/store-post.entity';
 import { StoreService } from '../../user/store/store.service';
 import { CreateStorePostInput } from './dto/input/create-store-post.input';
 import { UpdateStorePostInput } from './dto/input/update-store-post.input';
+import { Picture } from '@prisma/client';
 
 @Injectable()
 export class StorePostService {
@@ -38,6 +39,11 @@ export class StorePostService {
                   },
                 },
               },
+            },
+          },
+          orderBy: {
+            post: {
+              updateAt: 'desc',
             },
           },
         },
@@ -94,6 +100,45 @@ export class StorePostService {
     currentId: string,
     updateStorePostInput: UpdateStorePostInput
   ): Promise<string> {
+    const data = await this.prisma.storePost.findUniqueOrThrow({
+      where: {
+        id_storeId: {
+          id: updateStorePostInput.id,
+          storeId: currentId,
+        },
+      },
+      select: {
+        post: {
+          select: {
+            id: true,
+            postPicture: {
+              select: {
+                picture: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    const addList: string[] = [];
+    const deleteList: Picture[] = [];
+
+    for (const picture of data.post.postPicture.map(
+      (postPicture) => postPicture.picture
+    )) {
+      if (!updateStorePostInput.pictureList.includes(picture.data))
+        deleteList.push(picture);
+    }
+
+    const originPictureUrlList = data.post.postPicture.map(
+      (picture) => picture.picture.data
+    );
+
+    updateStorePostInput.pictureList.forEach(async (picture) => {
+      if (!originPictureUrlList.includes(picture)) addList.push(picture);
+    });
+
     await this.prisma.storePost.update({
       where: {
         id_storeId: {
@@ -106,6 +151,25 @@ export class StorePostService {
         post: {
           update: {
             body: updateStorePostInput.body,
+            postPicture: {
+              create: addList.map((picture) => {
+                return {
+                  picture: {
+                    create: {
+                      data: picture,
+                    },
+                  },
+                };
+              }),
+              delete: deleteList.map((picture) => {
+                return {
+                  pictureId_postId: {
+                    pictureId: picture.id,
+                    postId: data.post.id,
+                  },
+                };
+              }),
+            },
           },
         },
       },
