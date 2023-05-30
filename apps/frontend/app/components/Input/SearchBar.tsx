@@ -1,15 +1,16 @@
 'use client';
 
-import { gql, useQuery } from '@apollo/client';
+import { ApolloError, gql, useQuery } from '@apollo/client';
 //hooks
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 //icons
 import { FiSearch } from 'react-icons/fi';
 import UserPostModal from '../UserPostModal';
 import { useSuspenseQuery } from '@apollo/experimental-nextjs-app-support/ssr';
 import useSearchShop from '@/hooks/useSearchShop';
-import { toast } from 'react-hot-toast';
+import { Toaster, toast } from 'react-hot-toast';
+import PageTitle from '../PageTitle';
 
 const query = gql`
   query GetCustomerPostAtStore($storeAccount: String!) {
@@ -46,35 +47,47 @@ const query = gql`
 
 const SearchBar = () => {
   const { storeList, setQuery } = useSearchShop();
+  const [searchInput, setSearchInput] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-  const [posts, setPosts] = useState([] as UserPost[]);
 
-  const { data, error } = useSuspenseQuery(query, {
-    variables: {
-      storeAccount: searchQuery,
-    },
-  });
+  const {
+    data,
+    error,
+  }: { data: { customerPostAtStore: UserPost[] }; error: ApolloError } =
+    useSuspenseQuery(query, {
+      variables: {
+        storeAccount: searchQuery,
+      },
+    });
 
-  if (error && searchQuery.length > 0) {
+  if (error) {
     toast.error('No Store Found', {
       className: 'font-bold text-lg',
     });
   }
 
+  useEffect(() => {
+    console.log(searchQuery);
+  }, [searchQuery]);
+
   return (
     <>
-      <div className="form-control w-full px-4 py-2">
+      <div className="form-control w-full px-4 py-2 max-[450px]:max-w-[360px] max-[450px]:px-0">
         <div className="dropdown">
           <label tabIndex={0}>
-            <div className="input-group input-group-md max-[450px]:input-group-sm">
+            <div className="input-group input-group-md">
               <input
                 type="text"
-                placeholder="Input store account"
-                onChange={(e) => setQuery(e.currentTarget.value)}
+                placeholder="Input store account or name"
+                value={searchInput}
+                onChange={(e) => {
+                  setQuery(e.currentTarget.value);
+                  setSearchInput(e.currentTarget.value);
+                }}
                 className="input input-bordered input-md max-[450px]:input-sm w-full focus:outline-none"
               />
               <button
-                onClick={(e) => {}}
+                onClick={(e) => setSearchQuery(searchQuery)}
                 className="
               btn btn-square 
               btn-md max-[450px]:btn-sm
@@ -94,29 +107,40 @@ const SearchBar = () => {
           >
             {storeList.map((store) => {
               return (
-                <li key={store.user.account}>
-                  <button
-                    className="text-left py-0"
-                    onClick={() => setPosts([])}
-                  >
-                    <span className="w-1/3 font-semibold">
-                      @{store.user.account}
-                    </span>
-                    <span className="w-1/2">{store.user.name}</span>
-                  </button>
-                </li>
+                <>
+                  <li key={store.user.account}>
+                    <button
+                      className="text-left flex justify-between items-center gap-y-0 py-2 min-[450px]:py-0 max-[450px]:flex-col"
+                      onClick={() => {
+                        setSearchInput(store.user.account);
+                        setSearchQuery(store.user.account);
+                      }}
+                    >
+                      <span className="w-full font-bold">
+                        @{store.user.account}
+                      </span>
+                      <span className="w-full font-medium">
+                        {store.user.name}
+                      </span>
+                    </button>
+                  </li>
+                </>
               );
             })}
           </ul>
         </div>
       </div>
-      {posts.length > 0 && (
+      {data.customerPostAtStore.length > 0 && (
         <div className="pb-4">
-          {posts.map((customerPost) => (
+          {data.customerPostAtStore.map((customerPost) => (
             <UserPostModal key={customerPost.id} customerPost={customerPost} />
           ))}
+          <div className="w-11/12 m-auto">
+            <PageTitle title="Recommend posts" />
+          </div>
         </div>
       )}
+      <Toaster />
     </>
   );
 };
