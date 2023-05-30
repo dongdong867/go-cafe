@@ -107,24 +107,22 @@ const SearchBar = () => {
           >
             {storeList.map((store) => {
               return (
-                <>
-                  <li key={store.user.account}>
-                    <button
-                      className="text-left flex justify-between items-center gap-y-0 py-2 min-[450px]:py-0 max-[450px]:flex-col"
-                      onClick={() => {
-                        setSearchInput(store.user.account);
-                        setSearchQuery(store.user.account);
-                      }}
-                    >
-                      <span className="w-full font-bold">
-                        @{store.user.account}
-                      </span>
-                      <span className="w-full font-medium">
-                        {store.user.name}
-                      </span>
-                    </button>
-                  </li>
-                </>
+                <li key={store.user.account}>
+                  <button
+                    className="text-left flex justify-between items-center gap-y-0 py-2 min-[450px]:py-0 max-[450px]:flex-col"
+                    onClick={() => {
+                      setSearchInput(store.user.account);
+                      setSearchQuery(store.user.account);
+                    }}
+                  >
+                    <span className="w-full font-bold">
+                      @{store.user.account}
+                    </span>
+                    <span className="w-full font-medium">
+                      {store.user.name}
+                    </span>
+                  </button>
+                </li>
               );
             })}
           </ul>
