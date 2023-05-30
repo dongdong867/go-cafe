@@ -226,6 +226,7 @@ input UpdateCustomerInput {
 input UpdateCustomerPostInput {
   body: String
   id: ID!
+  pictureList: [String!]!
   rating: PostRatingInput
 }
 
