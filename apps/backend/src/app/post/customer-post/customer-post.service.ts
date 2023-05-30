@@ -73,6 +73,7 @@ export class CustomerPostService {
         id: currentId,
       },
     });
+    if (getCustomerPostAtStoreArgs.storeAccount.length === 0) return [];
     return await this.prisma.customerPost.findMany({
       where: {
         storeId: await this.storeService.getStoreIdByAccount(
