@@ -2,8 +2,9 @@ import { gql } from '@apollo/client';
 import UserInfo from './components/UserInfo';
 import UserPostModal from '@/components/UserPostModal';
 import { getClient } from '@/../lib/client';
+import { cookies } from 'next/headers';
 
-const query = gql`
+const customerQuery = gql`
   query Customer {
     customer {
       user {
@@ -50,9 +51,39 @@ const query = gql`
   }
 `;
 
+const shopQuery = gql`
+  query Self {
+    storeSelf {
+      user {
+        avatar {
+          data
+        }
+        account
+        name
+        phone
+        postCount
+      }
+      address
+      info
+      storeRating {
+        postCount
+        rating {
+          general
+          environment
+          meals
+          attitude
+        }
+      }
+    }
+  }
+`;
+
 const UserPage = async () => {
   const client = getClient();
-  const { data } = await client.query({ query });
+  const { data } =
+    cookies().get('role').value === 'customer'
+      ? await client.query({ query: customerQuery })
+      : await client.query({ query: shopQuery });
   return (
     <>
       <div className="w-full h-fit max-w-lg max-[450px]:w-11/12 m-auto">
