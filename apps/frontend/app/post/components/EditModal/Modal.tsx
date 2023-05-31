@@ -6,12 +6,14 @@ import EditRating from './Rating';
 import { MdLocationOn } from 'react-icons/md';
 import BottomButton from '@/components/Button/BottomButton';
 import TextArea from '@/components/Input/TextArea';
+import useSearchShop from '@/hooks/useSearchShop';
+import { useEffect } from 'react';
 
 type Props = {
   // shop name
-  shopName?: string;
-  shopNameDisabled?: boolean;
-  setShopName?: React.Dispatch<React.SetStateAction<string>>;
+  shopAccount?: string;
+  shopAccountDisabled?: boolean;
+  setShopAccount?: React.Dispatch<React.SetStateAction<string>>;
   // rating
   rating?: Rating;
   setRate: (rateName: string, rateValue: number) => void;
@@ -30,9 +32,9 @@ type Props = {
 
 const EditModal = ({
   // shop name
-  shopName = '',
-  shopNameDisabled = false,
-  setShopName = () => {},
+  shopAccount = '',
+  shopAccountDisabled = false,
+  setShopAccount = () => {},
   // rating
   rating = {
     general: 5,
@@ -56,6 +58,7 @@ const EditModal = ({
   const handleSubmit = () => {
     onSubmit();
   };
+  const { query, storeList, setQuery } = useSearchShop();
 
   return (
     <>
@@ -68,13 +71,44 @@ const EditModal = ({
           setDeletedPicture={setDeletedPicture}
         />
 
-        <InputModal
-          disabled={shopNameDisabled}
-          topLabelText="Select a coffee shop"
-          sideLabel={<MdLocationOn />}
-          value={shopName}
-          setValue={setShopName}
-        />
+        <div className="dropdown w-full">
+          <label tabIndex={0}>
+            <InputModal
+              disabled={shopAccountDisabled}
+              topLabelText="Select a coffee shop"
+              sideLabel={<MdLocationOn />}
+              value={query}
+              setValue={setQuery}
+            />
+          </label>
+          {!shopAccountDisabled && (
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-full"
+            >
+              {storeList.map((store) => {
+                return (
+                  <li key={store.user.account}>
+                    <button
+                      className="text-left flex justify-between items-center gap-y-0 py-2 min-[450px]:py-0 max-[450px]:flex-col"
+                      onClick={() => {
+                        setQuery(store.user.account);
+                        setShopAccount(store.user.account);
+                      }}
+                    >
+                      <span className="w-full font-bold">
+                        @{store.user.account}
+                      </span>
+                      <span className="w-full font-medium">
+                        {store.user.name}
+                      </span>
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </div>
 
         <EditRating rating={rating} setRate={setRate} />
 
