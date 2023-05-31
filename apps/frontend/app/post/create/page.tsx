@@ -6,6 +6,7 @@ import useCreatePost from '@/hooks/useCreatePost';
 
 const CreatePostPage = () => {
   const {
+    shopAccount,
     pictureList,
     setShopAccount,
     setRate,
@@ -25,8 +26,9 @@ const CreatePostPage = () => {
       >
         <PageTitle title="Create Post" />
         <EditModal
+          shopAccount={shopAccount}
           pictureList={pictureList}
-          setShopName={setShopAccount}
+          setShopAccount={setShopAccount}
           setRate={setRate}
           setPostBody={setBody}
           setPictureList={setPictureList}
