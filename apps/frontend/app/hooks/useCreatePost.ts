@@ -43,7 +43,7 @@ const useCreatePost = () => {
       },
     }).then(() => router.push('/'));
 
-    toast.promise(
+    await toast.promise(
       create,
       {
         loading: 'Creating...',
