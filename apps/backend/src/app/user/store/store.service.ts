@@ -11,6 +11,15 @@ import { StoreSelect } from './dto/select/store.select';
 export class StoreService {
   constructor(private readonly prisma: PrismaService) {}
 
+  async getSelf(currentId: string): Promise<Store> {
+    return this.prisma.store.findUniqueOrThrow({
+      where: {
+        id: currentId,
+      },
+      select: StoreSelect,
+    });
+  }
+
   async getStoreIdByAccount(storeAccount: string): Promise<string> {
     const data = await this.prisma.store.findFirstOrThrow({
       where: {

@@ -15,6 +15,11 @@ import { CurrentId } from '../decorator/current-id.decorator';
 export class StoreResolver {
   constructor(private readonly storeService: StoreService) {}
 
+  @Query(() => Store, { name: 'storeSelf' })
+  async getSelf(@CurrentId() currentId: string): Promise<Store> {
+    return await this.storeService.getSelf(currentId);
+  }
+
   @Query(() => Store, { name: 'store' })
   async getStore(@Args() getStoreArgs: GetStoreArgs): Promise<Store> {
     return await this.storeService.getStore(getStoreArgs);
