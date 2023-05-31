@@ -39,7 +39,7 @@ const useSearchShop = () => {
     },
   });
 
-  return { storeList: data.stores, setQuery };
+  return { query, storeList: data.stores, setQuery };
 };
 
 export default useSearchShop;
