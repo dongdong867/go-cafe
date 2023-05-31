@@ -15,6 +15,11 @@ import { DeleteStorePostInput } from './dto/input/delete-store-post.input';
 export class StorePostResolver {
   constructor(private readonly storePostService: StorePostService) {}
 
+  @Query(() => [StorePost], { name: 'storeSelfPost', nullable: 'items' })
+  async getSelfPost(@CurrentId() currentId: string): Promise<StorePost[]> {
+    return await this.storePostService.getSelfPost(currentId);
+  }
+
   @Query(() => [StorePost], { name: 'storePost', nullable: 'items' })
   async getPosts(
     @Args() getStorePostArgs: GetStorePostArgs
