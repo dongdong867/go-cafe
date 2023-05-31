@@ -4,7 +4,7 @@ type Props = {
   data: User;
 };
 
-const UserInfo = ({ data }: Props) => {
+const CustomerProfile = ({ data }: Props) => {
   return (
     <>
       <div className="w-full flex justify-around place-items-center pt-5">
@@ -41,4 +41,4 @@ const UserInfo = ({ data }: Props) => {
   );
 };
 
-export default UserInfo;
+export default CustomerProfile;
