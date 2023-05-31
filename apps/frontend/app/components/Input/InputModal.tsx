@@ -14,7 +14,7 @@ const InputModal = ({
   topLabelText,
   sideLabel,
   type = 'text',
-  value = '',
+  value,
   disabled = false,
   pass = true,
   setValue,
@@ -22,6 +22,28 @@ const InputModal = ({
   const bgColor = pass ? 'bg-primary' : 'bg-error';
   const borderColor = pass ? 'border-primary' : 'border-error';
   const textColor = pass ? '' : 'text-error';
+
+  const input = () => {
+    if (disabled) {
+      return (
+        <input
+          type={type}
+          disabled
+          defaultValue={value}
+          className={`input input-bordered ${borderColor} border-2 w-full focus:outline-none`}
+        />
+      );
+    } else {
+      return (
+        <input
+          type={type}
+          value={value}
+          onChange={(e) => setValue(e.currentTarget.value)}
+          className={`input input-bordered ${borderColor} border-2 w-full focus:outline-none`}
+        />
+      );
+    }
+  };
 
   return (
     <>
@@ -35,13 +57,7 @@ const InputModal = ({
           <span className={`${bgColor} text-white font-semibold`}>
             {sideLabel}
           </span>
-          <input
-            type={type}
-            disabled={disabled}
-            defaultValue={value}
-            onChange={(e) => setValue(e.target.value)}
-            className={`input input-bordered ${borderColor} border-2 w-full focus:outline-none`}
-          />
+          {input()}
         </label>
       </div>
     </>
