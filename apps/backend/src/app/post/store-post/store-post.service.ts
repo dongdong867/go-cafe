@@ -7,6 +7,7 @@ import { StoreService } from '../../user/store/store.service';
 import { CreateStorePostInput } from './dto/input/create-store-post.input';
 import { UpdateStorePostInput } from './dto/input/update-store-post.input';
 import { Picture } from '@prisma/client';
+import { StorePostSelect } from './dto/select/store-post.select';
 
 @Injectable()
 export class StorePostService {
@@ -14,6 +15,27 @@ export class StorePostService {
     private readonly storeService: StoreService,
     private readonly prisma: PrismaService
   ) {}
+
+  async getSelfPost(currentId: string): Promise<StorePost[]> {
+    const data = await this.prisma.store.findUniqueOrThrow({
+      where: {
+        id: currentId,
+      },
+      select: {
+        storePost: {
+          select: StorePostSelect,
+          orderBy: {
+            post: {
+              updateAt: 'desc',
+            },
+          },
+        },
+      },
+    });
+
+    return data.storePost;
+  }
+
   async getPosts(getStorePostArgs: GetStorePostArgs): Promise<StorePost[]> {
     const data = await this.prisma.store.findUniqueOrThrow({
       where: {
@@ -23,24 +45,7 @@ export class StorePostService {
       },
       select: {
         storePost: {
-          select: {
-            id: true,
-            title: true,
-            post: {
-              select: {
-                body: true,
-                postPicture: {
-                  select: {
-                    picture: {
-                      select: {
-                        data: true,
-                      },
-                    },
-                  },
-                },
-              },
-            },
-          },
+          select: StorePostSelect,
           orderBy: {
             post: {
               updateAt: 'desc',
@@ -135,7 +140,7 @@ export class StorePostService {
       (picture) => picture.picture.data
     );
 
-    updateStorePostInput.pictureList.forEach(async (picture) => {
+    updateStorePostInput.pictureList.forEach((picture) => {
       if (!originPictureUrlList.includes(picture)) addList.push(picture);
     });
 

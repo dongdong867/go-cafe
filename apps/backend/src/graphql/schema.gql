@@ -182,6 +182,7 @@ type Query {
   store(account: String!): Store!
   storePost(storeAccount: String!): [StorePost]!
   storeSelf: Store!
+  storeSelfPost: [StorePost]!
   stores(query: String!): [Store]!
   unfinishedOrder: [Order!]!
 }
