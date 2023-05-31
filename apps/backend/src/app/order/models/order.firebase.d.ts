@@ -13,4 +13,5 @@ type OrderType = {
   total_price: number;
   finished: boolean;
   create_at: admin.firestore.FieldValue;
+  update_at: admin.firestore.FieldValue;
 };

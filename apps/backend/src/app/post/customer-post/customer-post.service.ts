@@ -235,7 +235,7 @@ export class CustomerPostService {
     const originPictureUrlList = data.post.postPicture.map(
       (picture) => picture.picture.data
     );
-    updateCustomerPostInput.pictureList.forEach(async (picture) => {
+    updateCustomerPostInput.pictureList.forEach((picture) => {
       if (!originPictureUrlList.includes(picture)) addList.push(picture);
     });
 

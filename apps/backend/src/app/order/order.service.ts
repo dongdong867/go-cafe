@@ -24,6 +24,7 @@ export class OrderService {
       .collection('order')
       .where('store_id', '==', currentId)
       .where('finished', '==', false)
+      .orderBy('update_at', 'desc')
       .get();
 
     return orderList.docs.map((order) => ({
@@ -67,6 +68,7 @@ export class OrderService {
       total_price: createOrderInput.totalPrice,
       finished: false,
       create_at: admin.firestore.FieldValue.serverTimestamp(),
+      update_at: admin.firestore.FieldValue.serverTimestamp(),
     };
 
     await this.firebase
@@ -92,6 +94,7 @@ export class OrderService {
 
     await order.update({
       finished: true,
+      update_at: admin.firestore.FieldValue.serverTimestamp(),
     });
 
     return 'order finished';
