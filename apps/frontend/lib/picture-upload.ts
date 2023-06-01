@@ -27,7 +27,7 @@ export const uploadPicture = async (picture: string): Promise<string> => {
 
   await uploadString(storageRef, picture, 'data_url');
 
-  deleteApp(app);
+  await deleteApp(app);
   return `https://storage.googleapis.com/gocafe-tw.appspot.com/${uid}`;
 };
 
@@ -50,7 +50,7 @@ export const uploadPictures = async (
     );
   });
 
-  deleteApp(app);
+  await deleteApp(app);
   return pictureUrlList;
 };
 
@@ -58,13 +58,23 @@ export const deletedPictures = async (idList: string[]) => {
   const app = initializeFirebaseApp();
   const storage = getStorage(app);
 
-  idList.forEach(async (id) => {
-    const desertRef = ref(storage, id);
-
-    deleteObject(desertRef).catch((err) =>
-      toast(err.message, {
-        className: 'font-bold text-lg',
+  for (const picture of idList) {
+    console.log(picture.substring(53));
+    const desertRef = ref(storage, picture.substring(53));
+    await deleteObject(desertRef)
+      .then(() => {
+        console.log('picture deleted successfully');
+        toast.success('picture deleted', {
+          className: 'font-bold text-lg',
+        });
       })
-    );
-  });
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.message, {
+          className: 'font-bold text-lg',
+        });
+      });
+  }
+
+  await deleteApp(app);
 };
