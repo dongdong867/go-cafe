@@ -6,8 +6,14 @@ import { CgMenuLeft } from 'react-icons/cg';
 import { FaBell, FaUserFriends } from 'react-icons/fa';
 import { MdOutlinePostAdd, MdInfo } from 'react-icons/md';
 import DropdownMenuModal from './DropdownMenuModal';
+import { cookies } from 'next/headers';
 
 const Menu = () => {
+  const createPostHref =
+    cookies().get('role').value === 'store'
+      ? '/post/create/shopPost'
+      : '/post/create';
+
   const button = (
     <>
       <div className="btn btn-ghost text-2xl">
@@ -20,27 +26,21 @@ const Menu = () => {
     <>
       <li className="menu-title px-4 pt-4">menu list</li>
       <li>
-        <Link href={'/'} className="p-4 text-xl font-semibold">
-          <FaBell />
-          <div>notification</div>
-        </Link>
-      </li>
-      <li>
         <Link href={'/user/following'} className="p-4 text-xl font-semibold">
           <FaUserFriends />
-          <div>following list</div>
+          <div>Following list</div>
         </Link>
       </li>
       <li>
-        <Link href={'/post/create'} className="p-4 text-xl font-semibold">
+        <Link href={createPostHref} className="p-4 text-xl font-semibold">
           <MdOutlinePostAdd />
-          <div>post article</div>
+          <div>Create Post</div>
         </Link>
       </li>
       <li>
         <Link href={'/'} className="p-4 text-xl font-semibold">
           <MdInfo />
-          <div>about Go Cafe</div>
+          <div>About Go Cafe</div>
         </Link>
       </li>
     </>
