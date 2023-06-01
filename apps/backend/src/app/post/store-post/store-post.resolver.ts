@@ -9,6 +9,7 @@ import { CurrentId } from '../../user/decorator/current-id.decorator';
 import { CreateStorePostInput } from './dto/input/create-store-post.input';
 import { UpdateStorePostInput } from './dto/input/update-store-post.input';
 import { DeleteStorePostInput } from './dto/input/delete-store-post.input';
+import { GetStorePostByIdArgs } from './dto/args/get-store-post-by-id.args';
 
 @UseGuards(UserAuthGuard)
 @Resolver(() => StorePost)
@@ -18,6 +19,17 @@ export class StorePostResolver {
   @Query(() => [StorePost], { name: 'storeSelfPost', nullable: 'items' })
   async getSelfPost(@CurrentId() currentId: string): Promise<StorePost[]> {
     return await this.storePostService.getSelfPost(currentId);
+  }
+
+  @Query(() => StorePost, { name: 'storePostById' })
+  async getPostById(
+    @CurrentId() currentId: string,
+    @Args() getStorePostByIdArgs: GetStorePostByIdArgs
+  ): Promise<StorePost> {
+    return await this.storePostService.getPostById(
+      currentId,
+      getStorePostByIdArgs
+    );
   }
 
   @Query(() => [StorePost], { name: 'storePost', nullable: 'items' })

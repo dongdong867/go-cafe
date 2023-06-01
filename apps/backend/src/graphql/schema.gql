@@ -181,6 +181,7 @@ type Query {
   selfPost: [CustomerPost]!
   store(account: String!): Store!
   storePost(storeAccount: String!): [StorePost]!
+  storePostById(postId: String!): StorePost!
   storeSelf: Store!
   storeSelfPost: [StorePost]!
   stores(query: String!): [Store]!
