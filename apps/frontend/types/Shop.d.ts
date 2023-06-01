@@ -11,6 +11,7 @@ type Shop = {
   address: string;
   info: string;
   storeRating: {
+    postCount: number;
     rating: Rating;
   };
 };
