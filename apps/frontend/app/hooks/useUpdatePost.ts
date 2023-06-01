@@ -40,7 +40,7 @@ const query = gql`
   }
 `;
 
-const UPDATE_POST = gql`
+const UPDATE_CUSTOMER_POST = gql`
   mutation UpdateCustomerPost(
     $updateCustomerPostInput: UpdateCustomerPostInput!
   ) {
@@ -61,7 +61,7 @@ const useUpdatePost = (postId: string) => {
   const [deletedPicture, setDeletedPicture] = useState([] as string[]);
   const { rating, setRate } = useRating(originData.customerPost.rating);
 
-  const [updateCustomerPost] = useMutation(UPDATE_POST);
+  const [updateCustomerPost] = useMutation(UPDATE_CUSTOMER_POST);
 
   const router = useRouter();
 
@@ -73,10 +73,10 @@ const useUpdatePost = (postId: string) => {
       }
     );
 
-    const addedPictureUrlList = await Promise.all(
+    await Promise.all(
       addedPicture.map(async (picture) => {
         const base64 = await useBase64(picture);
-        return await uploadPicture(base64);
+        pictureList.push(await uploadPicture(base64));
       })
     );
 
@@ -85,10 +85,7 @@ const useUpdatePost = (postId: string) => {
         updateCustomerPostInput: {
           id: originData.customerPost.id,
           body: body,
-          pictureList:
-            pictureList === undefined
-              ? pictureList.concat(addedPictureUrlList)
-              : addedPictureUrlList,
+          pictureList: pictureList.filter((picture) => picture !== undefined),
           rating: {
             general: rating.general,
             environment: rating.environment,
@@ -99,7 +96,7 @@ const useUpdatePost = (postId: string) => {
       },
     }).then(() => router.push('/user'));
 
-    toast.promise(
+    await toast.promise(
       update,
       {
         loading: 'Updating...',
@@ -116,9 +113,9 @@ const useUpdatePost = (postId: string) => {
     body,
     rating,
     shop: originData.customerPost.store,
-    originPicture: originData.customerPost.post.postPicture.map((picture) => {
-      return picture.picture.data;
-    }),
+    originPicture: originData.customerPost.post.postPicture.map(
+      (picture) => picture.picture.data
+    ),
     addedPicture,
     deletedPicture,
     setRate,
