@@ -36,7 +36,7 @@ const UpdatePostPage = ({ params }: Props) => {
       >
         <PageTitle title="Update Post" />
         <EditModal
-          // shop name
+          // shop account
           shopAccount={shop.user.account}
           shopAccountDisabled={true}
           // rating
