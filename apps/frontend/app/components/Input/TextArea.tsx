@@ -13,7 +13,7 @@ const TextArea = ({ postBody, setPostBody }: Props) => {
           contentEditable
           suppressContentEditableWarning={true}
           onBlur={(e) => setPostBody(e.currentTarget.textContent as string)}
-          className="textarea h-max min-h-[300px] text-lg rounded-xl focus:outline-none"
+          className="textarea h-max min-h-[300px] text-lg font-medium rounded-xl focus:outline-none"
         >
           {postBody}
         </div>
