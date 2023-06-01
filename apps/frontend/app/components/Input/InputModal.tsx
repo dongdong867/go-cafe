@@ -30,7 +30,7 @@ const InputModal = ({
           type={type}
           disabled
           defaultValue={value}
-          className={`input input-bordered ${borderColor} border-2 w-full focus:outline-none`}
+          className={`input input-bordered ${borderColor} join-item border-2 w-full focus:outline-none`}
         />
       );
     } else {
@@ -39,7 +39,7 @@ const InputModal = ({
           type={type}
           value={value}
           onChange={(e) => setValue(e.currentTarget.value)}
-          className={`input input-bordered ${borderColor} border-2 w-full focus:outline-none`}
+          className={`input input-bordered ${borderColor} join-item border-2 w-full font-medium focus:outline-none`}
         />
       );
     }
@@ -47,18 +47,18 @@ const InputModal = ({
 
   return (
     <>
-      <div className="form-control">
-        <label className="label">
-          <span className={`${textColor} label-text font-semibold `}>
-            {topLabelText}
-          </span>
-        </label>
-        <label className="input-group">
-          <span className={`${bgColor} text-white font-semibold`}>
-            {sideLabel}
-          </span>
-          {input()}
-        </label>
+      <label className="label">
+        <span className={`${textColor} label-text font-semibold `}>
+          {topLabelText}
+        </span>
+      </label>
+      <div className="join w-full">
+        <div
+          className={`w-14 ${bgColor} text-xl join-item flex justify-center place-items-center text-white font-semibold`}
+        >
+          {sideLabel}
+        </div>
+        {input()}
       </div>
     </>
   );
