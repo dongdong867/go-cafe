@@ -50,3 +50,16 @@ type ShopPost = {
   };
   title: string;
 };
+
+type ShopPost = {
+  id: string;
+  title: string;
+  post: {
+    body: string;
+    postPicture: {
+      picture: {
+        data: string;
+      };
+    }[];
+  };
+};
