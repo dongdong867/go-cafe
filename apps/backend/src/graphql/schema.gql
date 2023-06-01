@@ -105,7 +105,7 @@ input LoginInput {
 }
 
 type Menu {
-  categories: [Category!]!
+  categories: [Category]!
 }
 
 type Mutation {
@@ -185,7 +185,7 @@ type Query {
   storeSelf: Store!
   storeSelfPost: [StorePost]!
   stores(query: String!): [Store]!
-  unfinishedOrder: [Order!]!
+  unfinishedOrder: [Order]!
 }
 
 type Rating {
