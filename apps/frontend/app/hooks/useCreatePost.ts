@@ -41,19 +41,21 @@ const useCreatePost = () => {
           storeAccount: shopAccount,
         },
       },
-    }).then(() => router.push('/'));
+    });
 
-    await toast.promise(
-      create,
-      {
-        loading: 'Creating...',
-        error: (error) => error.message,
-        success: 'Create Successfully',
-      },
-      {
-        className: 'font-bold text-lg',
-      }
-    );
+    await toast
+      .promise(
+        create,
+        {
+          loading: 'Creating...',
+          error: (error) => error.message,
+          success: 'Create Successfully',
+        },
+        {
+          className: 'font-bold text-lg',
+        }
+      )
+      .then(() => router.push('/'));
   };
 
   return {
