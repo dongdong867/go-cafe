@@ -213,6 +213,14 @@ export class StorePostService {
       },
     });
 
+    await this.prisma.picture.deleteMany({
+      where: {
+        id: {
+          in: deleteList.map((picture) => picture.id),
+        },
+      },
+    });
+
     return 'post update successfully';
   }
 
