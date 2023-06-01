@@ -8,6 +8,7 @@ import { CreateStorePostInput } from './dto/input/create-store-post.input';
 import { UpdateStorePostInput } from './dto/input/update-store-post.input';
 import { Picture } from '@prisma/client';
 import { StorePostSelect } from './dto/select/store-post.select';
+import { GetStorePostByIdArgs } from './dto/args/get-store-post-by-id.args';
 
 @Injectable()
 export class StorePostService {
@@ -34,6 +35,38 @@ export class StorePostService {
     });
 
     return data.storePost;
+  }
+
+  async getPostById(
+    currentId: string,
+    getStorePostByIdArgs: GetStorePostByIdArgs
+  ): Promise<StorePost> {
+    return await this.prisma.storePost.findUniqueOrThrow({
+      where: {
+        id_storeId: {
+          id: getStorePostByIdArgs.postId,
+          storeId: currentId,
+        },
+      },
+      select: {
+        id: true,
+        title: true,
+        post: {
+          select: {
+            body: true,
+            postPicture: {
+              select: {
+                picture: {
+                  select: {
+                    data: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
   }
 
   async getPosts(getStorePostArgs: GetStorePostArgs): Promise<StorePost[]> {
