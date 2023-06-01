@@ -7,10 +7,9 @@ import { MdLocationOn } from 'react-icons/md';
 import BottomButton from '@/components/Button/BottomButton';
 import TextArea from '@/components/Input/TextArea';
 import useSearchShop from '@/hooks/useSearchShop';
-import { useEffect } from 'react';
 
 type Props = {
-  // shop name
+  // shop account
   shopAccount?: string;
   shopAccountDisabled?: boolean;
   setShopAccount?: React.Dispatch<React.SetStateAction<string>>;
@@ -77,7 +76,7 @@ const EditModal = ({
               disabled={shopAccountDisabled}
               topLabelText="Select a coffee shop"
               sideLabel={<MdLocationOn />}
-              value={query}
+              value={shopAccountDisabled ? shopAccount : query}
               setValue={setQuery}
             />
           </label>
