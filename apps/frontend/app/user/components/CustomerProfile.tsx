@@ -7,7 +7,7 @@ type Props = {
 const UserCustomerProfile = ({ data }: Props) => {
   return (
     <>
-      <div className="w-full flex justify-around place-items-center pt-5">
+      <div className="w-full flex justify-around place-items-center pt-4">
         <div className="avatar">
           <div className="w-40 h-40 max-[450px]:w-24 max-[450px]:h-24 rounded-full">
             <Image
@@ -29,7 +29,7 @@ const UserCustomerProfile = ({ data }: Props) => {
               <div>Posts</div>
               <div>{data.user.postCount}</div>
             </div>
-            <div className="divider divider-horizontal"></div>
+            <div className="divider divider-horizontal" />
             <div>
               <div>Following</div>
               <div>{data.followingCount}</div>
