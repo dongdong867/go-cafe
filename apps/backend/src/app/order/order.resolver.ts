@@ -14,7 +14,7 @@ export class OrderResolver {
   constructor(private readonly orderService: OrderService) {}
 
   @UseGuards(StoreGuard)
-  @Query(() => [Order], { name: 'unfinishedOrder' })
+  @Query(() => [Order], { name: 'unfinishedOrder', nullable: 'items' })
   async getUnfinishedOrder(@CurrentId() currentId: string): Promise<Order[]> {
     return await this.orderService.getUnfinishedOrder(currentId);
   }
