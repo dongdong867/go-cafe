@@ -4,7 +4,7 @@ import PageTitle from '@/components/PageTitle';
 import useCreateShopPost from '@/hooks/useCreateShopPost';
 import EditShopPostModal from '@/post/components/ShopPostModal';
 
-const CreateShopPost = () => {
+const CreateShopPostPage = () => {
   const {
     title,
     body,
@@ -37,4 +37,4 @@ const CreateShopPost = () => {
   );
 };
 
-export default CreateShopPost;
+export default CreateShopPostPage;
