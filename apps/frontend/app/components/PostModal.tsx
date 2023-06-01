@@ -6,15 +6,22 @@ import Image from 'next/image';
 //images
 import Link from 'next/link';
 import { gql, useMutation } from '@apollo/client';
-import { useEffect, useId } from 'react';
+import { useId } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import { deletedPictures } from '@/../lib/picture-upload';
 
-const DELETE_POST = gql`
+const DELETE_CUSTOMER_POST = gql`
   mutation DeleteCustomerPost(
     $deleteCustomerPostInput: DeleteCustomerPostInput!
   ) {
     deleteCustomerPost(deleteCustomerPostInput: $deleteCustomerPostInput)
+  }
+`;
+
+const DELETE_SHOP_POST = gql`
+  mutation DeleteStorePost($deleteStorePostInput: DeleteStorePostInput!) {
+    deleteStorePost(deleteStorePostInput: $deleteStorePostInput)
   }
 `;
 
@@ -26,23 +33,53 @@ type Props = {
 };
 
 const PostModal = ({ editable = false, data, children, rates }: Props) => {
+  const role = localStorage.getItem('role');
+  const editHref =
+    role === 'customer'
+      ? `/post/update/${data.id}`
+      : `/post/update/shopPost/${data.id}`;
+
   const router = useRouter();
-  const [deleteCustomerPost, { data: deleteData, error }] =
-    useMutation(DELETE_POST);
 
-  useEffect(() => {
-    if (deleteData)
-      toast.success(deleteData.deleteCustomerPost, {
-        className: 'font-bold text-lg',
+  const [deleteCustomerPost] = useMutation(DELETE_CUSTOMER_POST);
+  const [deleteStorePost] = useMutation(DELETE_SHOP_POST);
+
+  const handleDelete = async () => {
+    const deletePost =
+      role === 'customer'
+        ? deleteCustomerPost({
+            variables: {
+              deleteCustomerPostInput: {
+                postId: data.id,
+              },
+            },
+          })
+        : deleteStorePost({
+            variables: {
+              deleteStorePostInput: {
+                id: data.id,
+              },
+            },
+          });
+
+    await toast
+      .promise(
+        deletePost,
+        {
+          loading: 'Deleting...',
+          error: (error) => error.message,
+          success: 'Delete Successfully',
+        },
+        {
+          className: 'font-bold text-lg',
+        }
+      )
+      .then(async () => {
+        await deletedPictures(
+          data.pictures.map((picture) => picture.picture.data)
+        ).then(() => router.refresh());
       });
-    setTimeout(() => {
-      router.refresh();
-    }, 2000);
-  }, [deleteData]);
-
-  useEffect(() => {
-    if (error) toast.error(error.message, { className: 'font-bold text-lg' });
-  }, [error]);
+  };
 
   return (
     <>
@@ -85,21 +122,13 @@ const PostModal = ({ editable = false, data, children, rates }: Props) => {
               {editable && (
                 <div className="flex justify-end space-x-2">
                   <Link
-                    href={`/post/update/${data.id}`}
+                    href={editHref}
                     className="btn btn-primary text-base-100"
                   >
                     Edit
                   </Link>
                   <button
-                    onClick={() => {
-                      deleteCustomerPost({
-                        variables: {
-                          deleteCustomerPostInput: {
-                            postId: data.id,
-                          },
-                        },
-                      });
-                    }}
+                    onClick={handleDelete}
                     className="btn btn-error text-white"
                   >
                     Delete
