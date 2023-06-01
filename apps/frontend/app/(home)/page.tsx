@@ -2,6 +2,8 @@ import { getClient } from '@/../lib/client';
 import SearchBar from '@/components/Input/SearchBar';
 import UserPostModal from '@/components/UserPostModal';
 import { gql } from '@apollo/client';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 const query = gql`
   query CustomerPost {
@@ -38,6 +40,10 @@ const query = gql`
 `;
 
 const Home = async () => {
+  if (cookies().get('role').value === 'store') {
+    redirect('/user');
+  }
+
   const client = getClient();
   const { data } = await client.query({ query });
 
