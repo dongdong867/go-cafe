@@ -45,6 +45,7 @@ const EditShopPostModal = ({
         <InputModal
           topLabelText="TITLE"
           sideLabel={<BsHash />}
+          value={title}
           setValue={setTitle}
         />
 
