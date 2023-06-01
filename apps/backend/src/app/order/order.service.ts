@@ -19,6 +19,12 @@ export class OrderService {
   ) {}
 
   async getUnfinishedOrder(currentId: string): Promise<Order[]> {
+    await this.prisma.store.findUniqueOrThrow({
+      where: {
+        id: currentId,
+      },
+    });
+
     const orderList = await this.firebase
       .firestore()
       .collection('order')
@@ -26,6 +32,8 @@ export class OrderService {
       .where('finished', '==', false)
       .orderBy('update_at', 'desc')
       .get();
+
+    if (orderList.size === 0) return [];
 
     return orderList.docs.map((order) => ({
       id: order.get('id'),
