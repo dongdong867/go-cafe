@@ -28,6 +28,8 @@ export class MenuService {
       .where('store_id', '==', storeId)
       .get();
 
+    if (data.size === 0) return { categories: [] };
+
     const menu: Menu[] = data.docs.map(
       (menu): Menu => ({
         categories: menu.get('menu').map(
