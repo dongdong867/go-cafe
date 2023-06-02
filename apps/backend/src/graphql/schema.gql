@@ -237,7 +237,6 @@ input UpdateCustomerPostInput {
 
 input UpdateMenuInput {
   categories: [CategoryInput!]!
-  id: String!
 }
 
 input UpdateStoreInput {
