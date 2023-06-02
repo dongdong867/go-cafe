@@ -7,7 +7,7 @@ type Avatar {
 }
 
 type Category {
-  category_name: String!
+  categoryName: String!
   dishes: [Dish!]!
 }
 
@@ -82,7 +82,7 @@ input DeleteStorePostInput {
 }
 
 type Dish {
-  dish_name: String!
+  dishName: String!
   price: Int!
 }
 
@@ -102,10 +102,6 @@ input FollowInput {
 input LoginInput {
   account: String!
   password: String!
-}
-
-type Menu {
-  categories: [Category]!
 }
 
 type Mutation {
@@ -177,9 +173,9 @@ type Query {
   followingList: [Store]!
   isAccountAvailable(account: String!): Boolean!
   isFollowing(storeAccount: String!): Boolean!
-  menu(storeAccount: String!): Menu!
+  menu(storeAccount: String!): [Category]!
   order: [Order]!
-  selfMenu: Menu!
+  selfMenu: [Category]!
   selfPost: [CustomerPost]!
   store(account: String!): Store!
   storePost(storeAccount: String!): [StorePost]!
