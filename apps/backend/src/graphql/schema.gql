@@ -7,8 +7,8 @@ type Avatar {
 }
 
 type Category {
+  category_name: String!
   dishes: [Dish!]!
-  name: String!
 }
 
 input CategoryInput {
@@ -82,7 +82,7 @@ input DeleteStorePostInput {
 }
 
 type Dish {
-  name: String!
+  dish_name: String!
   price: Int!
 }
 
