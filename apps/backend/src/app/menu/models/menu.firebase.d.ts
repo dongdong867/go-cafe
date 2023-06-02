@@ -2,7 +2,7 @@ import * as admin from 'firebase-admin';
 
 type MenuType = {
   id: string;
-  menu: CategoryType[];
+  categories: CategoryType[];
   update_at: admin.firestore.FieldValue;
 };
 
