@@ -1,15 +1,9 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 
 @ObjectType()
-export class Menu {
-  @Field(() => [Category], { nullable: 'items' })
-  categories: Category[];
-}
-
-@ObjectType()
 export class Category {
   @Field()
-  category_name: string;
+  categoryName: string;
 
   @Field(() => [Dish])
   dishes: Dish[];
@@ -18,7 +12,7 @@ export class Category {
 @ObjectType()
 export class Dish {
   @Field()
-  dish_name: string;
+  dishName: string;
 
   @Field(() => Int)
   price: number;
