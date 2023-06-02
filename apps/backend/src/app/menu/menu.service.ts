@@ -49,6 +49,38 @@ export class MenuService {
     return menu[0];
   }
 
+  async getSelfMenu(currentId: string): Promise<Menu> {
+    await this.prisma.store.findUniqueOrThrow({
+      where: { id: currentId },
+    });
+
+    const data = await this.firebase
+      .firestore()
+      .collection('menu')
+      .where('store_id', '==', currentId)
+      .get();
+
+    if (data.size === 0) return { categories: [] };
+
+    const menu: Menu[] = data.docs.map(
+      (menu): Menu => ({
+        categories: menu.get('menu').map(
+          (category: CategoryType): Category => ({
+            name: category.category_name,
+            dishes: category.dishes.map(
+              (dish: DishType): Dish => ({
+                name: dish.dish_name,
+                price: dish.price,
+              })
+            ),
+          })
+        ),
+      })
+    );
+
+    return menu[0];
+  }
+
   async createMenu(
     currentId: string,
     createMenuInput: CreateMenuInput
