@@ -51,6 +51,38 @@ export class OrderService {
     }));
   }
 
+  async getAllOrder(currentId: string): Promise<Order[]> {
+    await this.prisma.store.findUniqueOrThrow({
+      where: {
+        id: currentId,
+      },
+    });
+
+    const orderList = await this.firebase
+      .firestore()
+      .collection('order')
+      .where('store_id', '==', currentId)
+      .orderBy('create_at', 'desc')
+      .get();
+
+    if (orderList.size === 0) return [];
+
+    return orderList.docs.map((order) => ({
+      id: order.get('id'),
+      customerId: order.get('customer_id'),
+      tableNumber: order.get('table_number'),
+      totalPrice: order.get('total_price'),
+      finished: order.get('finished'),
+      dishes: order.get('orders').map(
+        (dish: admin.firestore.DocumentData): OrderDish => ({
+          name: dish.dish_name,
+          count: dish.count,
+          price: dish.price,
+        })
+      ),
+    }));
+  }
+
   async createOrder(
     currentId: string,
     createOrderInput: CreateOrderInput
