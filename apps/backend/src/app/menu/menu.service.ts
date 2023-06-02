@@ -25,28 +25,12 @@ export class MenuService {
     const data = await this.firebase
       .firestore()
       .collection('menu')
-      .where('store_id', '==', storeId)
+      .doc(storeId)
       .get();
 
-    if (data.size === 0) return { categories: [] };
+    if (!data.exists) return { categories: [] };
 
-    const menu: Menu[] = data.docs.map(
-      (menu): Menu => ({
-        categories: menu.get('menu').map(
-          (category: CategoryType): Category => ({
-            name: category.category_name,
-            dishes: category.dishes.map(
-              (dish: DishType): Dish => ({
-                name: dish.dish_name,
-                price: dish.price,
-              })
-            ),
-          })
-        ),
-      })
-    );
-
-    return menu[0];
+    return { categories: data.get('menu') };
   }
 
   async getSelfMenu(currentId: string): Promise<Menu> {
@@ -57,28 +41,12 @@ export class MenuService {
     const data = await this.firebase
       .firestore()
       .collection('menu')
-      .where('store_id', '==', currentId)
+      .doc(currentId)
       .get();
 
-    if (data.size === 0) return { categories: [] };
+    if (!data.exists) return { categories: [] };
 
-    const menu: Menu[] = data.docs.map(
-      (menu): Menu => ({
-        categories: menu.get('menu').map(
-          (category: CategoryType): Category => ({
-            name: category.category_name,
-            dishes: category.dishes.map(
-              (dish: DishType): Dish => ({
-                name: dish.dish_name,
-                price: dish.price,
-              })
-            ),
-          })
-        ),
-      })
-    );
-
-    return menu[0];
+    return { categories: data.get('menu') };
   }
 
   async createMenu(
@@ -92,8 +60,7 @@ export class MenuService {
     });
 
     const menu: MenuType = {
-      id: uuid(),
-      store_id: currentId,
+      id: currentId,
       menu: createMenuInput.categories.map((category) => ({
         category_name: category.name,
         dishes: category.dishes.map((dish) => ({
@@ -104,7 +71,7 @@ export class MenuService {
       update_at: admin.firestore.FieldValue.serverTimestamp(),
     };
 
-    await this.firebase.firestore().collection('menu').doc(menu.id).set(menu);
+    await this.firebase.firestore().collection('menu').doc(currentId).set(menu);
 
     return 'menu created successfully';
   }
@@ -120,8 +87,7 @@ export class MenuService {
     });
 
     const menu: MenuType = {
-      id: updateMenuInput.id,
-      store_id: currentId,
+      id: currentId,
       menu: updateMenuInput.categories.map((category) => ({
         category_name: category.name,
         dishes: category.dishes.map((dish) => ({
@@ -135,7 +101,7 @@ export class MenuService {
     await this.firebase
       .firestore()
       .collection('menu')
-      .doc(menu.id)
+      .doc(currentId)
       .update(menu);
 
     return 'menu updated successfully';
