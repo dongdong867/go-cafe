@@ -19,6 +19,12 @@ export class OrderResolver {
     return await this.orderService.getUnfinishedOrder(currentId);
   }
 
+  @UseGuards(StoreGuard)
+  @Query(() => [Order], { name: 'order', nullable: 'items' })
+  async getAllOrder(@CurrentId() currentId: string): Promise<Order[]> {
+    return await this.orderService.getAllOrder(currentId);
+  }
+
   @UseGuards(CustomerGuard)
   @Mutation(() => String)
   async createOrder(
