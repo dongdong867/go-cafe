@@ -9,7 +9,7 @@ export class Menu {
 @ObjectType()
 export class Category {
   @Field()
-  name: string;
+  category_name: string;
 
   @Field(() => [Dish])
   dishes: Dish[];
@@ -18,7 +18,7 @@ export class Category {
 @ObjectType()
 export class Dish {
   @Field()
-  name: string;
+  dish_name: string;
 
   @Field(() => Int)
   price: number;
