@@ -8,7 +8,7 @@ const CheckOutOrderList = () => {
   const totalPrice = () => {
     let sum = 0;
     shoppingCart.map((order) => {
-      sum += order.dish.price * order.quantity;
+      sum += order.price;
     });
 
     return sum;
@@ -18,7 +18,7 @@ const CheckOutOrderList = () => {
     <>
       <div>
         {shoppingCart.map((order) => (
-          <CheckOutOrder key={order.dish.name} order={order} />
+          <CheckOutOrder key={order.name} order={order} />
         ))}
       </div>
       <div className="divider m-0" />
