@@ -39,7 +39,7 @@ const InputModal = ({
           type={type}
           value={value}
           onChange={(e) => setValue(e.currentTarget.value)}
-          className={`input input-bordered ${borderColor} join-item border-2 w-full font-medium focus:outline-none`}
+          className={`input input-bordered ${borderColor} join-item rounded-r-full border-2 w-full font-medium focus:outline-none`}
         />
       );
     }
@@ -52,9 +52,9 @@ const InputModal = ({
           {topLabelText}
         </span>
       </label>
-      <div className="join w-full">
+      <div className="join flex">
         <div
-          className={`w-14 ${bgColor} text-xl join-item flex justify-center place-items-center text-white font-semibold`}
+          className={`w-14 ${bgColor} text-xl join-item rounded-l-full flex justify-center place-items-center text-white font-semibold`}
         >
           {sideLabel}
         </div>
