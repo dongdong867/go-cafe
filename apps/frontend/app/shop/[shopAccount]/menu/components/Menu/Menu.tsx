@@ -2,9 +2,9 @@ import MenuCategory from './MenuCategory';
 
 type Props = {
   categories: {
-    name: string;
+    categoryName: string;
     dishes: {
-      name: string;
+      dishName: string;
       price: number;
     }[];
   }[];
@@ -24,8 +24,8 @@ const Menu = ({ categories }: Props) => {
       >
         {categories.map((category) => (
           <MenuCategory
-            key={category.name}
-            name={category.name}
+            key={category.categoryName}
+            name={category.categoryName}
             dishes={category.dishes}
           />
         ))}
