@@ -3,7 +3,7 @@ import CommodityModal from './CommodityModal/CommodityModal';
 type Props = {
   name: string;
   dishes: {
-    name: string;
+    dishName: string;
     price: number;
   }[];
 };
@@ -15,7 +15,7 @@ const MenuCategory = ({ name, dishes }: Props) => {
         <span>{name}</span>
       </li>
       {dishes.map((dish) => (
-        <CommodityModal key={dish.name} dish={dish} />
+        <CommodityModal key={dish.dishName} dish={dish} />
       ))}
     </>
   );
