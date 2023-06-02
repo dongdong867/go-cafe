@@ -30,7 +30,7 @@ const InputModal = ({
           type={type}
           disabled
           defaultValue={value}
-          className={`input input-bordered ${borderColor} join-item border-2 w-full focus:outline-none`}
+          className={`input input-bordered ${borderColor} join-item rounded-r-full border-2 w-full focus:outline-none`}
         />
       );
     } else {
