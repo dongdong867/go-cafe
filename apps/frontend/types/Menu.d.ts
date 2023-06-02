@@ -1,11 +1,7 @@
 type Menu = {
-  menu: {
-    categories: {
-      name: string;
-      dishes: {
-        name: string;
-        price: number;
-      }[];
-    }[];
-  };
+  categoryName: string;
+  dishes: {
+    dishName: string;
+    price: number;
+  }[];
 };
