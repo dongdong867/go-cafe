@@ -178,6 +178,7 @@ type Query {
   isAccountAvailable(account: String!): Boolean!
   isFollowing(storeAccount: String!): Boolean!
   menu(storeAccount: String!): Menu!
+  order: [Order]!
   selfMenu: Menu!
   selfPost: [CustomerPost]!
   store(account: String!): Store!
