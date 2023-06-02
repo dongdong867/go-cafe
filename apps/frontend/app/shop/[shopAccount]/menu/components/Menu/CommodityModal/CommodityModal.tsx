@@ -5,7 +5,7 @@ import CommodityOrderModal from './CommodityOrderModal';
 
 type Props = {
   dish: {
-    name: string;
+    dishName: string;
     price: number;
   };
 };
@@ -16,11 +16,11 @@ const CommodityModal = ({ dish }: Props) => {
   return (
     <>
       <li>
-        <label htmlFor={dish.name} className="text-xl font-bold">
-          {dish.name}
+        <label htmlFor={dish.dishName} className="text-xl font-bold">
+          {dish.dishName}
           <input
             type="checkbox"
-            id={dish.name}
+            id={dish.dishName}
             onChange={() => setQuantity(1)}
             className="modal-toggle"
           />
