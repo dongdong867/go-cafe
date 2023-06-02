@@ -30,7 +30,7 @@ export class MenuService {
 
     if (!data.exists) return [];
 
-    const categories: CategoryType[] = data.get('menu');
+    const categories: CategoryType[] = data.get('categories');
     return categories.map((category) => ({
       categoryName: category.category_name,
       dishes: category.dishes.map((dish) => ({
@@ -53,7 +53,7 @@ export class MenuService {
 
     if (!data.exists) return [];
 
-    const categories: CategoryType[] = data.get('menu');
+    const categories: CategoryType[] = data.get('categories');
 
     return categories.map((category) => ({
       categoryName: category.category_name,
