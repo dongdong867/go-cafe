@@ -7,7 +7,7 @@ import * as admin from 'firebase-admin';
 import { CreateMenuInput } from './dto/input/create-menu.input';
 import { UpdateMenuInput } from './dto/input/update-menu.input';
 import { GetMenuArgs } from './dto/args/get-menu.args';
-import { Category, Dish, Menu } from './models/menu.entity';
+import { Category, Dish } from './models/menu.entity';
 import { StoreService } from '../user/store/store.service';
 
 @Injectable()
@@ -18,7 +18,7 @@ export class MenuService {
     private readonly prisma: PrismaService
   ) {}
 
-  async getMenu(getMenuArgs: GetMenuArgs): Promise<Menu> {
+  async getMenu(getMenuArgs: GetMenuArgs): Promise<Category[]> {
     const storeId: string = await this.storeService.getStoreIdByAccount(
       getMenuArgs.storeAccount
     );
@@ -28,12 +28,19 @@ export class MenuService {
       .doc(storeId)
       .get();
 
-    if (!data.exists) return { categories: [] };
+    if (!data.exists) return [];
 
-    return { categories: data.get('menu') };
+    const categories: CategoryType[] = data.get('menu');
+    return categories.map((category) => ({
+      categoryName: category.category_name,
+      dishes: category.dishes.map((dish) => ({
+        dishName: dish.dish_name,
+        price: dish.price,
+      })),
+    }));
   }
 
-  async getSelfMenu(currentId: string): Promise<Menu> {
+  async getSelfMenu(currentId: string): Promise<Category[]> {
     await this.prisma.store.findUniqueOrThrow({
       where: { id: currentId },
     });
@@ -44,9 +51,17 @@ export class MenuService {
       .doc(currentId)
       .get();
 
-    if (!data.exists) return { categories: [] };
+    if (!data.exists) return [];
 
-    return { categories: data.get('menu') };
+    const categories: CategoryType[] = data.get('menu');
+
+    return categories.map((category) => ({
+      categoryName: category.category_name,
+      dishes: category.dishes.map((dish) => ({
+        dishName: dish.dish_name,
+        price: dish.price,
+      })),
+    }));
   }
 
   async createMenu(
@@ -61,7 +76,7 @@ export class MenuService {
 
     const menu: MenuType = {
       id: currentId,
-      menu: createMenuInput.categories.map((category) => ({
+      categories: createMenuInput.categories.map((category) => ({
         category_name: category.name,
         dishes: category.dishes.map((dish) => ({
           dish_name: dish.name,
@@ -88,7 +103,7 @@ export class MenuService {
 
     const menu: MenuType = {
       id: currentId,
-      menu: updateMenuInput.categories.map((category) => ({
+      categories: updateMenuInput.categories.map((category) => ({
         category_name: category.name,
         dishes: category.dishes.map((dish) => ({
           dish_name: dish.name,
