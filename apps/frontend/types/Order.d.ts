@@ -1,4 +1,4 @@
-type Dish = {
+type OrderDish = {
   name: string;
   price: number;
   count: number;
@@ -7,7 +7,8 @@ type Dish = {
 type Order = {
   id: string;
   customerId: string;
-  tableNUmber: string;
+  tableNumber: string;
   totalPrice: number;
-  dishes: Dish[];
+  finished: boolean;
+  dishes: OrderDish[];
 };
