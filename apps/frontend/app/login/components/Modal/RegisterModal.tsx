@@ -6,8 +6,8 @@ import RegisterAccountAndPassword from '../Register/AccountAndPassword';
 import { Toaster, toast } from 'react-hot-toast';
 import { useSuspenseQuery } from '@apollo/experimental-nextjs-app-support/ssr';
 import { gql } from '@apollo/client';
-import RegisterCustomerInfo from '../Register/CustomerInfo';
-import RegisterShopInfo from '../Register/ShopInfo';
+import EditShopInfoModal from '@/components/profile/ShopInfo';
+import EditCustomerInfoModal from '@/components/profile/CustomerInfo';
 
 const query = gql`
   query IsAccountAvailable($account: String!) {
@@ -23,6 +23,11 @@ const RegisterModal = ({ setSignin }: Props) => {
   const {
     account,
     password,
+    name,
+    phone,
+    email,
+    address,
+    info,
     avatar,
     setAccount,
     setPassword,
@@ -98,24 +103,33 @@ const RegisterModal = ({ setSignin }: Props) => {
         />
       )}
       {nextStep && !isShop && (
-        <RegisterCustomerInfo
+        <EditCustomerInfoModal
           avatar={avatar}
+          name={name}
+          email={email}
+          phone={phone}
           setName={setName}
           setEmail={setEmail}
           setPhone={setPhone}
           setAvatar={setAvatar}
-          registerCustomer={registerCustomer}
+          buttonActionText="Create Account"
+          handleEdit={registerCustomer}
         />
       )}
       {nextStep && isShop && (
-        <RegisterShopInfo
+        <EditShopInfoModal
           avatar={avatar}
+          name={name}
+          phone={phone}
+          address={address}
+          info={info}
           setName={setName}
           setPhone={setPhone}
           setAvatar={setAvatar}
           setAddress={setAddress}
           setInfo={setInfo}
-          registerShop={registerShop}
+          buttonActionText="Create Account"
+          handleEdit={registerShop}
         />
       )}
       <Toaster />
