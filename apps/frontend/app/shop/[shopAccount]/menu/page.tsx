@@ -11,8 +11,8 @@ import { gql } from '@apollo/client';
 import { useSuspenseQuery } from '@apollo/experimental-nextjs-app-support/ssr';
 
 type ShoppingCartContextType = {
-  shoppingCart: Dish[];
-  setShoppingCart: React.Dispatch<React.SetStateAction<Dish[]>>;
+  shoppingCart: OrderDish[];
+  setShoppingCart: React.Dispatch<React.SetStateAction<OrderDish[]>>;
 };
 
 const ShoppingCart = createContext<ShoppingCartContextType>({
@@ -40,7 +40,7 @@ type Props = {
 };
 
 const ShopMenuPage = ({ params }: Props) => {
-  const { data }: { data: { menu: Menu[] } } = useSuspenseQuery(query, {
+  const { data }: { data: { menu: Menu } } = useSuspenseQuery(query, {
     variables: {
       storeAccount: decodeURIComponent(params.shopAccount),
     },
