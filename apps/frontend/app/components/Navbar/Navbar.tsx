@@ -9,7 +9,11 @@ import Avatar from './Avatar';
 import { cookies } from 'next/headers';
 
 const Navbar = () => {
-  const href = cookies().get('role').value === 'customer' ? '/' : '/user';
+  const href = cookies().has('role')
+    ? cookies().get('role').value === 'customer'
+      ? '/'
+      : '/user'
+    : '/login';
   return (
     <>
       <div className="navbar h-16 px-3 sticky top-0 bg-base-100 z-10">
