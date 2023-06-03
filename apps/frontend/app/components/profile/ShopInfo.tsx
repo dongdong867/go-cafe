@@ -3,7 +3,6 @@ import RegisterBasicInfo from './BasicInfo';
 import InputModal from '@/components/Input/InputModal';
 import BottomButton from '@/components/Button/BottomButton';
 import { FaStore } from 'react-icons/fa';
-import { IoMdInformationCircle } from 'react-icons/io';
 import TextArea from '@/components/Input/TextArea';
 
 type Props = {
