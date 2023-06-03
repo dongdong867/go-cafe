@@ -56,7 +56,7 @@ const useSendOrder = (shopAccount: string) => {
         }
       )
       .then(() => {
-        setShoppingCart([] as Dish[]);
+        setShoppingCart([] as OrderDish[]);
         router.push(`/shop/${shopAccount}`);
       });
   };
