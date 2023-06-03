@@ -27,7 +27,7 @@ const CommodityOrderModal = ({ quantity, setQuantity, dish }: Props) => {
     });
 
     if (newOrderItem) {
-      const order: Dish = {
+      const order: OrderDish = {
         name: dish.dishName,
         price: dish.price * quantity,
         count: quantity,
