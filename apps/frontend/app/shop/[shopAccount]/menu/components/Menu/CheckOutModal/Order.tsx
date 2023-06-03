@@ -4,7 +4,7 @@ import { useContext, useState } from 'react';
 import { ShoppingCart } from '../../../page';
 
 type Props = {
-  order: Dish;
+  order: OrderDish;
 };
 
 const CheckOutOrder = ({ order }: Props) => {
