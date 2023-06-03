@@ -6,8 +6,14 @@ import Link from 'next/link';
 import Logo from '/public/images/logo.png';
 import Menu from './NavbarMenu';
 import Avatar from './Avatar';
+import { cookies } from 'next/headers';
 
 const Navbar = () => {
+  const href = cookies().has('role')
+    ? cookies().get('role').value === 'customer'
+      ? '/'
+      : '/user'
+    : '/login';
   return (
     <>
       <div className="navbar h-16 px-3 sticky top-0 bg-base-100 z-10">
@@ -15,7 +21,7 @@ const Navbar = () => {
           <Menu />
         </div>
         <div className="navbar-center">
-          <Link href={'/'}>
+          <Link href={href}>
             <Image src={Logo} alt="icon" className="w-12 h-12 aspect-auto" />
           </Link>
         </div>

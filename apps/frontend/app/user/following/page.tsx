@@ -39,7 +39,7 @@ const FollowingPage = async () => {
         <PageTitle title="Following List" />
         <div className="flex flex-col space-y-4">
           {data.followingList.map((shop) => (
-            <ShopCardModal shop={shop} />
+            <ShopCardModal shop={shop} key={shop.user.account} />
           ))}
         </div>
       </div>

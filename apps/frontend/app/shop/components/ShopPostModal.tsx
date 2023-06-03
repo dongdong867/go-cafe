@@ -1,13 +1,15 @@
 import PostModal from '@/components/PostModal';
 
 type Props = {
+  editable?: boolean;
   post: ShopPost;
 };
 
-const ShopPostModal = ({ post }: Props) => {
+const ShopPostModal = ({ editable = false, post }: Props) => {
   return (
     <>
       <PostModal
+        editable={editable}
         data={{
           id: post.id,
           body: post.post.body,

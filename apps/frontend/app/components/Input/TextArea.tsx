@@ -5,7 +5,7 @@ type Props = {
   setPostBody: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const EditBody = ({ postBody, setPostBody }: Props) => {
+const TextArea = ({ postBody, setPostBody }: Props) => {
   return (
     <>
       <div className="w-full h-full border-primary border-2 rounded-xl">
@@ -13,7 +13,7 @@ const EditBody = ({ postBody, setPostBody }: Props) => {
           contentEditable
           suppressContentEditableWarning={true}
           onBlur={(e) => setPostBody(e.currentTarget.textContent as string)}
-          className="textarea h-max min-h-[300px] text-lg rounded-xl focus:outline-none"
+          className="textarea h-max min-h-[300px] text-lg font-medium rounded-xl focus:outline-none"
         >
           {postBody}
         </div>
@@ -22,4 +22,4 @@ const EditBody = ({ postBody, setPostBody }: Props) => {
   );
 };
 
-export default EditBody;
+export default TextArea;

@@ -9,11 +9,10 @@ import PageTitle from '@/components/PageTitle';
 import BottomButton from '@/components/Button/BottomButton';
 import { gql } from '@apollo/client';
 import { useSuspenseQuery } from '@apollo/experimental-nextjs-app-support/ssr';
-import useToast from '@/hooks/useToast';
 
 type ShoppingCartContextType = {
-  shoppingCart: Order[];
-  setShoppingCart: React.Dispatch<React.SetStateAction<Order[]>>;
+  shoppingCart: OrderDish[];
+  setShoppingCart: React.Dispatch<React.SetStateAction<OrderDish[]>>;
 };
 
 const ShoppingCart = createContext<ShoppingCartContextType>({
@@ -25,12 +24,10 @@ export { ShoppingCart };
 const query = gql`
   query Menu($storeAccount: String!) {
     menu(storeAccount: $storeAccount) {
-      categories {
-        name
-        dishes {
-          name
-          price
-        }
+      categoryName
+      dishes {
+        dishName
+        price
       }
     }
   }
@@ -43,13 +40,13 @@ type Props = {
 };
 
 const ShopMenuPage = ({ params }: Props) => {
-  const { data }: { data: Menu } = useSuspenseQuery(query, {
+  const { data }: { data: { menu: Menu } } = useSuspenseQuery(query, {
     variables: {
       storeAccount: decodeURIComponent(params.shopAccount),
     },
   });
 
-  useToast('test', 'error');
+  if (data.menu.length === 0) return <div>no menu found</div>;
 
   const [shoppingCart, setShoppingCart] = useState([]);
   const [checkOut, setCheckOut] = useState(false);
@@ -59,8 +56,12 @@ const ShopMenuPage = ({ params }: Props) => {
       <div className="w-full max-w-lg max-[450px]:w-11/12 m-auto space-y-4 relative">
         <ShoppingCart.Provider value={{ shoppingCart, setShoppingCart }}>
           <PageTitle title="Menu" />
-          <MenuNavigator categories={data.menu.categories} />
-          <Menu categories={data.menu.categories} />
+          <MenuNavigator
+            categoryNameList={data.menu.map(
+              (category) => category.categoryName
+            )}
+          />
+          <Menu categories={data.menu} />
           <div className="w-0 h-20" />
           <BottomButton onClick={() => setCheckOut(true)}>
             <span>check out</span>

@@ -1,9 +1,13 @@
+'use client';
+
 import CheckOutOrderList from './OrderList';
 import CheckOutTableNumber from './TableNumber';
 import { MdClose } from 'react-icons/md';
 import PageTitle from '@/components/PageTitle';
 import useSendOrder from '@/hooks/useSendOrder';
 import useToast from '@/hooks/useToast';
+import { useParams } from 'next/navigation';
+import { Toaster } from 'react-hot-toast';
 
 type Props = {
   isOpen: boolean;
@@ -13,6 +17,8 @@ type Props = {
 const CheckOutModal = ({ isOpen, setOpen }: Props) => {
   if (!isOpen) return null;
 
+  const params = useParams();
+
   const {
     tableNumber,
     takeaway,
@@ -20,7 +26,7 @@ const CheckOutModal = ({ isOpen, setOpen }: Props) => {
     setTakeaway,
     submitCheck,
     handleSend,
-  } = useSendOrder();
+  } = useSendOrder(params.shopAccount);
 
   const handleClick = async () => {
     await handleSend();
@@ -60,6 +66,7 @@ const CheckOutModal = ({ isOpen, setOpen }: Props) => {
           </div>
         </div>
       </div>
+      <Toaster />
     </>
   );
 };

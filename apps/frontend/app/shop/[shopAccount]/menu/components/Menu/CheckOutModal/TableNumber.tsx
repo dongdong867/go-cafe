@@ -20,21 +20,19 @@ const CheckOutTableNumber = ({
       <div className="space-y-4">
         <InputModal
           topLabelText="Table Number"
-          sideLabel={<div>No.</div>}
+          sideLabel={<div className="text-base">No.</div>}
           disabled={takeaway}
           setValue={setTableNumber}
         />
-        <div className="form-control w-max">
-          <label className="label cursor-pointer space-x-4">
-            <input
-              type="checkbox"
-              disabled={tableNumber !== ''}
-              onChange={(e) => setTakeaway(e.target.checked)}
-              className="checkbox checkbox-primary"
-            />
-            <span className="label-text text-base font-bold">Takeaway</span>
-          </label>
-        </div>
+        <label className="join w-max flex space-x-4 cursor-pointer">
+          <input
+            type="checkbox"
+            disabled={tableNumber !== ''}
+            onChange={(e) => setTakeaway(e.target.checked)}
+            className="join-item checkbox checkbox-primary"
+          />
+          <div className="join-item text-base font-bold">Takeaway</div>
+        </label>
       </div>
     </>
   );

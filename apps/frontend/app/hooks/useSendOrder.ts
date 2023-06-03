@@ -1,8 +1,8 @@
 import { ShoppingCart } from '@/shop/[shopAccount]/menu/page';
 import { gql, useMutation } from '@apollo/client';
-import { useParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useContext, useState } from 'react';
-import useToast from './useToast';
+import { toast } from 'react-hot-toast';
 
 const CREATE_ORDER = gql`
   mutation CreateOrder($createOrderInput: CreateOrderInput!) {
@@ -10,61 +10,55 @@ const CREATE_ORDER = gql`
   }
 `;
 
-const useSendOrder = () => {
+const useSendOrder = (shopAccount: string) => {
   const { shoppingCart, setShoppingCart } = useContext(ShoppingCart);
-
-  const params = useParams();
 
   const [tableNumber, setTableNumber] = useState('');
   const [takeaway, setTakeaway] = useState(false);
 
-  const [createOrder, { data, error }] = useMutation(CREATE_ORDER);
+  const [createOrder] = useMutation(CREATE_ORDER);
 
-  if (error) {
-    useToast(error.message, 'error');
-  }
+  const router = useRouter();
 
   const submitCheck = () => {
     if (shoppingCart.length === 0) return false;
-
-    if (takeaway) {
-      return true;
-    }
-
+    if (takeaway) return true;
     if (tableNumber.replace(' ', '') === '') return false;
 
     return true;
   };
 
-  const seat = () => {
-    if (takeaway) return 'takeaway';
-    return tableNumber;
-  };
-
   const handleSend = async () => {
     let totalPrice = 0;
-    shoppingCart.forEach(
-      (order) => (totalPrice += order.dish.price * order.quantity)
-    );
+    shoppingCart.forEach((order) => (totalPrice += order.price));
 
-    await createOrder({
+    const create = createOrder({
       variables: {
         createOrderInput: {
-          storeAccount: decodeURIComponent(params.shopAccount),
-          tableNumber: seat(),
+          storeAccount: decodeURIComponent(shopAccount),
+          tableNumber: takeaway ? 'takeaway' : tableNumber,
           totalPrice: totalPrice,
-          dishes: shoppingCart.map((order) => {
-            return {
-              name: order.dish.name,
-              count: order.quantity,
-              price: order.dish.price * order.quantity,
-            };
-          }),
+          dishes: shoppingCart,
         },
       },
     });
 
-    setShoppingCart([] as Order[]);
+    await toast
+      .promise(
+        create,
+        {
+          loading: 'Sending...',
+          error: (error) => error.message,
+          success: 'Order Send',
+        },
+        {
+          className: 'font-bold text-lg',
+        }
+      )
+      .then(() => {
+        setShoppingCart([] as OrderDish[]);
+        router.push(`/shop/${shopAccount}`);
+      });
   };
 
   return {

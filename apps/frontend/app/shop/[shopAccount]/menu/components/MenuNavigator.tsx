@@ -1,24 +1,18 @@
 type Props = {
-  categories: {
-    name: string;
-    dishes: {
-      name: string;
-      price: number;
-    }[];
-  }[];
+  categoryNameList: string[];
 };
 
-const MenuNavigator = ({ categories }: Props) => {
+const MenuNavigator = ({ categoryNameList }: Props) => {
   return (
     <>
       <div className="btn-group w-full px-1 overflow-x-scroll">
-        {categories.map((category) => (
+        {categoryNameList.map((category) => (
           <a
-            key={category.name}
-            href={`#${category.name}`}
+            key={category}
+            href={`#${category}`}
             className="btn btn-primary text-white text-base"
           >
-            {category.name}
+            {category}
           </a>
         ))}
       </div>

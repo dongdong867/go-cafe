@@ -6,20 +6,26 @@ import { MdFingerprint } from 'react-icons/md';
 import Modal from '../Modal/Modal';
 
 type Props = {
+  accountPass: boolean;
+  passwordPass: boolean;
   setAccount: React.Dispatch<React.SetStateAction<string>>;
   setPassword: React.Dispatch<React.SetStateAction<string>>;
-  setStep: React.Dispatch<React.SetStateAction<number>>;
+  setIsShop: React.Dispatch<React.SetStateAction<boolean>>;
   setSignin: React.Dispatch<React.SetStateAction<boolean>>;
+  handleNextStep: () => void;
 };
 
-const RegisterStepOne = ({
+const RegisterAccountAndPassword = ({
+  accountPass,
+  passwordPass,
   setAccount,
   setPassword,
-  setStep,
+  setIsShop,
   setSignin,
+  handleNextStep,
 }: Props) => {
   const bodyContent = (
-    <div className="space-y-4">
+    <div className="space-y-2">
       <div className="text-5xl max-[450px]:text-4xl font-bold mx-10">
         Sign up
       </div>
@@ -29,14 +35,27 @@ const RegisterStepOne = ({
             topLabelText="ACCOUNT"
             sideLabel={<MdFingerprint />}
             setValue={setAccount}
+            pass={accountPass}
           />
           <InputModal
             type="password"
             topLabelText="PASSWORD"
             sideLabel={<IoMdUnlock />}
             setValue={setPassword}
+            pass={passwordPass}
           />
-          <div className="flex gap-x-2 mt-4 text-base">
+          <div className="flex gap-x-2 mt-4 text-base place-items-center max-[450px]:mt-2">
+            <input
+              type="checkbox"
+              id="role"
+              onChange={(e) => setIsShop(e.target.checked)}
+              className="checkbox checkbox-primary checkbox-xs"
+            />
+            <label htmlFor="role">
+              <div>Register as a Shop.</div>
+            </label>
+          </div>
+          <div className="flex gap-x-2 mt-1 text-base">
             <div>Don't have a account?</div>
             <button
               onClick={() => setSignin(true)}
@@ -50,17 +69,13 @@ const RegisterStepOne = ({
     </div>
   );
 
-  const onSubmit = () => {
-    setStep(2);
-  };
-
   return (
     <>
-      <Modal buttonContent="Continue" onSubmit={onSubmit}>
+      <Modal buttonContent="Continue" onSubmit={handleNextStep}>
         {bodyContent}
       </Modal>
     </>
   );
 };
 
-export default RegisterStepOne;
+export default RegisterAccountAndPassword;

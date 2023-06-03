@@ -1,7 +1,14 @@
+type OrderDish = {
+  name: string;
+  price: number;
+  count: number;
+};
+
 type Order = {
-  dish: {
-    name: string;
-    price: number;
-  };
-  quantity: number;
+  id: string;
+  customerId: string;
+  tableNumber: string;
+  totalPrice: number;
+  finished: boolean;
+  dishes: OrderDish[];
 };

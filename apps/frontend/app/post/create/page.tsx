@@ -26,7 +26,7 @@ const CreatePostPage = () => {
         <PageTitle title="Create Post" />
         <EditModal
           pictureList={pictureList}
-          setShopName={setShopAccount}
+          setShopAccount={setShopAccount}
           setRate={setRate}
           setPostBody={setBody}
           setPictureList={setPictureList}

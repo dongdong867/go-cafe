@@ -22,16 +22,16 @@ const Modal = ({ buttonContent, onSubmit, children }: Props) => {
       <div className="w-full max-w-lg h-full m-auto flex justify-center place-items-center">
         <div
           className="
-         card
-         w-full h-full
-         min-[450px]:w-11/12
-         min-[450px]:max-h-[800px]
-         max-[450px]:rounded-none
-         shadow-[0_0_15px_rgba(0,0,0,0.4)]
-         flex flex-col
-         justify-start
-         space-y-5
-         "
+            card
+            w-full h-full
+            min-[450px]:w-11/12
+            min-[450px]:max-h-[800px]
+            max-[450px]:rounded-none
+            shadow-[0_0_15px_rgba(0,0,0,0.4)]
+            flex flex-col
+            justify-start
+            space-y-5
+          "
         >
           <figure>
             <Image

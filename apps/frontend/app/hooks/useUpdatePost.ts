@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import useRating from './useRating';
 import { gql, useMutation } from '@apollo/client';
 import { useSuspenseQuery } from '@apollo/experimental-nextjs-app-support/ssr';
-import useToast from './useToast';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import { useBase64 } from './useBase64';
+import { deletedPictures, uploadPicture } from '@/../lib/picture-upload';
+import toast from 'react-hot-toast';
 
 const query = gql`
   query CustomerPost($postId: ID!) {
@@ -38,7 +40,7 @@ const query = gql`
   }
 `;
 
-const UPDATE_POST = gql`
+const UPDATE_CUSTOMER_POST = gql`
   mutation UpdateCustomerPost(
     $updateCustomerPostInput: UpdateCustomerPostInput!
   ) {
@@ -55,26 +57,37 @@ const useUpdatePost = (postId: string) => {
     });
 
   const [body, setBody] = useState(originData.customerPost.post.body);
-  const [addedPicture, setAddedPicture] = useState([]);
-  const [deletedPicture, setDeletedPicture] = useState([]);
+  const [addedPicture, setAddedPicture] = useState([] as File[]);
+  const [deletedPicture, setDeletedPicture] = useState([] as string[]);
   const { rating, setRate } = useRating(originData.customerPost.rating);
 
-  const [updateCustomerPost, { data, error }] = useMutation(UPDATE_POST);
+  const [updateCustomerPost] = useMutation(UPDATE_CUSTOMER_POST);
 
-  useEffect(() => {
-    if (data) redirect('/');
-  }, [data]);
-
-  if (error) {
-    console.log(error);
-  }
+  const router = useRouter();
 
   const updatePost = async () => {
-    await updateCustomerPost({
+    await deletedPictures(deletedPicture);
+
+    const pictureList = originData.customerPost.post.postPicture.map(
+      (picture) => {
+        if (!deletedPicture.includes(picture.picture.data))
+          return picture.picture.data;
+      }
+    );
+
+    await Promise.all(
+      addedPicture.map(async (picture) => {
+        const base64 = await useBase64(picture);
+        pictureList.push(await uploadPicture(base64));
+      })
+    );
+
+    const update = updateCustomerPost({
       variables: {
         updateCustomerPostInput: {
           id: originData.customerPost.id,
           body: body,
+          pictureList: pictureList.filter((picture) => picture !== undefined),
           rating: {
             general: rating.general,
             environment: rating.environment,
@@ -83,16 +96,28 @@ const useUpdatePost = (postId: string) => {
           },
         },
       },
-    });
+    }).then(() => router.push('/user'));
+
+    await toast.promise(
+      update,
+      {
+        loading: 'Updating...',
+        error: (error) => error.message,
+        success: 'Updating Successfully',
+      },
+      {
+        className: 'font-bold text-lg',
+      }
+    );
   };
 
   return {
     body,
     rating,
     shop: originData.customerPost.store,
-    originPicture: originData.customerPost.post.postPicture.map((picture) => {
-      return picture.picture.data;
-    }),
+    originPicture: originData.customerPost.post.postPicture.map(
+      (picture) => picture.picture.data
+    ),
     addedPicture,
     deletedPicture,
     setRate,
