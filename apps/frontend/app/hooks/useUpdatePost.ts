@@ -4,7 +4,7 @@ import { gql, useMutation } from '@apollo/client';
 import { useSuspenseQuery } from '@apollo/experimental-nextjs-app-support/ssr';
 import { useRouter } from 'next/navigation';
 import { useBase64 } from './useBase64';
-import { uploadPicture } from '@/../lib/picture-upload';
+import { deletedPictures, uploadPicture } from '@/../lib/picture-upload';
 import toast from 'react-hot-toast';
 
 const query = gql`
@@ -66,6 +66,8 @@ const useUpdatePost = (postId: string) => {
   const router = useRouter();
 
   const updatePost = async () => {
+    await deletedPictures(deletedPicture);
+
     const pictureList = originData.customerPost.post.postPicture.map(
       (picture) => {
         if (!deletedPicture.includes(picture.picture.data))
