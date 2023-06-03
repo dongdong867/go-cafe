@@ -1,17 +1,36 @@
+'use client';
+
 import InputModal from '@/components/Input/InputModal';
 import { BsPersonFill } from 'react-icons/bs';
 import { FaPhoneAlt } from 'react-icons/fa';
 import { HiPencilAlt } from 'react-icons/hi';
 import Image from 'next/image';
+import { useEffect } from 'react';
 
 type Props = {
-  avatar: File;
+  avatar?: File;
+  avatarUrl?: string;
+  name: string;
+  phone: string;
   setName: React.Dispatch<React.SetStateAction<string>>;
   setPhone: React.Dispatch<React.SetStateAction<string>>;
   setAvatar: React.Dispatch<React.SetStateAction<File>>;
+  setOriginAvatar?: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const RegisterBasicInfo = ({ avatar, setName, setPhone, setAvatar }: Props) => {
+const RegisterBasicInfo = ({
+  avatar,
+  avatarUrl,
+  name,
+  phone,
+  setName,
+  setPhone,
+  setAvatar,
+  setOriginAvatar,
+}: Props) => {
+  useEffect(() => {
+    console.log(avatar);
+  }, [avatar]);
   return (
     <>
       <div>
@@ -25,7 +44,26 @@ const RegisterBasicInfo = ({ avatar, setName, setPhone, setAvatar }: Props) => {
               height={1000}
             />
           )}
-          {!avatar && (
+          {avatarUrl && (
+            <div>
+              <label htmlFor="avatar">
+                <Image src={avatarUrl} alt="" width={1000} height={1000} />
+                <input type="checkbox" id="avatar" className="modal-toggle" />
+                <div className="modal">
+                  <div className="modal-box">
+                    <label
+                      htmlFor="avatar"
+                      onClick={() => setOriginAvatar(undefined)}
+                      className="btn btn-primary text-white"
+                    >
+                      delete
+                    </label>
+                  </div>
+                </div>
+              </label>
+            </div>
+          )}
+          {!avatar && !avatarUrl && (
             <label htmlFor="picture">
               <div className="w-max btn btn-primary text-white text-lg font-medium gap-x-2">
                 <HiPencilAlt />
@@ -45,11 +83,13 @@ const RegisterBasicInfo = ({ avatar, setName, setPhone, setAvatar }: Props) => {
       <InputModal
         topLabelText="NAME"
         sideLabel={<BsPersonFill />}
+        value={name}
         setValue={setName}
       />
       <InputModal
         topLabelText="PHONE"
         sideLabel={<FaPhoneAlt />}
+        value={phone}
         setValue={setPhone}
       />
     </>
