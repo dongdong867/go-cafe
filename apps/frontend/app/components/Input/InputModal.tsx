@@ -3,11 +3,13 @@
 type Props = {
   topLabelText: string;
   sideLabel: React.ReactNode;
-  type?: string;
+  type?: 'text' | 'number' | 'password';
   value?: string;
+  numberValue?: number;
   disabled?: boolean;
   pass?: boolean;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+  setValue?: React.Dispatch<React.SetStateAction<string>>;
+  setNumberValue?: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const InputModal = ({
@@ -15,13 +17,17 @@ const InputModal = ({
   sideLabel,
   type = 'text',
   value,
+  numberValue,
   disabled = false,
   pass = true,
-  setValue,
+  setValue = undefined,
+  setNumberValue = undefined,
 }: Props) => {
   const bgColor = pass ? 'bg-primary' : 'bg-error';
   const borderColor = pass ? 'border-primary' : 'border-error';
   const textColor = pass ? '' : 'text-error';
+
+  const handleType = type === 'text' || type === 'password';
 
   const input = () => {
     if (disabled) {
@@ -35,12 +41,23 @@ const InputModal = ({
       );
     } else {
       return (
-        <input
-          type={type}
-          value={value}
-          onChange={(e) => setValue(e.currentTarget.value)}
-          className={`input input-bordered ${borderColor} join-item rounded-r-full border-2 w-full font-medium focus:outline-none`}
-        />
+        <>
+          {handleType ? (
+            <input
+              type={type}
+              value={value}
+              onChange={(e) => setValue(e.currentTarget.value)}
+              className={`input input-bordered ${borderColor} join-item rounded-r-full border-2 w-full font-medium focus:outline-none`}
+            />
+          ) : (
+            <input
+              type={type}
+              value={numberValue}
+              onChange={(e) => setNumberValue(parseInt(e.currentTarget.value))}
+              className={`input input-bordered ${borderColor} join-item rounded-r-full border-2 w-full font-medium focus:outline-none`}
+            />
+          )}
+        </>
       );
     }
   };
