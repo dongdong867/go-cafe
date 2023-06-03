@@ -33,13 +33,15 @@ type Props = {
 };
 
 const PostModal = ({ editable = false, data, children, rates }: Props) => {
+  const router = useRouter();
+
+  if (!localStorage) router.push('/login');
+
   const role = localStorage.getItem('role');
   const editHref =
     role === 'customer'
       ? `/post/update/${data.id}`
       : `/post/update/shopPost/${data.id}`;
-
-  const router = useRouter();
 
   const [deleteCustomerPost] = useMutation(DELETE_CUSTOMER_POST);
   const [deleteStorePost] = useMutation(DELETE_SHOP_POST);
