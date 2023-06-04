@@ -54,7 +54,7 @@ const useRegister = () => {
           email: email,
         },
       },
-    }).then(() => router.push('/'));
+    }).then(() => router.refresh());
 
     toast.promise(
       create,
@@ -84,7 +84,7 @@ const useRegister = () => {
           info: info,
         },
       },
-    }).then(() => router.push('/'));
+    }).then(() => router.refresh());
 
     await toast.promise(
       create,
