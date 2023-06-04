@@ -10,22 +10,23 @@ import { UserAuthGuard } from '../guards/user-auth.guard';
 import { CustomerGuard, StoreGuard } from '../guards/role.guard';
 import { CurrentId } from '../decorator/current-id.decorator';
 
-@UseGuards(UserAuthGuard)
 @Resolver(() => Store)
 export class StoreResolver {
   constructor(private readonly storeService: StoreService) {}
 
+  @UseGuards(UserAuthGuard, StoreGuard)
   @Query(() => Store, { name: 'storeSelf' })
   async getSelf(@CurrentId() currentId: string): Promise<Store> {
     return await this.storeService.getSelf(currentId);
   }
 
+  @UseGuards(UserAuthGuard, CustomerGuard)
   @Query(() => Store, { name: 'store' })
   async getStore(@Args() getStoreArgs: GetStoreArgs): Promise<Store> {
     return await this.storeService.getStore(getStoreArgs);
   }
 
-  @UseGuards(CustomerGuard)
+  @UseGuards(UserAuthGuard, CustomerGuard)
   @Query(() => [Store], { name: 'stores', nullable: 'items' })
   async getStores(@Args() getStoresArgs: GetStoresArgs): Promise<Store[]> {
     return await this.storeService.getStores(getStoresArgs);
@@ -38,7 +39,7 @@ export class StoreResolver {
     return await this.storeService.createStore(createStoreInput);
   }
 
-  @UseGuards(StoreGuard)
+  @UseGuards(UserAuthGuard, StoreGuard)
   @Mutation(() => String)
   async updateStore(
     @CurrentId() currentId: string,
