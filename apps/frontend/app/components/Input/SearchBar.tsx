@@ -72,7 +72,7 @@ const SearchBar = () => {
 
   return (
     <>
-      <div className="form-control w-full px-4 py-2 z-0 max-[450px]:max-w-[360px] max-[450px]:px-0">
+      <div className="form-control w-full px-4 py-2 max-[450px]:max-w-[360px] max-[450px]:px-0">
         <div className="dropdown">
           <label tabIndex={0}>
             <div className="input-group input-group-md">
@@ -103,7 +103,7 @@ const SearchBar = () => {
           </label>
           <ul
             tabIndex={0}
-            className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-full"
+            className="dropdown-content z-10 menu p-2 shadow bg-base-100 rounded-box w-full"
           >
             {storeList.map((store) => {
               return (
