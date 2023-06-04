@@ -7,10 +7,9 @@ import { FaConciergeBell, FaUserFriends } from 'react-icons/fa';
 import { MdOutlinePostAdd, MdInfo } from 'react-icons/md';
 import DropdownMenuModal from './DropdownMenuModal';
 import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
 
 const Menu = () => {
-  if (!cookies().has('role')) redirect('/login');
+  if (!cookies().has('role')) return;
 
   const role = cookies().get('role').value;
 
