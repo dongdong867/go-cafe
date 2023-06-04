@@ -1,9 +1,9 @@
 import { useContext } from 'react';
 import CheckOutOrder from './Order';
-import { ShoppingCart } from '../../../page';
+import { useShoppingCart } from '../../../page';
 
 const CheckOutOrderList = () => {
-  const { shoppingCart } = useContext(ShoppingCart);
+  const { shoppingCart } = useShoppingCart();
 
   const totalPrice = () => {
     let sum = 0;

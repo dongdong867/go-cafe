@@ -13,11 +13,11 @@ const DropdownMenuModal = ({ position, button, listItems }: Props) => {
           tabIndex={0}
           className="
             menu menu-compact
-          dropdown-content
-          w-max
-          bg-base-100
-          rounded-box
-          shadow-[0_0_15px_rgba(0,0,0,0.4)] 
+            dropdown-content
+            w-max
+            bg-base-100
+            rounded-box
+            shadow-[0_0_15px_rgba(0,0,0,0.4)] 
           "
         >
           {listItems}

@@ -90,13 +90,13 @@ const Avatar = () => {
     );
 
   return (
-    <>
+    <div className="z-20">
       <DropdownMenuModal
         position="dropdown-end"
         button={button}
         listItems={listItems}
       />
-    </>
+    </div>
   );
 };
 

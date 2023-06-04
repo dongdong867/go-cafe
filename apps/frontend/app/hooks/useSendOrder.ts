@@ -1,4 +1,4 @@
-import { ShoppingCart } from '@/shop/[shopAccount]/menu/page';
+import { useShoppingCart } from '@/shop/[shopAccount]/menu/page';
 import { gql, useMutation } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import { useContext, useState } from 'react';
@@ -11,7 +11,7 @@ const CREATE_ORDER = gql`
 `;
 
 const useSendOrder = (shopAccount: string) => {
-  const { shoppingCart, setShoppingCart } = useContext(ShoppingCart);
+  const { shoppingCart, setShoppingCart } = useShoppingCart();
 
   const [tableNumber, setTableNumber] = useState('');
   const [takeaway, setTakeaway] = useState(false);

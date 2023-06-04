@@ -51,7 +51,7 @@ const Home = async () => {
     <>
       <div className="w-full h-full flex flex-col justify-start place-items-center">
         <SearchBar />
-        <div className="pb-4">
+        <div className="pb-4 -z-10">
           {data.customerPosts.map((customerPost) => (
             <UserPostModal key={customerPost.id} customerPost={customerPost} />
           ))}

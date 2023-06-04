@@ -29,7 +29,7 @@ const CheckOutTableNumber = ({
             type="checkbox"
             disabled={tableNumber !== ''}
             onChange={(e) => setTakeaway(e.target.checked)}
-            className="join-item checkbox checkbox-primary"
+            className="checkbox checkbox-primary"
           />
           <div className="join-item text-base font-bold">Takeaway</div>
         </label>

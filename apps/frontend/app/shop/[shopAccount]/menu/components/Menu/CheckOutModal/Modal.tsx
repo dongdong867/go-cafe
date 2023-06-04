@@ -5,7 +5,6 @@ import CheckOutTableNumber from './TableNumber';
 import { MdClose } from 'react-icons/md';
 import PageTitle from '@/components/PageTitle';
 import useSendOrder from '@/hooks/useSendOrder';
-import useToast from '@/hooks/useToast';
 import { useParams } from 'next/navigation';
 import { Toaster } from 'react-hot-toast';
 
