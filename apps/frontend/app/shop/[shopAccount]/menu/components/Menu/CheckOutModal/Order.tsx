@@ -1,7 +1,7 @@
 'use client';
 
 import { useContext, useState } from 'react';
-import { ShoppingCart } from '../../../page';
+import { useShoppingCart } from '../../../page';
 
 type Props = {
   order: OrderDish;
@@ -10,7 +10,7 @@ type Props = {
 const CheckOutOrder = ({ order }: Props) => {
   const [open, setOpen] = useState(false);
 
-  const { shoppingCart, setShoppingCart } = useContext(ShoppingCart);
+  const { shoppingCart, setShoppingCart } = useShoppingCart();
 
   const handleClose = () => {
     setOpen(false);
