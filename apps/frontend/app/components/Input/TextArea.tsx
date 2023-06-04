@@ -12,8 +12,8 @@ const TextArea = ({ postBody, setPostBody }: Props) => {
         <div
           contentEditable
           suppressContentEditableWarning={true}
-          onBlur={(e) => setPostBody(e.currentTarget.textContent as string)}
-          className="textarea h-max min-h-[300px] text-lg font-medium rounded-xl focus:outline-none"
+          onBlur={(e) => setPostBody(e.currentTarget.textContent)}
+          className="textarea h-max min-h-[300px] text-lg font-medium rounded-xl whitespace-pre-line focus:outline-none"
         >
           {postBody}
         </div>
