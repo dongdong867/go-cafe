@@ -60,7 +60,7 @@ const MenuPage = () => {
     <div className="w-full max-w-lg max-[450px]:w-11/12 h-full m-auto space-y-4">
       <PageTitle title="Edit Menu" />
       <div>
-        <label htmlFor="create">
+        <label htmlFor="createCategory">
           <div className="w-full flex justify-end">
             <div className="btn btn-primary btn-wide text-white text-xl">
               create category
