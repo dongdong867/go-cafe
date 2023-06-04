@@ -3,7 +3,7 @@
 import MenuNavigator from './components/MenuNavigator';
 import Menu from './components/Menu/Menu';
 
-import { createContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 import CheckOutModal from './components/Menu/CheckOutModal/Modal';
 import PageTitle from '@/components/PageTitle';
 import BottomButton from '@/components/Button/BottomButton';
@@ -19,7 +19,10 @@ const ShoppingCart = createContext<ShoppingCartContextType>({
   shoppingCart: [],
   setShoppingCart: () => {},
 });
-export { ShoppingCart };
+
+export function useShoppingCart() {
+  return useContext(ShoppingCart);
+}
 
 const query = gql`
   query Menu($storeAccount: String!) {
