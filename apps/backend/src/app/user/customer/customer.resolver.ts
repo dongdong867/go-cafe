@@ -8,12 +8,11 @@ import { UserAuthGuard } from '../guards/user-auth.guard';
 import { CustomerGuard } from '../guards/role.guard';
 import { CurrentId } from '../decorator/current-id.decorator';
 
-@UseGuards(UserAuthGuard)
 @Resolver()
 export class CustomerResolver {
   constructor(private readonly customerService: CustomerService) {}
 
-  @UseGuards(CustomerGuard)
+  @UseGuards(UserAuthGuard, CustomerGuard)
   @Query(() => Customer, { name: 'customer' })
   async getCustomer(@CurrentId() currentId: string): Promise<Customer> {
     return this.customerService.getCustomer(currentId);
@@ -26,7 +25,7 @@ export class CustomerResolver {
     return await this.customerService.createCustomer(createCustomerInput);
   }
 
-  @UseGuards(CustomerGuard)
+  @UseGuards(UserAuthGuard, CustomerGuard)
   @Mutation(() => String)
   async updateCustomer(
     @CurrentId() currentId: string,
