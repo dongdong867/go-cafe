@@ -11,11 +11,10 @@ import DropdownMenuModal from './DropdownMenuModal';
 import { cookies } from 'next/headers';
 
 import NoAvatar from '/public/images/logo.png';
-import { redirect } from 'next/navigation';
 import { FaUserEdit } from 'react-icons/fa';
 
 const Avatar = () => {
-  if (!cookies().has('role')) redirect('/login');
+  if (!cookies().has('role')) return;
 
   const role = cookies().get('role').value;
 
