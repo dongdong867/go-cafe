@@ -6,6 +6,7 @@ import { FaPhoneAlt } from 'react-icons/fa';
 import { HiPencilAlt } from 'react-icons/hi';
 import Image from 'next/image';
 import { useEffect } from 'react';
+import PageTitle from '../PageTitle';
 
 type Props = {
   avatar?: File;
@@ -51,13 +52,16 @@ const RegisterBasicInfo = ({
                 <input type="checkbox" id="avatar" className="modal-toggle" />
                 <div className="modal">
                   <div className="modal-box">
-                    <label
-                      htmlFor="avatar"
-                      onClick={() => setOriginAvatar(undefined)}
-                      className="btn btn-primary text-white"
-                    >
-                      delete
-                    </label>
+                    <PageTitle title="Sure to delete picture?" />
+                    <div className="w-full flex justify-end">
+                      <label
+                        htmlFor="avatar"
+                        onClick={() => setOriginAvatar(undefined)}
+                        className="w-max btn btn-primary text-white"
+                      >
+                        delete
+                      </label>
+                    </div>
                   </div>
                 </div>
               </label>
