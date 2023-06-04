@@ -72,7 +72,7 @@ const SearchBar = () => {
 
   return (
     <>
-      <div className="form-control w-full px-4 py-2 max-[450px]:max-w-[360px] max-[450px]:px-0">
+      <div className="form-control w-full px-4 py-2 z-0 max-[450px]:max-w-[360px] max-[450px]:px-0">
         <div className="dropdown">
           <label tabIndex={0}>
             <div className="input-group input-group-md">
@@ -115,10 +115,10 @@ const SearchBar = () => {
                       setSearchQuery(store.user.account);
                     }}
                   >
-                    <span className="w-full font-bold">
+                    <span className="w-full text-base font-bold">
                       @{store.user.account}
                     </span>
-                    <span className="w-full font-medium">
+                    <span className="w-full text-base font-medium">
                       {store.user.name}
                     </span>
                   </button>
