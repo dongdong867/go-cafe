@@ -84,21 +84,19 @@ const useRegister = () => {
           info: info,
         },
       },
-    });
+    }).then(() => router.push('/'));
 
-    await toast
-      .promise(
-        create,
-        {
-          loading: 'Creating...',
-          success: 'Account Created \n Please Login Again',
-          error: (error) => error.message,
-        },
-        {
-          className: 'font-bold text-lg',
-        }
-      )
-      .then(() => router.push('/'));
+    await toast.promise(
+      create,
+      {
+        loading: 'Creating...',
+        success: 'Account Created \n Please Login Again',
+        error: (error) => error.message,
+      },
+      {
+        className: 'font-bold text-lg',
+      }
+    );
   };
 
   return {
