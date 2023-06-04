@@ -83,7 +83,7 @@ const EditModal = ({
           {!shopAccountDisabled && (
             <ul
               tabIndex={0}
-              className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-full"
+              className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-full z-10"
             >
               {storeList.map((store) => {
                 return (
