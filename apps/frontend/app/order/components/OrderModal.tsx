@@ -39,7 +39,7 @@ const OrderModal = ({ order }: Props) => {
         <div className="divider my-2" />
         <div>
           {order.dishes.map((dish) => (
-            <div className="flex font-bold text-lg">
+            <div key={dish.name} className="flex font-bold text-lg">
               <div className="w-1/2">{dish.name}</div>
               <div className="w-1/4 text-right">X{dish.count}</div>
               <div className="w-1/4 text-right">${dish.price}</div>
