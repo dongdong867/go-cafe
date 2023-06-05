@@ -1,7 +1,6 @@
 'use client';
-import { useContext } from 'react';
+import useShoppingCart from '@/hooks/useShoppingCart';
 import { FaMinus, FaPlus, FaShoppingCart } from 'react-icons/fa';
-import { useShoppingCart } from '../../../page';
 
 type Props = {
   quantity: number;
