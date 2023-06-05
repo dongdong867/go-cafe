@@ -1,5 +1,3 @@
-import PageTitle from '@/components/PageTitle';
-
 type Props = {
   phone: string;
   address: string;
@@ -22,7 +20,7 @@ const UserShopInfo = ({ phone, address, info }: Props) => {
           </div>
           <div className="justify-around">
             <div className="text-base">Info:</div>
-            <div>{info}</div>
+            <div className="whitespace-pre-line">{info}</div>
           </div>
         </div>
       </div>
