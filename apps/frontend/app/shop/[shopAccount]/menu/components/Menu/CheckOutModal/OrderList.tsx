@@ -1,6 +1,5 @@
-import { useContext } from 'react';
 import CheckOutOrder from './Order';
-import { useShoppingCart } from '../../../page';
+import useShoppingCart from '@/hooks/useShoppingCart';
 
 const CheckOutOrderList = () => {
   const { shoppingCart } = useShoppingCart();
