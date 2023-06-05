@@ -120,7 +120,7 @@ const PostModal = ({ editable = false, data, children, rates }: Props) => {
             {/* post body */}
             <div className="collapse-content font-medium space-y-4">
               <div>{rates}</div>
-              <div>{data.body}</div>
+              <div className="whitespace-pre-line">{data.body}</div>
               {editable && (
                 <div className="flex justify-end space-x-2">
                   <Link
