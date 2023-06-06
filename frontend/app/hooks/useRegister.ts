@@ -1,9 +1,9 @@
-import { uploadPicture } from '@/../lib/picture-upload';
-import { gql, useMutation } from '@apollo/client';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { toast } from 'react-hot-toast';
-import { useBase64 } from './useBase64';
+import { uploadPicture } from "@/lib/picture-upload";
+import { gql, useMutation } from "@apollo/client";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useBase64 } from "./useBase64";
+import toast from "react-hot-toast";
 
 const CREATE_CUSTOMER = gql`
   mutation CreateCustomer($createCustomerInput: CreateCustomerInput!) {
@@ -19,18 +19,18 @@ const CREATE_SHOP = gql`
 
 const useRegister = () => {
   // basic account info
-  const [account, setAccount] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [avatar, setAvatar] = useState(null as File);
+  const [account, setAccount] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [avatar, setAvatar] = useState(null as unknown as File);
 
   // customer info
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
 
   // shop info
-  const [address, setAddress] = useState('');
-  const [info, setInfo] = useState('');
+  const [address, setAddress] = useState("");
+  const [info, setInfo] = useState("");
 
   const router = useRouter();
 
@@ -54,17 +54,17 @@ const useRegister = () => {
           email: email,
         },
       },
-    }).then(() => router.refresh());
+    }).then(() => router.replace("/"));
 
-    toast.promise(
+    await toast.promise(
       create,
       {
-        loading: 'Creating...',
-        success: 'Account Created \n Please Login Again',
+        loading: "Creating...",
+        success: "Account Created \n Please Login Again",
         error: (error) => error.message,
       },
       {
-        className: 'font-bold text-lg',
+        className: "font-bold text-lg",
       }
     );
   };
@@ -84,17 +84,17 @@ const useRegister = () => {
           info: info,
         },
       },
-    }).then(() => router.refresh());
+    }).then(() => router.replace("/"));
 
     await toast.promise(
       create,
       {
-        loading: 'Creating...',
-        success: 'Account Created \n Please Login Again',
+        loading: "Creating...",
+        success: "Account Created \n Please Login Again",
         error: (error) => error.message,
       },
       {
-        className: 'font-bold text-lg',
+        className: "font-bold text-lg",
       }
     );
   };
