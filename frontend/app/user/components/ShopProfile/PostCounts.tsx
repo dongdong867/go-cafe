@@ -1,4 +1,4 @@
-import { FaStar } from 'react-icons/fa';
+import { FaStar } from "react-icons/fa";
 
 type Props = {
   postCount: number;
