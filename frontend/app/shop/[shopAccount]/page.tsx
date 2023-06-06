@@ -1,9 +1,45 @@
-import Image from 'next/image';
+import { getClient } from "@/lib/client";
+import { gql } from "@apollo/client";
+import Image from "next/image";
+import ShopInfoModal from "../components/ShopInfoModal/Modal";
+import ShopPostModal from "../components/ShopPostModal";
 
-import ShopInfoModal from '../components/ShopInfoModal/Modal';
-import ShopPostModal from '../components/ShopPostModal';
-import { gql } from '@apollo/client';
-import { getClient } from '@/../lib/client';
+type GraphQLType = {
+  store: {
+    user: {
+      avatar: {
+        data: string;
+      };
+      account: string;
+      name: string;
+      phone: string;
+      postCount: number;
+    };
+    address: string;
+    info: string;
+    storeRating: {
+      postCount: number;
+      rating: {
+        general: number;
+        environment: number;
+        meals: number;
+        attitude: number;
+      };
+    };
+  };
+  storePost: {
+    id: string;
+    title: string;
+    post: {
+      body: string;
+      postPicture: {
+        picture: {
+          data: string;
+        };
+      }[];
+    };
+  }[];
+};
 
 const query = gql`
   query Store($account: String!) {
@@ -20,6 +56,7 @@ const query = gql`
       address
       info
       storeRating {
+        postCount
         rating {
           general
           environment
@@ -37,6 +74,7 @@ const query = gql`
           }
         }
       }
+      id
       title
     }
   }
@@ -50,7 +88,7 @@ type Props = {
 
 const ShopPage = async ({ params }: Props) => {
   const client = getClient();
-  const { data } = await client.query({
+  const { data }: { data: GraphQLType } = await client.query({
     query,
     variables: {
       account: decodeURIComponent(params.shopAccount),
