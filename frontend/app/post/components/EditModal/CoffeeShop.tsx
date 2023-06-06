@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { MdLocationOn } from 'react-icons/md';
+import { MdLocationOn } from "react-icons/md";
 
 type Props = {
   disabled: boolean;
@@ -8,7 +8,7 @@ type Props = {
   setShopName: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const EditCoffeeShop = ({ disabled, shopName, setShopName }) => {
+const EditCoffeeShop = ({ disabled, shopName, setShopName }: Props) => {
   return (
     <>
       <div className="input-group">
