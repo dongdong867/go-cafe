@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 type Props = {
   rateName: string;
@@ -9,9 +9,9 @@ const RatingModal = ({ rateName, rateValue }: Props) => {
   const backgroundList = [];
   for (let i = 0; i < 5; i++) {
     if (i <= rateValue - 1) {
-      backgroundList.push('bg-accent');
+      backgroundList.push("bg-accent");
     } else {
-      backgroundList.push('bg-base-300');
+      backgroundList.push("bg-base-300");
     }
   }
   return (
