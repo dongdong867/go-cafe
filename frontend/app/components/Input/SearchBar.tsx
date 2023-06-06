@@ -1,16 +1,13 @@
-'use client';
+"use client";
 
-import { ApolloError, gql, useQuery } from '@apollo/client';
-//hooks
-import { useEffect, useRef, useState } from 'react';
-
-//icons
-import { FiSearch } from 'react-icons/fi';
-import UserPostModal from '../UserPostModal';
-import { useSuspenseQuery } from '@apollo/experimental-nextjs-app-support/ssr';
-import useSearchShop from '@/hooks/useSearchShop';
-import { Toaster, toast } from 'react-hot-toast';
-import PageTitle from '../PageTitle';
+import useSearchShop from "@/app/hooks/useSearchShop";
+import { ApolloError, gql } from "@apollo/client";
+import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
+import { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import { FiSearch } from "react-icons/fi";
+import UserPostModal from "../UserPostModal";
+import PageTitle from "../PageTitle";
 
 const query = gql`
   query GetCustomerPostAtStore($storeAccount: String!) {
@@ -47,8 +44,8 @@ const query = gql`
 
 const SearchBar = () => {
   const { storeList, setQuery } = useSearchShop();
-  const [searchInput, setSearchInput] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchInput, setSearchInput] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const {
     data,
@@ -61,8 +58,8 @@ const SearchBar = () => {
     });
 
   if (error) {
-    toast.error('No Store Found', {
-      className: 'font-bold text-lg',
+    toast.error("No Store Found", {
+      className: "font-bold text-lg",
     });
   }
 
