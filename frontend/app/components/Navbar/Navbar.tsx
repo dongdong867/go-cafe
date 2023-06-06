@@ -1,19 +1,14 @@
-//packages
-import Image from 'next/image';
-import Link from 'next/link';
-
-//components
-import Logo from '/public/images/logo.png';
-import Menu from './NavbarMenu';
-import Avatar from './Avatar';
-import { cookies } from 'next/headers';
+import { cookies } from "next/headers";
+import Menu from "./NavbarMenu";
+import Link from "next/link";
+import Image from "next/image";
+import Logo from "public/images/logo.png";
+import Avatar from "./Avatar";
+import { redirect } from "next/navigation";
 
 const Navbar = () => {
-  const href = cookies().has('role')
-    ? cookies().get('role').value === 'customer'
-      ? '/'
-      : '/user'
-    : '/login';
+  if (!cookies().has("role")) redirect("/login");
+  const href = cookies().get("role")!.value === "customer" ? "/" : "/user";
   return (
     <>
       <div className="navbar h-16 px-3 sticky top-0 bg-base-100 z-10">
