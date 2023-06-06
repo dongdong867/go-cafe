@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import useRating from './useRating';
-import { gql, useMutation } from '@apollo/client';
-import { useSuspenseQuery } from '@apollo/experimental-nextjs-app-support/ssr';
-import { useRouter } from 'next/navigation';
-import { useBase64 } from './useBase64';
-import { deletedPictures, uploadPicture } from '@/../lib/picture-upload';
-import toast from 'react-hot-toast';
+import { gql, useMutation } from "@apollo/client";
+import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
+import { useState } from "react";
+import useRating from "./useRating";
+import { useRouter } from "next/navigation";
+import { deletedPictures, uploadPicture } from "@/lib/picture-upload";
+import { useBase64 } from "./useBase64";
+import toast from "react-hot-toast";
 
 const query = gql`
   query CustomerPost($postId: ID!) {
@@ -96,17 +96,17 @@ const useUpdatePost = (postId: string) => {
           },
         },
       },
-    }).then(() => router.push('/user'));
+    }).then(() => router.push("/user"));
 
     await toast.promise(
       update,
       {
-        loading: 'Updating...',
-        error: (error) => error.message,
-        success: 'Updating Successfully',
+        loading: "Updating...",
+        error: (err) => err.message,
+        success: "Updated Successfully",
       },
       {
-        className: 'font-bold text-lg',
+        className: "font-bold text-lg",
       }
     );
   };
