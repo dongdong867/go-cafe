@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import InputModal from '@/components/Input/InputModal';
-import { IoMdUnlock } from 'react-icons/io';
-import { MdFingerprint } from 'react-icons/md';
-import Modal from '../Modal/Modal';
+import InputModal from "@/app/components/Input/InputModal";
+import { IoMdUnlock } from "react-icons/io";
+import { MdFingerprint } from "react-icons/md";
+import Modal from "../Modal/Modal";
 
 type Props = {
   accountPass: boolean;
