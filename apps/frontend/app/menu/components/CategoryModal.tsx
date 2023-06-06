@@ -20,12 +20,17 @@ const EditCategoryModal = ({
   handleDeleteCategory,
 }: Props) => {
   const id = useId();
-  const [dishName, setDishName] = useState('');
+  const [dishName, setDishName] = useState(undefined as string);
   const [price, setPrice] = useState(1);
 
   const handleAdd = () => {
     let dishPass = true;
-    if (price < 1) {
+    if (!dishName || dishName.split(' ').join('').length === 0) {
+      toast.error('Invalid Dish Name', {
+        className: 'font-bold text-lg',
+      });
+      dishPass = false;
+    } else if (price < 1) {
       toast.error('Invalid price', {
         className: 'font-bold text-lg',
       });
@@ -33,11 +38,13 @@ const EditCategoryModal = ({
     }
 
     category.dishes.forEach((dish) => {
-      if (dish.dishName === dishName) {
-        toast.error('Category Name Exist', {
-          className: 'font-bold text-lg',
-        });
-        dishPass = false;
+      if (dishPass) {
+        if (dish.dishName === dishName) {
+          toast.error('Category Name Exist', {
+            className: 'font-bold text-lg',
+          });
+          dishPass = false;
+        }
       }
     });
 
@@ -55,7 +62,7 @@ const EditCategoryModal = ({
 
       handleCategoryChange(newCategory);
     }
-    setDishName('');
+    setDishName(undefined);
     setPrice(0);
   };
 
