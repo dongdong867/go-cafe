@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import PageTitle from '@/components/PageTitle';
-import EditModal from '../components/EditModal/Modal';
-import useCreatePost from '@/hooks/useCreatePost';
+import PageTitle from "@/app/components/PageTitle";
+import useCreatePost from "@/app/hooks/useCreatePost";
+import EditModal from "../components/EditModal/Modal";
 
 const CreatePostPage = () => {
   const {
