@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import useFinishOrder from '@/hooks/useOrder';
-import { Toaster } from 'react-hot-toast';
+import useFinishOrder from "@/app/hooks/useOrder";
+import { Toaster } from "react-hot-toast";
 
 type Props = {
   order: Order;
 };
 
 const OrderModal = ({ order }: Props) => {
-  const borderColor = order.finished ? '' : 'border-4 border-primary';
+  const borderColor = order.finished ? "" : "border-4 border-primary";
 
   const { handleFinishOrder } = useFinishOrder(order.id);
 
@@ -50,9 +50,7 @@ const OrderModal = ({ order }: Props) => {
         <div className="text-2xl text-right font-bold">${order.totalPrice}</div>
         {!order.finished && (
           <button
-            onClick={(e) => {
-              handleFinishOrder(e);
-            }}
+            onClick={handleFinishOrder}
             className="btn btn-primary btn-block text-white text-lg mt-4"
           >
             finished
