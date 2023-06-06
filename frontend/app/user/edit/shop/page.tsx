@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import EditShopInfoModal from '@/components/profile/ShopInfo';
-import useUpdateShop from '@/hooks/useUpdateShop';
-import { Toaster } from 'react-hot-toast';
+import EditShopInfoModal from "@/app/components/profile/ShopInfo";
+import useUpdateShop from "@/app/hooks/useUpdateShop";
+import { Toaster } from "react-hot-toast";
 
 const UpdateShopProfilePage = () => {
   const {
