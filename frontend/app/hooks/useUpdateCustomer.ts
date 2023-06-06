@@ -1,11 +1,10 @@
-import { gql, useMutation } from '@apollo/client';
-import { useSuspenseQuery } from '@apollo/experimental-nextjs-app-support/ssr';
-import { useState } from 'react';
-import { useBase64 } from './useBase64';
-import { uploadPicture } from '@/../lib/picture-upload';
-import { deletedPictures } from '@/../lib/picture-upload';
-import { toast } from 'react-hot-toast';
-import { useRouter } from 'next/navigation';
+import { deletedPictures, uploadPicture } from "@/lib/picture-upload";
+import { gql, useMutation } from "@apollo/client";
+import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useBase64 } from "./useBase64";
 
 const query = gql`
   query Customer {
@@ -48,7 +47,7 @@ const useUpdateCustomer = () => {
   const [phone, setPhone] = useState(data.customer.user.phone);
   const [email, setEmail] = useState(data.customer.email);
   const [avatar, setAvatar] = useState(data.customer.user.avatar.data);
-  const [newAvatar, setNewAvatar] = useState(undefined as File);
+  const [newAvatar, setNewAvatar] = useState(undefined as unknown as File);
 
   const [updateCustomer] = useMutation(UPDATE_CUSTOMER);
 
@@ -56,8 +55,8 @@ const useUpdateCustomer = () => {
 
   const handleUpdateCustomer = async () => {
     if (!avatar && !newAvatar) {
-      toast.error('Avatar Missing', {
-        className: 'font-bold text-lg',
+      toast.error("Avatar Missing", {
+        className: "font-bold text-lg",
       });
       return;
     }
@@ -84,16 +83,16 @@ const useUpdateCustomer = () => {
       .promise(
         update,
         {
-          loading: 'Updating...',
+          loading: "Updating...",
           error: (error) => error.message,
-          success: 'Updating Successfully',
+          success: "Updating Successfully",
         },
         {
-          className: 'font-bold text-lg',
+          className: "font-bold text-lg",
         }
       )
       .then(() => {
-        router.push('/');
+        router.push("/");
         document.cookie = `avatar=${pictureUrl};path=/`;
       });
   };
