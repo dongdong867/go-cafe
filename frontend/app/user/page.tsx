@@ -1,10 +1,40 @@
-import { gql } from '@apollo/client';
-import UserPostModal from '@/components/UserPostModal';
-import { getClient } from '@/../lib/client';
-import { cookies } from 'next/headers';
-import ShopPostModal from '@/shop/components/ShopPostModal';
-import CustomerProfile from './components/CustomerProfile';
-import UserShopProfile from './components/ShopProfile';
+import { getClient } from "@/lib/client";
+import { gql } from "@apollo/client";
+import { cookies } from "next/headers";
+import CustomerProfile from "./components/CustomerProfile";
+import UserShopProfile from "./components/ShopProfile";
+import UserPostModal from "../components/UserPostModal";
+import ShopPostModal from "../shop/components/ShopPostModal";
+
+type GraphQLCustomerPostType = {
+  id: string;
+  post: {
+    body: string;
+    postPicture: {
+      picture: {
+        data: string;
+      };
+    }[];
+  };
+  rating: {
+    general: number;
+    environment: number;
+    meals: number;
+    attitude: number;
+  };
+  store: {
+    user: {
+      account: string;
+      name: string;
+    };
+  };
+  customer: {
+    user: {
+      account: string;
+      name: string;
+    };
+  };
+};
 
 const customerQuery = gql`
   query Customer {
@@ -29,7 +59,7 @@ const customerQuery = gql`
           picture {
             data
           }
-        }
+        }[]
       }
       rating {
         general
@@ -49,9 +79,22 @@ const customerQuery = gql`
           name
         }
       }
-    }
+    }[]
   }
 `;
+
+type GraphQLShopPostType = {
+  post: {
+    body: string;
+    postPicture: {
+      picture: {
+        data: string;
+      };
+    }[];
+  };
+  id: string;
+  title: string;
+};
 
 const shopQuery = gql`
   query Self {
@@ -93,16 +136,16 @@ const shopQuery = gql`
 `;
 
 const UserPage = async () => {
-  const role = cookies().get('role').value;
+  const role = cookies().get("role")!.value;
 
   const client = getClient();
   const { data } =
-    role === 'customer'
+    role === "customer"
       ? await client.query({ query: customerQuery })
       : await client.query({ query: shopQuery });
 
   const Info = () => {
-    if (role === 'customer') {
+    if (role === "customer") {
       return <CustomerProfile data={data.customer} />;
     } else {
       return <UserShopProfile data={data.storeSelf} />;
@@ -110,12 +153,12 @@ const UserPage = async () => {
   };
 
   const PostList = () => {
-    if (role === 'customer') {
-      return data.selfPost.map((post) => (
+    if (role === "customer") {
+      return data.selfPost.map((post: GraphQLCustomerPostType) => (
         <UserPostModal key={post.id} editable customerPost={post} />
       ));
     } else {
-      return data.storeSelfPost.map((post) => (
+      return data.storeSelfPost.map((post: GraphQLShopPostType) => (
         <ShopPostModal key={post.id} editable post={post} />
       ));
     }
