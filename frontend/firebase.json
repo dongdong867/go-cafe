@@ -1,0 +1,15 @@
+{
+	"hosting": {
+		"source": ".",
+		"ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+		"frameworksBackend": {
+			"region": "asia-east1"
+		},
+		"rewrites": [
+			{
+				"source": "index",
+				"destination": "/"
+			}
+		]
+	}
+}
