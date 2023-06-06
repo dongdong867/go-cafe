@@ -1,25 +1,19 @@
-//packages
-import Link from 'next/link';
-import Image from 'next/image';
-
-//icons
-import { BsPersonCircle } from 'react-icons/bs';
-import { MdLogout, MdMenuBook } from 'react-icons/md';
-
-//components
-import DropdownMenuModal from './DropdownMenuModal';
-import { cookies } from 'next/headers';
-
-import NoAvatar from '/public/images/logo.png';
-import { FaUserEdit } from 'react-icons/fa';
+import { cookies } from "next/headers";
+import NoAvatar from "/public/images/logo.png";
+import Image from "next/image";
+import Link from "next/link";
+import { BsPersonCircle } from "react-icons/bs";
+import { FaUserEdit } from "react-icons/fa";
+import { MdLogout, MdMenuBook } from "react-icons/md";
+import DropdownMenuModal from "./DropdownMenuModal";
 
 const Avatar = () => {
-  if (!cookies().has('role')) return;
+  if (!cookies().has("role")) return;
 
-  const role = cookies().get('role').value;
+  const role = cookies().get("role")!.value;
 
-  const avatar = cookies().has('avatar')
-    ? cookies().get('avatar').value
+  const avatar = cookies().has("avatar")
+    ? cookies().get("avatar")!.value
     : NoAvatar;
 
   const button = (
@@ -30,24 +24,24 @@ const Avatar = () => {
     </>
   );
   const listItems =
-    role === 'customer' ? (
+    role === "customer" ? (
       <>
         <li className="menu-title text-right px-4 pt-4">user settings</li>
         <li>
-          <Link href={'/user'} className="p-4 text-xl font-semibold">
+          <Link href={"/user"} className="p-4 text-xl font-semibold">
             <BsPersonCircle />
             <div>profile</div>
           </Link>
         </li>
         <li>
-          <Link href={'/user/edit'} className="p-4 text-xl font-semibold">
+          <Link href={"/user/edit"} className="p-4 text-xl font-semibold">
             <FaUserEdit />
             <div>Edit Profile</div>
           </Link>
         </li>
         <li>
           <Link
-            href={'/login'}
+            href={"/login"}
             className="p-4 text-xl text-error font-semibold"
           >
             <MdLogout />
@@ -59,26 +53,26 @@ const Avatar = () => {
       <>
         <li className="menu-title text-right px-4 pt-4">user settings</li>
         <li>
-          <Link href={'/user'} className="p-4 text-xl font-semibold">
+          <Link href={"/user"} className="p-4 text-xl font-semibold">
             <BsPersonCircle />
             <div>profile</div>
           </Link>
         </li>
         <li>
-          <Link href={'/menu'} className="p-4 text-xl font-semibold">
+          <Link href={"/menu"} className="p-4 text-xl font-semibold">
             <MdMenuBook />
             <div>Edit Menu</div>
           </Link>
         </li>
         <li>
-          <Link href={'/user/edit/shop'} className="p-4 text-xl font-semibold">
+          <Link href={"/user/edit/shop"} className="p-4 text-xl font-semibold">
             <FaUserEdit />
             <div>Edit Profile</div>
           </Link>
         </li>
         <li>
           <Link
-            href={'/login'}
+            href={"/login"}
             className="p-4 text-xl text-error font-semibold"
           >
             <MdLogout />
