@@ -1,8 +1,8 @@
-import { gql, useMutation } from '@apollo/client';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { toast } from 'react-hot-toast';
-import useShoppingCart from './useShoppingCart';
+import { gql, useMutation } from "@apollo/client";
+import useShoppingCart from "./useShoppingCart";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const CREATE_ORDER = gql`
   mutation CreateOrder($createOrderInput: CreateOrderInput!) {
@@ -13,7 +13,7 @@ const CREATE_ORDER = gql`
 const useSendOrder = (shopAccount: string) => {
   const { shoppingCart, setShoppingCart } = useShoppingCart();
 
-  const [tableNumber, setTableNumber] = useState('');
+  const [tableNumber, setTableNumber] = useState("");
   const [takeaway, setTakeaway] = useState(false);
 
   const [createOrder] = useMutation(CREATE_ORDER);
@@ -23,7 +23,7 @@ const useSendOrder = (shopAccount: string) => {
   const submitCheck = () => {
     if (shoppingCart.length === 0) return false;
     if (takeaway) return true;
-    if (tableNumber.replace(' ', '') === '') return false;
+    if (tableNumber.replace(" ", "") === "") return false;
 
     return true;
   };
@@ -36,7 +36,7 @@ const useSendOrder = (shopAccount: string) => {
       variables: {
         createOrderInput: {
           storeAccount: decodeURIComponent(shopAccount),
-          tableNumber: takeaway ? 'takeaway' : tableNumber,
+          tableNumber: takeaway ? "takeaway" : tableNumber,
           totalPrice: totalPrice,
           dishes: shoppingCart,
         },
@@ -47,12 +47,12 @@ const useSendOrder = (shopAccount: string) => {
       .promise(
         create,
         {
-          loading: 'Sending...',
+          loading: "Sending...",
           error: (error) => error.message,
-          success: 'Order Send',
+          success: "Order Send",
         },
         {
-          className: 'font-bold text-lg',
+          className: "font-bold text-lg",
         }
       )
       .then(() => {
