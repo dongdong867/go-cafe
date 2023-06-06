@@ -1,6 +1,7 @@
-import { gql, useMutation } from '@apollo/client';
-import { useSuspenseQuery } from '@apollo/experimental-nextjs-app-support/ssr';
-import { useState } from 'react';
+import { gql, useMutation } from "@apollo/client";
+import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
+import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 const query = gql`
   query IsFollowing($storeAccount: String!) {
@@ -34,23 +35,49 @@ const useFollow = (storeAccount: string) => {
 
   const handleFollow = async () => {
     if (followed) {
-      await unfollow({
+      const process = unfollow({
         variables: {
           unfollowInput: {
             storeAccount: storeAccount,
           },
         },
       });
-      setFollowed(false);
+
+      await toast
+        .promise(
+          process,
+          {
+            loading: "Processing...",
+            success: "Unfollowed",
+            error: (err) => err.message,
+          },
+          {
+            className: "font-bold text-lg",
+          }
+        )
+        .then(() => setFollowed(false));
     } else {
-      await follow({
+      const process = follow({
         variables: {
           followInput: {
             storeAccount: storeAccount,
           },
         },
       });
-      setFollowed(true);
+
+      await toast
+        .promise(
+          process,
+          {
+            loading: "Processing...",
+            success: "Followed",
+            error: (err) => err.message,
+          },
+          {
+            className: "font-bold text-lg",
+          }
+        )
+        .then(() => setFollowed(true));
     }
   };
 
