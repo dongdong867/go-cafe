@@ -1,9 +1,8 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-//components
-import LoginModal from './components/Modal/LoginModal';
-import RegisterModal from './components/Modal/RegisterModal';
+import { useState } from "react";
+import LoginModal from "./components/Modal/LoginModal";
+import RegisterModal from "./components/Modal/RegisterModal";
 
 const LoginPage = () => {
   const [signin, setSignin] = useState(true);
