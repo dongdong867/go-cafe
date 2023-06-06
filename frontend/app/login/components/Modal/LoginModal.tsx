@@ -1,18 +1,11 @@
-'use client';
+"use client";
 
-//components
-import Modal from './Modal';
-import InputModal from '@/components/Input/InputModal';
-
-//hooks
-import useLogin from '@/hooks/useLogin';
-
-//icons
-import { IoMdUnlock } from 'react-icons/io';
-import { MdFingerprint } from 'react-icons/md';
-
-//packages
-import { Toaster } from 'react-hot-toast';
+import InputModal from "@/app/components/Input/InputModal";
+import useLogin from "@/app/hooks/useLogin";
+import { IoMdUnlock } from "react-icons/io";
+import { MdFingerprint } from "react-icons/md";
+import Modal from "./Modal";
+import { Toaster } from "react-hot-toast";
 
 type Props = {
   setSignin: React.Dispatch<React.SetStateAction<boolean>>;
