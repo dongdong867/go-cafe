@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import PageTitle from '@/components/PageTitle';
-import useUpdateShopPost from '@/hooks/useUpdateShopPost';
-import EditShopPostModal from '@/post/components/ShopPostModal';
+import PageTitle from "@/app/components/PageTitle";
+import useUpdateShopPost from "@/app/hooks/useUpdateShopPost";
+import EditShopPostModal from "@/app/post/components/ShopPostModal";
 
 type Props = {
   params: {
