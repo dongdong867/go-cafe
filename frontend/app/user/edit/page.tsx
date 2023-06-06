@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import EditCustomerInfoModal from '@/components/profile/CustomerInfo';
-import useUpdateCustomer from '@/hooks/useUpdateCustomer';
-import { Toaster } from 'react-hot-toast';
+import EditCustomerInfoModal from "@/app/components/profile/CustomerInfo";
+import useUpdateCustomer from "@/app/hooks/useUpdateCustomer";
+import { Toaster } from "react-hot-toast";
 
 const UpdateCustomerProfilePage = () => {
   const {
