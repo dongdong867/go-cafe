@@ -1,9 +1,24 @@
-'use client';
+"use client";
 
-import { getClient } from '@/../lib/client';
-import PageTitle from '@/components/PageTitle';
-import { gql } from '@apollo/client';
-import OrderModal from './components/OrderModal';
+import { getClient } from "@/lib/client";
+import { gql } from "@apollo/client";
+import PageTitle from "../components/PageTitle";
+import OrderModal from "./components/OrderModal";
+
+type GraphQLType = {
+  order: {
+    id: string;
+    customerId: string;
+    dishes: {
+      name: string;
+      price: number;
+      count: number;
+    }[];
+    finished: boolean;
+    tableNumber: string;
+    totalPrice: number;
+  }[];
+};
 
 const query = gql`
   query Order {
@@ -24,7 +39,7 @@ const query = gql`
 
 const OrderPage = async () => {
   const client = getClient();
-  const { data } = await client.query({ query });
+  const { data }: { data: GraphQLType } = await client.query({ query });
 
   return (
     <div className="w-full max-w-lg max-[450px]:w-11/12 h-full m-auto space-y-4">
