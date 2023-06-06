@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import EditableRatingModal from '@/components/EditableRatingModal';
+import EditableRatingModal from "@/app/components/EditableRatingModal";
 
 type Props = {
   rating: Rating;
