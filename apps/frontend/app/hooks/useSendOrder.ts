@@ -1,8 +1,8 @@
-import { useShoppingCart } from '@/shop/[shopAccount]/menu/page';
 import { gql, useMutation } from '@apollo/client';
 import { useRouter } from 'next/navigation';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import useShoppingCart from './useShoppingCart';
 
 const CREATE_ORDER = gql`
   mutation CreateOrder($createOrderInput: CreateOrderInput!) {

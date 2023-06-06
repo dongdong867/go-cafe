@@ -2,27 +2,14 @@
 
 import MenuNavigator from './components/MenuNavigator';
 import Menu from './components/Menu/Menu';
-
-import { createContext, useContext, useState } from 'react';
+import { useState } from 'react';
 import CheckOutModal from './components/Menu/CheckOutModal/Modal';
 import PageTitle from '@/components/PageTitle';
 import BottomButton from '@/components/Button/BottomButton';
 import { gql } from '@apollo/client';
 import { useSuspenseQuery } from '@apollo/experimental-nextjs-app-support/ssr';
-
-type ShoppingCartContextType = {
-  shoppingCart: OrderDish[];
-  setShoppingCart: React.Dispatch<React.SetStateAction<OrderDish[]>>;
-};
-
-const ShoppingCart = createContext<ShoppingCartContextType>({
-  shoppingCart: [],
-  setShoppingCart: () => {},
-});
-
-export function useShoppingCart() {
-  return useContext(ShoppingCart);
-}
+import { ShoppingCart } from '@/hooks/useShoppingCart';
+import { useRouter } from 'next/navigation';
 
 const query = gql`
   query Menu($storeAccount: String!) {
@@ -49,10 +36,27 @@ const ShopMenuPage = ({ params }: Props) => {
     },
   });
 
-  if (data.menu.length === 0) return <div>no menu found</div>;
-
   const [shoppingCart, setShoppingCart] = useState([]);
   const [checkOut, setCheckOut] = useState(false);
+
+  const router = useRouter();
+
+  if (data.menu.length === 0)
+    return (
+      <div className="w-full h-[calc(100vh-150px)] flex flex-col justify-center place-items-center space-y-8 font-bold text-xl">
+        <div className="flex place-items-center">
+          <div>404</div>
+          <div className="divider divider-horizontal h-8 flex place-self-center" />
+          <div className="">no menu found</div>
+        </div>
+        <button
+          onClick={router.back}
+          className="btn btn-primary text-white text-xl"
+        >
+          back to shop page
+        </button>
+      </div>
+    );
 
   return (
     <>

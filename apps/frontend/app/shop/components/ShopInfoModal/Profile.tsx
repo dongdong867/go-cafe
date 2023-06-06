@@ -13,9 +13,11 @@ const ShopProfile = ({ data }: Props) => {
               <div>Tel: </div>
               <div className="font-semibold">{data.user.phone}</div>
             </div>
-            <div className="flex space-x-1">
+            <div className="space-x-1">
               <div>Info: </div>
-              <div className="font-semibold">{data.info}</div>
+              <div className="font-semibold whitespace-pre-line">
+                {data.info}
+              </div>
             </div>
             <div className="mt-4">
               <div>Address: </div>

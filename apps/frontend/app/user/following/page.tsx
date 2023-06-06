@@ -1,3 +1,5 @@
+'use client';
+
 import PageTitle from '@/components/PageTitle';
 import ShopCardModal from './components/ShopCardModal';
 import { gql } from '@apollo/client';
