@@ -1,4 +1,4 @@
-import CommodityModal from './CommodityModal/CommodityModal';
+import CommodityModal from "./CommodityModal/CommodityModal";
 
 type Props = {
   name: string;
