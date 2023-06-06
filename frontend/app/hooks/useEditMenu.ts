@@ -1,8 +1,8 @@
-import { gql, useMutation } from '@apollo/client';
-import { useSuspenseQuery } from '@apollo/experimental-nextjs-app-support/ssr';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { toast } from 'react-hot-toast';
+import { gql, useMutation } from "@apollo/client";
+import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 const query = gql`
   query SelfMenu {
@@ -50,15 +50,15 @@ const useEditMenu = () => {
       .promise(
         create,
         {
-          loading: 'Creating...',
+          loading: "Saving...",
           error: (error) => error.message,
-          success: 'Create Successfully',
+          success: "Menu Saved",
         },
         {
-          className: 'font-bold text-lg',
+          className: "font-bold text-lg",
         }
       )
-      .then(() => router.push('/user'));
+      .then(() => router.push("/user"));
   };
 
   return { categories, setCategories, editMenu };
