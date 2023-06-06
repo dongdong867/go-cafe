@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import CheckOutOrderList from './OrderList';
-import CheckOutTableNumber from './TableNumber';
-import { MdClose } from 'react-icons/md';
-import PageTitle from '@/components/PageTitle';
-import useSendOrder from '@/hooks/useSendOrder';
-import { useParams } from 'next/navigation';
-import { Toaster } from 'react-hot-toast';
+import PageTitle from "@/app/components/PageTitle";
+import useSendOrder from "@/app/hooks/useSendOrder";
+import { useParams } from "next/navigation";
+import { MdClose } from "react-icons/md";
+import CheckOutOrderList from "./OrderList";
+import CheckOutTableNumber from "./TableNumber";
+import { Toaster } from "react-hot-toast";
 
 type Props = {
   isOpen: boolean;
