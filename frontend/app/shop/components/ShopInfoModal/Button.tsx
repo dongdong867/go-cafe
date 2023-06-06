@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import useFollow from '@/hooks/useFollow';
-import Link from 'next/link';
-import { useParams } from 'next/navigation';
-import { FaHeart } from 'react-icons/fa';
-import { MdBorderColor, MdLocationOn } from 'react-icons/md';
+import useFollow from "@/app/hooks/useFollow";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import { FaHeart } from "react-icons/fa";
+import { MdBorderColor, MdLocationOn } from "react-icons/md";
 
 const ShopInfoButton = () => {
   const param = useParams();
@@ -29,10 +29,10 @@ const ShopInfoButton = () => {
             p-0
             ${
               followed
-                ? 'bg-red-500 hover:bg-red-600'
-                : 'bg-base-100 hover:bg-red-600'
+                ? "bg-red-500 hover:bg-red-600"
+                : "bg-base-100 hover:bg-red-600"
             }
-            ${followed ? 'text-base-100 ' : 'text-red-600 hover:text-base-100'}
+            ${followed ? "text-base-100 " : "text-red-600 hover:text-base-100"}
             `}
         >
           <FaHeart />
