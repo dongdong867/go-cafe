@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import InputModal from '@/components/Input/InputModal';
-import PageTitle from '@/components/PageTitle';
-import { useState } from 'react';
-import { HiCurrencyDollar } from 'react-icons/hi';
-import { MdOutlineImportContacts } from 'react-icons/md';
+import InputModal from "@/app/components/Input/InputModal";
+import PageTitle from "@/app/components/PageTitle";
+import { useState } from "react";
+import { HiCurrencyDollar } from "react-icons/hi";
+import { MdOutlineImportContacts } from "react-icons/md";
 
 type Props = {
   dish: MenuDish;
