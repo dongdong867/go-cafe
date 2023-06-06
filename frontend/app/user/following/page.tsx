@@ -1,9 +1,34 @@
-'use client';
+"use client";
 
-import PageTitle from '@/components/PageTitle';
-import ShopCardModal from './components/ShopCardModal';
-import { gql } from '@apollo/client';
-import { getClient } from '@/../lib/client';
+import PageTitle from "@/app/components/PageTitle";
+import { getClient } from "@/lib/client";
+import { gql } from "@apollo/client";
+import ShopCardModal from "./components/ShopCardModal";
+
+type GraphQLType = {
+  followingList: {
+    address: string;
+    info: string;
+    storeRating: {
+      postCount: number;
+      rating: {
+        general: number;
+        environment: number;
+        meals: number;
+        attitude: number;
+      };
+    };
+    user: {
+      account: string;
+      avatar: {
+        data: string;
+      };
+      name: string;
+      phone: string;
+      postCount: number;
+    };
+  }[];
+};
 
 const query = gql`
   query FollowingList {
@@ -34,7 +59,7 @@ const query = gql`
 
 const FollowingPage = async () => {
   const client = getClient();
-  const { data } = await client.query({ query });
+  const { data }: { data: GraphQLType } = await client.query({ query });
   return (
     <>
       <div className="w-full max-w-lg max-[450px]:w-11/12 m-auto">
