@@ -1,6 +1,7 @@
-'use client';
-import useShoppingCart from '@/hooks/useShoppingCart';
-import { FaMinus, FaPlus, FaShoppingCart } from 'react-icons/fa';
+"use client";
+
+import useShoppingCart from "@/app/hooks/useShoppingCart";
+import { FaMinus, FaPlus, FaShoppingCart } from "react-icons/fa";
 
 type Props = {
   quantity: number;
