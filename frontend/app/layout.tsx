@@ -1,21 +1,21 @@
 //font
-import { Montserrat } from 'next/font/google';
+import { Montserrat } from "next/font/google";
 
 //css
-import './global.css';
+import "./global.css";
 
 //components
-import Navbar from './components/Navbar/Navbar';
-import { ApolloWrapper } from '../lib/apollo-provider';
+import Navbar from "./components/Navbar/Navbar";
+import { ApolloWrapper } from "../lib/apollo-provider";
 
 export const metadata = {
-  title: 'Go Cafe',
-  description: '',
+  title: "Go Cafe",
+  description: "",
 };
 
 const montserrat = Montserrat({
-  variable: '--font-Montserrat',
-  display: 'swap',
+  variable: "--font-Montserrat",
+  display: "swap",
   preload: false,
 });
 
