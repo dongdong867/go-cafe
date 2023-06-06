@@ -1,8 +1,8 @@
-import InputModal from '@/components/Input/InputModal';
-import PageTitle from '@/components/PageTitle';
-import { MdEmail } from 'react-icons/md';
-import RegisterBasicInfo from './BasicInfo';
-import BottomButton from '@/components/Button/BottomButton';
+import { MdEmail } from "react-icons/md";
+import InputModal from "../Input/InputModal";
+import PageTitle from "../PageTitle";
+import RegisterBasicInfo from "./BasicInfo";
+import BottomButton from "../Button/BottomButton";
 
 type Props = {
   avatar: File;
