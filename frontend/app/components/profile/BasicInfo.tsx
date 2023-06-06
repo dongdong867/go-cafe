@@ -1,12 +1,11 @@
-'use client';
+"use client";
 
-import InputModal from '@/components/Input/InputModal';
-import { BsPersonFill } from 'react-icons/bs';
-import { FaPhoneAlt } from 'react-icons/fa';
-import { HiPencilAlt } from 'react-icons/hi';
-import Image from 'next/image';
-import { useEffect } from 'react';
-import PageTitle from '../PageTitle';
+import Image from "next/image";
+import PageTitle from "../PageTitle";
+import { HiPencilAlt } from "react-icons/hi";
+import InputModal from "../Input/InputModal";
+import { BsPersonFill } from "react-icons/bs";
+import { FaPhoneAlt } from "react-icons/fa";
 
 type Props = {
   avatar?: File;
@@ -27,11 +26,8 @@ const RegisterBasicInfo = ({
   setName,
   setPhone,
   setAvatar,
-  setOriginAvatar,
+  setOriginAvatar = () => {},
 }: Props) => {
-  useEffect(() => {
-    console.log(avatar);
-  }, [avatar]);
   return (
     <>
       <div>
@@ -56,7 +52,9 @@ const RegisterBasicInfo = ({
                     <div className="w-full flex justify-end">
                       <label
                         htmlFor="avatar"
-                        onClick={() => setOriginAvatar(undefined)}
+                        onClick={() =>
+                          setOriginAvatar(undefined as unknown as string)
+                        }
                         className="w-max btn btn-primary text-white"
                       >
                         delete
@@ -79,7 +77,7 @@ const RegisterBasicInfo = ({
             id="picture"
             type="file"
             accept="image/*"
-            onChange={(e) => setAvatar(e.target.files[0])}
+            onChange={(e) => setAvatar(e.target.files![0])}
             hidden
           />
         </div>
