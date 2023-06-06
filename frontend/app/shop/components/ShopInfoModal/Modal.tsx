@@ -1,6 +1,6 @@
-import ShopInfoButton from './Button';
-import ShopProfile from './Profile';
-import ShopRates from './Rates';
+import ShopInfoButton from "./Button";
+import ShopProfile from "./Profile";
+import ShopRates from "./Rates";
 
 type Props = {
   data: Shop;
