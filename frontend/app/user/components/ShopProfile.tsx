@@ -1,7 +1,7 @@
-import UserAvatar from './Avatar';
-import UserShopInfo from './ShopProfile/Info';
-import UserShopPostCounts from './ShopProfile/PostCounts';
-import UserShopRating from './ShopProfile/Rating';
+import UserAvatar from "./Avatar";
+import UserShopInfo from "./ShopProfile/Info";
+import UserShopPostCounts from "./ShopProfile/PostCounts";
+import UserShopRating from "./ShopProfile/Rating";
 
 type Props = {
   data: Shop;
