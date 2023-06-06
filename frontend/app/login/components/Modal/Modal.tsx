@@ -1,10 +1,7 @@
-'use client';
+"use client";
 
-//components
-import Image from 'next/image';
-
-//images
-import Logo from '/public/images/logo.png';
+import Image from "next/image";
+import Logo from "public/images/logo.png";
 
 type Props = {
   buttonContent: string;
