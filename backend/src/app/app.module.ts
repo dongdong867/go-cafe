@@ -13,7 +13,7 @@ import { FirebaseModule } from './firebase/firebase.module';
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: 'backend/src/graphql',
+      autoSchemaFile: 'src/graphql/schema.gql',
       sortSchema: true,
       context: ({ req }) => ({ header: req.header }),
     }),
