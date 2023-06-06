@@ -1,10 +1,10 @@
-import { deletedPictures, uploadPicture } from '@/../lib/picture-upload';
-import { gql, useMutation } from '@apollo/client';
-import { useSuspenseQuery } from '@apollo/experimental-nextjs-app-support/ssr';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { useBase64 } from './useBase64';
+import { deletedPictures, uploadPicture } from "@/lib/picture-upload";
+import { gql, useMutation } from "@apollo/client";
+import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useBase64 } from "./useBase64";
 
 const query = gql`
   query Self {
@@ -50,7 +50,7 @@ const useUpdateShop = () => {
   const [address, setAddress] = useState(data.storeSelf.address);
   const [info, setInfo] = useState(data.storeSelf.info);
   const [avatar, setAvatar] = useState(data.storeSelf.user.avatar.data);
-  const [newAvatar, setNewAvatar] = useState(undefined as File);
+  const [newAvatar, setNewAvatar] = useState(undefined as unknown as File);
 
   const [updateStore] = useMutation(UPDATE_STORE);
 
@@ -58,8 +58,8 @@ const useUpdateShop = () => {
 
   const handleUpdateShop = async () => {
     if (!avatar && !newAvatar) {
-      toast.error('Avatar Missing', {
-        className: 'font-bold text-lg',
+      toast.error("Avatar Missing", {
+        className: "font-bold text-lg",
       });
       return;
     }
@@ -87,16 +87,16 @@ const useUpdateShop = () => {
       .promise(
         update,
         {
-          loading: 'Updating...',
+          loading: "Updating...",
           error: (error) => error.message,
-          success: 'Updating Successfully',
+          success: "Updated Successfully",
         },
         {
-          className: 'font-bold text-lg',
+          className: "font-bold text-lg",
         }
       )
       .then(() => {
-        router.push('/');
+        router.push("/");
         document.cookie = `avatar=${pictureUrl};path=/`;
       });
   };
