@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import PageTitle from '@/components/PageTitle';
-import useEditMenu from '@/hooks/useEditMenu';
-import EditCategoryModal from './components/CategoryModal';
-import InputModal from '@/components/Input/InputModal';
-import { MdOutlineImportContacts } from 'react-icons/md';
-import { useEffect, useState } from 'react';
-import { Toaster, toast } from 'react-hot-toast';
-import BottomButton from '@/components/Button/BottomButton';
+import { useState } from "react";
+import useEditMenu from "../hooks/useEditMenu";
+import toast, { Toaster } from "react-hot-toast";
+import PageTitle from "../components/PageTitle";
+import InputModal from "../components/Input/InputModal";
+import { MdOutlineImportContacts } from "react-icons/md";
+import EditCategoryModal from "./components/CategoryModal";
+import BottomButton from "../components/Button/BottomButton";
 
 const MenuPage = () => {
   const { categories, setCategories, editMenu } = useEditMenu();
 
-  const [newCategoryName, setNewCategoryName] = useState(undefined as string);
+  const [newCategoryName, setNewCategoryName] = useState("");
 
   const handleChange = (categoryName: string, category: Category) => {
     const newCategories = categories.map((data) => {
@@ -27,9 +27,9 @@ const MenuPage = () => {
 
   const handleAdd = () => {
     let namePassed = true;
-    if (newCategoryName === undefined) {
-      toast.error('Category Name Invalid', {
-        className: 'font-bold text-lg',
+    if (newCategoryName.split(" ").join("").length === 0) {
+      toast.error("Category Name Invalid", {
+        className: "font-bold text-lg",
       });
       namePassed = false;
     } else {
@@ -37,13 +37,13 @@ const MenuPage = () => {
         if (namePassed) {
           console.log(namePassed);
           if (category.categoryName === newCategoryName) {
-            toast.error('Category Name Exist', {
-              className: 'font-bold text-lg',
+            toast.error("Category Name Exist", {
+              className: "font-bold text-lg",
             });
             namePassed = false;
-          } else if (newCategoryName.split(' ').join('').length === 0) {
-            toast.error('Category Name Invalid', {
-              className: 'font-bold text-lg',
+          } else if (newCategoryName.split(" ").join("").length === 0) {
+            toast.error("Category Name Invalid", {
+              className: "font-bold text-lg",
             });
             namePassed = false;
           }
@@ -55,12 +55,12 @@ const MenuPage = () => {
           ...categories,
           {
             categoryName: newCategoryName,
-            dishes: [{ dishName: 'dish name', price: 0 }],
+            dishes: [{ dishName: "dish name", price: 0 }],
           },
         ]);
       }
     }
-    setNewCategoryName(undefined);
+    setNewCategoryName("");
   };
 
   const handleDelete = (categoryName: string) => {
