@@ -1,6 +1,6 @@
-import { gql, useMutation } from '@apollo/client';
-import { useRouter } from 'next/navigation';
-import { toast } from 'react-hot-toast';
+import { gql, useMutation } from "@apollo/client";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const FINISH_ORDER = gql`
   mutation FinishOrder($finishOrderInput: FinishOrderInput!) {
@@ -13,7 +13,7 @@ const useFinishOrder = (orderId: string) => {
 
   const router = useRouter();
 
-  const handleFinishOrder = async (e) => {
+  const handleFinishOrder = async () => {
     const finish = finishOrder({
       variables: {
         finishOrderInput: {
@@ -26,12 +26,12 @@ const useFinishOrder = (orderId: string) => {
       .promise(
         finish,
         {
-          loading: 'Loading...',
-          success: 'Order Finished',
+          loading: "Processing...",
+          success: "Order Finished",
           error: (error) => error.message,
         },
         {
-          className: 'font-bold text-lg',
+          className: "font-bold text-lg",
         }
       )
       .then(() => router.refresh());
