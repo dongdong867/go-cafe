@@ -24,11 +24,11 @@ model User {
 model Customer {
   id             String         @id @default(uuid()) @db.VarChar(36)
   email          String         @db.VarChar(50)
-  followingCount Int            @default(0) @map("following_count") @db.Int
+  followingCount Int            @default(0) @map("following_count")
   userId         String         @unique @map("user_id") @db.VarChar(36)
   user           User           @relation(fields: [userId], references: [id])
-  following      Following[]
   customerPost   CustomerPost[]
+  following      Following[]
 }
 
 model Store {
@@ -39,8 +39,8 @@ model Store {
   customerPost CustomerPost[]
   following    Following[]
   user         User           @relation(fields: [userId], references: [id])
-  storeRating  StoreRating?
   storePost    StorePost[]
+  storeRating  StoreRating?
 }
 
 model Following {
@@ -50,6 +50,7 @@ model Following {
   store      Store    @relation(fields: [storeId], references: [id])
 
   @@unique([customerId, storeId])
+  @@index([storeId], map: "Following_store_id_fkey")
 }
 
 model Rating {
@@ -65,7 +66,7 @@ model Rating {
 model StoreRating {
   storeId   String @unique @map("store_id") @db.VarChar(36)
   ratingId  String @unique @map("rating_id") @db.VarChar(36)
-  postCount Int    @default(0) @map("post_count") @db.Int
+  postCount Int    @default(0) @map("post_count")
   rating    Rating @relation(fields: [ratingId], references: [id])
   store     Store  @relation(fields: [storeId], references: [id])
 }
@@ -84,6 +85,7 @@ model PostPicture {
   post      Post    @relation(fields: [postId], references: [id])
 
   @@unique([pictureId, postId])
+  @@index([postId], map: "PostPicture_post_id_fkey")
 }
 
 model Post {
@@ -91,8 +93,8 @@ model Post {
   body         String        @db.Text
   postAt       DateTime      @default(now()) @map("post_at")
   updateAt     DateTime      @updatedAt @map("update_at")
-  postPicture  PostPicture[]
   customerPost CustomerPost?
+  postPicture  PostPicture[]
   storePost    StorePost?
 }
 
@@ -102,12 +104,14 @@ model CustomerPost {
   ratingId   String   @unique @map("rating_id") @db.VarChar(36)
   customerId String   @map("customer_id") @db.VarChar(36)
   storeId    String   @map("store_id") @db.VarChar(36)
+  customer   Customer @relation(fields: [customerId], references: [id])
   post       Post     @relation(fields: [postId], references: [id])
   rating     Rating   @relation(fields: [ratingId], references: [id])
   store      Store    @relation(fields: [storeId], references: [id])
-  customer   Customer @relation(fields: [customerId], references: [id])
 
   @@unique([id, customerId])
+  @@index([customerId], map: "CustomerPost_customer_id_fkey")
+  @@index([storeId], map: "CustomerPost_store_id_fkey")
 }
 
 model StorePost {
@@ -119,4 +123,5 @@ model StorePost {
   store   Store  @relation(fields: [storeId], references: [id])
 
   @@unique([id, storeId])
+  @@index([storeId], map: "StorePost_storeId_fkey")
 }
