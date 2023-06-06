@@ -1,4 +1,4 @@
-import MenuCategory from './MenuCategory';
+import MenuCategory from "./MenuCategory";
 
 type Props = {
   categories: {
