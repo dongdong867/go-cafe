@@ -1,8 +1,39 @@
-import { getClient } from '@/../lib/client';
-import PageTitle from '@/components/PageTitle';
-import UserPostModal from '@/components/UserPostModal';
-import useToast from '@/hooks/useToast';
-import { gql } from '@apollo/client';
+import PageTitle from "@/app/components/PageTitle";
+import UserPostModal from "@/app/components/UserPostModal";
+import { getClient } from "@/lib/client";
+import { gql } from "@apollo/client";
+
+type GraphQLType = {
+  customerPostAtStore: {
+    id: string;
+    post: {
+      body: string;
+      postPicture: {
+        picture: {
+          data: string;
+        };
+      }[];
+    };
+    rating: {
+      general: number;
+      environment: number;
+      meals: number;
+      attitude: number;
+    };
+    store: {
+      user: {
+        account: string;
+        name: string;
+      };
+    };
+    customer: {
+      user: {
+        account: string;
+        name: string;
+      };
+    };
+  }[];
+};
 
 const query = gql`
   query GetCustomerPostAtStore($storeAccount: String!) {
@@ -45,16 +76,12 @@ type Props = {
 
 const ShopPostsPage = async ({ params }: Props) => {
   const client = getClient();
-  const { data, error } = await client.query({
+  const { data }: { data: GraphQLType } = await client.query({
     query,
     variables: {
       storeAccount: decodeURIComponent(params.shopAccount),
     },
   });
-
-  if (error) {
-    useToast(error.message, 'error');
-  }
 
   return (
     <>
