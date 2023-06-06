@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import InputModal from '@/components/Input/InputModal';
-import EditPicture from './EditModal/Picture';
-import { BsHash } from 'react-icons/bs';
-import TextArea from '@/components/Input/TextArea';
-import BottomButton from '@/components/Button/BottomButton';
+import InputModal from "@/app/components/Input/InputModal";
+import EditPicture from "./EditModal/Picture";
+import { BsHash } from "react-icons/bs";
+import TextArea from "@/app/components/Input/TextArea";
+import BottomButton from "@/app/components/Button/BottomButton";
 
 type Props = {
   title: string;
