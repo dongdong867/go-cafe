@@ -12,7 +12,7 @@ import BottomButton from '@/components/Button/BottomButton';
 const MenuPage = () => {
   const { categories, setCategories, editMenu } = useEditMenu();
 
-  const [newCategoryName, setNewCategoryName] = useState(undefined);
+  const [newCategoryName, setNewCategoryName] = useState(undefined as string);
 
   const handleChange = (categoryName: string, category: Category) => {
     const newCategories = categories.map((data) => {
@@ -32,7 +32,6 @@ const MenuPage = () => {
         className: 'font-bold text-lg',
       });
       namePassed = false;
-      setNewCategoryName(undefined);
     } else {
       categories.forEach((category) => {
         if (namePassed) {
@@ -42,13 +41,11 @@ const MenuPage = () => {
               className: 'font-bold text-lg',
             });
             namePassed = false;
-            setNewCategoryName('');
-          } else if (newCategoryName.replace(' ', '').length === 0) {
+          } else if (newCategoryName.split(' ').join('').length === 0) {
             toast.error('Category Name Invalid', {
               className: 'font-bold text-lg',
             });
             namePassed = false;
-            setNewCategoryName(undefined);
           }
         }
       });
@@ -61,10 +58,9 @@ const MenuPage = () => {
             dishes: [{ dishName: 'dish name', price: 0 }],
           },
         ]);
-
-        setNewCategoryName(undefined);
       }
     }
+    setNewCategoryName(undefined);
   };
 
   const handleDelete = (categoryName: string) => {
