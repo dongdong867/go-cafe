@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import PageTitle from '@/components/PageTitle';
-import useCreateShopPost from '@/hooks/useCreateShopPost';
-import EditShopPostModal from '@/post/components/ShopPostModal';
+import PageTitle from "@/app/components/PageTitle";
+import useCreateShopPost from "@/app/hooks/useCreateShopPost";
+import EditShopPostModal from "../../components/ShopPostModal";
 
 const CreateShopPostPage = () => {
   const {
