@@ -1,13 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { FirebaseService } from '../firebase/firebase.service';
 import { PrismaService } from '../prisma/prisma.service';
-import { CategoryType, DishType, MenuType } from './models/menu.firebase';
-import { v4 as uuid } from 'uuid';
+import { CategoryType, MenuType } from './models/menu.firebase';
 import * as admin from 'firebase-admin';
 import { CreateMenuInput } from './dto/input/create-menu.input';
 import { UpdateMenuInput } from './dto/input/update-menu.input';
 import { GetMenuArgs } from './dto/args/get-menu.args';
-import { Category, Dish } from './models/menu.entity';
+import { Category } from './models/menu.entity';
 import { StoreService } from '../user/store/store.service';
 
 @Injectable()
@@ -15,12 +14,12 @@ export class MenuService {
   constructor(
     private readonly storeService: StoreService,
     private readonly firebase: FirebaseService,
-    private readonly prisma: PrismaService
+    private readonly prisma: PrismaService,
   ) {}
 
   async getMenu(getMenuArgs: GetMenuArgs): Promise<Category[]> {
     const storeId: string = await this.storeService.getStoreIdByAccount(
-      getMenuArgs.storeAccount
+      getMenuArgs.storeAccount,
     );
     const data = await this.firebase
       .firestore()
@@ -66,7 +65,7 @@ export class MenuService {
 
   async createMenu(
     currentId: string,
-    createMenuInput: CreateMenuInput
+    createMenuInput: CreateMenuInput,
   ): Promise<string> {
     await this.prisma.store.findUniqueOrThrow({
       where: {
@@ -93,7 +92,7 @@ export class MenuService {
 
   async updateMenu(
     currentId: string,
-    updateMenuInput: UpdateMenuInput
+    updateMenuInput: UpdateMenuInput,
   ): Promise<string> {
     await this.prisma.store.findUniqueOrThrow({
       where: {
