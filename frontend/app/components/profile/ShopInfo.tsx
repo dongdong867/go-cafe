@@ -1,9 +1,9 @@
-import PageTitle from '@/components/PageTitle';
-import RegisterBasicInfo from './BasicInfo';
-import InputModal from '@/components/Input/InputModal';
-import BottomButton from '@/components/Button/BottomButton';
-import { FaStore } from 'react-icons/fa';
-import TextArea from '@/components/Input/TextArea';
+import { FaStore } from "react-icons/fa";
+import InputModal from "../Input/InputModal";
+import PageTitle from "../PageTitle";
+import RegisterBasicInfo from "./BasicInfo";
+import TextArea from "../Input/TextArea";
+import BottomButton from "../Button/BottomButton";
 
 type Props = {
   avatar: File;
