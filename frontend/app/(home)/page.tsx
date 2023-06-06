@@ -72,7 +72,6 @@ const query = gql`
 `;
 
 const Home = async () => {
-  if (!cookies().has("role")) redirect("/login");
   if (cookies().get("role")!.value === "store") {
     redirect("/user");
   }
