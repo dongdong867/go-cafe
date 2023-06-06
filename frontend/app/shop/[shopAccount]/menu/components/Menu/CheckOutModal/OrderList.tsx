@@ -1,12 +1,12 @@
-import CheckOutOrder from './Order';
-import useShoppingCart from '@/hooks/useShoppingCart';
+import useShoppingCart from "@/app/hooks/useShoppingCart";
+import CheckOutOrder from "./Order";
 
 const CheckOutOrderList = () => {
   const { shoppingCart } = useShoppingCart();
 
   const totalPrice = () => {
     let sum = 0;
-    shoppingCart.map((order) => {
+    shoppingCart.forEach((order) => {
       sum += order.price;
     });
 
