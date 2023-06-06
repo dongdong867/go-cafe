@@ -1,9 +1,9 @@
-import { gql, useMutation } from '@apollo/client';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { useBase64 } from './useBase64';
-import { uploadPicture } from '@/../lib/picture-upload';
-import { toast } from 'react-hot-toast';
+import { gql, useMutation } from "@apollo/client";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useBase64 } from "./useBase64";
+import { uploadPicture } from "@/lib/picture-upload";
+import toast from "react-hot-toast";
 
 const CREATE_SHOP_POST = gql`
   mutation CreateStorePost($createStorePostInput: CreateStorePostInput!) {
@@ -12,8 +12,8 @@ const CREATE_SHOP_POST = gql`
 `;
 
 const useCreateShopPost = () => {
-  const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
   const [pictureList, setPictureList] = useState([] as File[]);
 
   const router = useRouter();
@@ -42,15 +42,15 @@ const useCreateShopPost = () => {
       .promise(
         create,
         {
-          loading: 'Creating...',
+          loading: "Creating...",
           error: (error) => error.message,
-          success: 'Create Successfully',
+          success: "Create Successfully",
         },
         {
-          className: 'font-bold text-lg',
+          className: "font-bold text-lg",
         }
       )
-      .then(() => router.push('/user'));
+      .then(() => router.push("/user"));
   };
 
   return {
