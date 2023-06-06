@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import useRegister from '@/hooks/useRegister';
-import { useEffect, useState } from 'react';
-import RegisterAccountAndPassword from '../Register/AccountAndPassword';
-import { Toaster, toast } from 'react-hot-toast';
-import { useSuspenseQuery } from '@apollo/experimental-nextjs-app-support/ssr';
-import { gql } from '@apollo/client';
-import EditShopInfoModal from '@/components/profile/ShopInfo';
-import EditCustomerInfoModal from '@/components/profile/CustomerInfo';
+import useRegister from "@/app/hooks/useRegister";
+import { gql } from "@apollo/client";
+import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
+import { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import RegisterAccountAndPassword from "../Register/AccountAndPassword";
+import EditCustomerInfoModal from "@/app/components/profile/CustomerInfo";
+import EditShopInfoModal from "@/app/components/profile/ShopInfo";
 
 const query = gql`
   query IsAccountAvailable($account: String!) {
@@ -64,16 +64,16 @@ const RegisterModal = ({ setSignin }: Props) => {
       if (accountTest.isAccountAvailable) {
         setNextStep(true);
       } else {
-        toast.error('Account has been used.', {
-          className: 'font-bold text-lg',
+        toast.error("Account has been used.", {
+          className: "font-bold text-lg",
         });
       }
     }
   };
 
   useEffect(() => {
-    if (account.indexOf(' ') > -1) {
-      toast.error('Space is not allowed', { className: 'font-bold text-lg' });
+    if (account.indexOf(" ") > -1) {
+      toast.error("Space is not allowed", { className: "font-bold text-lg" });
       setAccountPass(false);
     } else {
       if (!accountPass) setAccountPass(true);
@@ -81,8 +81,8 @@ const RegisterModal = ({ setSignin }: Props) => {
   }, [account]);
 
   useEffect(() => {
-    if (password.indexOf(' ') > -1) {
-      toast.error('Space is not allowed', { className: 'font-bold text-lg' });
+    if (password.indexOf(" ") > -1) {
+      toast.error("Space is not allowed", { className: "font-bold text-lg" });
       setPasswordPass(false);
     } else {
       if (!passwordPass) setPasswordPass(true);
