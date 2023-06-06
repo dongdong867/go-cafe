@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { HiPencilAlt } from 'react-icons/hi';
-import Image from 'next/image';
-import { Toaster, toast } from 'react-hot-toast';
+import Image from "next/image";
+import toast, { Toaster } from "react-hot-toast";
+import { HiPencilAlt } from "react-icons/hi";
 
 type Props = {
   originPicture?: string[];
@@ -17,7 +17,7 @@ const EditPicture = ({
   pictureList,
   deletedPicture = [],
   setPictureList,
-  setDeletedPicture = undefined,
+  setDeletedPicture = () => {},
 }: Props) => {
   return (
     <>
@@ -57,8 +57,8 @@ const EditPicture = ({
                             className="btn btn-error text-base-100"
                             onClick={() => {
                               setDeletedPicture([...deletedPicture, picture]);
-                              toast.success('Picture Deleted', {
-                                className: 'font-bold text-lg',
+                              toast.success("Picture Deleted", {
+                                className: "font-bold text-lg",
                               });
                             }}
                           >
@@ -107,8 +107,8 @@ const EditPicture = ({
                                   return storedPicture;
                               })
                             );
-                            toast.success('Picture Deleted', {
-                              className: 'font-bold text-lg',
+                            toast.success("Picture Deleted", {
+                              className: "font-bold text-lg",
                             });
                           }}
                         >
@@ -142,20 +142,20 @@ const EditPicture = ({
                 if (
                   pictureList
                     .map((picture) => picture.name)
-                    .indexOf(e.target.files[0].name) > -1
+                    .indexOf(e.target.files![0].name) > -1
                 ) {
-                  toast.error('Picture Exists', {
-                    className: 'font-bold text-lg',
+                  toast.error("Picture Exists", {
+                    className: "font-bold text-lg",
                   });
                 } else {
-                  if (e.target.files[0].size > 1000000) {
-                    toast.error('Picture Size Limit 1Mb', {
-                      className: 'font-bold text-lg',
+                  if (e.target.files![0].size > 1000000) {
+                    toast.error("Picture Size Limit 1Mb", {
+                      className: "font-bold text-lg",
                     });
                   } else {
-                    setPictureList([...pictureList, e.target.files[0]]);
-                    toast.success('Picture Added', {
-                      className: 'font-bold text-lg',
+                    setPictureList([...pictureList, e.target.files![0]]);
+                    toast.success("Picture Added", {
+                      className: "font-bold text-lg",
                     });
                   }
                 }
