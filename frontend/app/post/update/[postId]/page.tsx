@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import EditModal from '../../components/EditModal/Modal';
-import PageTitle from '@/components/PageTitle';
-import useUpdatePost from '@/hooks/useUpdatePost';
+import PageTitle from "@/app/components/PageTitle";
+import useUpdatePost from "@/app/hooks/useUpdatePost";
+import EditModal from "../../components/EditModal/Modal";
 
 type Props = {
   params: {
