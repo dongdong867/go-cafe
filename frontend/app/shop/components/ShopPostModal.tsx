@@ -1,4 +1,4 @@
-import PostModal from '@/components/PostModal';
+import PostModal from "@/app/components/PostModal";
 
 type Props = {
   editable?: boolean;
