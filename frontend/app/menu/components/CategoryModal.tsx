@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useId, useState } from 'react';
-import EditDishModal from './DishModal';
-import toast from 'react-hot-toast';
-import PageTitle from '@/components/PageTitle';
-import InputModal from '@/components/Input/InputModal';
-import { MdOutlineImportContacts } from 'react-icons/md';
-import { HiCurrencyDollar } from 'react-icons/hi';
+import { useId, useState } from "react";
+import toast from "react-hot-toast";
+import EditDishModal from "./DishModal";
+import PageTitle from "@/app/components/PageTitle";
+import InputModal from "@/app/components/Input/InputModal";
+import { MdOutlineImportContacts } from "react-icons/md";
+import { HiCurrencyDollar } from "react-icons/hi";
 
 type Props = {
   category: Category;
@@ -20,19 +20,19 @@ const EditCategoryModal = ({
   handleDeleteCategory,
 }: Props) => {
   const id = useId();
-  const [dishName, setDishName] = useState(undefined as string);
+  const [dishName, setDishName] = useState("");
   const [price, setPrice] = useState(1);
 
   const handleAdd = () => {
     let dishPass = true;
-    if (!dishName || dishName.split(' ').join('').length === 0) {
-      toast.error('Invalid Dish Name', {
-        className: 'font-bold text-lg',
+    if (dishName.split(" ").join("").length === 0) {
+      toast.error("Invalid Dish Name", {
+        className: "font-bold text-lg",
       });
       dishPass = false;
     } else if (price < 1) {
-      toast.error('Invalid price', {
-        className: 'font-bold text-lg',
+      toast.error("Invalid price", {
+        className: "font-bold text-lg",
       });
       dishPass = false;
     }
@@ -40,8 +40,8 @@ const EditCategoryModal = ({
     category.dishes.forEach((dish) => {
       if (dishPass) {
         if (dish.dishName === dishName) {
-          toast.error('Category Name Exist', {
-            className: 'font-bold text-lg',
+          toast.error("Category Name Exist", {
+            className: "font-bold text-lg",
           });
           dishPass = false;
         }
@@ -62,7 +62,7 @@ const EditCategoryModal = ({
 
       handleCategoryChange(newCategory);
     }
-    setDishName(undefined);
+    setDishName("");
     setPrice(0);
   };
 
@@ -75,22 +75,22 @@ const EditCategoryModal = ({
   ) => {
     let dishPass = true;
     if (newDishName.length === 0) {
-      toast.error('Invalid name', {
-        className: 'font-bold text-lg',
+      toast.error("Invalid name", {
+        className: "font-bold text-lg",
       });
       dishPass = false;
     }
     if (price < 1 || !price) {
-      toast.error('Invalid price', {
-        className: 'font-bold text-lg',
+      toast.error("Invalid price", {
+        className: "font-bold text-lg",
       });
       dishPass = false;
     }
 
     category.dishes.forEach((data) => {
       if (data.dishName === newDishName && dish.dishName !== newDishName) {
-        toast.error('Category Name Exist', {
-          className: 'font-bold text-lg',
+        toast.error("Category Name Exist", {
+          className: "font-bold text-lg",
         });
         dishPass = false;
       }
