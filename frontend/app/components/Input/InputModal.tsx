@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
 type Props = {
   topLabelText: string;
   sideLabel: React.ReactNode;
-  type?: 'text' | 'number' | 'password';
+  type?: "text" | "number" | "password";
   value?: string;
   numberValue?: number;
   disabled?: boolean;
@@ -15,19 +15,19 @@ type Props = {
 const InputModal = ({
   topLabelText,
   sideLabel,
-  type = 'text',
+  type = "text",
   value,
   numberValue,
   disabled = false,
   pass = true,
-  setValue = undefined,
-  setNumberValue = undefined,
+  setValue = () => {},
+  setNumberValue = () => {},
 }: Props) => {
-  const bgColor = pass ? 'bg-primary' : 'bg-error';
-  const borderColor = pass ? 'border-primary' : 'border-error';
-  const textColor = pass ? '' : 'text-error';
+  const bgColor = pass ? "bg-primary" : "bg-error";
+  const borderColor = pass ? "border-primary" : "border-error";
+  const textColor = pass ? "" : "text-error";
 
-  const handleType = type === 'text' || type === 'password';
+  const handleType = type === "text" || type === "password";
 
   const input = () => {
     if (disabled) {
@@ -46,7 +46,7 @@ const InputModal = ({
             <input
               type={type}
               value={value}
-              onChange={(e) => setValue(e.currentTarget.value)}
+              onChange={(e) => setValue(e.target.value)}
               className={`input input-bordered ${borderColor} join-item rounded-r-full border-2 w-full font-medium focus:outline-none`}
             />
           ) : (
