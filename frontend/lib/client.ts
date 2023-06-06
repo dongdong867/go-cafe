@@ -1,21 +1,21 @@
-import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
-import { registerApolloClient } from '@apollo/experimental-nextjs-app-support/rsc';
-import { cookies } from 'next/headers';
+import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+import { registerApolloClient } from "@apollo/experimental-nextjs-app-support/rsc";
+import { cookies } from "next/headers";
 
 const authLink = setContext((_, { headers }) => {
-  const token = cookies().get('token');
+  const token = cookies().get("token");
   return {
     headers: {
       ...headers,
-      authorization: token.value,
+      authorization: token?.value,
     },
   };
 });
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:8080/graphql',
-  fetchOptions: { cache: 'no-store' },
+  uri: "http://localhost:8080/graphql",
+  fetchOptions: { cache: "no-store" },
 });
 
 export const { getClient } = registerApolloClient(() => {
