@@ -12,7 +12,7 @@ import BottomButton from '@/components/Button/BottomButton';
 const MenuPage = () => {
   const { categories, setCategories, editMenu } = useEditMenu();
 
-  const [newCategoryName, setNewCategoryName] = useState('');
+  const [newCategoryName, setNewCategoryName] = useState(undefined);
 
   const handleChange = (categoryName: string, category: Category) => {
     const newCategories = categories.map((data) => {
@@ -27,26 +27,43 @@ const MenuPage = () => {
 
   const handleAdd = () => {
     let namePassed = true;
-    categories.forEach((category) => {
-      if (category.categoryName === newCategoryName) {
-        toast.error('Category Name Exist', {
-          className: 'font-bold text-lg',
-        });
-        namePassed = false;
-        setNewCategoryName('');
+    if (newCategoryName === undefined) {
+      toast.error('Category Name Invalid', {
+        className: 'font-bold text-lg',
+      });
+      namePassed = false;
+      setNewCategoryName(undefined);
+    } else {
+      categories.forEach((category) => {
+        if (namePassed) {
+          console.log(namePassed);
+          if (category.categoryName === newCategoryName) {
+            toast.error('Category Name Exist', {
+              className: 'font-bold text-lg',
+            });
+            namePassed = false;
+            setNewCategoryName('');
+          } else if (newCategoryName.replace(' ', '').length === 0) {
+            toast.error('Category Name Invalid', {
+              className: 'font-bold text-lg',
+            });
+            namePassed = false;
+            setNewCategoryName(undefined);
+          }
+        }
+      });
+
+      if (namePassed) {
+        setCategories([
+          ...categories,
+          {
+            categoryName: newCategoryName,
+            dishes: [{ dishName: 'dish name', price: 0 }],
+          },
+        ]);
+
+        setNewCategoryName(undefined);
       }
-    });
-
-    if (namePassed) {
-      setCategories([
-        ...categories,
-        {
-          categoryName: newCategoryName,
-          dishes: [{ dishName: 'dish name', price: 0 }],
-        },
-      ]);
-
-      setNewCategoryName('');
     }
   };
 
@@ -102,6 +119,7 @@ const MenuPage = () => {
         ))}
       </div>
 
+      <div className="w-full h-24" />
       <BottomButton onClick={editMenu}>
         <span>save changes</span>
       </BottomButton>
