@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import MenuNavigator from './components/MenuNavigator';
-import Menu from './components/Menu/Menu';
-import { useState } from 'react';
-import CheckOutModal from './components/Menu/CheckOutModal/Modal';
-import PageTitle from '@/components/PageTitle';
-import BottomButton from '@/components/Button/BottomButton';
-import { gql } from '@apollo/client';
-import { useSuspenseQuery } from '@apollo/experimental-nextjs-app-support/ssr';
-import { ShoppingCart } from '@/hooks/useShoppingCart';
-import { useRouter } from 'next/navigation';
+import PageTitle from "@/app/components/PageTitle";
+import { ShoppingCart } from "@/app/hooks/useShoppingCart";
+import { gql } from "@apollo/client";
+import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import MenuNavigator from "./components/MenuNavigator";
+import Menu from "./components/Menu/Menu";
+import BottomButton from "@/app/components/Button/BottomButton";
+import CheckOutModal from "./components/Menu/CheckOutModal/Modal";
 
 const query = gql`
   query Menu($storeAccount: String!) {
@@ -36,7 +36,7 @@ const ShopMenuPage = ({ params }: Props) => {
     },
   });
 
-  const [shoppingCart, setShoppingCart] = useState([]);
+  const [shoppingCart, setShoppingCart] = useState([] as OrderDish[]);
   const [checkOut, setCheckOut] = useState(false);
 
   const router = useRouter();
