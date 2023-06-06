@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import CommodityOrderModal from './CommodityOrderModal';
+import { useState } from "react";
+import CommodityOrderModal from "./CommodityOrderModal";
 
 type Props = {
   dish: {
