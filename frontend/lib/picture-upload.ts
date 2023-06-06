@@ -1,9 +1,9 @@
-'use server';
+"use server";
 
-import { deleteApp, initializeApp } from 'firebase/app';
-import { deleteObject, getStorage, ref, uploadString } from 'firebase/storage';
-import { toast } from 'react-hot-toast';
-import { v4 as uuid } from 'uuid';
+import { deleteApp, initializeApp } from "firebase/app";
+import { deleteObject, getStorage, ref, uploadString } from "firebase/storage";
+import { toast } from "react-hot-toast";
+import { v4 as uuid } from "uuid";
 
 const initializeFirebaseApp = () => {
   return initializeApp({
@@ -25,7 +25,7 @@ export const uploadPicture = async (picture: string): Promise<string> => {
   const storage = getStorage(app);
   const storageRef = ref(storage, uid);
 
-  await uploadString(storageRef, picture, 'data_url');
+  await uploadString(storageRef, picture, "data_url");
 
   await deleteApp(app);
   return `https://storage.googleapis.com/gocafe-tw.appspot.com/${uid}`;
@@ -34,7 +34,7 @@ export const uploadPicture = async (picture: string): Promise<string> => {
 export const uploadPictures = async (
   pictureList: string[]
 ): Promise<string[]> => {
-  const pictureUrlList = [];
+  const pictureUrlList = [] as string[];
 
   const app = initializeFirebaseApp();
   const storage = getStorage(app);
@@ -43,7 +43,7 @@ export const uploadPictures = async (
     const uid = uuid();
     const storageRef = ref(storage, uid);
 
-    await uploadString(storageRef, picture, 'data_url');
+    await uploadString(storageRef, picture, "data_url");
 
     pictureUrlList.push(
       `https://storage.googleapis.com/gocafe-tw.appspot.com/${uid}`
@@ -63,15 +63,15 @@ export const deletedPictures = async (idList: string[]) => {
     const desertRef = ref(storage, picture.substring(53));
     await deleteObject(desertRef)
       .then(() => {
-        console.log('picture deleted successfully');
-        toast.success('picture deleted', {
-          className: 'font-bold text-lg',
+        console.log("picture deleted successfully");
+        toast.success("picture deleted", {
+          className: "font-bold text-lg",
         });
       })
       .catch((err) => {
         console.log(err);
         toast.error(err.message, {
-          className: 'font-bold text-lg',
+          className: "font-bold text-lg",
         });
       });
   }
