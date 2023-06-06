@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
-import { useSuspenseQuery } from '@apollo/experimental-nextjs-app-support/ssr';
-import { useState } from 'react';
+import { gql } from "@apollo/client";
+import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
+import { useState } from "react";
 
 const SEARCH = gql`
   query Stores($query: String!) {
@@ -17,7 +17,7 @@ const SEARCH = gql`
 `;
 
 const useSearchShop = () => {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
 
   const {
     data,
