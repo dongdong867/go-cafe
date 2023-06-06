@@ -1,15 +1,12 @@
-'use client';
+"use client";
 
-//components
-import Image from 'next/image';
-
-//images
-import Link from 'next/link';
-import { gql, useMutation } from '@apollo/client';
-import { useId } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
-import { useRouter } from 'next/navigation';
-import { deletedPictures } from '@/../lib/picture-upload';
+import { deletedPictures } from "@/lib/picture-upload";
+import { gql, useMutation } from "@apollo/client";
+import { useRouter } from "next/navigation";
+import toast, { Toaster } from "react-hot-toast";
+import Image from "next/image";
+import { useId } from "react";
+import Link from "next/link";
 
 const DELETE_CUSTOMER_POST = gql`
   mutation DeleteCustomerPost(
@@ -35,11 +32,11 @@ type Props = {
 const PostModal = ({ editable = false, data, children, rates }: Props) => {
   const router = useRouter();
 
-  if (!localStorage) router.push('/login');
+  if (!localStorage) router.push("/login");
 
-  const role = localStorage.getItem('role');
+  const role = localStorage.getItem("role");
   const editHref =
-    role === 'customer'
+    role === "customer"
       ? `/post/update/${data.id}`
       : `/post/update/shopPost/${data.id}`;
 
@@ -48,7 +45,7 @@ const PostModal = ({ editable = false, data, children, rates }: Props) => {
 
   const handleDelete = async () => {
     const deletePost =
-      role === 'customer'
+      role === "customer"
         ? deleteCustomerPost({
             variables: {
               deleteCustomerPostInput: {
@@ -68,12 +65,12 @@ const PostModal = ({ editable = false, data, children, rates }: Props) => {
       .promise(
         deletePost,
         {
-          loading: 'Deleting...',
+          loading: "Deleting...",
           error: (error) => error.message,
-          success: 'Delete Successfully',
+          success: "Delete Successfully",
         },
         {
-          className: 'font-bold text-lg',
+          className: "font-bold text-lg",
         }
       )
       .then(async () => {
