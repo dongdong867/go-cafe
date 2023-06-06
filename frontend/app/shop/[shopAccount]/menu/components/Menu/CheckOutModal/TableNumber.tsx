@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import InputModal from '@/components/Input/InputModal';
+import InputModal from "@/app/components/Input/InputModal";
 
 type Props = {
   tableNumber: string;
@@ -27,7 +27,7 @@ const CheckOutTableNumber = ({
         <label className="join w-max flex space-x-4 cursor-pointer">
           <input
             type="checkbox"
-            disabled={tableNumber !== ''}
+            disabled={tableNumber !== ""}
             onChange={(e) => setTakeaway(e.target.checked)}
             className="checkbox checkbox-primary"
           />
