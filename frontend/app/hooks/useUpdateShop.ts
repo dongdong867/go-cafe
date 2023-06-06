@@ -1,6 +1,5 @@
 import { deletedPictures, uploadPicture } from "@/lib/picture-upload";
-import { gql, useMutation } from "@apollo/client";
-import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
+import { gql, useMutation, useSuspenseQuery } from "@apollo/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";

@@ -1,5 +1,4 @@
-import { gql } from "@apollo/client";
-import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
+import { gql, useSuspenseQuery } from "@apollo/client";
 import { useState } from "react";
 
 const SEARCH = gql`

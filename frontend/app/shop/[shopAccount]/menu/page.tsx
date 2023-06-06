@@ -2,8 +2,7 @@
 
 import PageTitle from "@/app/components/PageTitle";
 import { ShoppingCart } from "@/app/hooks/useShoppingCart";
-import { gql } from "@apollo/client";
-import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
+import { gql, useSuspenseQuery } from "@apollo/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import MenuNavigator from "./components/MenuNavigator";

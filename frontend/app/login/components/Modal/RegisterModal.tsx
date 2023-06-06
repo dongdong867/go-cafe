@@ -1,8 +1,7 @@
 "use client";
 
 import useRegister from "@/app/hooks/useRegister";
-import { gql } from "@apollo/client";
-import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
+import { gql, useSuspenseQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import RegisterAccountAndPassword from "../Register/AccountAndPassword";

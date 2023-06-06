@@ -1,8 +1,7 @@
 "use client";
 
 import useSearchShop from "@/app/hooks/useSearchShop";
-import { ApolloError, gql } from "@apollo/client";
-import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
+import { ApolloError, gql, useSuspenseQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { FiSearch } from "react-icons/fi";
@@ -50,12 +49,14 @@ const SearchBar = () => {
   const {
     data,
     error,
-  }: { data: { customerPostAtStore: UserPost[] }; error: ApolloError } =
-    useSuspenseQuery(query, {
-      variables: {
-        storeAccount: searchQuery,
-      },
-    });
+  }: {
+    data: { customerPostAtStore: UserPost[] };
+    error: ApolloError | undefined;
+  } = useSuspenseQuery(query, {
+    variables: {
+      storeAccount: searchQuery,
+    },
+  });
 
   if (error) {
     toast.error("No Store Found", {

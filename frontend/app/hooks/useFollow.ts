@@ -1,5 +1,4 @@
-import { gql, useMutation } from "@apollo/client";
-import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr";
+import { gql, useMutation, useSuspenseQuery } from "@apollo/client";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 

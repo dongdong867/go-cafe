@@ -1,10 +1,9 @@
-import { gql, useMutation } from '@apollo/client';
-import { useSuspenseQuery } from '@apollo/experimental-nextjs-app-support/ssr';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { useBase64 } from './useBase64';
-import { deletedPictures, uploadPicture } from '@/../lib/picture-upload';
-import { toast } from 'react-hot-toast';
+import { gql, useMutation, useSuspenseQuery } from "@apollo/client";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useBase64 } from "./useBase64";
+import { toast } from "react-hot-toast";
+import { deletedPictures, uploadPicture } from "@/lib/picture-upload";
 
 const query = gql`
   query GetPostById($postId: String!) {
@@ -74,17 +73,17 @@ const useUpdateShopPost = (postId: string) => {
           pictureList: pictureList.filter((picture) => picture !== undefined),
         },
       },
-    }).then(() => router.push('/user'));
+    }).then(() => router.push("/user"));
 
     await toast.promise(
       update,
       {
-        loading: 'Updating...',
+        loading: "Updating...",
         error: (error) => error.message,
-        success: 'Updating Successfully',
+        success: "Updating Successfully",
       },
       {
-        className: 'font-bold text-lg',
+        className: "font-bold text-lg",
       }
     );
   };
