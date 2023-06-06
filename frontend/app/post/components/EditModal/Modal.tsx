@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import InputModal from '@/components/Input/InputModal';
-import EditPicture from './Picture';
-import EditRating from './Rating';
-import { MdLocationOn } from 'react-icons/md';
-import BottomButton from '@/components/Button/BottomButton';
-import TextArea from '@/components/Input/TextArea';
-import useSearchShop from '@/hooks/useSearchShop';
+import useSearchShop from "@/app/hooks/useSearchShop";
+import EditPicture from "./Picture";
+import InputModal from "@/app/components/Input/InputModal";
+import { MdLocationOn } from "react-icons/md";
+import EditRating from "./Rating";
+import TextArea from "@/app/components/Input/TextArea";
+import BottomButton from "@/app/components/Button/BottomButton";
 
 type Props = {
   // shop account
@@ -31,7 +31,7 @@ type Props = {
 
 const EditModal = ({
   // shop name
-  shopAccount = '',
+  shopAccount = "",
   shopAccountDisabled = false,
   setShopAccount = () => {},
   // rating
@@ -43,7 +43,7 @@ const EditModal = ({
   },
   setRate,
   // post body
-  postBody = '',
+  postBody = "",
   setPostBody,
   // picture
   originPicture = [],
