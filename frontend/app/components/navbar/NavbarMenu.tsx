@@ -1,17 +1,14 @@
-//packages
-import Link from 'next/link';
-
-//icons
-import { CgMenuLeft } from 'react-icons/cg';
-import { FaConciergeBell, FaUserFriends } from 'react-icons/fa';
-import { MdOutlinePostAdd, MdInfo } from 'react-icons/md';
-import DropdownMenuModal from './DropdownMenuModal';
-import { cookies } from 'next/headers';
+import { cookies } from "next/headers";
+import Link from "next/link";
+import { CgMenuLeft } from "react-icons/cg";
+import { FaConciergeBell, FaUserFriends } from "react-icons/fa";
+import { MdInfo, MdOutlinePostAdd } from "react-icons/md";
+import DropdownMenuModal from "./DropdownMenuModal";
 
 const Menu = () => {
-  if (!cookies().has('role')) return;
+  if (!cookies().has("role")) return;
 
-  const role = cookies().get('role').value;
+  const role = cookies().get("role")!.value;
 
   const button = (
     <>
@@ -22,23 +19,23 @@ const Menu = () => {
   );
 
   const listItems =
-    role === 'customer' ? (
+    role === "customer" ? (
       <>
         <li className="menu-title px-4 pt-4">menu list</li>
         <li>
-          <Link href={'/user/following'} className="p-4 text-xl font-semibold">
+          <Link href={"/user/following"} className="p-4 text-xl font-semibold">
             <FaUserFriends />
             <div>Following list</div>
           </Link>
         </li>
         <li>
-          <Link href={'/post/create'} className="p-4 text-xl font-semibold">
+          <Link href={"/post/create"} className="p-4 text-xl font-semibold">
             <MdOutlinePostAdd />
             <div>Create Post</div>
           </Link>
         </li>
         <li>
-          <Link href={'/'} className="p-4 text-xl font-semibold">
+          <Link href={"/"} className="p-4 text-xl font-semibold">
             <MdInfo />
             <div>About Go Cafe</div>
           </Link>
@@ -49,7 +46,7 @@ const Menu = () => {
         <li className="menu-title px-4 pt-4">menu list</li>
         <li>
           <Link
-            href={'/post/create/shopPost'}
+            href={"/post/create/shopPost"}
             className="p-4 text-xl font-semibold"
           >
             <MdOutlinePostAdd />
@@ -57,13 +54,13 @@ const Menu = () => {
           </Link>
         </li>
         <li>
-          <Link href={'/order'} className="p-4 text-xl font-semibold">
+          <Link href={"/order"} className="p-4 text-xl font-semibold">
             <FaConciergeBell />
             <div>Orders</div>
           </Link>
         </li>
         <li>
-          <Link href={'/'} className="p-4 text-xl font-semibold">
+          <Link href={"/"} className="p-4 text-xl font-semibold">
             <MdInfo />
             <div>About Go Cafe</div>
           </Link>
