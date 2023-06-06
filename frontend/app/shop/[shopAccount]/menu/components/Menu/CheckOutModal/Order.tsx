@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import useShoppingCart from '@/hooks/useShoppingCart';
-import { useState } from 'react';
+import useShoppingCart from "@/app/hooks/useShoppingCart";
+import { useState } from "react";
 
 type Props = {
   order: OrderDish;
