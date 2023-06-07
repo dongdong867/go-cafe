@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useBase64 } from "./useBase64";
 import toast from "react-hot-toast";
+import { pbkdf2Sync } from "crypto";
 
 const CREATE_CUSTOMER = gql`
   mutation CreateCustomer($createCustomerInput: CreateCustomerInput!) {
@@ -47,14 +48,20 @@ const useRegister = () => {
       variables: {
         createCustomerInput: {
           account: account,
-          password: password,
+          password: pbkdf2Sync(
+            password,
+            process.env.NEXT_PUBLIC_RANDOM_KEY!,
+            10000,
+            64,
+            "sha256"
+          ).toString("hex"),
           name: name,
           phone: phone,
           avatar: avatarUrl,
           email: email,
         },
       },
-    }).then(() => router.replace("/"));
+    }).then(() => router.refresh());
 
     await toast.promise(
       create,
@@ -76,7 +83,13 @@ const useRegister = () => {
       variables: {
         createStoreInput: {
           account: account,
-          password: password,
+          password: pbkdf2Sync(
+            password,
+            process.env.NEXT_PUBLIC_RANDOM_KEY!,
+            10000,
+            64,
+            "sha256"
+          ).toString("hex"),
           name: name,
           phone: phone,
           avatar: avatarUrl,
@@ -84,7 +97,7 @@ const useRegister = () => {
           info: info,
         },
       },
-    }).then(() => router.replace("/"));
+    }).then(() => router.refresh());
 
     await toast.promise(
       create,
