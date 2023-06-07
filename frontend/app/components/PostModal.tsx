@@ -91,7 +91,7 @@ const PostModal = ({ editable = false, data, children, rates }: Props) => {
           bg-base-200 
           mb-4"
       >
-        <figure className="h-[384px] max-[450px]:h-[270px]">
+        <figure className="h-max max-h-[384px] max-[450px]:max-h-[270px]">
           <div className="carousel bg-base-100">
             {data.pictures.map((picture) => {
               return (
@@ -101,6 +101,7 @@ const PostModal = ({ editable = false, data, children, rates }: Props) => {
                     alt=""
                     width={1000}
                     height={1000}
+                    className="overflow-clip w-full aspect-auto"
                   />
                 </div>
               );
