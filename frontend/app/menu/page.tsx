@@ -73,12 +73,14 @@ const MenuPage = () => {
     <div className="w-full max-w-lg max-[450px]:w-11/12 h-full m-auto space-y-4">
       <PageTitle title="Edit Menu" />
       <div>
-        <label htmlFor="createCategory">
-          <div className="w-full flex justify-end">
+        <div className="w-full flex justify-end">
+          <label htmlFor="createCategory">
             <div className="btn btn-primary btn-wide text-white text-xl">
               create category
             </div>
-          </div>
+          </label>
+        </div>
+        <label htmlFor="createCategory" className="w-max">
           <input type="checkbox" id="createCategory" className="modal-toggle" />
           <div className="modal modal-middle max-[450px]:modal-bottom">
             <div className="modal-box">
