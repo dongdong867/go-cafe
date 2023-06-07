@@ -11,7 +11,7 @@ model User {
   id        String    @id @default(uuid()) @db.VarChar(36)
   account   String    @unique @db.VarChar(30)
   password  String    @db.Char(128)
-  salt      String    @db.Char(32)
+  salt      String    @db.Char(64)
   name      String    @db.VarChar(30)
   phone     String    @unique @db.Char(10)
   avatarId  String    @unique @map("avatar_id") @db.VarChar(36)
