@@ -33,6 +33,7 @@ const UserPostModal = ({ customerPost, editable = false }: Props) => {
     <>
       <PostModal
         editable={editable}
+        role="customer"
         data={{
           id: customerPost.id,
           body: customerPost.post.body,
