@@ -24,17 +24,21 @@ const DELETE_SHOP_POST = gql`
 
 type Props = {
   editable?: boolean;
+  role: "customer" | "shop";
   data: PostModalData;
   children: React.ReactNode;
   rates: React.ReactNode;
 };
 
-const PostModal = ({ editable = false, data, children, rates }: Props) => {
+const PostModal = ({
+  editable = false,
+  role,
+  data,
+  children,
+  rates,
+}: Props) => {
   const router = useRouter();
 
-  if (!localStorage) router.push("/login");
-
-  const role = localStorage.getItem("role");
   const editHref =
     role === "customer"
       ? `/post/update/${data.id}`
