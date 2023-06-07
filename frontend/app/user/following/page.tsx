@@ -1,5 +1,3 @@
-"use client";
-
 import PageTitle from "@/app/components/PageTitle";
 import { getClient } from "@/lib/client";
 import { gql } from "@apollo/client";
