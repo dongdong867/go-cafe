@@ -89,7 +89,7 @@ const EditModal = ({
                 return (
                   <li key={store.user.account}>
                     <button
-                      className="text-left flex justify-between items-center gap-y-0 py-2 min-[450px]:py-0 max-[450px]:flex-col"
+                      className="text-left text-base h-12 max-[450px]:h-16 flex justify-between items-center gap-y-0 py-2 min-[450px]:py-0 max-[450px]:flex-col"
                       onClick={() => {
                         setQuery(store.user.account);
                         setShopAccount(store.user.account);
