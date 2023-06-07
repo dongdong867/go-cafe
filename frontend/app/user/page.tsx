@@ -59,7 +59,7 @@ const customerQuery = gql`
           picture {
             data
           }
-        }[]
+        }
       }
       rating {
         general
@@ -79,7 +79,7 @@ const customerQuery = gql`
           name
         }
       }
-    }[]
+    }
   }
 `;
 
@@ -136,7 +136,7 @@ const shopQuery = gql`
 `;
 
 const UserPage = async () => {
-  const role = cookies().get("role")!.value;
+  const role = cookies().get("role")?.value;
 
   const client = getClient();
   const { data } =

@@ -10,6 +10,7 @@ const ShopPostModal = ({ editable = false, post }: Props) => {
     <>
       <PostModal
         editable={editable}
+        role="shop"
         data={{
           id: post.id,
           body: post.post.body,

@@ -2,6 +2,7 @@ import { gql, useMutation } from "@apollo/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { pbkdf2Sync } from "crypto";
 
 const LOGIN_IN = gql`
   mutation Login($loginInput: LoginInput!) {
@@ -22,14 +23,17 @@ const useLogin = () => {
   const [login, { reset }] = useMutation(LOGIN_IN);
 
   const handleLogin = async () => {
-    document.cookie = "";
-    localStorage.clear();
-
     const loginPromise = login({
       variables: {
         loginInput: {
           account: account,
-          password: password,
+          password: pbkdf2Sync(
+            password,
+            process.env.NEXT_PUBLIC_RANDOM_KEY!,
+            10000,
+            64,
+            "sha256"
+          ).toString("hex"),
         },
       },
     }).then((res: any) => {
@@ -53,7 +57,7 @@ const useLogin = () => {
           className: "font-bold text-lg",
         }
       )
-      .catch((err) => reset());
+      .catch(() => reset());
   };
 
   return { account, setAccount, setPassword, handleLogin };

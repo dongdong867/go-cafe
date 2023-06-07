@@ -10,11 +10,11 @@ type Props = {
 const UserShopProfile = ({ data }: Props) => {
   return (
     <>
-      <div className="flex justify-around place-items-center pt-4">
+      <div className="flex justify-around place-items-center pt-4 space-x-8">
         <UserAvatar src={data.user.avatar.data} />
 
-        <div>
-          <div className="text-4xl max-[450px]:text-3xl font-bold">
+        <div className="w-2/3 flex flex-col justify-center">
+          <div className="text-3xl max-[450px]:text-2xl font-bold">
             {data.user.name}
           </div>
           <div className="text-xl max-[450px]:text-lg font-semibold">

@@ -7,7 +7,7 @@ import Avatar from "./Avatar";
 import { redirect } from "next/navigation";
 
 const Navbar = () => {
-  if (!cookies().has("role")) redirect("/login");
+  if (!cookies().has("role")) return;
   const href = cookies().get("role")!.value === "customer" ? "/" : "/user";
   return (
     <>

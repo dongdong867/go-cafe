@@ -24,17 +24,21 @@ const DELETE_SHOP_POST = gql`
 
 type Props = {
   editable?: boolean;
+  role: "customer" | "shop";
   data: PostModalData;
   children: React.ReactNode;
   rates: React.ReactNode;
 };
 
-const PostModal = ({ editable = false, data, children, rates }: Props) => {
+const PostModal = ({
+  editable = false,
+  role,
+  data,
+  children,
+  rates,
+}: Props) => {
   const router = useRouter();
 
-  if (!localStorage) router.push("/login");
-
-  const role = localStorage.getItem("role");
   const editHref =
     role === "customer"
       ? `/post/update/${data.id}`
@@ -87,12 +91,11 @@ const PostModal = ({ editable = false, data, children, rates }: Props) => {
           card 
           w-full h-max
           max-w-lg max-[450px]:max-w-[360px] 
-          border-2 
-          bg-base-200 
+          border-2 border-base-300
           mb-4"
       >
-        <figure className="h-[384px] max-[450px]:h-[270px]">
-          <div className="carousel bg-base-100">
+        <figure className="h-max max-h-[384px] max-[450px]:max-h-[270px]">
+          <div className="carousel">
             {data.pictures.map((picture) => {
               return (
                 <div className="carousel-item w-full" key={useId()}>
@@ -101,6 +104,7 @@ const PostModal = ({ editable = false, data, children, rates }: Props) => {
                     alt=""
                     width={1000}
                     height={1000}
+                    className="overflow-clip w-full aspect-auto"
                   />
                 </div>
               );

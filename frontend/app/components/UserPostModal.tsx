@@ -33,6 +33,7 @@ const UserPostModal = ({ customerPost, editable = false }: Props) => {
     <>
       <PostModal
         editable={editable}
+        role="customer"
         data={{
           id: customerPost.id,
           body: customerPost.post.body,
@@ -40,7 +41,7 @@ const UserPostModal = ({ customerPost, editable = false }: Props) => {
         }}
         rates={rates}
       >
-        <div className="collapse-title">
+        <div className="collapse-title px-4">
           {/* stars */}
           <div className="flex items-center gap-x-1 text-base">
             <FaStar className="text-accent" />
@@ -51,7 +52,7 @@ const UserPostModal = ({ customerPost, editable = false }: Props) => {
 
           {/* post title */}
           <div className="card-title text-xl font-bold max-[450px]:flex-col place-items-start gap-y-0">
-            {customerPost.customer.user.name}
+            <div className="w-max">{customerPost.customer.user.name}</div>
             <Link
               href={`/shop/${customerPost.store.user.account}`}
               className="z-10 link link-primary"
