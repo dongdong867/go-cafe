@@ -15,7 +15,7 @@ const LoginPage = () => {
 
   return (
     <>
-      <div className="w-full h-[calc(100vh-64px)]">
+      <div className="w-full h-[calc(100vh-64px)] max-[450px]:h-screen">
         {signin ? (
           <LoginModal setSignin={setSignin} />
         ) : (
