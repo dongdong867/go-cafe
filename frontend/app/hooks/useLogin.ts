@@ -43,6 +43,7 @@ const useLogin = () => {
       localStorage.setItem("token", res.data.login.token);
       localStorage.setItem("role", res.data.login.role);
       router.push("/");
+      setInterval(() => router.refresh(), 500);
     });
 
     await toast
