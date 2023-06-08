@@ -56,7 +56,7 @@ const RegisterAccountAndPassword = ({
             </label>
           </div>
           <div className="flex gap-x-2 mt-1 text-base">
-            <div>Don't have a account?</div>
+            <div>Already have a account?</div>
             <button
               onClick={() => setSignin(true)}
               className="link link-primary underline-offset-4"
