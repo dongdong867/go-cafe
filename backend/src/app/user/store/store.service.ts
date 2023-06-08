@@ -6,6 +6,7 @@ import { UpdateStoreInput } from './dto/input/update-store.input';
 import { Store } from './models/store.entity';
 import { PrismaService } from '../../prisma/prisma.service';
 import { StoreSelect } from './dto/select/store.select';
+import { pbkdf2Sync, randomBytes } from 'crypto';
 
 @Injectable()
 export class StoreService {
@@ -69,12 +70,22 @@ export class StoreService {
   }
 
   async createStore(createStoreInput: CreateStoreInput): Promise<string> {
+    const salt = randomBytes(32).toString('hex');
+    const saltedPassword = pbkdf2Sync(
+      createStoreInput.password,
+      salt,
+      10000,
+      64,
+      'sha256',
+    ).toString('hex');
+
     await this.prisma.store.create({
       data: {
         user: {
           create: {
             account: createStoreInput.account,
-            password: createStoreInput.password,
+            password: saltedPassword,
+            salt: salt,
             name: createStoreInput.name,
             phone: createStoreInput.phone,
             avatar: {
@@ -101,7 +112,7 @@ export class StoreService {
 
   async updateStore(
     currentId: string,
-    updateStoreInput: UpdateStoreInput
+    updateStoreInput: UpdateStoreInput,
   ): Promise<string> {
     await this.prisma.store.update({
       where: {

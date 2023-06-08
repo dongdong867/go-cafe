@@ -3,6 +3,7 @@ import { Customer } from './models/customer.entity';
 import { CreateCustomerInput } from './dto/inputs/create-customer.input';
 import { UpdateCustomerInput } from './dto/inputs/update-customer.input';
 import { PrismaService } from '../../prisma/prisma.service';
+import { randomBytes, pbkdf2Sync } from 'crypto';
 
 @Injectable()
 export class CustomerService {
@@ -36,15 +37,26 @@ export class CustomerService {
   }
 
   async createCustomer(
-    createCustomerInput: CreateCustomerInput
+    createCustomerInput: CreateCustomerInput,
   ): Promise<string> {
+    const salt = randomBytes(32).toString('hex');
+    const saltedPassword = pbkdf2Sync(
+      createCustomerInput.password,
+      salt,
+      10000,
+      64,
+      'sha256',
+    ).toString('hex');
+    console.log(saltedPassword);
+
     await this.prisma.customer
       .create({
         data: {
           user: {
             create: {
               account: createCustomerInput.account,
-              password: createCustomerInput.password,
+              password: saltedPassword,
+              salt: salt,
               name: createCustomerInput.name,
               phone: createCustomerInput.phone,
               avatar: {
@@ -60,7 +72,7 @@ export class CustomerService {
       .catch((err) => {
         throw new InternalServerErrorException(
           err,
-          'failed on creating customer account'
+          'failed on creating customer account',
         );
       });
 
@@ -69,7 +81,7 @@ export class CustomerService {
 
   async updateCustomer(
     currentId: string,
-    updateCustomerInput: UpdateCustomerInput
+    updateCustomerInput: UpdateCustomerInput,
   ): Promise<string> {
     await this.prisma.customer
       .update({
@@ -94,7 +106,7 @@ export class CustomerService {
       .catch((err) => {
         throw new InternalServerErrorException(
           err,
-          'failed on updating customer account'
+          'failed on updating customer account',
         );
       });
 

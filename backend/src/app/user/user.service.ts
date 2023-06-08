@@ -5,6 +5,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { ForbiddenError } from '@nestjs/apollo';
 import { Token } from './models/token.entity';
 import { AccountTestInput } from './dto/args/account-test.args';
+import { pbkdf2Sync } from 'crypto';
 
 type PayloadType = {
   id: string;
@@ -17,11 +18,11 @@ type PayloadType = {
 export class UserService {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly prisma: PrismaService
+    private readonly prisma: PrismaService,
   ) {}
 
   async isAccountAvailable(
-    accountTestInput: AccountTestInput
+    accountTestInput: AccountTestInput,
   ): Promise<boolean> {
     let available = false;
     await this.prisma.user
@@ -37,18 +38,19 @@ export class UserService {
   }
 
   async login(loginInput: LoginInput): Promise<Token> {
-    let role = '';
+    let role = 'customer';
     let data = await this.prisma.customer.findFirst({
       where: {
         user: {
           account: loginInput.account,
-          password: loginInput.password,
         },
       },
       select: {
         id: true,
         user: {
           select: {
+            password: true,
+            salt: true,
             avatar: {
               select: {
                 data: true,
@@ -60,18 +62,19 @@ export class UserService {
     });
 
     if (data === null) {
-      data = await this.prisma.store
+      await this.prisma.store
         .findFirstOrThrow({
           where: {
             user: {
               account: loginInput.account,
-              password: loginInput.password,
             },
           },
           select: {
             id: true,
             user: {
               select: {
+                password: true,
+                salt: true,
                 avatar: {
                   select: {
                     data: true,
@@ -81,20 +84,33 @@ export class UserService {
             },
           },
         })
+        .then((res) => {
+          data = res;
+          role = 'store';
+        })
         .catch(() => {
-          throw new ForbiddenError('login failed');
+          throw new ForbiddenError('Login Failed');
         });
-      role = 'store';
-    } else {
-      role = 'customer';
     }
 
-    const token = this.jwtService.sign({
-      id: data.id,
-      role: role,
-    });
+    const saltedPassword = pbkdf2Sync(
+      loginInput.password,
+      data.user.salt,
+      10000,
+      64,
+      'sha256',
+    ).toString('hex');
 
-    return { token, role, avatar: data.user.avatar.data };
+    if (saltedPassword === data.user.password) {
+      const token = this.jwtService.sign({
+        id: data.id,
+        role: role,
+      });
+
+      return { token, role, avatar: data.user.avatar.data };
+    } else {
+      throw new ForbiddenError('Login Failed');
+    }
   }
 
   validateToken(token: string): {
