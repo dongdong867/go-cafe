@@ -10,7 +10,11 @@ import { ApolloWrapper } from "../lib/apollo-provider";
 
 export const metadata = {
   title: "Go Cafe",
-  description: "",
+  description: "Go an find your dream caf\u00e9!",
+  manifest: "/manifest.json",
+  icons: {
+    apple: "https://storage.googleapis.com/gocafe-tw.appspot.com/icon-x512.png",
+  },
 };
 
 const montserrat = Montserrat({
