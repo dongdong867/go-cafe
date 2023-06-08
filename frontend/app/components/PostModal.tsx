@@ -5,7 +5,7 @@ import { gql, useMutation } from "@apollo/client";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 import Image from "next/image";
-import { useId } from "react";
+import { v4 } from "uuid";
 import Link from "next/link";
 
 const DELETE_CUSTOMER_POST = gql`
@@ -98,7 +98,7 @@ const PostModal = ({
           <div className="carousel">
             {data.pictures.map((picture) => {
               return (
-                <div className="carousel-item w-full" key={useId()}>
+                <div className="carousel-item w-full" key={v4()}>
                   <Image
                     src={picture.picture.data}
                     alt=""
