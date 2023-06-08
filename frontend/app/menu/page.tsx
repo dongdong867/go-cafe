@@ -35,7 +35,6 @@ const MenuPage = () => {
     } else {
       categories.forEach((category) => {
         if (namePassed) {
-          console.log(namePassed);
           if (category.categoryName === newCategoryName) {
             toast.error("Category Name Exist", {
               className: "font-bold text-lg",

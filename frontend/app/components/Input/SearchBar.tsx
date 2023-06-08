@@ -64,10 +64,6 @@ const SearchBar = () => {
     });
   }
 
-  useEffect(() => {
-    console.log(searchQuery);
-  }, [searchQuery]);
-
   return (
     <>
       <div className="form-control w-full px-4 py-2 max-[450px]:max-w-[360px] max-[450px]:px-0">

@@ -62,8 +62,6 @@ const useUpdateShopPost = (postId: string) => {
       })
     );
 
-    console.log(pictureList);
-
     const update = updateStorePost({
       variables: {
         updateStorePostInput: {
