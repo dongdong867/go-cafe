@@ -1,9 +1,9 @@
 import { gql, useMutation, useSuspenseQuery } from "@apollo/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useBase64 } from "./useBase64";
 import { toast } from "react-hot-toast";
 import { deletedPictures, uploadPicture } from "@/lib/picture-upload";
+import { getBase64 } from "@/lib/getBase64";
 
 const query = gql`
   query GetPostById($postId: String!) {
@@ -57,7 +57,7 @@ const useUpdateShopPost = (postId: string) => {
 
     await Promise.all(
       addedPicture.map(async (picture) => {
-        const base64 = await useBase64(picture);
+        const base64 = await getBase64(picture);
         pictureList.push(await uploadPicture(base64));
       })
     );

@@ -1,9 +1,9 @@
 import { uploadPicture } from "@/lib/picture-upload";
 import { gql, useMutation } from "@apollo/client";
 import { useState } from "react";
-import { useBase64 } from "./useBase64";
 import toast from "react-hot-toast";
 import { pbkdf2Sync } from "crypto";
+import { getBase64 } from "@/lib/getBase64";
 
 const CREATE_CUSTOMER = gql`
   mutation CreateCustomer($createCustomerInput: CreateCustomerInput!) {
@@ -39,7 +39,7 @@ const useRegister = () => {
   // handle register
 
   const registerCustomer = async () => {
-    const avatarUrl = await uploadPicture(await useBase64(avatar));
+    const avatarUrl = await uploadPicture(await getBase64(avatar));
 
     const create = createCustomer({
       variables: {
@@ -76,7 +76,7 @@ const useRegister = () => {
   };
 
   const registerShop = async () => {
-    const avatarUrl = await uploadPicture(await useBase64(avatar));
+    const avatarUrl = await uploadPicture(await getBase64(avatar));
 
     const create = createStore({
       variables: {

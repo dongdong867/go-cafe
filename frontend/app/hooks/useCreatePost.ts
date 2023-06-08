@@ -2,9 +2,9 @@ import { gql, useMutation } from "@apollo/client";
 import { useState } from "react";
 import useRating from "./useRating";
 import { useRouter } from "next/navigation";
-import { useBase64 } from "./useBase64";
 import { uploadPicture } from "@/lib/picture-upload";
 import toast from "react-hot-toast";
+import { getBase64 } from "@/lib/getBase64";
 
 const CREATE_POST = gql`
   mutation CreateCustomerPost(
@@ -28,7 +28,7 @@ const useCreatePost = () => {
   const createPost = async () => {
     const urlList = await Promise.all(
       pictureList.map(async (picture) => {
-        const base64 = await useBase64(picture);
+        const base64 = await getBase64(picture);
         return await uploadPicture(base64);
       })
     );
