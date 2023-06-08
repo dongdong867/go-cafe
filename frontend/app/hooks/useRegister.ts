@@ -1,6 +1,5 @@
 import { uploadPicture } from "@/lib/picture-upload";
 import { gql, useMutation } from "@apollo/client";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useBase64 } from "./useBase64";
 import toast from "react-hot-toast";
@@ -33,8 +32,6 @@ const useRegister = () => {
   const [address, setAddress] = useState("");
   const [info, setInfo] = useState("");
 
-  const router = useRouter();
-
   // mutation
   const [createCustomer] = useMutation(CREATE_CUSTOMER);
   const [createStore] = useMutation(CREATE_SHOP);
@@ -61,19 +58,21 @@ const useRegister = () => {
           email: email,
         },
       },
-    }).then(() => router.refresh());
+    });
 
-    await toast.promise(
-      create,
-      {
-        loading: "Creating...",
-        success: "Account Created \n Please Login Again",
-        error: (error) => error.message,
-      },
-      {
-        className: "font-bold text-lg",
-      }
-    );
+    await toast
+      .promise(
+        create,
+        {
+          loading: "Creating...",
+          success: "Account Created \n Please Login Again",
+          error: (error) => error.message,
+        },
+        {
+          className: "font-bold text-lg",
+        }
+      )
+      .then(() => location.reload());
   };
 
   const registerShop = async () => {
@@ -97,19 +96,21 @@ const useRegister = () => {
           info: info,
         },
       },
-    }).then(() => router.refresh());
+    });
 
-    await toast.promise(
-      create,
-      {
-        loading: "Creating...",
-        success: "Account Created \n Please Login Again",
-        error: (error) => error.message,
-      },
-      {
-        className: "font-bold text-lg",
-      }
-    );
+    await toast
+      .promise(
+        create,
+        {
+          loading: "Creating...",
+          success: "Account Created \n Please Login Again",
+          error: (error) => error.message,
+        },
+        {
+          className: "font-bold text-lg",
+        }
+      )
+      .then(() => location.reload());
   };
 
   return {
