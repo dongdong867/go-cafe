@@ -33,7 +33,7 @@ const LoginModal = ({ setSignin }: Props) => {
             setValue={setPassword}
           />
           <div className="flex gap-x-2 mt-4 text-base">
-            <div>Don't have a account?</div>
+            <div>Don&#39;t have a account?</div>
             <button
               onClick={() => setSignin(false)}
               className="link link-primary underline-offset-4"
