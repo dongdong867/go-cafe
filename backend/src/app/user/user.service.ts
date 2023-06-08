@@ -91,7 +91,6 @@ export class UserService {
         .catch(() => {
           throw new ForbiddenError('Login Failed');
         });
-      console.log(data);
     }
 
     const saltedPassword = pbkdf2Sync(
@@ -101,9 +100,6 @@ export class UserService {
       64,
       'sha256',
     ).toString('hex');
-
-    console.log('salted password: ' + saltedPassword);
-    console.log(data.user.password);
 
     if (saltedPassword === data.user.password) {
       const token = this.jwtService.sign({
