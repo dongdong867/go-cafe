@@ -32,7 +32,13 @@ const Avatar = () => {
         <li>
           <Link
             href={"/user"}
-            className="p-4 text-xl font-semibold active:bg-primary active:text-white max-[450px]:p-2 max-[450px]:text-base"
+            className="
+              p-4 
+              text-xl font-semibold 
+              active:bg-primary 
+              active:text-white 
+              max-[450px]:p-2 
+              max-[450px]:text-base"
           >
             <BsPersonCircle />
             <div>profile</div>
@@ -41,7 +47,13 @@ const Avatar = () => {
         <li>
           <Link
             href={"/user/edit"}
-            className="p-4 text-xl font-semibold active:bg-primary active:text-white max-[450px]:p-2 max-[450px]:text-base"
+            className="
+              p-4 
+              text-xl font-semibold 
+              active:bg-primary 
+              active:text-white 
+              max-[450px]:p-2 
+              max-[450px]:text-base"
           >
             <FaUserEdit />
             <div>Edit Profile</div>
@@ -50,7 +62,14 @@ const Avatar = () => {
         <li>
           <Link
             href={"/login"}
-            className="p-4 text-xl text-error font-semibold active:bg-error active:text-white max-[450px]:p-2 max-[450px]:text-base"
+            className="
+              p-4 
+              text-xl text-error 
+              font-semibold 
+              active:bg-error 
+              active:text-white 
+              max-[450px]:p-2 
+              max-[450px]:text-base"
           >
             <MdLogout />
             <div>Logout</div>
@@ -65,7 +84,13 @@ const Avatar = () => {
         <li>
           <Link
             href={"/user"}
-            className="p-4 text-xl font-semibold active:bg-primary active:text-white max-[450px]:p-2 max-[450px]:text-base"
+            className="
+              p-4 
+              text-xl font-semibold 
+              active:bg-primary 
+              active:text-white 
+              max-[450px]:p-2 
+              max-[450px]:text-base"
           >
             <BsPersonCircle />
             <div>profile</div>
@@ -74,7 +99,13 @@ const Avatar = () => {
         <li>
           <Link
             href={"/menu"}
-            className="p-4 text-xl font-semibold active:bg-primary active:text-white max-[450px]:p-2 max-[450px]:text-base"
+            className="
+              p-4 
+              text-xl font-semibold 
+              active:bg-primary 
+              active:text-white 
+              max-[450px]:p-2 
+              max-[450px]:text-base"
           >
             <MdMenuBook />
             <div>Edit Menu</div>
@@ -83,7 +114,13 @@ const Avatar = () => {
         <li>
           <Link
             href={"/user/edit/shop"}
-            className="p-4 text-xl font-semibold active:bg-primary active:text-white max-[450px]:p-2 max-[450px]:text-base"
+            className="
+              p-4 
+              text-xl font-semibold 
+              active:bg-primary 
+              active:text-white
+              max-[450px]:p-2 
+              max-[450px]:text-base"
           >
             <FaUserEdit />
             <div>Edit Profile</div>
@@ -92,7 +129,14 @@ const Avatar = () => {
         <li>
           <Link
             href={"/login"}
-            className="p-4 text-xl text-error font-semibold active:bg-error active:text-white max-[450px]:p-2 max-[450px]:text-base"
+            className="
+              p-4 
+              text-xl text-error 
+              font-semibold 
+              active:bg-error 
+              active:text-white 
+              max-[450px]:p-2 
+              max-[450px]:text-base"
           >
             <MdLogout />
             <div>Logout</div>
