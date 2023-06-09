@@ -74,7 +74,7 @@ const Avatar = () => {
         <li>
           <Link
             href={"/menu"}
-            className="p-4 text-xl font-semibold active:bg-primary active:bg-primary active:text-white max-[450px]:p-2 max-[450px]:text-base"
+            className="p-4 text-xl font-semibold active:bg-primary active:text-white max-[450px]:p-2 max-[450px]:text-base"
           >
             <MdMenuBook />
             <div>Edit Menu</div>
