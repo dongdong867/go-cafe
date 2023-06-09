@@ -26,15 +26,23 @@ const Avatar = () => {
   const listItems =
     role === "customer" ? (
       <>
-        <li className="menu-title text-right px-4 pt-4">user settings</li>
+        <li className="min-[450px]:menu-title text-neutral-400 font-bold p-2 text-right">
+          user settings
+        </li>
         <li>
-          <Link href={"/user"} className="p-4 text-xl font-semibold">
+          <Link
+            href={"/user"}
+            className="p-4 text-xl font-semibold active:bg-primary active:text-white max-[450px]:p-2 max-[450px]:text-base"
+          >
             <BsPersonCircle />
             <div>profile</div>
           </Link>
         </li>
         <li>
-          <Link href={"/user/edit"} className="p-4 text-xl font-semibold">
+          <Link
+            href={"/user/edit"}
+            className="p-4 text-xl font-semibold active:bg-primary active:text-white max-[450px]:p-2 max-[450px]:text-base"
+          >
             <FaUserEdit />
             <div>Edit Profile</div>
           </Link>
@@ -42,7 +50,7 @@ const Avatar = () => {
         <li>
           <Link
             href={"/login"}
-            className="p-4 text-xl text-error font-semibold"
+            className="p-4 text-xl text-error font-semibold active:bg-error active:text-white max-[450px]:p-2 max-[450px]:text-base"
           >
             <MdLogout />
             <div>Logout</div>
@@ -51,21 +59,32 @@ const Avatar = () => {
       </>
     ) : (
       <>
-        <li className="menu-title text-right px-4 pt-4">user settings</li>
+        <li className="min-[450px]:menu-title text-neutral-400 font-bold p-2 text-right">
+          user settings
+        </li>
         <li>
-          <Link href={"/user"} className="p-4 text-xl font-semibold">
+          <Link
+            href={"/user"}
+            className="p-4 text-xl font-semibold active:bg-primary active:text-white max-[450px]:p-2 max-[450px]:text-base"
+          >
             <BsPersonCircle />
             <div>profile</div>
           </Link>
         </li>
         <li>
-          <Link href={"/menu"} className="p-4 text-xl font-semibold">
+          <Link
+            href={"/menu"}
+            className="p-4 text-xl font-semibold active:bg-primary active:bg-primary active:text-white max-[450px]:p-2 max-[450px]:text-base"
+          >
             <MdMenuBook />
             <div>Edit Menu</div>
           </Link>
         </li>
         <li>
-          <Link href={"/user/edit/shop"} className="p-4 text-xl font-semibold">
+          <Link
+            href={"/user/edit/shop"}
+            className="p-4 text-xl font-semibold active:bg-primary active:text-white max-[450px]:p-2 max-[450px]:text-base"
+          >
             <FaUserEdit />
             <div>Edit Profile</div>
           </Link>
@@ -73,7 +92,7 @@ const Avatar = () => {
         <li>
           <Link
             href={"/login"}
-            className="p-4 text-xl text-error font-semibold"
+            className="p-4 text-xl text-error font-semibold active:bg-error active:text-white max-[450px]:p-2 max-[450px]:text-base"
           >
             <MdLogout />
             <div>Logout</div>
