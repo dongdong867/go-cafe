@@ -15,7 +15,7 @@ const LoginPage = () => {
       document.cookie = cookie + "=; expires=" + new Date(0).toUTCString();
     }
     router.refresh();
-  }, []);
+  }, [router]);
 
   const [signin, setSignin] = useState(true);
 
