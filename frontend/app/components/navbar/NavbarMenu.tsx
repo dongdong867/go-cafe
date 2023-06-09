@@ -21,21 +21,50 @@ const Menu = () => {
   const listItems =
     role === "customer" ? (
       <>
-        <li className="menu-title px-4 pt-4">menu list</li>
+        <li className="min-[450px]:menu-title text-neutral-400 font-bold p-2">
+          menu list
+        </li>
         <li>
-          <Link href={"/user/following"} className="p-4 text-xl font-semibold">
+          <Link
+            href={"/user/following"}
+            className="
+              p-4 
+              text-xl font-semibold 
+              active:bg-primary 
+              active:text-white 
+              max-[450px]:p-2 
+              max-[450px]:text-base"
+          >
             <FaUserFriends />
             <div>Following list</div>
           </Link>
         </li>
         <li>
-          <Link href={"/post/create"} className="p-4 text-xl font-semibold">
+          <Link
+            href={"/post/create"}
+            className="
+              p-4 
+              text-xl font-semibold 
+              active:bg-primary 
+              active:text-white 
+              max-[450px]:p-2 
+              max-[450px]:text-base"
+          >
             <MdOutlinePostAdd />
             <div>Create Post</div>
           </Link>
         </li>
         <li>
-          <Link href={"/"} className="p-4 text-xl font-semibold">
+          <Link
+            href={"/"}
+            className="
+              p-4 
+              text-xl font-semibold 
+              active:bg-primary 
+              active:text-white 
+              max-[450px]:p-2 
+              max-[450px]:text-base"
+          >
             <MdInfo />
             <div>About Go Cafe</div>
           </Link>
@@ -43,24 +72,50 @@ const Menu = () => {
       </>
     ) : (
       <>
-        <li className="menu-title px-4 pt-4">menu list</li>
+        <li className="min-[450px]:menu-title text-neutral-400 font-bold p-2">
+          menu list
+        </li>
         <li>
           <Link
             href={"/post/create/shopPost"}
-            className="p-4 text-xl font-semibold"
+            className="
+              p-4 
+              text-xl font-semibold 
+              active:bg-primary 
+              active:text-white 
+              max-[450px]:p-2 
+              max-[450px]:text-base"
           >
             <MdOutlinePostAdd />
             <div>Create Post</div>
           </Link>
         </li>
         <li>
-          <Link href={"/order"} className="p-4 text-xl font-semibold">
+          <Link
+            href={"/order"}
+            className="
+              p-4 
+              text-xl font-semibold 
+              active:bg-primary 
+              active:text-white 
+              max-[450px]:p-2 
+              max-[450px]:text-base"
+          >
             <FaConciergeBell />
             <div>Orders</div>
           </Link>
         </li>
         <li>
-          <Link href={"/"} className="p-4 text-xl font-semibold">
+          <Link
+            href={"/"}
+            className="
+              p-4 
+              text-xl font-semibold 
+              active:bg-primary 
+              active:text-white 
+              max-[450px]:p-2 
+              max-[450px]:text-base"
+          >
             <MdInfo />
             <div>About Go Cafe</div>
           </Link>
