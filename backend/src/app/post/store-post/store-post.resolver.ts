@@ -24,17 +24,17 @@ export class StorePostResolver {
   @Query(() => StorePost, { name: 'storePostById' })
   async getPostById(
     @CurrentId() currentId: string,
-    @Args() getStorePostByIdArgs: GetStorePostByIdArgs
+    @Args() getStorePostByIdArgs: GetStorePostByIdArgs,
   ): Promise<StorePost> {
     return await this.storePostService.getPostById(
       currentId,
-      getStorePostByIdArgs
+      getStorePostByIdArgs,
     );
   }
 
   @Query(() => [StorePost], { name: 'storePost', nullable: 'items' })
   async getPosts(
-    @Args() getStorePostArgs: GetStorePostArgs
+    @Args() getStorePostArgs: GetStorePostArgs,
   ): Promise<StorePost[]> {
     return await this.storePostService.getPosts(getStorePostArgs);
   }
@@ -43,11 +43,11 @@ export class StorePostResolver {
   @Mutation(() => String)
   async createStorePost(
     @CurrentId() currentId: string,
-    @Args('createStorePostInput') createStorePostInput: CreateStorePostInput
+    @Args('createStorePostInput') createStorePostInput: CreateStorePostInput,
   ): Promise<string> {
     return await this.storePostService.createStorePost(
       currentId,
-      createStorePostInput
+      createStorePostInput,
     );
   }
 
@@ -55,11 +55,11 @@ export class StorePostResolver {
   @Mutation(() => String)
   async updateStorePost(
     @CurrentId() currentId: string,
-    @Args('updateStorePostInput') updateStorePostInput: UpdateStorePostInput
+    @Args('updateStorePostInput') updateStorePostInput: UpdateStorePostInput,
   ): Promise<string> {
     return this.storePostService.updateStorePost(
       currentId,
-      updateStorePostInput
+      updateStorePostInput,
     );
   }
 
@@ -67,11 +67,11 @@ export class StorePostResolver {
   @Mutation(() => String)
   async deleteStorePost(
     @CurrentId() currentId: string,
-    @Args('deleteStorePostInput') deleteStorePostInput: DeleteStorePostInput
+    @Args('deleteStorePostInput') deleteStorePostInput: DeleteStorePostInput,
   ): Promise<string> {
     return this.storePostService.deleteStorePost(
       currentId,
-      deleteStorePostInput
+      deleteStorePostInput,
     );
   }
 }

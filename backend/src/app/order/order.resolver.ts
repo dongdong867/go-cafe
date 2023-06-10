@@ -29,7 +29,7 @@ export class OrderResolver {
   @Mutation(() => String)
   async createOrder(
     @CurrentId() currentId: string,
-    @Args('createOrderInput') createOrderInput: CreateOrderInput
+    @Args('createOrderInput') createOrderInput: CreateOrderInput,
   ): Promise<string> {
     return await this.orderService.createOrder(currentId, createOrderInput);
   }
@@ -38,7 +38,7 @@ export class OrderResolver {
   @Mutation(() => String)
   async finishOrder(
     @CurrentId() currentId: string,
-    @Args('finishOrderInput') finishOrderInput: FinishOrderInput
+    @Args('finishOrderInput') finishOrderInput: FinishOrderInput,
   ): Promise<string> {
     return await this.orderService.finishOrder(currentId, finishOrderInput);
   }

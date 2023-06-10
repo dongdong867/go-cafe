@@ -19,11 +19,11 @@ export class CustomerPostResolver {
   @Query(() => CustomerPost, { name: 'customerPost' })
   async getPost(
     @CurrentId() currentId: string,
-    @Args() getCustomerPostArgs: GetCustomerPostArgs
+    @Args() getCustomerPostArgs: GetCustomerPostArgs,
   ): Promise<CustomerPost> {
     return await this.customerPostService.getPost(
       currentId,
-      getCustomerPostArgs
+      getCustomerPostArgs,
     );
   }
 
@@ -43,11 +43,11 @@ export class CustomerPostResolver {
   })
   async getPostByStoreAccount(
     @CurrentId() currentId: string,
-    @Args() getCustomerPostAtStoreArgs: GetCustomerPostAtStoreArgs
+    @Args() getCustomerPostAtStoreArgs: GetCustomerPostAtStoreArgs,
   ) {
     return await this.customerPostService.getPostsByStoreAccount(
       currentId,
-      getCustomerPostAtStoreArgs
+      getCustomerPostAtStoreArgs,
     );
   }
 
@@ -55,11 +55,11 @@ export class CustomerPostResolver {
   async createCustomerPost(
     @CurrentId() currentId: string,
     @Args('createCustomerPostInput')
-    createCustomerPostInput: CreateCustomerPostInput
+    createCustomerPostInput: CreateCustomerPostInput,
   ): Promise<string> {
     return await this.customerPostService.createCustomerPost(
       currentId,
-      createCustomerPostInput
+      createCustomerPostInput,
     );
   }
 
@@ -67,11 +67,11 @@ export class CustomerPostResolver {
   async updateCustomerPost(
     @CurrentId() currentId: string,
     @Args('updateCustomerPostUInput')
-    updateCustomerPostInput: UpdateCustomerPostInput
+    updateCustomerPostInput: UpdateCustomerPostInput,
   ): Promise<string> {
     return await this.customerPostService.updateCustomerPost(
       currentId,
-      updateCustomerPostInput
+      updateCustomerPostInput,
     );
   }
 
@@ -79,11 +79,11 @@ export class CustomerPostResolver {
   async deleteCustomerPost(
     @CurrentId() currentId: string,
     @Args('deleteCustomerPostInput')
-    deleteCustomerPostInput: DeleteCustomerPostInput
+    deleteCustomerPostInput: DeleteCustomerPostInput,
   ): Promise<string> {
     return await this.customerPostService.deleteCustomerPost(
       currentId,
-      deleteCustomerPostInput
+      deleteCustomerPostInput,
     );
   }
 }

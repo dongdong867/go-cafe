@@ -14,7 +14,7 @@ export class UserAuthGuard implements CanActivate {
   constructor(private readonly userService: UserService) {}
 
   canActivate(
-    context: ExecutionContext
+    context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     const req = GqlExecutionContext.create(context).getContext().req;
     const authHeader = req.headers.authorization as string;

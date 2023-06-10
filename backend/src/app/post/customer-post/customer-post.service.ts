@@ -15,12 +15,12 @@ import { Picture } from '@prisma/client';
 export class CustomerPostService {
   constructor(
     private readonly storeService: StoreService,
-    private readonly prisma: PrismaService
+    private readonly prisma: PrismaService,
   ) {}
 
   async getPost(
     currentId: string,
-    getCustomerPostArgs: GetCustomerPostArgs
+    getCustomerPostArgs: GetCustomerPostArgs,
   ): Promise<CustomerPost> {
     return await this.prisma.customerPost.findUniqueOrThrow({
       where: {
@@ -66,7 +66,7 @@ export class CustomerPostService {
 
   async getPostsByStoreAccount(
     currentId: string,
-    getCustomerPostAtStoreArgs: GetCustomerPostAtStoreArgs
+    getCustomerPostAtStoreArgs: GetCustomerPostAtStoreArgs,
   ): Promise<CustomerPost[]> {
     await this.prisma.customer.findUniqueOrThrow({
       where: {
@@ -77,7 +77,7 @@ export class CustomerPostService {
     return await this.prisma.customerPost.findMany({
       where: {
         storeId: await this.storeService.getStoreIdByAccount(
-          getCustomerPostAtStoreArgs.storeAccount
+          getCustomerPostAtStoreArgs.storeAccount,
         ),
       },
       select: CustomerPostSelect,
@@ -91,10 +91,10 @@ export class CustomerPostService {
 
   async createCustomerPost(
     currentId: string,
-    createCustomerPostInput: CreateCustomerPostInput
+    createCustomerPostInput: CreateCustomerPostInput,
   ): Promise<string> {
     const storeId: string = await this.storeService.getStoreIdByAccount(
-      createCustomerPostInput.storeAccount
+      createCustomerPostInput.storeAccount,
     );
 
     await this.prisma.customerPost.create({
@@ -187,7 +187,7 @@ export class CustomerPostService {
 
   async updateCustomerPost(
     currentId: string,
-    updateCustomerPostInput: UpdateCustomerPostInput
+    updateCustomerPostInput: UpdateCustomerPostInput,
   ): Promise<string> {
     const data = await this.prisma.customerPost.findUniqueOrThrow({
       where: {
@@ -226,14 +226,14 @@ export class CustomerPostService {
     const deleteList: Picture[] = [];
 
     for (const picture of data.post.postPicture.map(
-      (postPicture) => postPicture.picture
+      (postPicture) => postPicture.picture,
     )) {
       if (!updateCustomerPostInput.pictureList.includes(picture.data))
         deleteList.push(picture);
     }
 
     const originPictureUrlList = data.post.postPicture.map(
-      (picture) => picture.picture.data
+      (picture) => picture.picture.data,
     );
     updateCustomerPostInput.pictureList.forEach((picture) => {
       if (!originPictureUrlList.includes(picture)) addList.push(picture);
@@ -329,7 +329,7 @@ export class CustomerPostService {
 
   async deleteCustomerPost(
     currentId: string,
-    deleteCustomerPostInput: DeleteCustomerPostInput
+    deleteCustomerPostInput: DeleteCustomerPostInput,
   ): Promise<string> {
     const data = await this.prisma.customerPost.findUniqueOrThrow({
       where: {

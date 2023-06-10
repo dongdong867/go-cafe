@@ -30,7 +30,7 @@ export class MenuResolver {
   @Mutation(() => String)
   async createMenu(
     @CurrentId() currentId: string,
-    @Args('createMenuInput') createMenuInput: CreateMenuInput
+    @Args('createMenuInput') createMenuInput: CreateMenuInput,
   ): Promise<string> {
     return await this.menuService.createMenu(currentId, createMenuInput);
   }
@@ -39,7 +39,7 @@ export class MenuResolver {
   @Mutation(() => String)
   async updateMenu(
     @CurrentId() currentId: string,
-    @Args('updateMenuInput') updateMenuInput: UpdateMenuInput
+    @Args('updateMenuInput') updateMenuInput: UpdateMenuInput,
   ): Promise<string> {
     return await this.menuService.updateMenu(currentId, updateMenuInput);
   }
