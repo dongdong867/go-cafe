@@ -47,7 +47,6 @@ export class CustomerService {
       64,
       'sha256',
     ).toString('hex');
-    console.log(saltedPassword);
 
     await this.prisma.customer
       .create({

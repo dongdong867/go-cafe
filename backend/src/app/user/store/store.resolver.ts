@@ -34,7 +34,7 @@ export class StoreResolver {
 
   @Mutation(() => String)
   async createStore(
-    @Args('createStoreInput') createStoreInput: CreateStoreInput
+    @Args('createStoreInput') createStoreInput: CreateStoreInput,
   ): Promise<string> {
     return await this.storeService.createStore(createStoreInput);
   }
@@ -43,7 +43,7 @@ export class StoreResolver {
   @Mutation(() => String)
   async updateStore(
     @CurrentId() currentId: string,
-    @Args('updateStoreInput') updateStoreInput: UpdateStoreInput
+    @Args('updateStoreInput') updateStoreInput: UpdateStoreInput,
   ): Promise<string> {
     return this.storeService.updateStore(currentId, updateStoreInput);
   }

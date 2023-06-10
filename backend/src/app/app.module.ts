@@ -8,14 +8,18 @@ import { PostModule } from './post/post.module';
 import { OrderModule } from './order/order.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { FirebaseModule } from './firebase/firebase.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: 'src/graphql/schema.gql',
-      sortSchema: true,
+      autoSchemaFile: true,
       context: ({ req }) => ({ header: req.header }),
+    }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      expandVariables: true,
     }),
     UserModule,
     FollowingModule,
