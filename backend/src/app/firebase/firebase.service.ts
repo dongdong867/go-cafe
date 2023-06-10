@@ -9,15 +9,11 @@ export class FirebaseService {
 
   constructor() {
     const configService = new ConfigService();
-    !getApps().length
-      ? admin.initializeApp({
-          credential: admin.credential.cert(
-            JSON.parse(
-              configService.get<string>('CERT'),
-            ) as admin.ServiceAccount,
-          ),
-        })
-      : getApp();
+    admin.initializeApp({
+      credential: admin.credential.cert(
+        JSON.parse(configService.get<string>('CERT')) as admin.ServiceAccount,
+      ),
+    });
   }
 
   firestore() {
