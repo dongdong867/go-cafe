@@ -16,11 +16,11 @@ export class FollowingResolver {
   @Query(() => Boolean, { name: 'isFollowing' })
   async isFollowing(
     @CurrentId() currentId: string,
-    @Args() getIsFollowingArgs: GetIsFollowingArgs
+    @Args() getIsFollowingArgs: GetIsFollowingArgs,
   ) {
     return await this.followingService.isFollowing(
       currentId,
-      getIsFollowingArgs
+      getIsFollowingArgs,
     );
   }
 
@@ -32,7 +32,7 @@ export class FollowingResolver {
   @Mutation(() => String)
   async follow(
     @CurrentId() currentId: string,
-    @Args('followInput') followInput: FollowInput
+    @Args('followInput') followInput: FollowInput,
   ): Promise<string> {
     return await this.followingService.follow(currentId, followInput);
   }
@@ -40,7 +40,7 @@ export class FollowingResolver {
   @Mutation(() => String)
   async unfollow(
     @CurrentId() currentId: string,
-    @Args('unfollowInput') unfollowInput: FollowInput
+    @Args('unfollowInput') unfollowInput: FollowInput,
   ): Promise<string> {
     return await this.followingService.unfollow(currentId, unfollowInput);
   }

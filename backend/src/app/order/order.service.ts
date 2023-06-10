@@ -15,7 +15,7 @@ export class OrderService {
   constructor(
     private readonly storeService: StoreService,
     private readonly firebase: FirebaseService,
-    private readonly prisma: PrismaService
+    private readonly prisma: PrismaService,
   ) {}
 
   async getUnfinishedOrder(currentId: string): Promise<Order[]> {
@@ -46,7 +46,7 @@ export class OrderService {
           name: dish.dish_name,
           count: dish.count,
           price: dish.price,
-        })
+        }),
       ),
     }));
   }
@@ -78,14 +78,14 @@ export class OrderService {
           name: dish.dish_name,
           count: dish.count,
           price: dish.price,
-        })
+        }),
       ),
     }));
   }
 
   async createOrder(
     currentId: string,
-    createOrderInput: CreateOrderInput
+    createOrderInput: CreateOrderInput,
   ): Promise<string> {
     await this.prisma.customer.findUniqueOrThrow({
       where: {
@@ -97,7 +97,7 @@ export class OrderService {
       id: uuid(),
       customer_id: currentId,
       store_id: await this.storeService.getStoreIdByAccount(
-        createOrderInput.storeAccount
+        createOrderInput.storeAccount,
       ),
       table_number: createOrderInput.tableNumber,
       orders: createOrderInput.dishes.map((order) => ({
@@ -122,7 +122,7 @@ export class OrderService {
 
   async finishOrder(
     currentId: string,
-    finishOrderInput: FinishOrderInput
+    finishOrderInput: FinishOrderInput,
   ): Promise<string> {
     const order = this.firebase
       .firestore()

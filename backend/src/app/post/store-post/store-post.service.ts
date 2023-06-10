@@ -14,7 +14,7 @@ import { GetStorePostByIdArgs } from './dto/args/get-store-post-by-id.args';
 export class StorePostService {
   constructor(
     private readonly storeService: StoreService,
-    private readonly prisma: PrismaService
+    private readonly prisma: PrismaService,
   ) {}
 
   async getSelfPost(currentId: string): Promise<StorePost[]> {
@@ -39,7 +39,7 @@ export class StorePostService {
 
   async getPostById(
     currentId: string,
-    getStorePostByIdArgs: GetStorePostByIdArgs
+    getStorePostByIdArgs: GetStorePostByIdArgs,
   ): Promise<StorePost> {
     return await this.prisma.storePost.findUniqueOrThrow({
       where: {
@@ -73,7 +73,7 @@ export class StorePostService {
     const data = await this.prisma.store.findUniqueOrThrow({
       where: {
         id: await this.storeService.getStoreIdByAccount(
-          getStorePostArgs.storeAccount
+          getStorePostArgs.storeAccount,
         ),
       },
       select: {
@@ -93,7 +93,7 @@ export class StorePostService {
 
   async createStorePost(
     currentId: string,
-    createStorePostInput: CreateStorePostInput
+    createStorePostInput: CreateStorePostInput,
   ): Promise<string> {
     await this.prisma.storePost.create({
       data: {
@@ -136,7 +136,7 @@ export class StorePostService {
 
   async updateStorePost(
     currentId: string,
-    updateStorePostInput: UpdateStorePostInput
+    updateStorePostInput: UpdateStorePostInput,
   ): Promise<string> {
     const data = await this.prisma.storePost.findUniqueOrThrow({
       where: {
@@ -163,14 +163,14 @@ export class StorePostService {
     const deleteList: Picture[] = [];
 
     for (const picture of data.post.postPicture.map(
-      (postPicture) => postPicture.picture
+      (postPicture) => postPicture.picture,
     )) {
       if (!updateStorePostInput.pictureList.includes(picture.data))
         deleteList.push(picture);
     }
 
     const originPictureUrlList = data.post.postPicture.map(
-      (picture) => picture.picture.data
+      (picture) => picture.picture.data,
     );
 
     updateStorePostInput.pictureList.forEach((picture) => {
@@ -226,7 +226,7 @@ export class StorePostService {
 
   async deleteStorePost(
     currentId: string,
-    deleteStorePostInput: DeleteStorePostInput
+    deleteStorePostInput: DeleteStorePostInput,
   ): Promise<string> {
     const data = await this.prisma.storePost.findUniqueOrThrow({
       where: {

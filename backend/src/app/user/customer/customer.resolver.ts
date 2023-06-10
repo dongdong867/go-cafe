@@ -20,7 +20,7 @@ export class CustomerResolver {
 
   @Mutation(() => String)
   async createCustomer(
-    @Args('createCustomerInput') createCustomerInput: CreateCustomerInput
+    @Args('createCustomerInput') createCustomerInput: CreateCustomerInput,
   ): Promise<string> {
     return await this.customerService.createCustomer(createCustomerInput);
   }
@@ -29,7 +29,7 @@ export class CustomerResolver {
   @Mutation(() => String)
   async updateCustomer(
     @CurrentId() currentId: string,
-    @Args('updateCustomerInput') updateCustomerInput: UpdateCustomerInput
+    @Args('updateCustomerInput') updateCustomerInput: UpdateCustomerInput,
   ): Promise<string> {
     return this.customerService.updateCustomer(currentId, updateCustomerInput);
   }

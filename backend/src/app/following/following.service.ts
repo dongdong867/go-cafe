@@ -10,19 +10,19 @@ import { StoreSelect } from '../user/store/dto/select/store.select';
 export class FollowingService {
   constructor(
     private readonly prisma: PrismaService,
-    private readonly storeService: StoreService
+    private readonly storeService: StoreService,
   ) {}
 
   async isFollowing(
     currentId: string,
-    getIsFollowingArgs: GetIsFollowingArgs
+    getIsFollowingArgs: GetIsFollowingArgs,
   ): Promise<boolean> {
     const data = await this.prisma.following.findUnique({
       where: {
         customerId_storeId: {
           customerId: currentId,
           storeId: await this.storeService.getStoreIdByAccount(
-            getIsFollowingArgs.storeAccount
+            getIsFollowingArgs.storeAccount,
           ),
         },
       },
@@ -51,7 +51,7 @@ export class FollowingService {
 
   async follow(currentId: string, followInput: FollowInput): Promise<string> {
     const storeId: string = await this.storeService.getStoreIdByAccount(
-      followInput.storeAccount
+      followInput.storeAccount,
     );
     await this.prisma.following.create({
       data: {
@@ -76,14 +76,14 @@ export class FollowingService {
 
   async unfollow(
     currentId: string,
-    unfollowInput: FollowInput
+    unfollowInput: FollowInput,
   ): Promise<string> {
     await this.prisma.following.delete({
       where: {
         customerId_storeId: {
           customerId: currentId,
           storeId: await this.storeService.getStoreIdByAccount(
-            unfollowInput.storeAccount
+            unfollowInput.storeAccount,
           ),
         },
       },

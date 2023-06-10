@@ -10,7 +10,7 @@ export class UserResolver {
 
   @Query(() => Boolean)
   async isAccountAvailable(
-    @Args() accountTestInput: AccountTestInput
+    @Args() accountTestInput: AccountTestInput,
   ): Promise<boolean> {
     return await this.userService.isAccountAvailable(accountTestInput);
   }
