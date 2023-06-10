@@ -14,7 +14,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:8080/graphql",
+  uri: "https://us-central1-gocafe-tw.cloudfunctions.net/api/graphql",
   fetchOptions: { cache: "no-store" },
 });
 

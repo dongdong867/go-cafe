@@ -154,10 +154,26 @@ const UserPage = async () => {
 
   const PostList = () => {
     if (role === "customer") {
+      {
+        data.selfPost.length !== 0 && (
+          <>
+            <div className="text-2xl font-bold mt-8">History Post</div>
+            <div className="divider my-2" />
+          </>
+        );
+      }
       return data.selfPost.map((post: GraphQLCustomerPostType) => (
         <UserPostModal key={post.id} editable customerPost={post} />
       ));
     } else {
+      {
+        data.storeSelfPost.length !== 0 && (
+          <>
+            <div className="text-2xl font-bold mt-4">History Post</div>
+            <div className="divider my-2" />
+          </>
+        );
+      }
       return data.storeSelfPost.map((post: GraphQLShopPostType) => (
         <ShopPostModal key={post.id} editable post={post} />
       ));
@@ -167,12 +183,8 @@ const UserPage = async () => {
     <>
       <div className="w-full h-fit max-w-lg max-[450px]:w-11/12 m-auto">
         <Info />
-
-        <div>
-          <div className="text-2xl font-bold mt-8">History Post</div>
-          <div className="divider my-2" />
-          <PostList />
-        </div>
+        <PostList />
+        <div className="w-full h-4" />
       </div>
     </>
   );

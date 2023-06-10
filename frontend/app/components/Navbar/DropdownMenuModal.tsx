@@ -12,12 +12,12 @@ const DropdownMenuModal = ({ position, button, listItems }: Props) => {
         <ul
           tabIndex={0}
           className="
-            menu menu-compact
+            menu menu-md
             dropdown-content
             w-max
             bg-base-100
             rounded-box
-            shadow-[0_0_15px_rgba(0,0,0,0.4)] 
+            shadow-basic
           "
         >
           {listItems}

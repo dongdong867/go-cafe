@@ -1,3 +1,5 @@
+"use server";
+
 import { getClient } from "@/lib/client";
 import { gql } from "@apollo/client";
 import PageTitle from "../components/PageTitle";

@@ -77,7 +77,7 @@ const RegisterModal = ({ setSignin }: Props) => {
     } else {
       if (!accountPass) setAccountPass(true);
     }
-  }, [account]);
+  }, [account, accountPass]);
 
   useEffect(() => {
     if (password.indexOf(" ") > -1) {
@@ -86,7 +86,7 @@ const RegisterModal = ({ setSignin }: Props) => {
     } else {
       if (!passwordPass) setPasswordPass(true);
     }
-  }, [password]);
+  }, [password, passwordPass]);
 
   return (
     <>

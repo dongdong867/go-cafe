@@ -14,8 +14,6 @@ type Props = {
 };
 
 const CheckOutModal = ({ isOpen, setOpen }: Props) => {
-  if (!isOpen) return null;
-
   const params = useParams();
 
   const {
@@ -26,6 +24,8 @@ const CheckOutModal = ({ isOpen, setOpen }: Props) => {
     submitCheck,
     handleSend,
   } = useSendOrder(params.shopAccount);
+
+  if (!isOpen) return null;
 
   const handleClick = async () => {
     await handleSend();

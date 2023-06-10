@@ -1,9 +1,9 @@
+import { getBase64 } from "@/lib/getBase64";
 import { deletedPictures, uploadPicture } from "@/lib/picture-upload";
 import { gql, useMutation, useSuspenseQuery } from "@apollo/client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useBase64 } from "./useBase64";
 
 const query = gql`
   query Customer {
@@ -63,7 +63,7 @@ const useUpdateCustomer = () => {
     let pictureUrl = avatar;
     if (newAvatar) {
       await deletedPictures([data.customer.user.avatar.data]);
-      const base64 = await useBase64(newAvatar);
+      const base64 = await getBase64(newAvatar);
       pictureUrl = await uploadPicture(base64);
     }
 

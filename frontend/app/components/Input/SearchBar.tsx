@@ -64,10 +64,6 @@ const SearchBar = () => {
     });
   }
 
-  useEffect(() => {
-    console.log(searchQuery);
-  }, [searchQuery]);
-
   return (
     <>
       <div className="form-control w-full px-4 py-2 max-[450px]:max-w-[360px] max-[450px]:px-0">
@@ -82,7 +78,7 @@ const SearchBar = () => {
                   setQuery(e.currentTarget.value);
                   setSearchInput(e.currentTarget.value);
                 }}
-                className="input input-bordered input-md max-[450px]:input-sm w-full focus:outline-none"
+                className="input input-bordered input-md max-[450px]:input-sm max-[450px]:py-[18px] w-full focus:outline-none"
               />
               <button
                 onClick={() => setSearchQuery(searchQuery)}
@@ -93,6 +89,7 @@ const SearchBar = () => {
                   border-primary hover:border-primary 
                   text-base-100 
                   text-xl max-[450px]:text-base
+                  max-[450px]:h-[38px]
                 "
               >
                 <FiSearch />

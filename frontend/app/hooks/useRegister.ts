@@ -1,10 +1,9 @@
 import { uploadPicture } from "@/lib/picture-upload";
 import { gql, useMutation } from "@apollo/client";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useBase64 } from "./useBase64";
 import toast from "react-hot-toast";
 import { pbkdf2Sync } from "crypto";
+import { getBase64 } from "@/lib/getBase64";
 
 const CREATE_CUSTOMER = gql`
   mutation CreateCustomer($createCustomerInput: CreateCustomerInput!) {
@@ -33,8 +32,6 @@ const useRegister = () => {
   const [address, setAddress] = useState("");
   const [info, setInfo] = useState("");
 
-  const router = useRouter();
-
   // mutation
   const [createCustomer] = useMutation(CREATE_CUSTOMER);
   const [createStore] = useMutation(CREATE_SHOP);
@@ -42,7 +39,7 @@ const useRegister = () => {
   // handle register
 
   const registerCustomer = async () => {
-    const avatarUrl = await uploadPicture(await useBase64(avatar));
+    const avatarUrl = await uploadPicture(await getBase64(avatar));
 
     const create = createCustomer({
       variables: {
@@ -61,23 +58,25 @@ const useRegister = () => {
           email: email,
         },
       },
-    }).then(() => router.refresh());
+    });
 
-    await toast.promise(
-      create,
-      {
-        loading: "Creating...",
-        success: "Account Created \n Please Login Again",
-        error: (error) => error.message,
-      },
-      {
-        className: "font-bold text-lg",
-      }
-    );
+    await toast
+      .promise(
+        create,
+        {
+          loading: "Creating...",
+          success: "Account Created \n Please Login Again",
+          error: (error) => error.message,
+        },
+        {
+          className: "font-bold text-lg",
+        }
+      )
+      .then(() => location.reload());
   };
 
   const registerShop = async () => {
-    const avatarUrl = await uploadPicture(await useBase64(avatar));
+    const avatarUrl = await uploadPicture(await getBase64(avatar));
 
     const create = createStore({
       variables: {
@@ -97,19 +96,21 @@ const useRegister = () => {
           info: info,
         },
       },
-    }).then(() => router.refresh());
+    });
 
-    await toast.promise(
-      create,
-      {
-        loading: "Creating...",
-        success: "Account Created \n Please Login Again",
-        error: (error) => error.message,
-      },
-      {
-        className: "font-bold text-lg",
-      }
-    );
+    await toast
+      .promise(
+        create,
+        {
+          loading: "Creating...",
+          success: "Account Created \n Please Login Again",
+          error: (error) => error.message,
+        },
+        {
+          className: "font-bold text-lg",
+        }
+      )
+      .then(() => location.reload());
   };
 
   return {

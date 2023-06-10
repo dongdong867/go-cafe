@@ -1,4 +1,4 @@
-export const useBase64 = async (picture: File) => {
+export const getBase64 = async (picture: File) => {
   return new Promise<string>((resolve) => {
     const fileReader = new FileReader();
     fileReader.readAsDataURL(picture);
