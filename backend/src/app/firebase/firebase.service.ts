@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import * as admin from 'firebase-admin';
 import { ConfigService } from '@nestjs/config';
-import { getApp, getApps } from 'firebase-admin/app';
 
 @Injectable()
 export class FirebaseService {
@@ -9,11 +8,16 @@ export class FirebaseService {
 
   constructor() {
     const configService = new ConfigService();
-    admin.initializeApp({
-      credential: admin.credential.cert(
-        JSON.parse(configService.get<string>('CERT')) as admin.ServiceAccount,
-      ),
-    });
+    this.firebase =
+      admin.apps.length === 0
+        ? admin.initializeApp({
+            credential: admin.credential.cert(
+              JSON.parse(
+                configService.get<string>('CERT'),
+              ) as admin.ServiceAccount,
+            ),
+          })
+        : admin.app();
   }
 
   firestore() {
