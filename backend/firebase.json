@@ -1,0 +1,11 @@
+{
+  "functions": [
+    {
+      "source": ".",
+      "predeploy": ["pnpm --prefix \"$RESOURCE_DIR\" run build"],
+      "frameworksBackend": {
+        "region": "asia-east1"
+      }
+    }
+  ]
+}
