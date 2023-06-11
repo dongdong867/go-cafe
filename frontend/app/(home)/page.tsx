@@ -4,6 +4,9 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import SearchBar from "../components/Input/SearchBar";
 import UserPostModal from "../components/UserPostModal";
+import { Suspense } from "react";
+import Loading from "../components/Loading/Loading";
+import SearchBarLoading from "./components/SearchBarLoading";
 
 type GraphQLType = {
   customerPosts: {
@@ -80,16 +83,23 @@ const Home = async () => {
   const { data }: { data: GraphQLType } = await client.query({ query });
 
   return (
-    <>
-      <div className="w-full h-full flex flex-col justify-start place-items-center">
-        <SearchBar />
-        <div className="pb-4">
-          {data.customerPosts.map((customerPost) => (
-            <UserPostModal key={customerPost.id} customerPost={customerPost} />
-          ))}
-        </div>
+    <div className="w-full h-full">
+      <div className="flex flex-col justify-start place-items-center">
+        <Suspense fallback={<SearchBarLoading />}>
+          <SearchBar />
+        </Suspense>
+        <Suspense fallback={<Loading />}>
+          <div className="pb-4">
+            {data.customerPosts.map((customerPost) => (
+              <UserPostModal
+                key={customerPost.id}
+                customerPost={customerPost}
+              />
+            ))}
+          </div>
+        </Suspense>
       </div>
-    </>
+    </div>
   );
 };
 
