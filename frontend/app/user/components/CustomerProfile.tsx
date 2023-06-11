@@ -20,7 +20,7 @@ const UserCustomerProfile = ({ data }: Props) => {
           </div>
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-4">
           <div className="text-4xl max-[450px]:text-3xl font-bold">
             {data.user.name}
           </div>
