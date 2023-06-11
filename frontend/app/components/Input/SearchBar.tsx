@@ -98,7 +98,7 @@ const SearchBar = () => {
           </label>
           <ul
             tabIndex={0}
-            className="dropdown-content z-10 menu p-2 shadow bg-base-100 rounded-box w-full"
+            className="dropdown-content z-20 menu p-2 shadow bg-base-100 rounded-box w-full"
           >
             {storeList.map((store) => {
               return (
