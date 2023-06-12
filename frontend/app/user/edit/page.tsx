@@ -1,6 +1,6 @@
 "use client";
 
-import EditCustomerInfoModal from "@/app/components/profile/CustomerInfo";
+import EditCustomerInfoModal from "@/app/components/EditProfile/CustomerInfo";
 import useUpdateCustomer from "@/app/hooks/useUpdateCustomer";
 import { Toaster } from "react-hot-toast";
 
