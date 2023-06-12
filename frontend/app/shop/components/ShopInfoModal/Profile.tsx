@@ -1,5 +1,24 @@
+type GraphQLType = {
+  user: {
+    account: string;
+    name: string;
+    phone: string;
+    postCount: number;
+  };
+  address: string;
+  info: string;
+  storeRating: {
+    rating: {
+      general: number;
+      environment: number;
+      meals: number;
+      attitude: number;
+    };
+  };
+};
+
 type Props = {
-  data: Shop;
+  data: GraphQLType;
 };
 
 const ShopProfile = ({ data }: Props) => {

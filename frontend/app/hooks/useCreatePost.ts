@@ -59,6 +59,7 @@ const useCreatePost = () => {
   };
 
   return {
+    rating,
     shopAccount,
     pictureList,
     setShopAccount,

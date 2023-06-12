@@ -46,7 +46,7 @@ const useLogin = () => {
       const interval = setInterval(() => {
         router.refresh();
         clearInterval(interval);
-      }, 500);
+      }, 200);
     });
 
     await toast

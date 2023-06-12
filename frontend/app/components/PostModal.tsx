@@ -7,6 +7,7 @@ import toast, { Toaster } from "react-hot-toast";
 import Image from "next/image";
 import { v4 } from "uuid";
 import Link from "next/link";
+import { useState } from "react";
 
 const DELETE_CUSTOMER_POST = gql`
   mutation DeleteCustomerPost(
@@ -46,6 +47,9 @@ const PostModal = ({
 
   const [deleteCustomerPost] = useMutation(DELETE_CUSTOMER_POST);
   const [deleteStorePost] = useMutation(DELETE_SHOP_POST);
+
+  const [fullSize, setFullSize] = useState(false);
+  const imageSize = fullSize ? "w-full" : "h-max";
 
   const handleDelete = async () => {
     const deletePost =
@@ -94,7 +98,10 @@ const PostModal = ({
           border-2 border-base-300
           mb-4"
       >
-        <figure className="h-max max-h-[384px] max-[450px]:max-h-[270px]">
+        <figure
+          className="h-max max-h-[384px] max-[450px]:max-h-[270px]"
+          onClick={() => setFullSize(!fullSize)}
+        >
           <div className="carousel">
             {data.pictures.map((picture) => {
               return (
@@ -104,7 +111,7 @@ const PostModal = ({
                     alt=""
                     width={1000}
                     height={1000}
-                    className="overflow-clip w-full aspect-auto"
+                    className={`overflow-clip transition-all duration-500 ${imageSize}`}
                   />
                 </div>
               );

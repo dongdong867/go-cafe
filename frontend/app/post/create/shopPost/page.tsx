@@ -1,20 +1,9 @@
-"use client";
-
 import PageTitle from "@/app/components/PageTitle";
-import useCreateShopPost from "@/app/hooks/useCreateShopPost";
-import EditShopPostModal from "../../components/ShopPostModal";
+import { Suspense } from "react";
+import EditPostLoading from "../../components/EditPostLoading";
+import CreateShopPostModal from "../../components/CreateShopPostModal";
 
 const CreateShopPostPage = () => {
-  const {
-    title,
-    body,
-    pictureList,
-    setTitle,
-    setBody,
-    setPictureList,
-    createPost,
-  } = useCreateShopPost();
-
   return (
     <div
       className="
@@ -24,15 +13,9 @@ const CreateShopPostPage = () => {
         m-auto"
     >
       <PageTitle title="Create Shop Post" />
-      <EditShopPostModal
-        title={title}
-        body={body}
-        pictureList={pictureList}
-        setTitle={setTitle}
-        setBody={setBody}
-        setPictureList={setPictureList}
-        onSubmit={createPost}
-      />
+      <Suspense fallback={<EditPostLoading />}>
+        <CreateShopPostModal />
+      </Suspense>
     </div>
   );
 };
