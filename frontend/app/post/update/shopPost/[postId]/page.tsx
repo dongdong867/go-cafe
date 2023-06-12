@@ -1,7 +1,4 @@
-"use client";
-
 import PageTitle from "@/app/components/PageTitle";
-import useUpdateShopPost from "@/app/hooks/useUpdateShopPost";
 import EditShopPostModal from "@/app/post/components/ShopPostModal";
 
 type Props = {
@@ -11,19 +8,6 @@ type Props = {
 };
 
 const UpdateShopPostPage = ({ params }: Props) => {
-  const {
-    title,
-    body,
-    originPicture,
-    addedPicture,
-    deletedPicture,
-    setTitle,
-    setBody,
-    setAddedPicture,
-    setDeletedPicture,
-    updatePost,
-  } = useUpdateShopPost(params.postId);
-
   return (
     <div
       className="
@@ -34,18 +18,7 @@ const UpdateShopPostPage = ({ params }: Props) => {
         m-auto"
     >
       <PageTitle title="Update Post" />
-      <EditShopPostModal
-        title={title}
-        body={body}
-        originPicture={originPicture}
-        pictureList={addedPicture}
-        deletedPicture={deletedPicture}
-        setTitle={setTitle}
-        setBody={setBody}
-        setPictureList={setAddedPicture}
-        setDeletedPicture={setDeletedPicture}
-        onSubmit={updatePost}
-      />
+      <EditShopPostModal postId={params.postId} />
     </div>
   );
 };
