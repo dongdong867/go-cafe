@@ -1,6 +1,6 @@
 "use client";
 
-import EditShopInfoModal from "@/app/components/profile/ShopInfo";
+import EditShopInfoModal from "@/app/components/EditProfile/ShopInfo";
 import useUpdateShop from "@/app/hooks/useUpdateShop";
 import { Toaster } from "react-hot-toast";
 

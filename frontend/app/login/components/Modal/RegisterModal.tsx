@@ -5,8 +5,8 @@ import { gql, useSuspenseQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import RegisterAccountAndPassword from "../Register/AccountAndPassword";
-import EditCustomerInfoModal from "@/app/components/profile/CustomerInfo";
-import EditShopInfoModal from "@/app/components/profile/ShopInfo";
+import EditCustomerInfoModal from "@/app/components/EditProfile/CustomerInfo";
+import EditShopInfoModal from "@/app/components/EditProfile/ShopInfo";
 
 const query = gql`
   query IsAccountAvailable($account: String!) {
