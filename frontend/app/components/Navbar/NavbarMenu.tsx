@@ -107,7 +107,7 @@ const Menu = () => {
         </li>
         <li>
           <Link
-            href={"/"}
+            href={"/about"}
             className="
               p-4 
               text-xl font-semibold 
