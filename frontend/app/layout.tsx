@@ -7,6 +7,8 @@ import "./global.css";
 //components
 import Navbar from "./components/Navbar/Navbar";
 import { ApolloWrapper } from "../lib/apollo-provider";
+import { Suspense } from "react";
+import LayoutLoading from "./components/Loading/LayoutLoading";
 
 export const metadata = {
   title: "Go Cafe",
@@ -33,8 +35,10 @@ const RootLayout = ({ children }: Props) => {
     <html lang="en" data-theme="cupcake" className={`${montserrat.variable}`}>
       <body>
         <ApolloWrapper>
-          <Navbar />
-          {children}
+          <Suspense fallback={<LayoutLoading />}>
+            <Navbar />
+            {children}
+          </Suspense>
         </ApolloWrapper>
       </body>
     </html>
