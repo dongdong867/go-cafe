@@ -1,7 +1,7 @@
 import PageTitle from "@/app/components/PageTitle";
 import { Suspense } from "react";
 import EditPostLoading from "../../components/EditPostLoading";
-import UpdateUserPostModal from "../../components/EditModal/UpdateUserPostModal";
+import UpdateUserPostModal from "../../components/UpdateUserPostModal";
 
 type Props = {
   params: {
