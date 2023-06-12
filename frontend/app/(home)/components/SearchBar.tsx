@@ -1,12 +1,10 @@
 "use client";
 
 import useSearchShop from "@/app/hooks/useSearchShop";
-import { ApolloError, gql, useSuspenseQuery } from "@apollo/client";
-import { useEffect, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import { useState } from "react";
+import { Toaster } from "react-hot-toast";
 import { FiSearch } from "react-icons/fi";
 import { Suspense } from "react";
-import { useDeferredValue } from "react";
 import ClientLoading from "@/app/components/Loading/ClientLoading";
 import SearchPostResult from "./SearchPostResult";
 import SearchBarLoading from "./SearchBarLoading";
