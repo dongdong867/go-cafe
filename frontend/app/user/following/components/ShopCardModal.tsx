@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import Arrow from "public/images/arrow.svg";
 
 type Props = {
   shop: Shop;
@@ -21,20 +22,28 @@ const ShopCardModal = ({ shop }: Props) => {
               />
             </div>
           </figure>
-          <div className="card-body justify-around items-right text-right pl-0 pr-4 py-4">
+          <div className="card-body justify-between items-right text-right pl-0 pr-4 py-4">
             <div className="card-title text-2xl font-bold justify-end">
               {shop.user.name}
             </div>
             <div className="text-lg max-[450px]:text-sm font-semibold">
               <div className="flex justify-end space-x-1">
                 <div>Tel: </div>
-                <div>{shop.user.phone}</div>
+                <Link
+                  href={`tel:${shop.user.phone}`}
+                  className="text-primary-focus underline underline-offset-2"
+                >
+                  {shop.user.phone}
+                </Link>
               </div>
 
-              <div className="flex justify-end space-x-1">
-                <div>Address: </div>
-                <div>{shop.address}</div>
-              </div>
+              <Link
+                target="_blank"
+                href={`https://www.google.com/maps/place/${shop.address}`}
+                className="break-words text-primary-focus text-right underline underline-offset-2 max-[450px]:text-xs"
+              >
+                {shop.address}
+              </Link>
             </div>
           </div>
         </div>
