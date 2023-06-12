@@ -1,13 +1,13 @@
 "use client";
 
 import useSearchShop from "@/app/hooks/useSearchShop";
-import EditPicture from "./Picture";
 import InputModal from "@/app/components/Input/InputModal";
 import { MdLocationOn } from "react-icons/md";
-import EditRating from "./Rating";
 import TextArea from "@/app/components/Input/TextArea";
 import BottomButton from "@/app/components/Button/BottomButton";
 import useCreatePost from "@/app/hooks/useCreatePost";
+import EditPicture from "./EditModal/Picture";
+import EditRating from "./EditModal/Rating";
 
 type Props = {
   postId?: string;
