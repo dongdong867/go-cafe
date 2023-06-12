@@ -1,6 +1,6 @@
 import PageTitle from "@/app/components/PageTitle";
 import EditPostLoading from "@/app/post/components/EditPostLoading";
-import EditShopPostModal from "@/app/post/components/ShopPostModal";
+import UpdateShopPostModal from "@/app/post/components/UpdateShopPostModal";
 import { Suspense } from "react";
 
 type Props = {
@@ -21,7 +21,7 @@ const UpdateShopPostPage = ({ params }: Props) => {
     >
       <PageTitle title="Update Post" />
       <Suspense fallback={<EditPostLoading />}>
-        <EditShopPostModal postId={params.postId} />
+        <UpdateShopPostModal postId={params.postId} />
       </Suspense>
     </div>
   );
