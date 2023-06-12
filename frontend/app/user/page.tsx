@@ -71,15 +71,13 @@ const UserPage = async () => {
   };
 
   return (
-    <>
-      <div className="w-full h-fit max-w-lg max-[450px]:w-11/12 m-auto">
-        <Info />
-        <Suspense fallback={<Loading />}>
-          {role === "customer" ? await UserPosts() : await ShopPosts()}
-        </Suspense>
-        <div className="w-full h-4" />
-      </div>
-    </>
+    <div className="w-full h-fit max-w-lg max-[450px]:w-11/12 m-auto">
+      <Info />
+      <Suspense fallback={<Loading />}>
+        {role === "customer" ? await UserPosts() : await ShopPosts()}
+      </Suspense>
+      <div className="w-full h-4" />
+    </div>
   );
 };
 
