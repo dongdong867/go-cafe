@@ -1,7 +1,7 @@
 import PageTitle from "@/app/components/PageTitle";
-import EditShopPostModal from "../../components/ShopPostModal";
 import { Suspense } from "react";
 import EditPostLoading from "../../components/EditPostLoading";
+import CreateShopPostModal from "../../components/CreateShopPostModal";
 
 const CreateShopPostPage = () => {
   return (
@@ -14,7 +14,7 @@ const CreateShopPostPage = () => {
     >
       <PageTitle title="Create Shop Post" />
       <Suspense fallback={<EditPostLoading />}>
-        <EditShopPostModal />
+        <CreateShopPostModal />
       </Suspense>
     </div>
   );
