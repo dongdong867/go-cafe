@@ -51,7 +51,7 @@ const Menu = ({ shopAccount }: Props) => {
           <div className="">No Menu Found</div>
         </div>
         <div className="z-60">
-          <BottomButton onClick={() => router.push(`/shop/${shopAccount}`)}>
+          <BottomButton onClick={() => router.back()}>
             <span>back to shop page</span>
           </BottomButton>
         </div>
