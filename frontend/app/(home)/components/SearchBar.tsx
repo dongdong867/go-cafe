@@ -5,7 +5,6 @@ import { useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { FiSearch } from "react-icons/fi";
 import { Suspense } from "react";
-import ClientLoading from "@/app/components/Loading/ClientLoading";
 import SearchPostResult from "./SearchPostResult";
 import SearchBarLoading from "./SearchBarLoading";
 
@@ -83,9 +82,7 @@ const SearchBar = () => {
               </button>
             </div>
           </label>
-          <Suspense fallback={<ClientLoading />}>
-            <SearchDropdown storeList={storeList} />
-          </Suspense>
+          <SearchDropdown storeList={storeList} />
         </div>
       </div>
       {searchQuery.length !== 0 && (
