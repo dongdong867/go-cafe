@@ -12,9 +12,9 @@ const ShopRatingModal = ({ rateName, rateValue }: Props) => {
           <progress
             value={rateValue}
             max={5}
-            className="progress progress-accent w-11/12"
+            className="progress progress-accent w-full max-[450px]:w-11/12"
           />
-          <div className="w-1/12">{rateValue.toFixed(2)}</div>
+          <div className="w-max">{rateValue.toFixed(2)}</div>
         </div>
       </div>
     </>
