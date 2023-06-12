@@ -5,64 +5,53 @@ import { ApolloError, gql, useSuspenseQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { FiSearch } from "react-icons/fi";
-import UserPostModal from "../UserPostModal";
-import PageTitle from "../PageTitle";
+import { Suspense } from "react";
+import { useDeferredValue } from "react";
+import ClientLoading from "@/app/components/Loading/ClientLoading";
+import SearchPostResult from "./SearchPostResult";
+import SearchBarLoading from "./SearchBarLoading";
 
-const query = gql`
-  query GetCustomerPostAtStore($storeAccount: String!) {
-    customerPostAtStore(storeAccount: $storeAccount) {
-      id
-      post {
-        body
-        postPicture {
-          picture {
-            data
-          }
-        }
-      }
-      rating {
-        general
-        environment
-        meals
-        attitude
-      }
-      store {
-        user {
-          account
-          name
-        }
-      }
-      customer {
-        user {
-          name
-        }
-      }
-    }
-  }
-`;
+type SearchResultType = {
+  user: {
+    account: string;
+    name: string;
+  };
+};
 
 const SearchBar = () => {
   const { storeList, setQuery } = useSearchShop();
   const [searchInput, setSearchInput] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const {
-    data,
-    error,
-  }: {
-    data: { customerPostAtStore: UserPost[] };
-    error: ApolloError | undefined;
-  } = useSuspenseQuery(query, {
-    variables: {
-      storeAccount: searchQuery,
-    },
-  });
-
-  if (error) {
-    toast.error("No Store Found", {
-      className: "font-bold text-lg",
-    });
-  }
+  const SearchDropdown = ({ storeList }: { storeList: SearchResultType[] }) => {
+    return (
+      <ul
+        tabIndex={0}
+        className="dropdown-content z-20 menu p-2 shadow bg-base-100 rounded-box w-full"
+      >
+        {storeList.map((store) => {
+          return (
+            <li key={store.user.account}>
+              <button
+                className="text-left h-12 max-[450px]:h-16 flex justify-between items-center gap-y-0 min-[450px]:py-0 max-[450px]:flex-col"
+                onClick={() => {
+                  setSearchInput(store.user.account);
+                  setSearchQuery(store.user.account);
+                }}
+              >
+                <span className="w-full text-base font-bold">
+                  @{store.user.account}
+                </span>
+                <span className="w-full text-base font-medium">
+                  {store.user.name}
+                </span>
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+    );
+  };
 
   return (
     <>
@@ -78,7 +67,7 @@ const SearchBar = () => {
                   setQuery(e.currentTarget.value);
                   setSearchInput(e.currentTarget.value);
                 }}
-                className="input input-bordered input-md max-[450px]:input-sm max-[450px]:py-[18px] w-full focus:outline-none"
+                className="input input-bordered input-md font-semibold max-[450px]:input-sm max-[450px]:py-[18px] w-full focus:outline-none"
               />
               <button
                 onClick={() => setSearchQuery(searchQuery)}
@@ -96,42 +85,15 @@ const SearchBar = () => {
               </button>
             </div>
           </label>
-          <ul
-            tabIndex={0}
-            className="dropdown-content z-20 menu p-2 shadow bg-base-100 rounded-box w-full"
-          >
-            {storeList.map((store) => {
-              return (
-                <li key={store.user.account}>
-                  <button
-                    className="text-left h-12 max-[450px]:h-16 flex justify-between items-center gap-y-0 min-[450px]:py-0 max-[450px]:flex-col"
-                    onClick={() => {
-                      setSearchInput(store.user.account);
-                      setSearchQuery(store.user.account);
-                    }}
-                  >
-                    <span className="w-full text-base font-bold">
-                      @{store.user.account}
-                    </span>
-                    <span className="w-full text-base font-medium">
-                      {store.user.name}
-                    </span>
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
+          <Suspense fallback={<ClientLoading />}>
+            <SearchDropdown storeList={storeList} />
+          </Suspense>
         </div>
       </div>
-      {data.customerPostAtStore.length > 0 && (
-        <div className="pb-4">
-          {data.customerPostAtStore.map((customerPost) => (
-            <UserPostModal key={customerPost.id} customerPost={customerPost} />
-          ))}
-          <div className="w-full max-[450px]:w-11/12 m-auto">
-            <PageTitle title="Recommend posts" />
-          </div>
-        </div>
+      {searchQuery.length !== 0 && (
+        <Suspense fallback={<SearchBarLoading />}>
+          <SearchPostResult searchQuery={searchQuery} />
+        </Suspense>
       )}
       <Toaster />
     </>
