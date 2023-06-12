@@ -13,7 +13,7 @@ type Props = {
   postId?: string;
 };
 
-const EditModal = ({ postId = undefined }: Props) => {
+const CreateUserPostModal = ({ postId = undefined }: Props) => {
   const {
     rating,
     pictureList,
@@ -93,4 +93,4 @@ const EditModal = ({ postId = undefined }: Props) => {
   );
 };
 
-export default EditModal;
+export default CreateUserPostModal;
