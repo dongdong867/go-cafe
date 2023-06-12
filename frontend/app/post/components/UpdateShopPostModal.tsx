@@ -1,3 +1,5 @@
+"use client";
+
 import useUpdateShopPost from "@/app/hooks/useUpdateShopPost";
 import EditPicture from "./EditModal/Picture";
 import InputModal from "@/app/components/Input/InputModal";
