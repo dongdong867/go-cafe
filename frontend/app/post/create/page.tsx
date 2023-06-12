@@ -1,7 +1,7 @@
 import PageTitle from "@/app/components/PageTitle";
 import { Suspense } from "react";
 import EditPostLoading from "../components/EditPostLoading";
-import EditModal from "../components/EditModal/CreateUserPostModal";
+import CreateUserPostModal from "../components/CreateUserPostModal";
 
 const CreatePostPage = () => {
   return (
@@ -14,7 +14,7 @@ const CreatePostPage = () => {
     >
       <PageTitle title="Create Post" />
       <Suspense fallback={<EditPostLoading />}>
-        <EditModal />
+        <CreateUserPostModal />
       </Suspense>
     </div>
   );
