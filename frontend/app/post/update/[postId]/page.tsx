@@ -1,8 +1,8 @@
-"use client";
-
 import PageTitle from "@/app/components/PageTitle";
-import useUpdatePost from "@/app/hooks/useUpdatePost";
 import EditModal from "../../components/EditModal/Modal";
+import Loading from "@/app/components/Loading/Loading";
+import { Suspense } from "react";
+import EditPostLoading from "../../components/EditPostLoading";
 
 type Props = {
   params: {
@@ -11,20 +11,6 @@ type Props = {
 };
 
 const UpdatePostPage = ({ params }: Props) => {
-  const {
-    body,
-    rating,
-    shop,
-    originPicture,
-    addedPicture,
-    deletedPicture,
-    setRate,
-    setBody,
-    setAddedPicture,
-    setDeletedPicture,
-    updatePost,
-  } = useUpdatePost(params.postId);
-
   return (
     <div
       className="
@@ -34,25 +20,9 @@ const UpdatePostPage = ({ params }: Props) => {
           m-auto"
     >
       <PageTitle title="Update Post" />
-      <EditModal
-        // shop account
-        shopAccount={shop.user.account}
-        shopAccountDisabled={true}
-        // rating
-        rating={rating}
-        setRate={setRate}
-        //post body
-        postBody={body}
-        setPostBody={setBody}
-        // picture
-        originPicture={originPicture}
-        pictureList={addedPicture}
-        deletedPicture={deletedPicture}
-        setPictureList={setAddedPicture}
-        setDeletedPicture={setDeletedPicture}
-        // submit
-        onSubmit={updatePost}
-      />
+      <Suspense fallback={<EditPostLoading />}>
+        <EditModal postId={params.postId} />
+      </Suspense>
     </div>
   );
 };
