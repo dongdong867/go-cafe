@@ -2,11 +2,11 @@ import { getClient } from "@/lib/client";
 import { gql } from "@apollo/client";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import SearchBar from "../components/Input/SearchBar";
 import UserPostModal from "../components/UserPostModal";
 import { Suspense } from "react";
 import Loading from "../components/Loading/Loading";
 import SearchBarLoading from "./components/SearchBarLoading";
+import SearchBar from "./components/SearchBar";
 
 type GraphQLType = {
   customerPosts: {
@@ -85,9 +85,7 @@ const Home = async () => {
   return (
     <div className="w-full h-full">
       <div className="flex flex-col justify-start place-items-center">
-        <Suspense fallback={<SearchBarLoading />}>
-          <SearchBar />
-        </Suspense>
+        <SearchBar />
         <Suspense fallback={<Loading />}>
           <div className="pb-4">
             {data.customerPosts.map((customerPost) => (
