@@ -5,7 +5,6 @@ import MenuNavigator from "../MenuNavigator";
 import MenuCategory from "./MenuCategory";
 import { useRouter } from "next/navigation";
 import BottomButton from "@/app/components/Button/BottomButton";
-import { MouseEvent } from "react";
 
 type GraphQLType = {
   menu: {
