@@ -21,9 +21,11 @@ const ShopMenuPage = async ({ params }: Props) => {
   return (
     <div className="w-full max-w-lg max-[450px]:w-11/12 m-auto space-y-4 relative">
       <PageTitle title="Menu" />
-      <BottomButton onClick={() => setCheckOut(true)}>
-        <span>check out</span>
-      </BottomButton>
+      {!checkOut && (
+        <BottomButton onClick={() => setCheckOut(true)}>
+          <span>check out</span>
+        </BottomButton>
+      )}
 
       <ShoppingCart.Provider value={{ shoppingCart, setShoppingCart }}>
         <Menu shopAccount={params.shopAccount} />
