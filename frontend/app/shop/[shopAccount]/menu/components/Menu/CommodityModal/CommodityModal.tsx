@@ -16,7 +16,10 @@ const CommodityModal = ({ dish }: Props) => {
   return (
     <>
       <li>
-        <label htmlFor={dish.dishName} className="text-xl font-bold">
+        <label
+          htmlFor={dish.dishName}
+          className="text-xl font-bold active:bg-primary-focus active:text-white"
+        >
           {dish.dishName}
           <input
             type="checkbox"
