@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Logo from "public/images/logo.png";
+import { useState } from "react";
 
 type Props = {
   buttonContent: string;
@@ -10,8 +11,11 @@ type Props = {
 };
 
 const Modal = ({ buttonContent, onSubmit, children }: Props) => {
+  const [disabled, setDisabled] = useState(false);
+
   const handleSubmit = () => {
     onSubmit();
+    setDisabled(true);
   };
 
   return (
@@ -26,7 +30,8 @@ const Modal = ({ buttonContent, onSubmit, children }: Props) => {
             max-[450px]:rounded-none
             shadow-[0_0_15px_rgba(0,0,0,0.4)]
             flex flex-col
-            justify-start
+            justify-center
+            pb-10
             space-y-5
           "
         >
@@ -42,7 +47,7 @@ const Modal = ({ buttonContent, onSubmit, children }: Props) => {
 
           <div className="w-11/12 absolute left-1/2 -translate-x-1/2 bottom-5">
             <button
-              disabled={false}
+              disabled={disabled}
               onClick={handleSubmit}
               className="btn btn-block btn-primary text-2xl text-white"
             >

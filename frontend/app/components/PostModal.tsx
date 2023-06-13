@@ -119,7 +119,7 @@ const PostModal = ({
           </div>
         </figure>
 
-        <div className="card-body px-2 py-0">
+        <div className="card-body px-2 py-0 bg-base-100">
           <div className="collapse">
             <input type="checkbox" />
 

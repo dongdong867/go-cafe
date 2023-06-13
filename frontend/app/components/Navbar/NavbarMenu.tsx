@@ -30,7 +30,7 @@ const Menu = () => {
             className="
               p-4 
               text-xl font-semibold 
-              active:bg-primary 
+              active:bg-primary-focus
               active:text-white 
               max-[450px]:p-2 
               max-[450px]:text-base"
@@ -45,7 +45,7 @@ const Menu = () => {
             className="
               p-4 
               text-xl font-semibold 
-              active:bg-primary 
+              active:bg-primary-focus
               active:text-white 
               max-[450px]:p-2 
               max-[450px]:text-base"
@@ -60,7 +60,7 @@ const Menu = () => {
             className="
               p-4 
               text-xl font-semibold 
-              active:bg-primary 
+              active:bg-primary-focus
               active:text-white 
               max-[450px]:p-2 
               max-[450px]:text-base"
@@ -81,7 +81,7 @@ const Menu = () => {
             className="
               p-4 
               text-xl font-semibold 
-              active:bg-primary 
+              active:bg-primary-focus
               active:text-white 
               max-[450px]:p-2 
               max-[450px]:text-base"
@@ -96,7 +96,7 @@ const Menu = () => {
             className="
               p-4 
               text-xl font-semibold 
-              active:bg-primary 
+              active:bg-primary-focus 
               active:text-white 
               max-[450px]:p-2 
               max-[450px]:text-base"
@@ -111,7 +111,7 @@ const Menu = () => {
             className="
               p-4 
               text-xl font-semibold 
-              active:bg-primary 
+              active:bg-primary-focus
               active:text-white 
               max-[450px]:p-2 
               max-[450px]:text-base"
