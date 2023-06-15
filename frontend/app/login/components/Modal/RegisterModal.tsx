@@ -1,7 +1,7 @@
 "use client";
 
 import useRegister from "@/app/hooks/useRegister";
-import { gql, useSuspenseQuery } from "@apollo/client";
+import { gql, useLazyQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import RegisterAccountAndPassword from "../Register/AccountAndPassword";
@@ -46,13 +46,9 @@ const RegisterModal = ({ setSignin }: Props) => {
   const [accountPass, setAccountPass] = useState(true);
   const [passwordPass, setPasswordPass] = useState(true);
 
-  const accountTest = useSuspenseQuery(query, {
-    variables: {
-      account: account,
-    },
-  }).data as { isAccountAvailable: boolean };
+  const [accountTest] = useLazyQuery(query);
 
-  const handleNextStep = () => {
+  const handleNextStep = async () => {
     if (account.length === 0) {
       toast.error("Account can't be empty.");
       setAccountPass(false);
@@ -60,13 +56,28 @@ const RegisterModal = ({ setSignin }: Props) => {
       toast.error("Password can't be empty.");
       setPasswordPass(false);
     } else {
-      if (accountTest.isAccountAvailable) {
-        setNextStep(true);
-      } else {
-        toast.error("Account has been used.", {
+      const accountAvailable = accountTest({
+        variables: {
+          account: account,
+        },
+      });
+
+      await toast.promise(
+        accountAvailable,
+        {
+          success: (res) => {
+            if (res.data.isAccountAvailable) {
+              setNextStep(true);
+              return "Account Passed";
+            } else throw new Error("Account has been used");
+          },
+          error: (err) => err.message,
+          loading: "Account Available Running",
+        },
+        {
           className: "font-bold text-lg",
-        });
-      }
+        }
+      );
     }
   };
 
