@@ -21,7 +21,6 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- PROJECT LOGO -->
 <br />
@@ -83,21 +82,21 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 ### Built With
 
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Tailwind][TailwindCSS]][Tailwind-url]
-* [![DaisyUI][DaisyUI]][Daisy-url]
-* [![GraphQL][GraphQL]][GraphQL-url]
-* [![Apollo][Apollo]][Apollo-url]
-* [![Nest][Nest.js]][Nest-url]
-* [![Typescript][Typescript]][Typescript-url]
-* [![Prisma][Prisma]][Prisma-url]
-* [![MySQL][MySQL]][MySQL-url]
-* [![Firebase][Firebase]][Firebase-url]
-* [![GoogleCloud][GoogleCloud]][GoogleCloud-url]
-* [![JWT][JWT]][JWT-url]
-* [![Vercel][Vercel]][Vercel-url]
-* [![PWA][PWA]][PWA-url]
+[![Next][Next.js]][Next-url]
+[![React][React.js]][React-url]
+[![Tailwind][TailwindCSS]][Tailwind-url]
+[![DaisyUI][DaisyUI]][Daisy-url]
+[![GraphQL][GraphQL]][GraphQL-url]
+[![Apollo][Apollo]][Apollo-url]
+[![Nest][Nest.js]][Nest-url]
+[![Typescript][Typescript]][Typescript-url]
+[![Prisma][Prisma]][Prisma-url]
+[![MySQL][MySQL]][MySQL-url]
+[![Firebase][Firebase]][Firebase-url]
+[![GoogleCloud][GoogleCloud]][GoogleCloud-url]
+[![JWT][JWT]][JWT-url]
+[![Vercel][Vercel]][Vercel-url]
+[![PWA][PWA]][PWA-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -214,8 +213,6 @@ Project Link: [https://github.com/dongdong867/go-cafe](https://github.com/dongdo
 [issues-url]: https://github.com/dongdong867/go-cafe/issues
 [license-shield]: https://img.shields.io/github/license/dongdong867/go-cafe.svg?style=for-the-badge
 [license-url]: https://github.com/dongdong867/go-cafe/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
 [product-screenshot]: images/screenshot.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
