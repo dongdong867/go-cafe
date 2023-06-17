@@ -12,7 +12,7 @@ type Props = {
   setPassword: React.Dispatch<React.SetStateAction<string>>;
   setIsShop: React.Dispatch<React.SetStateAction<boolean>>;
   setSignin: React.Dispatch<React.SetStateAction<boolean>>;
-  handleNextStep: () => void;
+  handleNextStep: () => Promise<void>;
 };
 
 const RegisterAccountAndPassword = ({

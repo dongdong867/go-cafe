@@ -6,16 +6,17 @@ import { useState } from "react";
 
 type Props = {
   buttonContent: string;
-  onSubmit: () => void;
+  onSubmit: () => Promise<void>;
   children: React.ReactElement;
 };
 
 const Modal = ({ buttonContent, onSubmit, children }: Props) => {
   const [disabled, setDisabled] = useState(false);
 
-  const handleSubmit = () => {
-    onSubmit();
+  const handleSubmit = async () => {
     setDisabled(true);
+    await onSubmit();
+    setDisabled(false);
   };
 
   return (
