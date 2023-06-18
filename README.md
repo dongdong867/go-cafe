@@ -171,6 +171,20 @@ CD for frontend is already setup for this repo, actions will run automatically w
 
 Visit [Go Cafe](https://vercel.com/dongdong867/go-cafe) for more deployments log.
 
+#### Backend
+
+**!! Firebase related packages are required for deploying backend server !!**
+
+```shell
+# pnpm
+pnpm serve
+pnpm run deployment
+
+#npm
+npm run serve
+npm run deployment
+```
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
