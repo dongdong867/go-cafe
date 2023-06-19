@@ -1,31 +1,31 @@
-'use client';
+"use client";
 
 import {
   ApolloClient,
   ApolloLink,
   HttpLink,
   SuspenseCache,
-} from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
+} from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
 import {
   NextSSRInMemoryCache,
   SSRMultipartLink,
   ApolloNextAppProvider,
-} from '@apollo/experimental-nextjs-app-support/ssr';
+} from "@apollo/experimental-nextjs-app-support/ssr";
 
 const makeClient = () => {
   const httpLink = new HttpLink({
-    uri: 'http://localhost:8080/graphql',
-    fetchOptions: { cache: 'no-store' },
+    uri: "https://us-central1-gocafe-tw.cloudfunctions.net/api/graphql",
+    fetchOptions: { cache: "no-store" },
   });
 
   const authLink = setContext((_, { headers }) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
     return {
       headers: {
         ...headers,
-        authorization: token ? token : '',
+        authorization: token ? token : "",
       },
     };
   });
@@ -33,7 +33,7 @@ const makeClient = () => {
   return new ApolloClient({
     cache: new NextSSRInMemoryCache(),
     link:
-      typeof window === 'undefined'
+      typeof window === "undefined"
         ? ApolloLink.from([
             new SSRMultipartLink({
               stripDefer: true,

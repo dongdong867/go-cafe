@@ -8,13 +8,13 @@ const ShopRatingModal = ({ rateName, rateValue }: Props) => {
     <>
       <div className="w-11/12 min-[450px]:flex justify-between place-items-center space-x-2">
         <div className="w-1/3 max-[450px]:w-full">{rateName}</div>
-        <div className="w-2/3 flex place-items-center px-2 space-x-2 max-[450px]:w-full">
+        <div className="w-full m-auto flex justify-around place-items-center space-x-2 max-[450px]:w-full">
           <progress
             value={rateValue}
             max={5}
-            className="progress progress-accent w-full"
+            className="progress progress-accent w-full max-[450px]:w-3/4 shrink"
           />
-          <div className="w-max">{rateValue.toFixed(2)}</div>
+          <div className="w-max flex-none">{rateValue.toFixed(2)}</div>
         </div>
       </div>
     </>

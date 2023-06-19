@@ -1,6 +1,6 @@
 import { gql, useMutation, useSuspenseQuery } from "@apollo/client";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const query = gql`
@@ -22,7 +22,9 @@ const CREATE_MENU = gql`
 `;
 
 const useEditMenu = () => {
-  const { data }: { data: { selfMenu: Category[] } } = useSuspenseQuery(query);
+  const { data }: { data: { selfMenu: Category[] } } = useSuspenseQuery(query, {
+    fetchPolicy: "network-only",
+  });
 
   const [categories, setCategories] = useState(data.selfMenu);
 
@@ -43,21 +45,19 @@ const useEditMenu = () => {
           })),
         },
       },
-    });
+    }).then(() => router.push("/user"));
 
-    await toast
-      .promise(
-        create,
-        {
-          loading: "Saving...",
-          error: (error) => error.message,
-          success: "Menu Saved",
-        },
-        {
-          className: "font-bold text-lg",
-        }
-      )
-      .then(() => router.push("/user"));
+    await toast.promise(
+      create,
+      {
+        loading: "Saving...",
+        error: (error) => error.message,
+        success: "Menu Saved",
+      },
+      {
+        className: "font-bold text-lg",
+      }
+    );
   };
 
   return { categories, setCategories, editMenu };

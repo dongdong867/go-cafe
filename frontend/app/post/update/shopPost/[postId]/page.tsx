@@ -1,8 +1,7 @@
-"use client";
-
 import PageTitle from "@/app/components/PageTitle";
-import useUpdateShopPost from "@/app/hooks/useUpdateShopPost";
-import EditShopPostModal from "@/app/post/components/ShopPostModal";
+import EditPostLoading from "@/app/post/components/EditPostLoading";
+import UpdateShopPostModal from "@/app/post/components/UpdateShopPostModal";
+import { Suspense } from "react";
 
 type Props = {
   params: {
@@ -11,19 +10,6 @@ type Props = {
 };
 
 const UpdateShopPostPage = ({ params }: Props) => {
-  const {
-    title,
-    body,
-    originPicture,
-    addedPicture,
-    deletedPicture,
-    setTitle,
-    setBody,
-    setAddedPicture,
-    setDeletedPicture,
-    updatePost,
-  } = useUpdateShopPost(params.postId);
-
   return (
     <div
       className="
@@ -34,18 +20,9 @@ const UpdateShopPostPage = ({ params }: Props) => {
         m-auto"
     >
       <PageTitle title="Update Post" />
-      <EditShopPostModal
-        title={title}
-        body={body}
-        originPicture={originPicture}
-        pictureList={addedPicture}
-        deletedPicture={deletedPicture}
-        setTitle={setTitle}
-        setBody={setBody}
-        setPictureList={setAddedPicture}
-        setDeletedPicture={setDeletedPicture}
-        onSubmit={updatePost}
-      />
+      <Suspense fallback={<EditPostLoading />}>
+        <UpdateShopPostModal postId={params.postId} />
+      </Suspense>
     </div>
   );
 };

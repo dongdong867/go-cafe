@@ -1,5 +1,22 @@
 import { gql, useSuspenseQuery } from "@apollo/client";
+import { useEffect } from "react";
 import { useState } from "react";
+
+type GraphQLType = {
+  stores: {
+    user: {
+      account: string;
+      name: string;
+    };
+  }[];
+};
+
+type SearchResultType = {
+  user: {
+    account: string;
+    name: string;
+  };
+};
 
 const SEARCH = gql`
   query Stores($query: String!) {
@@ -17,28 +34,24 @@ const SEARCH = gql`
 
 const useSearchShop = () => {
   const [query, setQuery] = useState("");
+  const [storeList, setStoreList] = useState([] as SearchResultType[]);
 
-  const {
-    data,
-  }: {
-    data: {
-      stores: {
-        user: {
-          avatar: {
-            data: string;
-          };
-          account: string;
-          name: string;
-        };
-      }[];
-    };
-  } = useSuspenseQuery(SEARCH, {
+  const { data }: { data: GraphQLType } = useSuspenseQuery(SEARCH, {
     variables: {
-      query: query,
+      query: "",
     },
   });
 
-  return { query, storeList: data.stores, setQuery };
+  useEffect(() => {
+    setStoreList(
+      data.stores.filter(
+        (store) =>
+          store.user.account.includes(query) || store.user.name.includes(query)
+      )
+    );
+  }, [query]);
+
+  return { query, storeList, setQuery };
 };
 
 export default useSearchShop;

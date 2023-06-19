@@ -1,50 +1,15 @@
-import { getClient } from "@/lib/client";
-import { gql } from "@apollo/client";
+"use server";
+
+import { Suspense } from "react";
 import PageTitle from "../components/PageTitle";
-import OrderModal from "./components/OrderModal";
-
-type GraphQLType = {
-  order: {
-    id: string;
-    customerId: string;
-    dishes: {
-      name: string;
-      price: number;
-      count: number;
-    }[];
-    finished: boolean;
-    tableNumber: string;
-    totalPrice: number;
-  }[];
-};
-
-const query = gql`
-  query Order {
-    order {
-      id
-      customerId
-      dishes {
-        name
-        price
-        count
-      }
-      finished
-      tableNumber
-      totalPrice
-    }
-  }
-`;
+import OrderList from "./components/OrderList";
+import OrderLoading from "./components/OrderLoading";
 
 const OrderPage = async () => {
-  const client = getClient();
-  const { data }: { data: GraphQLType } = await client.query({ query });
-
   return (
     <div className="w-full max-w-lg max-[450px]:w-11/12 h-full m-auto space-y-4">
       <PageTitle title="Order Lists" />
-      {data.order.map((order) => (
-        <OrderModal order={order} key={order.id} />
-      ))}
+      <Suspense fallback={<OrderLoading />}>{await OrderList()}</Suspense>
       <div className="w-full h-2" />
     </div>
   );

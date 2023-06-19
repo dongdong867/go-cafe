@@ -12,7 +12,7 @@ const MenuCategory = ({ name, dishes }: Props) => {
   return (
     <>
       <li id={name} className="menu-title">
-        <span>{name}</span>
+        {name}
       </li>
       {dishes.map((dish) => (
         <CommodityModal key={dish.dishName} dish={dish} />

@@ -59,17 +59,14 @@ export const deletedPictures = async (idList: string[]) => {
   const storage = getStorage(app);
 
   for (const picture of idList) {
-    console.log(picture.substring(53));
     const desertRef = ref(storage, picture.substring(53));
     await deleteObject(desertRef)
       .then(() => {
-        console.log("picture deleted successfully");
         toast.success("picture deleted", {
           className: "font-bold text-lg",
         });
       })
       .catch((err) => {
-        console.log(err);
         toast.error(err.message, {
           className: "font-bold text-lg",
         });

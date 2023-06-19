@@ -7,10 +7,17 @@ import "./global.css";
 //components
 import Navbar from "./components/Navbar/Navbar";
 import { ApolloWrapper } from "../lib/apollo-provider";
+import { Suspense } from "react";
+import LayoutLoading from "./components/Loading/LayoutLoading";
 
 export const metadata = {
   title: "Go Cafe",
-  description: "",
+  description: "Go an find your dream caf\u00e9!",
+  manifest: "./manifest.json",
+  icons: {
+    icon: "https://storage.googleapis.com/gocafe-tw.appspot.com/icon-x512.png",
+    apple: "https://storage.googleapis.com/gocafe-tw.appspot.com/icon-x512.png",
+  },
 };
 
 const montserrat = Montserrat({
@@ -28,8 +35,10 @@ const RootLayout = ({ children }: Props) => {
     <html lang="en" data-theme="cupcake" className={`${montserrat.variable}`}>
       <body>
         <ApolloWrapper>
-          <Navbar />
-          {children}
+          <Suspense fallback={<LayoutLoading />}>
+            <Navbar />
+            {children}
+          </Suspense>
         </ApolloWrapper>
       </body>
     </html>
