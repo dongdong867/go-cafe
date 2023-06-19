@@ -65,7 +65,6 @@ export class CustomerPostService {
   }
 
   async getPostsByStoreAccount(
-    currentId: string,
     getCustomerPostAtStoreArgs: GetCustomerPostAtStoreArgs,
   ): Promise<CustomerPost[]> {
     if (getCustomerPostAtStoreArgs.storeAccount.length === 0) return [];
