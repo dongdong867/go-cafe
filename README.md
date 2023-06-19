@@ -143,18 +143,46 @@ We hope to create a platform to let user pick their dream café shop in a direct
 
 ### Development
 
+#### Frontend
+
 ```shell
-# start frontend localhost server
+#pnpm
 pnpm dev
 
+#npm
 npm run dev
 ```
 
+#### Backend
+
 ```shell
-# start backend localhost server with hot reload
+#pnpm
 pnpm start:dev
 
+#npm
 npm run start:dev
+```
+
+### Deployment
+
+#### Frontend
+
+CD for frontend is already setup for this repo, actions will run automatically when pull request created.
+
+Visit [Go Cafe](https://vercel.com/dongdong867/go-cafe) for more deployments log.
+
+#### Backend
+
+**!! Firebase related packages are required for deploying backend server !!**
+
+```shell
+# pnpm
+pnpm serve
+pnpm run deployment
+
+#npm
+npm run serve
+npm run deployment
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
