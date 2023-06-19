@@ -113,20 +113,32 @@ export class UserService {
     }
   }
 
-  validateToken(token: string): {
+  async validateToken(token: string): Promise<{
     isValidate: boolean;
     id: string;
     role: 'customer' | 'store';
-  } {
+  }> {
     const decodedToken = this.jwtService.decode(token) as PayloadType;
 
     if (decodedToken.role === 'customer') {
+      await this.prisma.customer.findUniqueOrThrow({
+        where: {
+          id: decodedToken.id,
+        },
+      });
+
       return {
         isValidate: true,
         id: decodedToken.id,
         role: 'customer',
       };
     } else if (decodedToken.role === 'store') {
+      await this.prisma.store.findUniqueOrThrow({
+        where: {
+          id: decodedToken.id,
+        },
+      });
+
       return {
         isValidate: true,
         id: decodedToken.id,
