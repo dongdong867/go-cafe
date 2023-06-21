@@ -87,12 +87,6 @@ export class OrderService {
     currentId: string,
     createOrderInput: CreateOrderInput,
   ): Promise<string> {
-    await this.prisma.customer.findUniqueOrThrow({
-      where: {
-        id: currentId,
-      },
-    });
-
     const order: OrderType = {
       id: uuid(),
       customer_id: currentId,

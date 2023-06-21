@@ -42,11 +42,9 @@ export class CustomerPostResolver {
     nullable: 'items',
   })
   async getPostByStoreAccount(
-    @CurrentId() currentId: string,
     @Args() getCustomerPostAtStoreArgs: GetCustomerPostAtStoreArgs,
   ) {
     return await this.customerPostService.getPostsByStoreAccount(
-      currentId,
       getCustomerPostAtStoreArgs,
     );
   }

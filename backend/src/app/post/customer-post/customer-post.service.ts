@@ -65,14 +65,8 @@ export class CustomerPostService {
   }
 
   async getPostsByStoreAccount(
-    currentId: string,
     getCustomerPostAtStoreArgs: GetCustomerPostAtStoreArgs,
   ): Promise<CustomerPost[]> {
-    await this.prisma.customer.findUniqueOrThrow({
-      where: {
-        id: currentId,
-      },
-    });
     if (getCustomerPostAtStoreArgs.storeAccount.length === 0) return [];
     return await this.prisma.customerPost.findMany({
       where: {
