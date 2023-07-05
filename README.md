@@ -65,6 +65,9 @@
 **Go Cafe** is a coffee community system. \
 We hope to create a platform to let user pick their dream café shop in a direct and rapid way.
 
+> Due to financial limits, the CloudSQL server has temporary stopped at 2023/07/05. \
+> The deployed website will be available when project successfully migrated from CloudSQL to Firebase.
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
