@@ -168,6 +168,8 @@ npm run start:dev
 
 ### Deployment
 
+> The deployment has stopped temporary waiting for database migrating.
+
 #### Frontend
 
 CD for frontend is already setup for this repo, actions will run automatically when pull request created.
