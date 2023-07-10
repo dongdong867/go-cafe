@@ -15,7 +15,8 @@ import {
 
 const makeClient = () => {
   const httpLink = new HttpLink({
-    uri: "https://us-central1-gocafe-tw.cloudfunctions.net/api/graphql",
+    // uri: "https://us-central1-gocafe-tw.cloudfunctions.net/api/graphql",
+    uri: "http://localhost:8080/api/graphql",
     fetchOptions: { cache: "no-store" },
   });
 
